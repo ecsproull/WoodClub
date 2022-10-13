@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WoodclubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Badge" Type="nvarchar" MaxLength="6" />
+          <Property Name="CardNo" Type="nvarchar" MaxLength="10" />
+          <Property Name="Action" Type="nvarchar" MaxLength="5" />
+          <Property Name="EntryCodes" Type="nvarchar" MaxLength="6" />
+          <Property Name="AuthorizedTimeZone" Type="int" />
+          <Property Name="RequestDate" Type="datetime" />
+          <Property Name="ActionDate" Type="datetime" />
+          <Property Name="IsDirty" Type="bit" />
+        </EntityType>
+        <EntityType Name="BadgeCodes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RFcode" Type="nvarchar" MaxLength="20" />
+          <Property Name="BadgeCode" Type="nvarchar" MaxLength="4" />
+          <Property Name="BadgeCodeDesc" Type="nvarchar" MaxLength="40" />
+          <Property Name="CodeValue" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="MemberRFcard">
+          <Key>
+            <PropertyRef Name="RECORD_NR" />
+          </Key>
+          <Property Name="RECORD_NR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="40" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="40" />
+          <Property Name="Badge" Type="nvarchar" MaxLength="10" />
+          <Property Name="Title" Type="nvarchar" MaxLength="20" />
+          <Property Name="Photo" Type="image" />
+        </EntityType>
+        <EntityType Name="MemberRoster">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Badge" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" />
+          <Property Name="State" Type="nvarchar" MaxLength="20" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="20" />
+          <Property Name="RecCard" Type="nvarchar" MaxLength="50" />
+          <Property Name="Locker" Type="nvarchar" MaxLength="30" />
+          <Property Name="MemberDate" Type="date" />
+          <Property Name="QBmodified" Type="date" />
+          <Property Name="Exempt" Type="bit" />
+          <Property Name="ExemptModDate" Type="date" />
+          <Property Name="ExtHour" Type="bit" />
+          <Property Name="EarlyAM" Type="bit" />
+          <Property Name="ClubDuesPaid" Type="bit" />
+          <Property Name="ClubDuesPaidDate" Type="date" />
+          <Property Name="RecDuesPaid" Type="bit" />
+          <Property Name="CreditBank" Type="nvarchar" MaxLength="10" />
+          <Property Name="CardNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="EntryCodes" Type="nchar" MaxLength="10" />
+          <Property Name="AuthorizedTimeZone" Type="int" />
+          <Property Name="Authorized" Type="bit" />
+          <Property Name="OneTime" Type="bit" />
+          <Property Name="LastDayValid" Type="date" />
+          <Property Name="NewBadge" Type="bit" />
+          <Property Name="Photo" Type="image" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Badge" Type="nvarchar" MaxLength="6" />
+          <Property Name="RecCard" Type="nvarchar" MaxLength="8" />
+          <Property Name="EventType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Code" Type="nvarchar" MaxLength="2" />
+          <Property Name="CreditAmt" Type="float" />
+          <Property Name="TransDate" Type="datetime" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="WoodclubModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BadgeCodes" EntityType="Self.BadgeCodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberRFcard" EntityType="Self.MemberRFcard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberRoster" EntityType="Self.MemberRoster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WoodclubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Badge" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="CardNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="EntryCodes" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorizedTimeZone" Type="Int32" />
+          <Property Name="RequestDate" Type="DateTime" Precision="3" />
+          <Property Name="ActionDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDirty" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BadgeCode">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RFcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BadgeCode1" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="BadgeCodeDesc" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="CodeValue" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MemberRFcard">
+          <Key>
+            <PropertyRef Name="RECORD_NR" />
+          </Key>
+          <Property Name="RECORD_NR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Badge" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="MemberRoster">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Badge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RecCard" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Locker" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MemberDate" Type="DateTime" Precision="0" />
+          <Property Name="QBmodified" Type="DateTime" Precision="0" />
+          <Property Name="Exempt" Type="Boolean" />
+          <Property Name="ExemptModDate" Type="DateTime" Precision="0" />
+          <Property Name="ExtHour" Type="Boolean" />
+          <Property Name="EarlyAM" Type="Boolean" />
+          <Property Name="ClubDuesPaid" Type="Boolean" />
+          <Property Name="ClubDuesPaidDate" Type="DateTime" Precision="0" />
+          <Property Name="RecDuesPaid" Type="Boolean" />
+          <Property Name="CreditBank" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CardNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EntryCodes" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AuthorizedTimeZone" Type="Int32" />
+          <Property Name="Authorized" Type="Boolean" />
+          <Property Name="OneTime" Type="Boolean" />
+          <Property Name="LastDayValid" Type="DateTime" Precision="0" />
+          <Property Name="NewBadge" Type="Boolean" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Badge" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="RecCard" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="EventType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="CreditAmt" Type="Single" />
+          <Property Name="TransDate" Type="DateTime" Precision="3" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityContainer Name="WoodclubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="BadgeCodes" EntityType="Self.BadgeCode" />
+          <EntitySet Name="MemberRFcards" EntityType="Self.MemberRFcard" />
+          <EntitySet Name="MemberRosters" EntityType="Self.MemberRoster" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WoodclubModelStoreContainer" CdmEntityContainer="WoodclubEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="WoodclubModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="EntryCodes" ColumnName="EntryCodes" />
+                <ScalarProperty Name="AuthorizedTimeZone" ColumnName="AuthorizedTimeZone" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="IsDirty" ColumnName="IsDirty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BadgeCodes">
+            <EntityTypeMapping TypeName="WoodclubModel.BadgeCode">
+              <MappingFragment StoreEntitySet="BadgeCodes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="RFcode" ColumnName="RFcode" />
+                <ScalarProperty Name="BadgeCode1" ColumnName="BadgeCode" />
+                <ScalarProperty Name="BadgeCodeDesc" ColumnName="BadgeCodeDesc" />
+                <ScalarProperty Name="CodeValue" ColumnName="CodeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberRFcards">
+            <EntityTypeMapping TypeName="WoodclubModel.MemberRFcard">
+              <MappingFragment StoreEntitySet="MemberRFcard">
+                <ScalarProperty Name="RECORD_NR" ColumnName="RECORD_NR" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberRosters">
+            <EntityTypeMapping TypeName="WoodclubModel.MemberRoster">
+              <MappingFragment StoreEntitySet="MemberRoster">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="RecCard" ColumnName="RecCard" />
+                <ScalarProperty Name="Locker" ColumnName="Locker" />
+                <ScalarProperty Name="MemberDate" ColumnName="MemberDate" />
+                <ScalarProperty Name="QBmodified" ColumnName="QBmodified" />
+                <ScalarProperty Name="Exempt" ColumnName="Exempt" />
+                <ScalarProperty Name="ExemptModDate" ColumnName="ExemptModDate" />
+                <ScalarProperty Name="ExtHour" ColumnName="ExtHour" />
+                <ScalarProperty Name="EarlyAM" ColumnName="EarlyAM" />
+                <ScalarProperty Name="ClubDuesPaid" ColumnName="ClubDuesPaid" />
+                <ScalarProperty Name="ClubDuesPaidDate" ColumnName="ClubDuesPaidDate" />
+                <ScalarProperty Name="RecDuesPaid" ColumnName="RecDuesPaid" />
+                <ScalarProperty Name="CreditBank" ColumnName="CreditBank" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="EntryCodes" ColumnName="EntryCodes" />
+                <ScalarProperty Name="AuthorizedTimeZone" ColumnName="AuthorizedTimeZone" />
+                <ScalarProperty Name="Authorized" ColumnName="Authorized" />
+                <ScalarProperty Name="OneTime" ColumnName="OneTime" />
+                <ScalarProperty Name="LastDayValid" ColumnName="LastDayValid" />
+                <ScalarProperty Name="NewBadge" ColumnName="NewBadge" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="WoodclubModel.Transaction">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="RecCard" ColumnName="RecCard" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CreditAmt" ColumnName="CreditAmt" />
+                <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
