@@ -68,22 +68,22 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>1FAF96CA8519A263A78BEC72C467E02D51839707</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>0B84743CEEBBEC683D1152979E295EA32BCA9200</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>woodclub.pfx</ManifestKeyFile>
+    <ManifestKeyFile>WoodClub_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>woodclub.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>WoodClub_1_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -298,8 +298,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="woodclub.pfx" />
-    <None Include="woodclub2.pfx" />
-    <None Include="woodclub3.pfx" />
     <None Include="WoodclubDataSet.xsc">
       <DependentUpon>WoodclubDataSet.xsd</DependentUpon>
     </None>
@@ -311,6 +309,7 @@
     <None Include="WoodclubDataSet.xss">
       <DependentUpon>WoodclubDataSet.xsd</DependentUpon>
     </None>
+    <None Include="WoodClub_1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

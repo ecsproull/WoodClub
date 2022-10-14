@@ -39,10 +39,6 @@
             this.cbMaint = new System.Windows.Forms.CheckBox();
             this.cbLumber = new System.Windows.Forms.CheckBox();
             this.TransDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.creditsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsActivity = new System.Windows.Forms.BindingSource(this.components);
             this.transaction = new System.Windows.Forms.Button();
             this.cbExtendHr = new System.Windows.Forms.CheckBox();
@@ -235,47 +231,11 @@
             // 
             // TransDataGridView
             // 
-            this.TransDataGridView.AutoGenerateColumns = false;
             this.TransDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.TransDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.creditsDataGridViewTextBoxColumn,
-            this.dataGridViewTextBoxColumn4});
-            this.TransDataGridView.DataSource = this.bsActivity;
             this.TransDataGridView.Location = new System.Drawing.Point(13, 402);
             this.TransDataGridView.Name = "TransDataGridView";
             this.TransDataGridView.Size = new System.Drawing.Size(627, 138);
             this.TransDataGridView.TabIndex = 47;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Event";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Action";
-            this.dataGridViewTextBoxColumn2.MaxInputLength = 100;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 200;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Code";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Code";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // creditsDataGridViewTextBoxColumn
-            // 
-            this.creditsDataGridViewTextBoxColumn.DataPropertyName = "Credits";
-            this.creditsDataGridViewTextBoxColumn.HeaderText = "Credits";
-            this.creditsDataGridViewTextBoxColumn.Name = "creditsDataGridViewTextBoxColumn";
-            this.creditsDataGridViewTextBoxColumn.Width = 60;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "dateTime";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Date Time";
-            this.dataGridViewTextBoxColumn4.MaxInputLength = 60;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 200;
             // 
             // bsActivity
             // 
@@ -887,10 +847,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn codeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource bsActivity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn creditsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.CheckBox cbMachine;
         private System.Windows.Forms.CheckBox cbAssembly;
         private System.Windows.Forms.CheckBox cbOffice;

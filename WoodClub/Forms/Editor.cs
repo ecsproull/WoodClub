@@ -526,14 +526,22 @@ namespace WoodClub
         {
             using (WoodclubEntities context = new WoodclubEntities())
             {
-                List<Activity> DStransactions = new List<Activity>();
+                // By not using a databinding source (aka List) we can click the columns to sort.
+                // Easier to find the data in a long list.
+                //List<Activity> DStransactions = new List<Activity>();
                 try
                 {
                     var activity = from m in context.Transactions             // List of members using club
                                       where m.Badge == member.Badge
                                       select m;
 
-                    foreach(Transaction t in activity)
+                    TransDataGridView.ColumnCount = 4;
+                    TransDataGridView.Columns[0].Name = "Action";
+                    TransDataGridView.Columns[1].Name = "Code";
+                    TransDataGridView.Columns[2].Name = "Credits";
+                    TransDataGridView.Columns[3].Name = "Date/Time";
+                    TransDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    foreach (Transaction t in activity)
                     {
                         Activity ac = new Activity();
                         ac.Code = t.Code;
@@ -559,7 +567,8 @@ namespace WoodClub
                             ac.Event = t.EventType;
                         }
                         ac.dateTime = (DateTime)t.TransDate;
-                        DStransactions.Add(ac);
+                        string[] row = new string[] { ac.Event, ac.Code, ac.Credits, ac.dateTime.ToString() };
+                        TransDataGridView.Rows.Add(row);
                     }
                     log.Info("debug");
                 }
@@ -568,7 +577,7 @@ namespace WoodClub
                     log.Fatal("Unable to get data...", ex);         // Capture exception
                 }
                
-                TransDataGridView.DataSource = DStransactions;
+                //TransDataGridView.DataSource = DStransactions;
                 TransDataGridView.Refresh();
                 TransDataGridView.Invalidate();
             }
