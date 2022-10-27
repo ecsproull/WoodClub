@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -34,6 +27,7 @@ namespace WoodClub
         private bool dirty = false;
         private bool authorize = false;
         private bool newCredit = false;     // Credit values trigger transaction
+        private Dictionary<string, float> creditTransactions = new Dictionary<string, float>();
         private bool newAccess = false;
         private bool newBadge = false;      // New Badge Request
         private Byte[] bArray = null;
@@ -44,7 +38,6 @@ namespace WoodClub
         private string value3 = "";         // viewgrid Value
         private string today = DateTime.Now.Date.ToShortDateString();
         private int TZaccess = 0;
-        private int result = 0;
         
         public int id { get; set; }
         public Editor(MemberRoster member)
@@ -83,7 +76,7 @@ namespace WoodClub
             {
                 try
                 {
-                    DataSource = context.BadgeCodes.Select(c => c).ToList();              
+                    DataSource = context.BadgeCodes.Select(c => c).Where(x => x.ShowInUi == 1).ToList();              
                 }
                 catch (Exception ex)
                 {
@@ -297,18 +290,27 @@ namespace WoodClub
                 using (WoodclubEntities context = new WoodclubEntities())
                 {
                     if (newCredit)
-                    {
-                        Transaction creditTransaction = new Transaction();
-                        creditTransaction.Badge = txtBadge.Text;
-                        creditTransaction.Code = value1;
-                        creditTransaction.EventType = value2;
-                        creditTransaction.CreditAmt = float.Parse(value3);
-                        creditTransaction.RecCard = txtRecCard.Text;
-                        creditTransaction.TransDate = DateTime.Now;
-                        context.Transactions.Add(creditTransaction);
-                        // Modifing record
-                        newMember.UpdateMember(member);
+                    {   
+                        if (newMember.UpdateMember(member))
+                        {
+                            context.SaveChanges();
+
+                            foreach(KeyValuePair<string, float> trans in creditTransactions)
+                            {
+                                Transaction creditTransaction = new Transaction();
+                                creditTransaction.Badge = txtBadge.Text;
+                                creditTransaction.Code = trans.Key;
+                                creditTransaction.EventType = value2;
+                                creditTransaction.CreditAmt = trans.Value;
+                                creditTransaction.RecCard = txtRecCard.Text;
+                                creditTransaction.TransDate = DateTime.Now;
+                                context.Transactions.Add(creditTransaction);
+                            }
+
+                            context.SaveChanges();
+                        }
                     }
+
                     if (newAccess)
                     {
                         if(AccessTime.SelectedItem != null)
@@ -341,6 +343,7 @@ namespace WoodClub
                             mrfc.LastName = member.LastName;
                             mrfc.Title = member.Title;
                             mrfc.Photo = member.Photo;
+                            mrfc.RecCard = member.RecCard;
                             context.MemberRFcards.Add(mrfc);
                             context.SaveChanges();
                         }
@@ -493,10 +496,19 @@ namespace WoodClub
                  value3 = row.Cells[2].Value.ToString();
             }
             credit += float.Parse(value3);
-            value =credit > 11 ? 12 : credit;
+            value = credit > 11 ? 12 : credit;
             txtCredits.Text = value.ToString();
             authorize = true;
             newCredit = true;
+
+            if (creditTransactions.ContainsKey(value1))
+            {
+                creditTransactions[value1] += float.Parse(value3);
+            }
+            else
+            {
+                creditTransactions.Add(value1, float.Parse(value3));
+            }
         }
         private void txtRFcard_TextChanged(object sender, EventArgs e)
         {

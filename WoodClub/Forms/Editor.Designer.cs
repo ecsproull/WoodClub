@@ -842,10 +842,6 @@
         private System.Windows.Forms.Label lblLocker;
         private System.Windows.Forms.Button transaction;
         private System.Windows.Forms.DataGridView TransDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn badgeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn eventDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource bsActivity;
         private System.Windows.Forms.CheckBox cbMachine;
         private System.Windows.Forms.CheckBox cbAssembly;

@@ -27,9 +27,6 @@ namespace WoodClub.Forms
         private int year;
         private int month;              // Month to search
         private int dayMonth;           // Day in month
-        private int timeofday = 0;
-        private int visitsCnt = 0;
-        private DateTime dateTime;
         private int[] hourTotal;
         public FormDaily()
         {

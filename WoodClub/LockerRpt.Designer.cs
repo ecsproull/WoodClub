@@ -169,15 +169,6 @@
         #endregion
         private System.Windows.Forms.DataGridView dataGridViewLockers;
         private System.Windows.Forms.BindingSource bindingSourceLocker;
-        private System.Windows.Forms.DataGridViewTextBoxColumn badgeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn clubDuesPaidDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn creditBankDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastDayValidDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn shopVisitsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hasLockerDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn modifiedDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;

@@ -20,5 +20,6 @@ namespace WoodClub
         public string Badge { get; set; }
         public string Title { get; set; }
         public byte[] Photo { get; set; }
+        public string RecCard { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\bdeff\Documents\Visual Studio 2019\Projects\Members08_28_21\WoodClub\ModelWC.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\developer\source\repos\WoodClub\WoodClub\ModelWC.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

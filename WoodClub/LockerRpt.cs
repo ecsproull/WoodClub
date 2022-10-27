@@ -20,7 +20,6 @@ namespace WoodClub
         private static BindingSource bsLockers = new BindingSource();
         private static List<Transaction> DStransaction = new List<Transaction>();
         private static Lockers currentLocker = null;
-        private MemberRoster member = null;
         private int year;
         private int visitsCnt;
         public LockerRpt()

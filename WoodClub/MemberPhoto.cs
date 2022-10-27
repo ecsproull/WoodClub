@@ -12,13 +12,9 @@ namespace WoodClub
     using System;
     using System.Collections.Generic;
     
-    public partial class BadgeCode
+    public partial class MemberPhoto
     {
-        public int id { get; set; }
-        public string RFcode { get; set; }
-        public string BadgeCode1 { get; set; }
-        public string BadgeCodeDesc { get; set; }
-        public string CodeValue { get; set; }
-        public Nullable<int> ShowInUi { get; set; }
+        public string Badge { get; set; }
+        public byte[] Photo { get; set; }
     }
 }
