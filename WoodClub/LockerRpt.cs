@@ -52,6 +52,7 @@ namespace WoodClub
                 //
                 //  Creat new list for display
                 //
+                DSlocker = new List<Lockers>();
                 foreach (MemberRoster member in query)
                 {
                     //member = context.MemberRosters.Find(_id);
@@ -59,6 +60,8 @@ namespace WoodClub
                     locker.Badge = member.Badge;
                     locker.FirstName = member.FirstName;
                     locker.LastName = member.LastName;
+                    locker.Email = member.Email;
+                    locker.Phone = member.Phone;
                     locker.ClubDuesPaid = (bool)member.ClubDuesPaid;
                     locker.CreditBank = member.CreditBank.ToString();
                     locker.LastDayValid = member.LastDayValid.Value.ToShortDateString();

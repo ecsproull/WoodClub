@@ -39,7 +39,6 @@
             this.cbMaint = new System.Windows.Forms.CheckBox();
             this.cbLumber = new System.Windows.Forms.CheckBox();
             this.TransDataGridView = new System.Windows.Forms.DataGridView();
-            this.bsActivity = new System.Windows.Forms.BindingSource(this.components);
             this.transaction = new System.Windows.Forms.Button();
             this.cbExtendHr = new System.Windows.Forms.CheckBox();
             this.dataGridViewCodes = new System.Windows.Forms.DataGridView();
@@ -65,6 +64,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtJoinDate = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.bsActivity = new System.Windows.Forms.BindingSource(this.components);
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.txtPhone = new System.Windows.Forms.TextBox();
@@ -95,9 +95,9 @@
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TransDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsActivity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCodes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsActivity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -236,10 +236,6 @@
             this.TransDataGridView.Name = "TransDataGridView";
             this.TransDataGridView.Size = new System.Drawing.Size(627, 138);
             this.TransDataGridView.TabIndex = 47;
-            // 
-            // bsActivity
-            // 
-            this.bsActivity.DataSource = typeof(WoodClub.Activity);
             // 
             // transaction
             // 
@@ -493,6 +489,10 @@
             this.label1.Size = new System.Drawing.Size(105, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Member Joined Date";
+            // 
+            // bsActivity
+            // 
+            this.bsActivity.DataSource = typeof(WoodClub.Activity);
             // 
             // txtEmail
             // 
@@ -775,9 +775,9 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TransDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsActivity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCodes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsActivity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

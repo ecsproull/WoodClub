@@ -25,14 +25,16 @@ namespace WoodClub
         private Members members;
         public bool update = false;
         public bool added = false;
-        private static bool done = false;
+        public static bool done = false;
         private static int listenPort = 5725;
         private static UdpClient udpClient = new UdpClient();
+
         public Form1()
         {
             InitializeComponent();
             MessageIn();
         }
+
         private void MessageIn()
         {
             udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, listenPort));
@@ -51,12 +53,16 @@ namespace WoodClub
                 
             });
         }
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
             done = true;
-            udpClient.Client.Close();
-            udpClient.Close();
+            //udpClient.Client.Close();
+            //udpClient.Close();
+            System.Threading.Thread.Sleep(2000);
+            base.OnFormClosing(e);
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'woodclubDataSet.MemberRoster' table. You can move, or remove it, as needed.
@@ -267,7 +273,5 @@ namespace WoodClub
             }
 
         }
-
-       
     }
 }

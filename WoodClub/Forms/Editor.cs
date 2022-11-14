@@ -496,7 +496,7 @@ namespace WoodClub
                  value3 = row.Cells[2].Value.ToString();
             }
             credit += float.Parse(value3);
-            value = credit > 11 ? 12 : credit;
+            value = credit > 12 ? 12 : credit;
             txtCredits.Text = value.ToString();
             authorize = true;
             newCredit = true;

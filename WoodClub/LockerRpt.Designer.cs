@@ -30,11 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewLockers = new System.Windows.Forms.DataGridView();
-            this.bindingSourceLocker = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.bindingSourceLocker = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,6 +55,8 @@
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
+            this.Email,
+            this.Phone,
             this.dataGridViewCheckBoxColumn1,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
@@ -62,12 +66,8 @@
             this.dataGridViewLockers.DataSource = this.bindingSourceLocker;
             this.dataGridViewLockers.Location = new System.Drawing.Point(0, 41);
             this.dataGridViewLockers.Name = "dataGridViewLockers";
-            this.dataGridViewLockers.Size = new System.Drawing.Size(951, 512);
+            this.dataGridViewLockers.Size = new System.Drawing.Size(1243, 512);
             this.dataGridViewLockers.TabIndex = 1;
-            // 
-            // bindingSourceLocker
-            // 
-            this.bindingSourceLocker.DataSource = typeof(WoodClub.Lockers);
             // 
             // button1
             // 
@@ -78,6 +78,10 @@
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // bindingSourceLocker
+            // 
+            this.bindingSourceLocker.DataSource = typeof(WoodClub.Lockers);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -102,6 +106,19 @@
             this.dataGridViewTextBoxColumn3.MaxInputLength = 20;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "Email";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.Width = 200;
+            // 
+            // Phone
+            // 
+            this.Phone.DataPropertyName = "Phone";
+            this.Phone.HeaderText = "Phone";
+            this.Phone.Name = "Phone";
             // 
             // dataGridViewCheckBoxColumn1
             // 
@@ -154,7 +171,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(956, 565);
+            this.ClientSize = new System.Drawing.Size(1241, 565);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridViewLockers);
             this.Name = "LockerRpt";
@@ -173,6 +190,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
