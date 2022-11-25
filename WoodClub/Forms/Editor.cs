@@ -26,6 +26,7 @@ namespace WoodClub
        // private static BindingSource activityBindingSource = new BindingSource();
         private bool dirty = false;
         private bool authorize = false;
+        private bool oneTime = false;
         private bool newCredit = false;     // Credit values trigger transaction
         private Dictionary<string, float> creditTransactions = new Dictionary<string, float>();
         private bool newAccess = false;
@@ -139,6 +140,7 @@ namespace WoodClub
                     txtCredits.Text = member.CreditBank == null ? txtCredits.Text = "0" : member.CreditBank;
                     txtRFcard.Text = member.CardNo == null ? txtRFcard.Text = "" : member.CardNo;
                     authorize = member.Authorized == null ? false : (bool)member.Authorized;
+                    oneTime = member.OneTime == null ? false : (bool)member.OneTime;
                     AuthorizedIndex();
                     //
                     // Show picture if it exist
@@ -248,17 +250,8 @@ namespace WoodClub
             
             if (Adding)
             {
+                newMember.OneTime = true;
                 newMember.AddNew(member);
-                /*
-                Admin admin = new Admin();                  // Update controller records via database & entry app
-                admin.Badge = txtBadge.Text;
-                admin.CardNo = txtRFcard.Text;
-                admin.EntryCodes = entCode;
-                admin.AuthorizedTimeZone = TZaccess;
-                admin.RequestDate = DateTime.Now;
-                admin.Action = "A";
-                admin.IsDirty = true;
-                */
                 using (WoodclubEntities context = new WoodclubEntities())
                 {
                     if (newBadge)        // New Badge Request
@@ -398,7 +391,7 @@ namespace WoodClub
             member.ExtHour = cbExtendHr.Checked;
             member.Authorized = authorize;          // Flag current state
             member.AuthorizedTimeZone = TZaccess;
-            member.OneTime = true;
+            member.OneTime = oneTime;
             member.EntryCodes = getFSML();
             member.Photo = bArray;
             return member;
