@@ -163,7 +163,8 @@ namespace WoodClub
             Editor frm = new Editor(roster);
             try
             {
-                while (frm.ShowDialog() == DialogResult.Yes)        // Changes made - need to refresh from SQL
+                DialogResult frmResult = DialogResult.Cancel;
+                while ((frmResult = frm.ShowDialog()) == DialogResult.Yes)        // Changes made - need to refresh from SQL
                 {
                     woodclubDataSet.AcceptChanges();
                     bsMembers.ResetCurrentItem();
@@ -175,10 +176,12 @@ namespace WoodClub
                     frm = new Editor(roster);
                 }
 
-                woodclubDataSet.AcceptChanges();
-                bsMembers.ResetCurrentItem();
-                update = true;
-
+                if (frmResult == DialogResult.OK)
+                {
+                    woodclubDataSet.AcceptChanges();
+                    bsMembers.ResetCurrentItem();
+                    update = true;
+                }
             }
             finally
             {
