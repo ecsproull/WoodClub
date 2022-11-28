@@ -244,7 +244,7 @@ namespace WoodClub
         private void btnSave_Click(object sender, EventArgs e)
         {
             applyChanges();
-            DialogResult = dirty ? DialogResult.OK : DialogResult.Yes;
+            DialogResult = DialogResult.OK;
             return;
         }
 
@@ -288,7 +288,7 @@ namespace WoodClub
 
                     }
                 }
-                DialogResult = dirty ? DialogResult.OK : DialogResult.Yes;
+                DialogResult = DialogResult.OK;
             }
             else
             {
@@ -667,7 +667,7 @@ namespace WoodClub
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK; 
+            DialogResult = DialogResult.Cancel; 
         }
 
         private void buttonApply_Click(object sender, EventArgs e)

@@ -167,7 +167,10 @@ namespace WoodClub
                 {
                     woodclubDataSet.AcceptChanges();
                     bsMembers.ResetCurrentItem();
-                    update = true;
+                    members = new Members(true);
+                    blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
+                    bsMembers.DataSource = blMembers;
+                    dataGridView1.DataSource = bsMembers;
                     roster = blMembers.FirstOrDefault(mem => mem.id == bsMembers.MemberIdentifier());
                     frm = new Editor(roster);
                 }
