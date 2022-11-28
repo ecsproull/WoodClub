@@ -54,15 +54,6 @@ namespace WoodClub
             });
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            done = true;
-            //udpClient.Client.Close();
-            //udpClient.Close();
-            System.Threading.Thread.Sleep(2000);
-            base.OnFormClosing(e);
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'woodclubDataSet.MemberRoster' table. You can move, or remove it, as needed.
@@ -172,12 +163,19 @@ namespace WoodClub
             Editor frm = new Editor(roster);
             try
             {
-                if (frm.ShowDialog() == DialogResult.OK)        // Changes made - need to refresh from SQL
+                while (frm.ShowDialog() == DialogResult.Yes)        // Changes made - need to refresh from SQL
                 {
                     woodclubDataSet.AcceptChanges();
                     bsMembers.ResetCurrentItem();
                     update = true;
+                    roster = blMembers.FirstOrDefault(mem => mem.id == bsMembers.MemberIdentifier());
+                    frm = new Editor(roster);
                 }
+
+                woodclubDataSet.AcceptChanges();
+                bsMembers.ResetCurrentItem();
+                update = true;
+
             }
             finally
             {

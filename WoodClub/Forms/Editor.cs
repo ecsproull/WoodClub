@@ -16,6 +16,7 @@ namespace WoodClub
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger
                   (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private FormDirtyTracker formDirtyTracker = null;
         private MemberRoster member { get; set; }
         private bool Adding { get; set; }
         private int currentId;
@@ -28,15 +29,13 @@ namespace WoodClub
         private bool authorize = false;
         private bool oneTime = false;
         private bool newCredit = false;     // Credit values trigger transaction
-        private Dictionary<string, float> creditTransactions = new Dictionary<string, float>();
+        private double creditBankStart = 0.0;
+        private Dictionary<string, TransactionAddition> creditTransactions = new Dictionary<string, TransactionAddition>();
         private bool newAccess = false;
         private bool newBadge = false;      // New Badge Request
         private Byte[] bArray = null;
         public string BadgeCode1 { get; set; }
         private string entCode = "FS";      // Default
-        private string value1 = "";         // viewgrid Credit Code
-        private string value2 = "";         // viewgrid Desciption
-        private string value3 = "";         // viewgrid Value
         private string today = DateTime.Now.Date.ToShortDateString();
         private int TZaccess = 0;
         
@@ -141,6 +140,7 @@ namespace WoodClub
                     txtRFcard.Text = member.CardNo == null ? txtRFcard.Text = "" : member.CardNo;
                     authorize = member.Authorized == null ? false : (bool)member.Authorized;
                     oneTime = member.OneTime == null ? false : (bool)member.OneTime;
+                    creditBankStart = Convert.ToDouble(txtCredits.Text);
                     AuthorizedIndex();
                     //
                     // Show picture if it exist
@@ -154,6 +154,12 @@ namespace WoodClub
                     }
                 }
             }
+            populateTransactions();
+            populateNewCredits();
+            formDirtyTracker = new FormDirtyTracker(this);
+            formDirtyTracker.MarkAsClean();
+            AssignHandlersForControlCollection(this.Controls);
+
         }
         //
         //      Get current Access Time index
@@ -234,20 +240,26 @@ namespace WoodClub
             }
             return dt;
         }
+
         private void btnSave_Click(object sender, EventArgs e)
+        {
+            applyChanges();
+            DialogResult = dirty ? DialogResult.OK : DialogResult.Yes;
+            return;
+        }
+
+        private void applyChanges()
         {
             Members newMember = new Members();
             MemberRoster member = fillRecord();
             member.id = currentId;
-            
-            
-            
-            if(TZaccess == 0)
+
+            if (TZaccess == 0)
             {
                 MessageBox.Show("Please select members access time!");
                 return;
             }
-            
+
             if (Adding)
             {
                 newMember.OneTime = true;
@@ -279,22 +291,22 @@ namespace WoodClub
                 DialogResult = dirty ? DialogResult.OK : DialogResult.Yes;
             }
             else
-            {   
+            {
                 using (WoodclubEntities context = new WoodclubEntities())
                 {
                     if (newCredit)
-                    {   
+                    {
                         if (newMember.UpdateMember(member))
                         {
                             context.SaveChanges();
 
-                            foreach(KeyValuePair<string, float> trans in creditTransactions)
+                            foreach (KeyValuePair<string, TransactionAddition> trans in creditTransactions)
                             {
                                 Transaction creditTransaction = new Transaction();
                                 creditTransaction.Badge = txtBadge.Text;
-                                creditTransaction.Code = trans.Key;
-                                creditTransaction.EventType = value2;
-                                creditTransaction.CreditAmt = trans.Value;
+                                creditTransaction.Code = trans.Value.Code;
+                                creditTransaction.EventType = trans.Value.EventType;
+                                creditTransaction.CreditAmt = trans.Value.TotalAmount;
                                 creditTransaction.RecCard = txtRecCard.Text;
                                 creditTransaction.TransDate = DateTime.Now;
                                 context.Transactions.Add(creditTransaction);
@@ -306,7 +318,7 @@ namespace WoodClub
 
                     if (newAccess)
                     {
-                        if(AccessTime.SelectedItem != null)
+                        if (AccessTime.SelectedItem != null)
                         {
                             member.GroupTime = AccessTime.SelectedItem.ToString();
                             AuthorizedIndex();
@@ -320,7 +332,7 @@ namespace WoodClub
                         member.EntryCodes = getFSML();
                         DoorUpdate();
                         // Modifing record
-                        if(!newMember.UpdateMember(member))
+                        if (!newMember.UpdateMember(member))
                         {
                             MessageBox.Show("Update failed!");
                         }
@@ -349,15 +361,8 @@ namespace WoodClub
                     }
                 }
             }
-            DialogResult = dirty ? DialogResult.OK : DialogResult.Yes;
-            return;
         }
-        private float convFloat(String fl)
-        {
-            float result = 0;
-            float.TryParse(fl, out result);
-            return result;
-        }
+
         //
         //  Fills MemberRoster record with form data
         //
@@ -478,30 +483,54 @@ namespace WoodClub
 
         private void dataGridViewCodes_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            DataGridView dgv = sender as DataGridView;
             log.Info("Credits selected");
             float credit = float.Parse(txtCredits.Text);
             float value = 12;
-            
-            foreach (DataGridViewRow row in dataGridViewCodes.SelectedRows)
-            {
-                 value1 = row.Cells[0].Value.ToString();
-                 value2 = row.Cells[1].Value.ToString();
-                 value3 = row.Cells[2].Value.ToString();
-            }
+            DataGridViewRow selectedRow = dgv.SelectedRows[0];
+            string value1 = selectedRow.Cells[0].Value.ToString();
+            string value2 = selectedRow.Cells[1].Value.ToString();
+            string value3 = selectedRow.Cells[2].Value.ToString();
+
             credit += float.Parse(value3);
             value = credit > 12 ? 12 : credit;
-            txtCredits.Text = value.ToString();
             authorize = true;
             newCredit = true;
 
+            using (WoodclubEntities context = new WoodclubEntities())
+            {
+                DateTime dtLimit = DateTime.Now.AddDays(-3);
+                var previousEntry = (from m in context.Transactions             // List of members using club
+                                    where member.Badge == m.Badge && m.TransDate >  dtLimit && m.Code == value1
+                                select m).OrderByDescending(x => x.TransDate).ToList();
+                if (previousEntry.Count > 0)
+                {
+                    string message = string.Format("This member has had {0} - {1} entries in the last 3 days.", previousEntry.Count.ToString(), value1);
+                    message += Environment.NewLine + "Was this intentional?";
+                    DialogResult dialogResult = MessageBox.Show(message, "Double Entry Check", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+            }
+
             if (creditTransactions.ContainsKey(value1))
             {
-                creditTransactions[value1] += float.Parse(value3);
+                DialogResult dialogResult = MessageBox.Show("Did you intend to add multiple " + value1 + " credits?", "Double Entry Check", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    creditTransactions[value1].TotalAmount += float.Parse(value3);
+                    txtCredits.Text = value.ToString();
+                }
             }
             else
             {
-                creditTransactions.Add(value1, float.Parse(value3));
+                creditTransactions.Add(value1, new TransactionAddition(value1, value2, float.Parse(value3)));
+                txtCredits.Text = value.ToString();
             }
+
+            populateNewCredits();
         }
         private void txtRFcard_TextChanged(object sender, EventArgs e)
         {
@@ -527,18 +556,32 @@ namespace WoodClub
             newBadge = cbNewBadge.Checked;        
         }
 
-        private void transaction_Click(object sender, EventArgs e)
+        private void populateNewCredits()
+        {
+            GridViewNewCredits.Rows.Clear();
+            GridViewNewCredits.ColumnCount = 3;
+            GridViewNewCredits.Columns[0].Name = "Code";
+            GridViewNewCredits.Columns[1].Name = "Description";
+            GridViewNewCredits.Columns[2].Name = "Value";
+            GridViewNewCredits.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            foreach(KeyValuePair<string, TransactionAddition> kvp in creditTransactions)
+            {
+                string[] row = new string[] { kvp.Value.Code, kvp.Value.EventType, kvp.Value.TotalAmount.ToString() };
+                GridViewNewCredits.Rows.Add(row);
+            }
+        }
+
+        private void populateTransactions()
         {
             using (WoodclubEntities context = new WoodclubEntities())
             {
-                // By not using a databinding source (aka List) we can click the columns to sort.
-                // Easier to find the data in a long list.
-                //List<Activity> DStransactions = new List<Activity>();
                 try
                 {
-                    var activity = from m in context.Transactions             // List of members using club
-                                      where m.Badge == member.Badge
-                                      select m;
+                    TransDataGridView.Rows.Clear();
+                    var activity = (from m in context.Transactions             // List of members using club
+                                    where m.Badge == member.Badge
+                                    select m).OrderByDescending(x => x.TransDate);
 
                     TransDataGridView.ColumnCount = 4;
                     TransDataGridView.Columns[0].Name = "Action";
@@ -554,7 +597,7 @@ namespace WoodClub
                         if (t.EventType == "Door 1")
                         {
                             ac.Event = "Main Door";
-                        }    
+                        }
                         else if (t.EventType == "Door 2")
                         {
                             ac.Event = "Assembly Door";
@@ -573,7 +616,17 @@ namespace WoodClub
                         }
                         ac.dateTime = (DateTime)t.TransDate;
                         string[] row = new string[] { ac.Event, ac.Code, ac.Credits, ac.dateTime.ToString() };
-                        TransDataGridView.Rows.Add(row);
+                        if (creditsOnlyChkbx.Checked)
+                        {
+                            if (ac.Code != "U")
+                            {
+                                TransDataGridView.Rows.Add(row);
+                            }
+                        }
+                        else
+                        {
+                            TransDataGridView.Rows.Add(row);
+                        }
                     }
                     log.Info("debug");
                 }
@@ -581,10 +634,6 @@ namespace WoodClub
                 {
                     log.Fatal("Unable to get data...", ex);         // Capture exception
                 }
-               
-                //TransDataGridView.DataSource = DStransactions;
-                TransDataGridView.Refresh();
-                TransDataGridView.Invalidate();
             }
         }
         /*
@@ -602,6 +651,81 @@ namespace WoodClub
             byte[] bytesOut1 = Encoding.ASCII.GetBytes(dataOut);
             UdpClient udpClient = new UdpClient();
             udpClient.Send(bytesOut1, bytesOut1.Length, "255.255.255.255", PORT);
+        }
+
+        private void creditsOnlyChkbx_CheckedChanged(object sender, EventArgs e)
+        {
+            populateTransactions();
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            creditTransactions = new Dictionary<string, TransactionAddition>();
+            txtCredits.Text = creditBankStart.ToString();
+            populateNewCredits();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK; 
+        }
+
+        private void buttonApply_Click(object sender, EventArgs e)
+        {
+            applyChanges();
+            DialogResult = DialogResult.Yes;
+        }
+
+        // event handlers
+        private void GenericChangedHandler(object sender, EventArgs e)
+        {
+            SetBackgroundColor(sender as Control);
+        }
+
+        private void SetBackgroundColor(Control c)
+        {
+            bool resetBackColor = false;
+            if (formDirtyTracker.IsDirty)
+            {
+                if (formDirtyTracker.GetListOfDirtyControls().Contains(c))
+                {
+                    c.BackColor = Color.Yellow;
+                }
+                else
+                {
+                    resetBackColor = true;
+                }
+            }
+            else
+            {
+                resetBackColor = true;
+            }
+
+            if(resetBackColor)
+            {
+                formDirtyTracker.resetControlBackColor(c);
+            }
+        }
+
+        private void AssignHandlersForControlCollection(Control.ControlCollection controls)
+        {
+            foreach (Control c in controls)
+            {
+                if (c is TextBox)
+                    (c as TextBox).TextChanged
+                      += new EventHandler(GenericChangedHandler);
+
+                if (c is CheckBox)
+                    (c as CheckBox).CheckedChanged
+                      += new EventHandler(GenericChangedHandler);
+
+                if (c is ListBox)
+                    (c as ListBox).SelectedIndexChanged
+                      += new EventHandler(GenericChangedHandler);
+
+                if (c.HasChildren)
+                    AssignHandlersForControlCollection(c.Controls);
+            }
         }
     }
 }

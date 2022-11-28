@@ -30,6 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonApply = new System.Windows.Forms.Button();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.GridViewNewCredits = new System.Windows.Forms.DataGridView();
+            this.creditsOnlyChkbx = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cbMain = new System.Windows.Forms.CheckBox();
             this.cbSide = new System.Windows.Forms.CheckBox();
@@ -39,7 +44,6 @@
             this.cbMaint = new System.Windows.Forms.CheckBox();
             this.cbLumber = new System.Windows.Forms.CheckBox();
             this.TransDataGridView = new System.Windows.Forms.DataGridView();
-            this.transaction = new System.Windows.Forms.Button();
             this.cbExtendHr = new System.Windows.Forms.CheckBox();
             this.dataGridViewCodes = new System.Windows.Forms.DataGridView();
             this.badgeCode1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,7 +68,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtJoinDate = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.bsActivity = new System.Windows.Forms.BindingSource(this.components);
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.txtPhone = new System.Windows.Forms.TextBox();
@@ -92,21 +95,27 @@
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.txtLocker = new System.Windows.Forms.TextBox();
             this.lblLocker = new System.Windows.Forms.Label();
+            this.bsActivity = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GridViewNewCredits)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TransDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCodes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsActivity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsActivity)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.groupBox1.Controls.Add(this.buttonApply);
+            this.groupBox1.Controls.Add(this.buttonClear);
+            this.groupBox1.Controls.Add(this.buttonCancel);
+            this.groupBox1.Controls.Add(this.GridViewNewCredits);
+            this.groupBox1.Controls.Add(this.creditsOnlyChkbx);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.TransDataGridView);
-            this.groupBox1.Controls.Add(this.transaction);
             this.groupBox1.Controls.Add(this.cbExtendHr);
             this.groupBox1.Controls.Add(this.dataGridViewCodes);
             this.groupBox1.Controls.Add(this.txtRFcard);
@@ -126,12 +135,64 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtJoinDate);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(38, 226);
+            this.groupBox1.Location = new System.Drawing.Point(38, 220);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(649, 546);
+            this.groupBox1.Size = new System.Drawing.Size(652, 590);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Club Information";
+            // 
+            // buttonApply
+            // 
+            this.buttonApply.Location = new System.Drawing.Point(567, 549);
+            this.buttonApply.Name = "buttonApply";
+            this.buttonApply.Size = new System.Drawing.Size(75, 23);
+            this.buttonApply.TabIndex = 57;
+            this.buttonApply.Text = "Apply";
+            this.buttonApply.UseVisualStyleBackColor = true;
+            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(327, 355);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonClear.TabIndex = 56;
+            this.buttonClear.Text = "Clear Credits";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(486, 550);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 55;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // GridViewNewCredits
+            // 
+            this.GridViewNewCredits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridViewNewCredits.Location = new System.Drawing.Point(13, 335);
+            this.GridViewNewCredits.Name = "GridViewNewCredits";
+            this.GridViewNewCredits.RowHeadersVisible = false;
+            this.GridViewNewCredits.Size = new System.Drawing.Size(306, 69);
+            this.GridViewNewCredits.TabIndex = 54;
+            // 
+            // creditsOnlyChkbx
+            // 
+            this.creditsOnlyChkbx.AutoSize = true;
+            this.creditsOnlyChkbx.Checked = true;
+            this.creditsOnlyChkbx.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.creditsOnlyChkbx.Location = new System.Drawing.Point(553, 398);
+            this.creditsOnlyChkbx.Name = "creditsOnlyChkbx";
+            this.creditsOnlyChkbx.Size = new System.Drawing.Size(82, 17);
+            this.creditsOnlyChkbx.TabIndex = 53;
+            this.creditsOnlyChkbx.Text = "Credits Only";
+            this.creditsOnlyChkbx.UseVisualStyleBackColor = true;
+            this.creditsOnlyChkbx.CheckedChanged += new System.EventHandler(this.creditsOnlyChkbx_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -232,20 +293,10 @@
             // TransDataGridView
             // 
             this.TransDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.TransDataGridView.Location = new System.Drawing.Point(13, 402);
+            this.TransDataGridView.Location = new System.Drawing.Point(13, 419);
             this.TransDataGridView.Name = "TransDataGridView";
-            this.TransDataGridView.Size = new System.Drawing.Size(627, 138);
+            this.TransDataGridView.Size = new System.Drawing.Size(627, 125);
             this.TransDataGridView.TabIndex = 47;
-            // 
-            // transaction
-            // 
-            this.transaction.Location = new System.Drawing.Point(13, 373);
-            this.transaction.Name = "transaction";
-            this.transaction.Size = new System.Drawing.Size(75, 23);
-            this.transaction.TabIndex = 46;
-            this.transaction.Text = "Transactions";
-            this.transaction.UseVisualStyleBackColor = true;
-            this.transaction.Click += new System.EventHandler(this.transaction_Click);
             // 
             // cbExtendHr
             // 
@@ -338,7 +389,7 @@
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSave.Location = new System.Drawing.Point(13, 344);
+            this.btnSave.Location = new System.Drawing.Point(405, 550);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 42;
@@ -489,10 +540,6 @@
             this.label1.Size = new System.Drawing.Size(105, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Member Joined Date";
-            // 
-            // bsActivity
-            // 
-            this.bsActivity.DataSource = typeof(WoodClub.Activity);
             // 
             // txtEmail
             // 
@@ -736,11 +783,15 @@
             this.lblLocker.TabIndex = 48;
             this.lblLocker.Text = "Locker";
             // 
+            // bsActivity
+            // 
+            this.bsActivity.DataSource = typeof(WoodClub.Activity);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 797);
+            this.ClientSize = new System.Drawing.Size(720, 836);
             this.Controls.Add(this.lblLocker);
             this.Controls.Add(this.txtLocker);
             this.Controls.Add(this.txtTitle);
@@ -772,13 +823,14 @@
             this.Text = "Member Edit";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GridViewNewCredits)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TransDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCodes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsActivity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsActivity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -840,7 +892,6 @@
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.TextBox txtLocker;
         private System.Windows.Forms.Label lblLocker;
-        private System.Windows.Forms.Button transaction;
         private System.Windows.Forms.DataGridView TransDataGridView;
         private System.Windows.Forms.BindingSource bsActivity;
         private System.Windows.Forms.CheckBox cbMachine;
@@ -849,5 +900,10 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox cbMain;
         private System.Windows.Forms.CheckBox cbSide;
+        private System.Windows.Forms.CheckBox creditsOnlyChkbx;
+        private System.Windows.Forms.DataGridView GridViewNewCredits;
+        private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonApply;
     }
 }
