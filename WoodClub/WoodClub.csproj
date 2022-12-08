@@ -85,6 +85,9 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>WoodClub_1_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>woodclub.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -217,6 +220,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelWC.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
     <Compile Include="TransactionAddition.cs" />
     <Compile Include="Usage.cs" />
     <Compile Include="Monitors.cs" />
@@ -273,6 +281,10 @@
     </Compile>
     <EmbeddedResource Include="Forms\SCWform.resx">
       <DependentUpon>SCWform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EntityDeploy Include="ModelWC.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -360,7 +372,9 @@
       <DependentUpon>ModelWC.edmx</DependentUpon>
       <LastGenOutput>ModelWC.cs</LastGenOutput>
     </Content>
+    <Content Include="Resources\woodclub.ico" />
     <Content Include="scw.png" />
+    <Content Include="woodclub.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

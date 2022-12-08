@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.woodclubDataSet = new WoodClub.WoodclubDataSet();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -56,7 +54,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
+            this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.woodclubDataSet = new WoodClub.WoodclubDataSet();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.badgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -88,11 +87,12 @@
             this.lastDayValidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.newBadgeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.photoDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -142,16 +142,6 @@
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.bsMembers_PositionChanged);
             this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
-            // 
-            // memberRosterBindingSource
-            // 
-            this.memberRosterBindingSource.DataMember = "MemberRoster";
-            this.memberRosterBindingSource.DataSource = this.woodclubDataSet;
-            // 
-            // woodclubDataSet
-            // 
-            this.woodclubDataSet.DataSetName = "WoodclubDataSet";
-            this.woodclubDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigator1
             // 
@@ -357,9 +347,15 @@
             this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
             this.toolStripTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
             // 
-            // memberRosterTableAdapter
+            // memberRosterBindingSource
             // 
-            this.memberRosterTableAdapter.ClearBeforeFill = true;
+            this.memberRosterBindingSource.DataMember = "MemberRoster";
+            this.memberRosterBindingSource.DataSource = this.woodclubDataSet;
+            // 
+            // woodclubDataSet
+            // 
+            this.woodclubDataSet.DataSetName = "WoodclubDataSet";
+            this.woodclubDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -578,6 +574,10 @@
             this.photoDataGridViewImageColumn.Name = "photoDataGridViewImageColumn";
             this.photoDataGridViewImageColumn.ReadOnly = true;
             // 
+            // memberRosterTableAdapter
+            // 
+            this.memberRosterTableAdapter.ClearBeforeFill = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -585,16 +585,17 @@
             this.ClientSize = new System.Drawing.Size(1458, 661);
             this.Controls.Add(this.bindingNavigator1);
             this.Controls.Add(this.dataGridView1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Woodclub Members";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);
             this.bindingNavigator1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
