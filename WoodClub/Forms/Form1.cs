@@ -74,6 +74,7 @@ namespace WoodClub
             dataGridView1.DataSource = bsMembers;
             bsMembers.Position = 0;
             bindingNavigator1.BindingSource = bsMembers;
+            ActiveControl = toolStripTextBox1.Control;
         }
         
         private void SetUpEventsForDataGridViewSorting()
@@ -194,6 +195,10 @@ namespace WoodClub
                 bsMembers.DataSource = blMembers;
                 dataGridView1.DataSource = bsMembers;
             }
+
+            ActiveControl = toolStripTextBox1.Control;
+            toolStripTextBox1.SelectionStart = 0;
+            toolStripTextBox1.SelectionLength = toolStripTextBox1.Control.Text.Length;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -246,6 +251,7 @@ namespace WoodClub
             FormDaily fd = new FormDaily();
             fd.ShowDialog();
         }
+
         private void tb_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -253,6 +259,7 @@ namespace WoodClub
                 Find_Badge();
             }
         }
+
         private void Find_Badge()
         {
             string badge = toolStripTextBox1.Text;
@@ -265,7 +272,14 @@ namespace WoodClub
                 {
                     if (row.id == pos)
                     {
-                        bsMembers.Position = nx;
+                        if (bsMembers.Position == nx)
+                        {
+                            EditCurrentRow();
+                        }
+                        else
+                        {
+                            bsMembers.Position = nx;
+                        }
                         break;
                     }
                     nx++;
