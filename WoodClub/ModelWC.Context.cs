@@ -32,5 +32,8 @@ namespace WoodClub
         public virtual DbSet<MemberPhoto> MemberPhotos { get; set; }
         public virtual DbSet<Time_zones> Time_zones { get; set; }
         public virtual DbSet<BadgeCode> BadgeCodes { get; set; }
+        public virtual DbSet<LockerCost> LockerCosts { get; set; }
+        public virtual DbSet<LockerLocation> LockerLocations { get; set; }
+        public virtual DbSet<Locker> Lockers { get; set; }
     }
 }

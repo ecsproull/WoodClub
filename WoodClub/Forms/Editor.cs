@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
+using WoodClub.Forms;
 
 
 namespace WoodClub
@@ -120,7 +121,6 @@ namespace WoodClub
                     txtPhone.Text = member.Phone;
                     txtEmail.Text = member.Email;
                     txtTitle.Text = member.Title;
-                    txtLocker.Text = member.Locker == null ? "" : member.Locker;
                     cbMain.Checked = EntryCodes(member.EntryCodes, "F");
                     cbSide.Checked = EntryCodes(member.EntryCodes, "S");
                     cbMaint.Checked = EntryCodes(member.EntryCodes, "M");
@@ -141,6 +141,7 @@ namespace WoodClub
                     authorize = member.Authorized == null ? false : (bool)member.Authorized;
                     oneTime = member.OneTime == null ? false : (bool)member.OneTime;
                     creditBankStart = Convert.ToDouble(txtCredits.Text);
+                    PopulateLockers();
                     AuthorizedIndex();
                     //
                     // Show picture if it exist
@@ -160,6 +161,36 @@ namespace WoodClub
             formDirtyTracker.MarkAsClean();
             AssignHandlersForControlCollection(this.Controls);
 
+        }
+
+        private void PopulateLockers()
+        {
+            using (WoodclubEntities context = new WoodclubEntities())
+            {
+                List<Locker> lockers = (from l in context.Lockers
+                                        where l.Badge == member.Badge
+                                        select l).ToList();
+                if (lockers.Count == 0)
+                {
+                    txtLocker.Text = "";
+                }
+                else
+                {
+                    bool first = true;
+                    foreach (Locker locker in lockers)
+                    {
+                        if (first)
+                        {
+                            txtLocker.Text = locker.LockerTitle.Trim();
+                            first = false;
+                        }
+                        else
+                        {
+                            txtLocker.Text += "," + locker.LockerTitle;
+                        }
+                    }
+                }
+            }
         }
         //
         //      Get current Access Time index
@@ -727,5 +758,14 @@ namespace WoodClub
                     AssignHandlersForControlCollection(c.Controls);
             }
         }
-    }
+
+		private void editLocker_Click(object sender, EventArgs e)
+		{
+            using (LockerSelection frm = new LockerSelection(member.Badge))
+            {
+                frm.ShowDialog();
+                PopulateLockers();
+            }
+        }
+	}
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ZKTecoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ZKTecoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="acc_timeseg">
           <Key>
             <PropertyRef Name="id" />
@@ -87,11 +87,13 @@
         <EntityContainer Name="ZKTecoModelStoreContainer">
           <EntitySet Name="acc_timeseg" EntityType="Self.acc_timeseg" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ZKTecoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ZKTecoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="acc_timeseg" EntityType="ZKTecoModel.acc_timeseg" />
+        </EntityContainer>
         <EntityType Name="acc_timeseg">
           <Key>
             <PropertyRef Name="id" />
@@ -171,9 +173,6 @@
           <Property Name="TimeZone3Id" Type="Int32" />
           <Property Name="TimeZoneHolidayId" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="ZKTecoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="acc_timeseg" EntityType="Self.acc_timeseg" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -183,80 +182,80 @@
           <EntitySetMapping Name="acc_timeseg">
             <EntityTypeMapping TypeName="ZKTecoModel.acc_timeseg">
               <MappingFragment StoreEntitySet="acc_timeseg">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="change_operator" ColumnName="change_operator" />
-                <ScalarProperty Name="change_time" ColumnName="change_time" />
-                <ScalarProperty Name="create_operator" ColumnName="create_operator" />
-                <ScalarProperty Name="create_time" ColumnName="create_time" />
-                <ScalarProperty Name="delete_operator" ColumnName="delete_operator" />
-                <ScalarProperty Name="delete_time" ColumnName="delete_time" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="timeseg_name" ColumnName="timeseg_name" />
-                <ScalarProperty Name="memo" ColumnName="memo" />
-                <ScalarProperty Name="sunday_start1" ColumnName="sunday_start1" />
-                <ScalarProperty Name="sunday_end1" ColumnName="sunday_end1" />
-                <ScalarProperty Name="sunday_start2" ColumnName="sunday_start2" />
-                <ScalarProperty Name="sunday_end2" ColumnName="sunday_end2" />
-                <ScalarProperty Name="sunday_start3" ColumnName="sunday_start3" />
-                <ScalarProperty Name="sunday_end3" ColumnName="sunday_end3" />
-                <ScalarProperty Name="monday_start1" ColumnName="monday_start1" />
-                <ScalarProperty Name="monday_end1" ColumnName="monday_end1" />
-                <ScalarProperty Name="monday_start2" ColumnName="monday_start2" />
-                <ScalarProperty Name="monday_end2" ColumnName="monday_end2" />
-                <ScalarProperty Name="monday_start3" ColumnName="monday_start3" />
-                <ScalarProperty Name="monday_end3" ColumnName="monday_end3" />
-                <ScalarProperty Name="tuesday_start1" ColumnName="tuesday_start1" />
-                <ScalarProperty Name="tuesday_end1" ColumnName="tuesday_end1" />
-                <ScalarProperty Name="tuesday_start2" ColumnName="tuesday_start2" />
-                <ScalarProperty Name="tuesday_end2" ColumnName="tuesday_end2" />
-                <ScalarProperty Name="tuesday_start3" ColumnName="tuesday_start3" />
-                <ScalarProperty Name="tuesday_end3" ColumnName="tuesday_end3" />
-                <ScalarProperty Name="wednesday_start1" ColumnName="wednesday_start1" />
-                <ScalarProperty Name="wednesday_end1" ColumnName="wednesday_end1" />
-                <ScalarProperty Name="wednesday_start2" ColumnName="wednesday_start2" />
-                <ScalarProperty Name="wednesday_end2" ColumnName="wednesday_end2" />
-                <ScalarProperty Name="wednesday_start3" ColumnName="wednesday_start3" />
-                <ScalarProperty Name="wednesday_end3" ColumnName="wednesday_end3" />
-                <ScalarProperty Name="thursday_start1" ColumnName="thursday_start1" />
-                <ScalarProperty Name="thursday_end1" ColumnName="thursday_end1" />
-                <ScalarProperty Name="thursday_start2" ColumnName="thursday_start2" />
-                <ScalarProperty Name="thursday_end2" ColumnName="thursday_end2" />
-                <ScalarProperty Name="thursday_start3" ColumnName="thursday_start3" />
-                <ScalarProperty Name="thursday_end3" ColumnName="thursday_end3" />
-                <ScalarProperty Name="friday_start1" ColumnName="friday_start1" />
-                <ScalarProperty Name="friday_end1" ColumnName="friday_end1" />
-                <ScalarProperty Name="friday_start2" ColumnName="friday_start2" />
-                <ScalarProperty Name="friday_end2" ColumnName="friday_end2" />
-                <ScalarProperty Name="friday_start3" ColumnName="friday_start3" />
-                <ScalarProperty Name="friday_end3" ColumnName="friday_end3" />
-                <ScalarProperty Name="saturday_start1" ColumnName="saturday_start1" />
-                <ScalarProperty Name="saturday_end1" ColumnName="saturday_end1" />
-                <ScalarProperty Name="saturday_start2" ColumnName="saturday_start2" />
-                <ScalarProperty Name="saturday_end2" ColumnName="saturday_end2" />
-                <ScalarProperty Name="saturday_start3" ColumnName="saturday_start3" />
-                <ScalarProperty Name="saturday_end3" ColumnName="saturday_end3" />
-                <ScalarProperty Name="holidaytype1_start1" ColumnName="holidaytype1_start1" />
-                <ScalarProperty Name="holidaytype1_end1" ColumnName="holidaytype1_end1" />
-                <ScalarProperty Name="holidaytype1_start2" ColumnName="holidaytype1_start2" />
-                <ScalarProperty Name="holidaytype1_end2" ColumnName="holidaytype1_end2" />
-                <ScalarProperty Name="holidaytype1_start3" ColumnName="holidaytype1_start3" />
-                <ScalarProperty Name="holidaytype1_end3" ColumnName="holidaytype1_end3" />
-                <ScalarProperty Name="holidaytype2_start1" ColumnName="holidaytype2_start1" />
-                <ScalarProperty Name="holidaytype2_end1" ColumnName="holidaytype2_end1" />
-                <ScalarProperty Name="holidaytype2_start2" ColumnName="holidaytype2_start2" />
-                <ScalarProperty Name="holidaytype2_end2" ColumnName="holidaytype2_end2" />
-                <ScalarProperty Name="holidaytype2_start3" ColumnName="holidaytype2_start3" />
-                <ScalarProperty Name="holidaytype2_end3" ColumnName="holidaytype2_end3" />
-                <ScalarProperty Name="holidaytype3_start1" ColumnName="holidaytype3_start1" />
-                <ScalarProperty Name="holidaytype3_end1" ColumnName="holidaytype3_end1" />
-                <ScalarProperty Name="holidaytype3_start2" ColumnName="holidaytype3_start2" />
-                <ScalarProperty Name="holidaytype3_end2" ColumnName="holidaytype3_end2" />
-                <ScalarProperty Name="holidaytype3_start3" ColumnName="holidaytype3_start3" />
-                <ScalarProperty Name="holidaytype3_end3" ColumnName="holidaytype3_end3" />
-                <ScalarProperty Name="TimeZone1Id" ColumnName="TimeZone1Id" />
-                <ScalarProperty Name="TimeZone2Id" ColumnName="TimeZone2Id" />
-                <ScalarProperty Name="TimeZone3Id" ColumnName="TimeZone3Id" />
                 <ScalarProperty Name="TimeZoneHolidayId" ColumnName="TimeZoneHolidayId" />
+                <ScalarProperty Name="TimeZone3Id" ColumnName="TimeZone3Id" />
+                <ScalarProperty Name="TimeZone2Id" ColumnName="TimeZone2Id" />
+                <ScalarProperty Name="TimeZone1Id" ColumnName="TimeZone1Id" />
+                <ScalarProperty Name="holidaytype3_end3" ColumnName="holidaytype3_end3" />
+                <ScalarProperty Name="holidaytype3_start3" ColumnName="holidaytype3_start3" />
+                <ScalarProperty Name="holidaytype3_end2" ColumnName="holidaytype3_end2" />
+                <ScalarProperty Name="holidaytype3_start2" ColumnName="holidaytype3_start2" />
+                <ScalarProperty Name="holidaytype3_end1" ColumnName="holidaytype3_end1" />
+                <ScalarProperty Name="holidaytype3_start1" ColumnName="holidaytype3_start1" />
+                <ScalarProperty Name="holidaytype2_end3" ColumnName="holidaytype2_end3" />
+                <ScalarProperty Name="holidaytype2_start3" ColumnName="holidaytype2_start3" />
+                <ScalarProperty Name="holidaytype2_end2" ColumnName="holidaytype2_end2" />
+                <ScalarProperty Name="holidaytype2_start2" ColumnName="holidaytype2_start2" />
+                <ScalarProperty Name="holidaytype2_end1" ColumnName="holidaytype2_end1" />
+                <ScalarProperty Name="holidaytype2_start1" ColumnName="holidaytype2_start1" />
+                <ScalarProperty Name="holidaytype1_end3" ColumnName="holidaytype1_end3" />
+                <ScalarProperty Name="holidaytype1_start3" ColumnName="holidaytype1_start3" />
+                <ScalarProperty Name="holidaytype1_end2" ColumnName="holidaytype1_end2" />
+                <ScalarProperty Name="holidaytype1_start2" ColumnName="holidaytype1_start2" />
+                <ScalarProperty Name="holidaytype1_end1" ColumnName="holidaytype1_end1" />
+                <ScalarProperty Name="holidaytype1_start1" ColumnName="holidaytype1_start1" />
+                <ScalarProperty Name="saturday_end3" ColumnName="saturday_end3" />
+                <ScalarProperty Name="saturday_start3" ColumnName="saturday_start3" />
+                <ScalarProperty Name="saturday_end2" ColumnName="saturday_end2" />
+                <ScalarProperty Name="saturday_start2" ColumnName="saturday_start2" />
+                <ScalarProperty Name="saturday_end1" ColumnName="saturday_end1" />
+                <ScalarProperty Name="saturday_start1" ColumnName="saturday_start1" />
+                <ScalarProperty Name="friday_end3" ColumnName="friday_end3" />
+                <ScalarProperty Name="friday_start3" ColumnName="friday_start3" />
+                <ScalarProperty Name="friday_end2" ColumnName="friday_end2" />
+                <ScalarProperty Name="friday_start2" ColumnName="friday_start2" />
+                <ScalarProperty Name="friday_end1" ColumnName="friday_end1" />
+                <ScalarProperty Name="friday_start1" ColumnName="friday_start1" />
+                <ScalarProperty Name="thursday_end3" ColumnName="thursday_end3" />
+                <ScalarProperty Name="thursday_start3" ColumnName="thursday_start3" />
+                <ScalarProperty Name="thursday_end2" ColumnName="thursday_end2" />
+                <ScalarProperty Name="thursday_start2" ColumnName="thursday_start2" />
+                <ScalarProperty Name="thursday_end1" ColumnName="thursday_end1" />
+                <ScalarProperty Name="thursday_start1" ColumnName="thursday_start1" />
+                <ScalarProperty Name="wednesday_end3" ColumnName="wednesday_end3" />
+                <ScalarProperty Name="wednesday_start3" ColumnName="wednesday_start3" />
+                <ScalarProperty Name="wednesday_end2" ColumnName="wednesday_end2" />
+                <ScalarProperty Name="wednesday_start2" ColumnName="wednesday_start2" />
+                <ScalarProperty Name="wednesday_end1" ColumnName="wednesday_end1" />
+                <ScalarProperty Name="wednesday_start1" ColumnName="wednesday_start1" />
+                <ScalarProperty Name="tuesday_end3" ColumnName="tuesday_end3" />
+                <ScalarProperty Name="tuesday_start3" ColumnName="tuesday_start3" />
+                <ScalarProperty Name="tuesday_end2" ColumnName="tuesday_end2" />
+                <ScalarProperty Name="tuesday_start2" ColumnName="tuesday_start2" />
+                <ScalarProperty Name="tuesday_end1" ColumnName="tuesday_end1" />
+                <ScalarProperty Name="tuesday_start1" ColumnName="tuesday_start1" />
+                <ScalarProperty Name="monday_end3" ColumnName="monday_end3" />
+                <ScalarProperty Name="monday_start3" ColumnName="monday_start3" />
+                <ScalarProperty Name="monday_end2" ColumnName="monday_end2" />
+                <ScalarProperty Name="monday_start2" ColumnName="monday_start2" />
+                <ScalarProperty Name="monday_end1" ColumnName="monday_end1" />
+                <ScalarProperty Name="monday_start1" ColumnName="monday_start1" />
+                <ScalarProperty Name="sunday_end3" ColumnName="sunday_end3" />
+                <ScalarProperty Name="sunday_start3" ColumnName="sunday_start3" />
+                <ScalarProperty Name="sunday_end2" ColumnName="sunday_end2" />
+                <ScalarProperty Name="sunday_start2" ColumnName="sunday_start2" />
+                <ScalarProperty Name="sunday_end1" ColumnName="sunday_end1" />
+                <ScalarProperty Name="sunday_start1" ColumnName="sunday_start1" />
+                <ScalarProperty Name="memo" ColumnName="memo" />
+                <ScalarProperty Name="timeseg_name" ColumnName="timeseg_name" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="delete_time" ColumnName="delete_time" />
+                <ScalarProperty Name="delete_operator" ColumnName="delete_operator" />
+                <ScalarProperty Name="create_time" ColumnName="create_time" />
+                <ScalarProperty Name="create_operator" ColumnName="create_operator" />
+                <ScalarProperty Name="change_time" ColumnName="change_time" />
+                <ScalarProperty Name="change_operator" ColumnName="change_operator" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
