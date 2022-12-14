@@ -277,5 +277,11 @@ namespace WoodClub
             }
 
         }
-    }
+
+		private void locationsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+            LockerLocations lockerLocations = new LockerLocations();
+            lockerLocations.ShowDialog();
+		}
+	}
 }

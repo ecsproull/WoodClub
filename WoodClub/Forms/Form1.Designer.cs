@@ -31,6 +31,20 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.badgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.addressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.phoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.emailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.recCardDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.creditBankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.lockerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cardNoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.EntryCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.LastDayValid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Exempt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.woodclubDataSet = new WoodClub.WoodclubDataSet();
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
@@ -57,20 +71,11 @@
 			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
 			this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
 			this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
-			this.badgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.addressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.phoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.emailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.recCardDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.creditBankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.lockerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cardNoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.EntryCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.LastDayValid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Exempt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+			this.lockersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.locationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.costsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).BeginInit();
@@ -111,6 +116,108 @@
 			this.dataGridView1.SelectionChanged += new System.EventHandler(this.bsMembers_PositionChanged);
 			this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
 			// 
+			// badgeDataGridViewTextBoxColumn
+			// 
+			this.badgeDataGridViewTextBoxColumn.DataPropertyName = "Badge";
+			this.badgeDataGridViewTextBoxColumn.HeaderText = "Badge";
+			this.badgeDataGridViewTextBoxColumn.Name = "badgeDataGridViewTextBoxColumn";
+			this.badgeDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// firstNameDataGridViewTextBoxColumn
+			// 
+			this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
+			this.firstNameDataGridViewTextBoxColumn.HeaderText = "FirstName";
+			this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
+			this.firstNameDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// lastNameDataGridViewTextBoxColumn
+			// 
+			this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
+			this.lastNameDataGridViewTextBoxColumn.HeaderText = "LastName";
+			this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
+			this.lastNameDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// addressDataGridViewTextBoxColumn
+			// 
+			this.addressDataGridViewTextBoxColumn.DataPropertyName = "Address";
+			this.addressDataGridViewTextBoxColumn.HeaderText = "Address";
+			this.addressDataGridViewTextBoxColumn.Name = "addressDataGridViewTextBoxColumn";
+			this.addressDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// phoneDataGridViewTextBoxColumn
+			// 
+			this.phoneDataGridViewTextBoxColumn.DataPropertyName = "Phone";
+			this.phoneDataGridViewTextBoxColumn.HeaderText = "Phone";
+			this.phoneDataGridViewTextBoxColumn.Name = "phoneDataGridViewTextBoxColumn";
+			this.phoneDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// emailDataGridViewTextBoxColumn
+			// 
+			this.emailDataGridViewTextBoxColumn.DataPropertyName = "Email";
+			this.emailDataGridViewTextBoxColumn.HeaderText = "Email";
+			this.emailDataGridViewTextBoxColumn.Name = "emailDataGridViewTextBoxColumn";
+			this.emailDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// titleDataGridViewTextBoxColumn
+			// 
+			this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
+			this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
+			this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
+			this.titleDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// recCardDataGridViewTextBoxColumn
+			// 
+			this.recCardDataGridViewTextBoxColumn.DataPropertyName = "RecCard";
+			this.recCardDataGridViewTextBoxColumn.HeaderText = "RecCard";
+			this.recCardDataGridViewTextBoxColumn.Name = "recCardDataGridViewTextBoxColumn";
+			this.recCardDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// creditBankDataGridViewTextBoxColumn
+			// 
+			this.creditBankDataGridViewTextBoxColumn.DataPropertyName = "CreditBank";
+			this.creditBankDataGridViewTextBoxColumn.HeaderText = "CreditBank";
+			this.creditBankDataGridViewTextBoxColumn.Name = "creditBankDataGridViewTextBoxColumn";
+			this.creditBankDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// lockerDataGridViewTextBoxColumn
+			// 
+			this.lockerDataGridViewTextBoxColumn.DataPropertyName = "Locker";
+			this.lockerDataGridViewTextBoxColumn.HeaderText = "Locker";
+			this.lockerDataGridViewTextBoxColumn.Name = "lockerDataGridViewTextBoxColumn";
+			this.lockerDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// cardNoDataGridViewTextBoxColumn
+			// 
+			this.cardNoDataGridViewTextBoxColumn.DataPropertyName = "CardNo";
+			this.cardNoDataGridViewTextBoxColumn.HeaderText = "CardNo";
+			this.cardNoDataGridViewTextBoxColumn.Name = "cardNoDataGridViewTextBoxColumn";
+			this.cardNoDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// EntryCodes
+			// 
+			this.EntryCodes.DataPropertyName = "EntryCodes";
+			this.EntryCodes.HeaderText = "EntryCodes";
+			this.EntryCodes.Name = "EntryCodes";
+			this.EntryCodes.ReadOnly = true;
+			// 
+			// LastDayValid
+			// 
+			this.LastDayValid.DataPropertyName = "LastDayValid";
+			this.LastDayValid.HeaderText = "LastDayValid";
+			this.LastDayValid.Name = "LastDayValid";
+			this.LastDayValid.ReadOnly = true;
+			// 
+			// Exempt
+			// 
+			this.Exempt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Exempt.DataPropertyName = "Exempt";
+			this.Exempt.HeaderText = "Exempt";
+			this.Exempt.Name = "Exempt";
+			this.Exempt.ReadOnly = true;
+			this.Exempt.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.Exempt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.Exempt.Width = 75;
+			// 
 			// memberRosterBindingSource
 			// 
 			this.memberRosterBindingSource.DataMember = "MemberRoster";
@@ -142,6 +249,8 @@
             this.toolStripLabel1,
             this.toolStripSeparator1,
             this.toolStripDropDownButton1,
+            this.toolStripSeparator3,
+            this.toolStripDropDownButton2,
             this.toolStripSeparator2,
             this.toolStripLabel2,
             this.toolStripTextBox1});
@@ -329,107 +438,42 @@
 			// 
 			this.memberRosterTableAdapter.ClearBeforeFill = true;
 			// 
-			// badgeDataGridViewTextBoxColumn
+			// toolStripSeparator3
 			// 
-			this.badgeDataGridViewTextBoxColumn.DataPropertyName = "Badge";
-			this.badgeDataGridViewTextBoxColumn.HeaderText = "Badge";
-			this.badgeDataGridViewTextBoxColumn.Name = "badgeDataGridViewTextBoxColumn";
-			this.badgeDataGridViewTextBoxColumn.ReadOnly = true;
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
 			// 
-			// firstNameDataGridViewTextBoxColumn
+			// toolStripDropDownButton2
 			// 
-			this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
-			this.firstNameDataGridViewTextBoxColumn.HeaderText = "FirstName";
-			this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
-			this.firstNameDataGridViewTextBoxColumn.ReadOnly = true;
+			this.toolStripDropDownButton2.AutoSize = false;
+			this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lockersToolStripMenuItem,
+            this.locationsToolStripMenuItem,
+            this.costsToolStripMenuItem});
+			this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+			this.toolStripDropDownButton2.Size = new System.Drawing.Size(63, 22);
+			this.toolStripDropDownButton2.Text = "Lockers";
 			// 
-			// lastNameDataGridViewTextBoxColumn
+			// lockersToolStripMenuItem
 			// 
-			this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
-			this.lastNameDataGridViewTextBoxColumn.HeaderText = "LastName";
-			this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
-			this.lastNameDataGridViewTextBoxColumn.ReadOnly = true;
+			this.lockersToolStripMenuItem.Name = "lockersToolStripMenuItem";
+			this.lockersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.lockersToolStripMenuItem.Text = "Edit Lockers";
 			// 
-			// addressDataGridViewTextBoxColumn
+			// locationsToolStripMenuItem
 			// 
-			this.addressDataGridViewTextBoxColumn.DataPropertyName = "Address";
-			this.addressDataGridViewTextBoxColumn.HeaderText = "Address";
-			this.addressDataGridViewTextBoxColumn.Name = "addressDataGridViewTextBoxColumn";
-			this.addressDataGridViewTextBoxColumn.ReadOnly = true;
+			this.locationsToolStripMenuItem.Name = "locationsToolStripMenuItem";
+			this.locationsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.locationsToolStripMenuItem.Text = "Edit Locations";
+			this.locationsToolStripMenuItem.Click += new System.EventHandler(this.locationsToolStripMenuItem_Click);
 			// 
-			// phoneDataGridViewTextBoxColumn
+			// costsToolStripMenuItem
 			// 
-			this.phoneDataGridViewTextBoxColumn.DataPropertyName = "Phone";
-			this.phoneDataGridViewTextBoxColumn.HeaderText = "Phone";
-			this.phoneDataGridViewTextBoxColumn.Name = "phoneDataGridViewTextBoxColumn";
-			this.phoneDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// emailDataGridViewTextBoxColumn
-			// 
-			this.emailDataGridViewTextBoxColumn.DataPropertyName = "Email";
-			this.emailDataGridViewTextBoxColumn.HeaderText = "Email";
-			this.emailDataGridViewTextBoxColumn.Name = "emailDataGridViewTextBoxColumn";
-			this.emailDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// titleDataGridViewTextBoxColumn
-			// 
-			this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
-			this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
-			this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
-			this.titleDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// recCardDataGridViewTextBoxColumn
-			// 
-			this.recCardDataGridViewTextBoxColumn.DataPropertyName = "RecCard";
-			this.recCardDataGridViewTextBoxColumn.HeaderText = "RecCard";
-			this.recCardDataGridViewTextBoxColumn.Name = "recCardDataGridViewTextBoxColumn";
-			this.recCardDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// creditBankDataGridViewTextBoxColumn
-			// 
-			this.creditBankDataGridViewTextBoxColumn.DataPropertyName = "CreditBank";
-			this.creditBankDataGridViewTextBoxColumn.HeaderText = "CreditBank";
-			this.creditBankDataGridViewTextBoxColumn.Name = "creditBankDataGridViewTextBoxColumn";
-			this.creditBankDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// lockerDataGridViewTextBoxColumn
-			// 
-			this.lockerDataGridViewTextBoxColumn.DataPropertyName = "Locker";
-			this.lockerDataGridViewTextBoxColumn.HeaderText = "Locker";
-			this.lockerDataGridViewTextBoxColumn.Name = "lockerDataGridViewTextBoxColumn";
-			this.lockerDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// cardNoDataGridViewTextBoxColumn
-			// 
-			this.cardNoDataGridViewTextBoxColumn.DataPropertyName = "CardNo";
-			this.cardNoDataGridViewTextBoxColumn.HeaderText = "CardNo";
-			this.cardNoDataGridViewTextBoxColumn.Name = "cardNoDataGridViewTextBoxColumn";
-			this.cardNoDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// EntryCodes
-			// 
-			this.EntryCodes.DataPropertyName = "EntryCodes";
-			this.EntryCodes.HeaderText = "EntryCodes";
-			this.EntryCodes.Name = "EntryCodes";
-			this.EntryCodes.ReadOnly = true;
-			// 
-			// LastDayValid
-			// 
-			this.LastDayValid.DataPropertyName = "LastDayValid";
-			this.LastDayValid.HeaderText = "LastDayValid";
-			this.LastDayValid.Name = "LastDayValid";
-			this.LastDayValid.ReadOnly = true;
-			// 
-			// Exempt
-			// 
-			this.Exempt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Exempt.DataPropertyName = "Exempt";
-			this.Exempt.HeaderText = "Exempt";
-			this.Exempt.Name = "Exempt";
-			this.Exempt.ReadOnly = true;
-			this.Exempt.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.Exempt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.Exempt.Width = 75;
+			this.costsToolStripMenuItem.Name = "costsToolStripMenuItem";
+			this.costsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.costsToolStripMenuItem.Text = "Edit Costs";
 			// 
 			// Form1
 			// 
@@ -496,6 +540,11 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn EntryCodes;
 		private System.Windows.Forms.DataGridViewTextBoxColumn LastDayValid;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn Exempt;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+		private System.Windows.Forms.ToolStripMenuItem lockersToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem locationsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem costsToolStripMenuItem;
 	}
 }
 
