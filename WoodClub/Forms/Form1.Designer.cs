@@ -450,7 +450,8 @@
 			// 
 			this.costsToolStripMenuItem.Name = "costsToolStripMenuItem";
 			this.costsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.costsToolStripMenuItem.Text = "Edit Costs";
+			this.costsToolStripMenuItem.Text = "Edit Prices";
+			this.costsToolStripMenuItem.Click += new System.EventHandler(this.costsToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator2
 			// 

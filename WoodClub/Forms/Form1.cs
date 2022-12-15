@@ -289,5 +289,11 @@ namespace WoodClub
             LockerData ld = new LockerData();
             ld.ShowDialog();
 		}
+
+		private void costsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+            LockerPrices lockerPrices = new LockerPrices();
+            lockerPrices.ShowDialog();
+		}
 	}
 }

@@ -88,7 +88,9 @@ namespace WoodClub.Forms
 
 		private void dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
-			if (e.ColumnIndex == 0 && dataGridLockerData.Rows[e.RowIndex].Cells[0].Value != null)
+			if (e.RowIndex >= this.originalCount && 
+				e.ColumnIndex == 0 && 
+				dataGridLockerData.Rows[e.RowIndex].Cells[0].Value != null)
 			{
 				string newLocker = dataGridLockerData.Rows[e.RowIndex].Cells[0].Value.ToString();
 				string[] parts = newLocker.Split('-');
