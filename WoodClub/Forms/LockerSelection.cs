@@ -100,7 +100,7 @@ namespace WoodClub.Forms
 					(locker, member) => new { locker, member })
 				.Join(
 					context.LockerLocations,
-					lockerMember => lockerMember.locker.Location,
+					lockerMember => lockerMember.locker.LocationCode,
 					lockerLocation => lockerLocation.Location,
 					(lockerMember, lockerLocation) => new
 					{
@@ -136,7 +136,7 @@ namespace WoodClub.Forms
 					(locker, member) => new { locker, member })
 				.Join(
 					context.LockerLocations,
-					lockerMember => lockerMember.locker.Location,
+					lockerMember => lockerMember.locker.LocationCode,
 					lockerLocation => lockerLocation.Location,
 					(lockerMember, lockerLocation) => new
 					{
@@ -161,6 +161,28 @@ namespace WoodClub.Forms
 					Location = locker.Location
 				}) ;
 			}
+
+			var vacantLockers = (from ll in context.Lockers
+								 where ll.Badge == String.Empty
+								 select ll).ToList();
+
+			foreach (var lockerVacant in vacantLockers)
+			{
+				var location = (from loc in context.LockerLocations
+								where loc.Location == lockerVacant.LocationCode
+								select loc).FirstOrDefault();
+				joinedListAll.Add(new JoinedListItem
+				{
+					Selected = "Add",
+					Badge = String.Empty,
+					FirstName = String.Empty,
+					LastName = String.Empty,
+					Locker = lockerVacant.LockerTitle,
+					Location = location.Description
+				});
+			}
+
+
 			sblLockersAll = new SortableBindingList<JoinedListItem>(joinedListAll);
 			bs_AllLockers.DataSource = new SortableBindingList<JoinedListItem>(joinedListAll);
 		}

@@ -41,6 +41,7 @@
 			// 
 			// dataGridLockerLocationEdit
 			// 
+			this.dataGridLockerLocationEdit.AllowUserToDeleteRows = false;
 			this.dataGridLockerLocationEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridLockerLocationEdit.AutoGenerateColumns = false;
@@ -51,6 +52,7 @@
 			this.dataGridLockerLocationEdit.DataSource = this.bs_LockerLocation;
 			this.dataGridLockerLocationEdit.Location = new System.Drawing.Point(12, 12);
 			this.dataGridLockerLocationEdit.Name = "dataGridLockerLocationEdit";
+			this.dataGridLockerLocationEdit.RowHeadersVisible = false;
 			this.dataGridLockerLocationEdit.Size = new System.Drawing.Size(463, 341);
 			this.dataGridLockerLocationEdit.TabIndex = 0;
 			// 
@@ -77,7 +79,7 @@
 			// LocationKey
 			// 
 			this.LocationKey.DataPropertyName = "Location";
-			this.LocationKey.HeaderText = "Location";
+			this.LocationKey.HeaderText = "Location Code";
 			this.LocationKey.Name = "LocationKey";
 			// 
 			// Description

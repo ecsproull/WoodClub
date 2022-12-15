@@ -283,5 +283,11 @@ namespace WoodClub
             LockerLocations lockerLocations = new LockerLocations();
             lockerLocations.ShowDialog();
 		}
+
+		private void lockersToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+            LockerData ld = new LockerData();
+            ld.ShowDialog();
+		}
 	}
 }

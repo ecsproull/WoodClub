@@ -25,8 +25,6 @@ namespace WoodClub
         private List<BadgeCode> DataSource;
         private List<acc_timeseg> TZdatasource;
         private List<Transaction> DStransactions = new List<Transaction>();
-       // private static BindingSource activityBindingSource = new BindingSource();
-        private bool dirty = false;
         private bool authorize = false;
         private bool oneTime = false;
         private bool newCredit = false;     // Credit values trigger transaction
@@ -367,7 +365,6 @@ namespace WoodClub
                         {
                             MessageBox.Show("Update failed!");
                         }
-                        dirty = true;
                     }
                     if (newBadge)        // New Badge Request
                     {
@@ -472,7 +469,6 @@ namespace WoodClub
 
         private new void TextChanged(object sender, EventArgs e)
         {
-            dirty = true;
             newAccess = true;
         }
 
@@ -502,7 +498,6 @@ namespace WoodClub
                                 bArray = myStream.ToArray();
                             }
                         }
-                        dirty = true;
                     }
                 }
                 catch (Exception ex)

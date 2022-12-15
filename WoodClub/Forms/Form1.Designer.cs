@@ -67,15 +67,15 @@
 			this.monthlyClubUsageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.lockerSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.dailySummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-			this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-			this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
 			this.lockersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.locationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.costsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+			this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+			this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).BeginInit();
@@ -414,30 +414,6 @@
 			this.dailySummaryToolStripMenuItem.Text = "Daily Summary";
 			this.dailySummaryToolStripMenuItem.Click += new System.EventHandler(this.dailySummaryToolStripMenuItem_Click);
 			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-			// 
-			// toolStripLabel2
-			// 
-			this.toolStripLabel2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel2.Image")));
-			this.toolStripLabel2.Name = "toolStripLabel2";
-			this.toolStripLabel2.Size = new System.Drawing.Size(67, 22);
-			this.toolStripLabel2.Text = "Badge =";
-			// 
-			// toolStripTextBox1
-			// 
-			this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.toolStripTextBox1.Name = "toolStripTextBox1";
-			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
-			this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
-			this.toolStripTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
-			// 
-			// memberRosterTableAdapter
-			// 
-			this.memberRosterTableAdapter.ClearBeforeFill = true;
-			// 
 			// toolStripSeparator3
 			// 
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
@@ -461,6 +437,7 @@
 			this.lockersToolStripMenuItem.Name = "lockersToolStripMenuItem";
 			this.lockersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.lockersToolStripMenuItem.Text = "Edit Lockers";
+			this.lockersToolStripMenuItem.Click += new System.EventHandler(this.lockersToolStripMenuItem_Click);
 			// 
 			// locationsToolStripMenuItem
 			// 
@@ -474,6 +451,30 @@
 			this.costsToolStripMenuItem.Name = "costsToolStripMenuItem";
 			this.costsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.costsToolStripMenuItem.Text = "Edit Costs";
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+			// 
+			// toolStripLabel2
+			// 
+			this.toolStripLabel2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel2.Image")));
+			this.toolStripLabel2.Name = "toolStripLabel2";
+			this.toolStripLabel2.Size = new System.Drawing.Size(67, 22);
+			this.toolStripLabel2.Text = "Badge =";
+			// 
+			// toolStripTextBox1
+			// 
+			this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+			this.toolStripTextBox1.Name = "toolStripTextBox1";
+			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
+			this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
+			this.toolStripTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
+			// 
+			// memberRosterTableAdapter
+			// 
+			this.memberRosterTableAdapter.ClearBeforeFill = true;
 			// 
 			// Form1
 			// 
