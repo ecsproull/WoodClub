@@ -16,7 +16,7 @@ namespace WoodClub
     public partial class WoodclubEntities : DbContext
     {
         public WoodclubEntities()
-            : base("name=WoodclubEntities")
+            : base("name=WoodClubLockerTestEntities")
         {
         }
     
@@ -25,15 +25,16 @@ namespace WoodClub
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<MemberRFcard> MemberRFcards { get; set; }
-        public virtual DbSet<MemberRoster> MemberRosters { get; set; }
-        public virtual DbSet<Transaction> Transactions { get; set; }
-        public virtual DbSet<Admin> Admins { get; set; }
-        public virtual DbSet<MemberPhoto> MemberPhotos { get; set; }
-        public virtual DbSet<Time_zones> Time_zones { get; set; }
-        public virtual DbSet<BadgeCode> BadgeCodes { get; set; }
         public virtual DbSet<LockerCost> LockerCosts { get; set; }
         public virtual DbSet<LockerLocation> LockerLocations { get; set; }
         public virtual DbSet<Locker> Lockers { get; set; }
+        public virtual DbSet<MemberRFcard> MemberRFcards { get; set; }
+        public virtual DbSet<MemberRoster> MemberRosters { get; set; }
+        public virtual DbSet<MonitorParam> MonitorParams { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<BadgeCode> BadgeCodes { get; set; }
+        public virtual DbSet<MemberPhoto> MemberPhotos { get; set; }
+        public virtual DbSet<Time_zones> Time_zones { get; set; }
     }
 }

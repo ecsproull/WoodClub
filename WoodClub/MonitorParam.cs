@@ -12,9 +12,13 @@ namespace WoodClub
     using System;
     using System.Collections.Generic;
     
-    public partial class LockerCost
+    public partial class MonitorParam
     {
-        public string Code { get; set; }
-        public Nullable<int> Cost { get; set; }
+        public int Monitor_ID { get; set; }
+        public string Monitor_Badge { get; set; }
+        public string Monitor_Preferred_Contact { get; set; }
+        public string Monitor_Arrive_SCW { get; set; }
+        public string Monitor_Depart_SCW { get; set; }
+        public string Monitor_Secret { get; set; }
     }
 }

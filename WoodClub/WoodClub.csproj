@@ -250,6 +250,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelWC.edmx</DependentUpon>
     </Compile>
+    <Compile Include="MonitorParam.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Time_zones.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="TransactionAddition.cs" />
     <Compile Include="Usage.cs" />
     <Compile Include="Monitors.cs" />
@@ -262,12 +271,6 @@
       <DependentUpon>SCWform.cs</DependentUpon>
     </Compile>
     <Compile Include="SortableBindingList.cs" />
-    <Compile Include="Time_zones.cs">
-      <DependentUpon>ModelWC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Transaction.cs">
-      <DependentUpon>ModelWC.tt</DependentUpon>
-    </Compile>
     <Compile Include="UnpaidMember.cs" />
     <Compile Include="WoodclubDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -320,10 +323,6 @@
     <EmbeddedResource Include="Forms\SCWform.resx">
       <DependentUpon>SCWform.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="ModelWC.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelWC.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="ModelTK.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelTK.Designer.cs</LastGenOutput>
@@ -331,6 +330,10 @@
     <None Include="ModelTK.edmx.diagram">
       <DependentUpon>ModelTK.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="ModelWC.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelWC.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="ModelWC.edmx.diagram">
       <DependentUpon>ModelWC.edmx</DependentUpon>
     </None>

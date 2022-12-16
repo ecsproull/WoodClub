@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="32d0585dd65343e6ae07431a36a069ba" Name="Diagram1" ZoomLevel="44">
+      <Diagram DiagramId="4ad409083e974bacb857cfe3024372a8" Name="Diagram1" ZoomLevel="25">
         <EntityTypeShape EntityType="ZKAccessModel.acc_timeseg" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
