@@ -16,7 +16,7 @@ namespace WoodClub
     public partial class WoodclubEntities : DbContext
     {
         public WoodclubEntities()
-            : base("name=WoodClubLockerTestEntities")
+            : base("name=WoodclubEntities")
         {
         }
     

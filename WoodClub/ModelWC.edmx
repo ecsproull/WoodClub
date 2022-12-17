@@ -4,9 +4,9 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WoodClubEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="WoodclubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
-warning 6002: The table/view 'WoodClubLockerTest.dbo.Admin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Woodclub.dbo.Admin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="id" />
@@ -25,7 +25,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Admin' does not have a prim
           <Property Name="IsDirty" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'WoodClubLockerTest.dbo.BadgeCodes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Woodclub.dbo.BadgeCodes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BadgeCodes">
           <Key>
             <PropertyRef Name="id" />
@@ -61,7 +61,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.BadgeCodes' does not have a
           <Property Name="Badge" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'WoodClubLockerTest.dbo.MemberPhotos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Woodclub.dbo.MemberPhotos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MemberPhotos">
           <Key>
             <PropertyRef Name="Badge" />
@@ -130,7 +130,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.MemberPhotos' does not have
           <Property Name="Monitor_Secret" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Woodclub.dbo.Time_zones' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Time_zones">
           <Key>
             <PropertyRef Name="id" />
@@ -198,7 +198,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
           <Property Name="TransDate" Type="datetime" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="WoodClubEntitiesStoreContainer">
+        <EntityContainer Name="WoodclubModelStoreContainer">
           <EntitySet Name="LockerCost" EntityType="Self.LockerCost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LockerLocations" EntityType="Self.LockerLocations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lockers" EntityType="Self.Lockers" Schema="dbo" store:Type="Tables" />
@@ -294,7 +294,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="WoodClubEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="WoodclubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="LockerCost">
           <Key>
             <PropertyRef Name="Code" />
@@ -480,7 +480,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
           <Property Name="saturday_start3" Type="DateTime" Precision="3" />
           <Property Name="saturday_end3" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityContainer Name="WoodClubLockerTestEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="WoodclubEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="LockerCosts" EntityType="Self.LockerCost" />
           <EntitySet Name="LockerLocations" EntityType="Self.LockerLocation" />
           <EntitySet Name="Lockers" EntityType="Self.Locker" />
@@ -498,9 +498,9 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WoodClubEntitiesStoreContainer" CdmEntityContainer="WoodClubLockerTestEntities">
+        <EntityContainerMapping StorageEntityContainer="WoodclubModelStoreContainer" CdmEntityContainer="WoodclubEntities">
           <EntitySetMapping Name="LockerCosts">
-            <EntityTypeMapping TypeName="WoodClubEntities.LockerCost">
+            <EntityTypeMapping TypeName="WoodclubModel.LockerCost">
               <MappingFragment StoreEntitySet="LockerCost">
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
@@ -508,7 +508,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LockerLocations">
-            <EntityTypeMapping TypeName="WoodClubEntities.LockerLocation">
+            <EntityTypeMapping TypeName="WoodclubModel.LockerLocation">
               <MappingFragment StoreEntitySet="LockerLocations">
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -516,7 +516,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Lockers">
-            <EntityTypeMapping TypeName="WoodClubEntities.Locker">
+            <EntityTypeMapping TypeName="WoodclubModel.Locker">
               <MappingFragment StoreEntitySet="Lockers">
                 <ScalarProperty Name="LockerTitle" ColumnName="LockerTitle" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
@@ -526,7 +526,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MemberRFcards">
-            <EntityTypeMapping TypeName="WoodClubEntities.MemberRFcard">
+            <EntityTypeMapping TypeName="WoodclubModel.MemberRFcard">
               <MappingFragment StoreEntitySet="MemberRFcard">
                 <ScalarProperty Name="RECORD_NR" ColumnName="RECORD_NR" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -539,7 +539,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MemberRosters">
-            <EntityTypeMapping TypeName="WoodClubEntities.MemberRoster">
+            <EntityTypeMapping TypeName="WoodclubModel.MemberRoster">
               <MappingFragment StoreEntitySet="MemberRoster">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
@@ -577,7 +577,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MonitorParams">
-            <EntityTypeMapping TypeName="WoodClubEntities.MonitorParam">
+            <EntityTypeMapping TypeName="WoodclubModel.MonitorParam">
               <MappingFragment StoreEntitySet="MonitorParams">
                 <ScalarProperty Name="Monitor_ID" ColumnName="Monitor_ID" />
                 <ScalarProperty Name="Monitor_Badge" ColumnName="Monitor_Badge" />
@@ -589,7 +589,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transactions">
-            <EntityTypeMapping TypeName="WoodClubEntities.Transaction">
+            <EntityTypeMapping TypeName="WoodclubModel.Transaction">
               <MappingFragment StoreEntitySet="Transactions">
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
                 <ScalarProperty Name="RecCard" ColumnName="RecCard" />
@@ -602,7 +602,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Admins">
-            <EntityTypeMapping TypeName="WoodClubEntities.Admin">
+            <EntityTypeMapping TypeName="WoodclubModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
@@ -617,7 +617,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BadgeCodes">
-            <EntityTypeMapping TypeName="WoodClubEntities.BadgeCode">
+            <EntityTypeMapping TypeName="WoodclubModel.BadgeCode">
               <MappingFragment StoreEntitySet="BadgeCodes">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="RFcode" ColumnName="RFcode" />
@@ -629,7 +629,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MemberPhotos">
-            <EntityTypeMapping TypeName="WoodClubEntities.MemberPhoto">
+            <EntityTypeMapping TypeName="WoodclubModel.MemberPhoto">
               <MappingFragment StoreEntitySet="MemberPhotos">
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
@@ -637,7 +637,7 @@ warning 6002: The table/view 'WoodClubLockerTest.dbo.Time_zones' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Time_zones">
-            <EntityTypeMapping TypeName="WoodClubEntities.Time_zones">
+            <EntityTypeMapping TypeName="WoodclubModel.Time_zones">
               <MappingFragment StoreEntitySet="Time_zones">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="TimeZone1Id" ColumnName="TimeZone1Id" />

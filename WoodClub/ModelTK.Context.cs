@@ -16,7 +16,7 @@ namespace WoodClub
     public partial class ZKTecoEntities : DbContext
     {
         public ZKTecoEntities()
-            : base("name=ZKAccessEntities")
+            : base("name=ZKTecoEntities")
         {
         }
     
