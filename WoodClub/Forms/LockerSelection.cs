@@ -54,16 +54,22 @@ namespace WoodClub.Forms
 				{
 					if (senderName == "dataGridViewAllLockers")
 					{
-						DataGridViewRow row = this.dataGridViewAllLockers.Rows[e.RowIndex];
-						JoinedListItem jli = new JoinedListItem
-						{
-							Selected = "Remove",
-							Badge = this.member.Badge,
-							FirstName = this.member.FirstName,
-							LastName = this.member.LastName,
-							Locker = row.Cells["LockerAll"].Value.ToString(),
-							Location = row.Cells["WhereAll"].Value.ToString()
-						};
+						JoinedListItem jli = this.sblLockersAll[e.RowIndex];
+                        //                  JoinedListItem jli = new JoinedListItem
+                        //                  {
+                        //                      Selected = "Remove",
+                        //                      BadgeOriginal = jli.
+                        //	Badge = this.member.Badge,
+                        //	FirstName = this.member.FirstName,
+                        //	LastName = this.member.LastName,
+                        //	Locker = row.Cells["LockerAll"].Value.ToString(),
+                        //	Location = row.Cells["WhereAll"].Value.ToString()
+                        //};
+
+                        jli.Badge = this.member.Badge;
+                        jli.LastName = this.member.LastName;
+                        jli.FirstName = this.member.FirstName;
+                        jli.Selected = "Remove";
 
 						sblLockersCurrent.Add(jli);
 						sblLockersAll.Remove(sblLockersAll[e.RowIndex]);
@@ -73,14 +79,40 @@ namespace WoodClub.Forms
 					}
 					else
 					{
-						//Shouldn't happen
-					}
+                        JoinedListItem jli = sblLockersCurrent[e.RowIndex];
+                        jli.Badge = member.Badge;
+                        jli.FirstName = member.FirstName;
+                        jli.LastName = member.LastName;
+                        jli.Selected = "Remove";
+                        this.dataGridViewSelectedLockers.EndEdit();
+                        this.dataGridViewSelectedLockers.Refresh();
+                    }
 				}
 				else
 				{
 					if (senderName == "dataGridViewSelectedLockers")
 					{
-						DataGridViewRow row = this.dataGridViewSelectedLockers.Rows[e.RowIndex];
+                        JoinedListItem jli = sblLockersCurrent[e.RowIndex];
+                        if (jli.Badge == jli.BadgeOriginal)
+                        {
+                            jli.Badge = string.Empty;
+                            jli.FirstName = string.Empty;
+                            jli.LastName = string.Empty;
+                            jli.Selected = "Add";
+                            this.dataGridViewSelectedLockers.EndEdit();
+                            this.dataGridViewSelectedLockers.Refresh();
+                        }
+                        else
+                        {
+                            jli.Badge = jli.BadgeOriginal;
+                            jli.FirstName = jli.FirstNameOriginal;
+                            jli.LastName = jli.LastNameOriginal;
+                            jli.Selected = "Add";
+                            sblLockersAll.Add(jli);
+                            sblLockersCurrent.Remove(sblLockersCurrent[e.RowIndex]);
+                            this.dataGridViewAllLockers.EndEdit();
+                            this.dataGridViewAllLockers.Refresh();
+                        }
 					}
 					else
 					{
@@ -91,124 +123,144 @@ namespace WoodClub.Forms
 		}
 
 		private void LockerSelection_Load(object sender, EventArgs e)
-		{
-			var currentLockers = context.Lockers
-				.Join(
-					context.MemberRosters,
-					locker => locker.Badge,
-					member => member.Badge,
-					(locker, member) => new { locker, member })
-				.Join(
-					context.LockerLocations,
-					lockerMember => lockerMember.locker.LocationCode,
-					lockerLocation => lockerLocation.Location,
-					(lockerMember, lockerLocation) => new
-					{
-						Badge = lockerMember.member.Badge,
-						FirstName = lockerMember.member.FirstName,
-						LastName = lockerMember.member.LastName,
-						Locker = lockerMember.locker.LockerTitle,
-						Location = lockerLocation.Description
-					})
-				.Where(m => m.Badge == badge).ToList();
+        {
+            LoadLockers();
+        }
 
-			List<JoinedListItem> joinedListCurrent = new List<JoinedListItem>();
-			foreach (var locker in currentLockers)
-			{
-				joinedListCurrent.Add(new JoinedListItem
-				{
-					Selected = "Remove",
-					Badge = locker.Badge,
-					FirstName = locker.FirstName,
-					LastName = locker.LastName,
-					Locker = locker.Locker,
-					Location = locker.Location
-				});
-			}
-			sblLockersCurrent = new SortableBindingList<JoinedListItem>(joinedListCurrent);
-			bs_SelectedLockers.DataSource = sblLockersCurrent;
+        private void LoadLockers()
+        {
+            var currentLockers = context.Lockers
+                            .Join(
+                                context.MemberRosters,
+                                locker => locker.Badge,
+                                member => member.Badge,
+                                (locker, member) => new { locker, member })
+                            .Join(
+                                context.LockerLocations,
+                                lockerMember => lockerMember.locker.LocationCode,
+                                lockerLocation => lockerLocation.Location,
+                                (lockerMember, lockerLocation) => new
+                                {
+                                    Badge = lockerMember.member.Badge,
+                                    FirstName = lockerMember.member.FirstName,
+                                    LastName = lockerMember.member.LastName,
+                                    Locker = lockerMember.locker.LockerTitle,
+                                    Location = lockerLocation.Description
+                                })
+                            .Where(m => m.Badge == badge).ToList();
 
-			var allLockers = context.Lockers
-				.Join(
-					context.MemberRosters,
-					locker => locker.Badge,
-					member => member.Badge,
-					(locker, member) => new { locker, member })
-				.Join(
-					context.LockerLocations,
-					lockerMember => lockerMember.locker.LocationCode,
-					lockerLocation => lockerLocation.Location,
-					(lockerMember, lockerLocation) => new
-					{
-						Badge = lockerMember.member.Badge,
-						FirstName = lockerMember.member.FirstName,
-						LastName = lockerMember.member.LastName,
-						Locker = lockerMember.locker.LockerTitle,
-						Location = lockerLocation.Description
-					})
-				.Where(m => m.Badge != badge).ToList();
+            List<JoinedListItem> joinedListCurrent = new List<JoinedListItem>();
+            foreach (var locker in currentLockers)
+            {
+                joinedListCurrent.Add(new JoinedListItem
+                {
+                    Selected = "Remove",
+                    Badge = locker.Badge,
+                    BadgeOriginal = locker.Badge,
+                    FirstName = locker.FirstName,
+                    FirstNameOriginal = locker.FirstName,
+                    LastName = locker.LastName,
+                    LastNameOriginal = locker.LastName,
+                    Locker = locker.Locker,
+                    Location = locker.Location
+                });
+            }
+            sblLockersCurrent = new SortableBindingList<JoinedListItem>(joinedListCurrent);
+            bs_SelectedLockers.DataSource = sblLockersCurrent;
 
-			List<JoinedListItem> joinedListAll = new List<JoinedListItem>();
-			foreach (var locker in allLockers)
-			{
-				joinedListAll.Add(new JoinedListItem
-				{
-					Selected = "Add",
-					Badge = locker.Badge,
-					FirstName = locker.FirstName,
-					LastName = locker.LastName,
-					Locker = locker.Locker,
-					Location = locker.Location
-				}) ;
-			}
+            var allLockers = context.Lockers
+                .Join(
+                    context.MemberRosters,
+                    locker => locker.Badge,
+                    member => member.Badge,
+                    (locker, member) => new { locker, member })
+                .Join(
+                    context.LockerLocations,
+                    lockerMember => lockerMember.locker.LocationCode,
+                    lockerLocation => lockerLocation.Location,
+                    (lockerMember, lockerLocation) => new
+                    {
+                        Badge = lockerMember.member.Badge,
+                        FirstName = lockerMember.member.FirstName,
+                        LastName = lockerMember.member.LastName,
+                        Locker = lockerMember.locker.LockerTitle,
+                        Location = lockerLocation.Description
+                    })
+                .Where(m => m.Badge != badge).ToList();
 
-			var vacantLockers = (from ll in context.Lockers
-								 where ll.Badge == String.Empty
-								 select ll).ToList();
+            List<JoinedListItem> joinedListAll = new List<JoinedListItem>();
+            foreach (var locker in allLockers)
+            {
+                joinedListAll.Add(new JoinedListItem
+                {
+                    Selected = "Add",
+                    Badge = locker.Badge,
+                    BadgeOriginal = locker.Badge,
+                    FirstName = locker.FirstName,
+                    FirstNameOriginal = locker.FirstName,
+                    LastName = locker.LastName,
+                    LastNameOriginal = locker.LastName,
+                    Locker = locker.Locker,
+                    Location = locker.Location
+                });
+            }
 
-			foreach (var lockerVacant in vacantLockers)
-			{
-				var location = (from loc in context.LockerLocations
-								where loc.Location == lockerVacant.LocationCode
-								select loc).FirstOrDefault();
-				joinedListAll.Add(new JoinedListItem
-				{
-					Selected = "Add",
-					Badge = String.Empty,
-					FirstName = String.Empty,
-					LastName = String.Empty,
-					Locker = lockerVacant.LockerTitle,
-					Location = location.Description
-				});
-			}
+            var vacantLockers = (from ll in context.Lockers
+                                 where ll.Badge == String.Empty
+                                 select ll).ToList();
+
+            foreach (var lockerVacant in vacantLockers)
+            {
+                var location = (from loc in context.LockerLocations
+                                where loc.Location == lockerVacant.LocationCode
+                                select loc).FirstOrDefault();
+                joinedListAll.Add(new JoinedListItem
+                {
+                    Selected = "Add",
+                    Badge = String.Empty,
+                    BadgeOriginal = String.Empty,
+                    FirstName = String.Empty,
+                    FirstNameOriginal = String.Empty,
+                    LastName = String.Empty,
+                    LastNameOriginal = String.Empty,
+                    Locker = lockerVacant.LockerTitle,
+                    Location = location.Description
+                });
+            }
 
 
-			sblLockersAll = new SortableBindingList<JoinedListItem>(joinedListAll);
-			bs_AllLockers.DataSource = new SortableBindingList<JoinedListItem>(joinedListAll);
-		}
+            sblLockersAll = new SortableBindingList<JoinedListItem>(joinedListAll);
+            bs_AllLockers.DataSource = new SortableBindingList<JoinedListItem>(joinedListAll);
+        }
 
-		private void buttonSave_Click(object sender, EventArgs e)
-		{
-			foreach (JoinedListItem item in sblLockersCurrent)
-			{
-				Locker l = (from loc in context.Lockers
-							where loc.LockerTitle == item.Locker
-							select loc).FirstOrDefault();
-				l.Badge = item.Badge;
-			}
+        private void SaveChanges()
+        {
+            foreach (JoinedListItem item in sblLockersCurrent)
+            {
+                Locker l = (from loc in context.Lockers
+                            where loc.LockerTitle == item.Locker
+                            select loc).FirstOrDefault();
+                l.Badge = item.Badge;
+            }
 
-			context.SaveChanges();
-			DialogResult = DialogResult.OK;
-		}
+            context.SaveChanges();
+        }
 
-		private void buttonCancel_Click(object sender, EventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            SaveChanges();
+            DialogResult = DialogResult.OK;
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.Cancel;
 		}
 
 		private void buttonApply_Click(object sender, EventArgs e)
 		{
-			DialogResult = DialogResult.Yes;
+            SaveChanges();
+            LoadLockers();
 		}
 	}
 
@@ -220,5 +272,9 @@ namespace WoodClub.Forms
 		public string LastName { get; set; }
 		public string Locker { get; set; }
 		public string Location { get; set; }
-	}
+
+        public string BadgeOriginal { get; set; }
+        public string FirstNameOriginal { get; set; }
+        public string LastNameOriginal { get; set; }
+    }
 }
