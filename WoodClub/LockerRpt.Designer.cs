@@ -30,24 +30,24 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewLockers = new System.Windows.Forms.DataGridView();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxTotalRevenue = new System.Windows.Forms.TextBox();
             this.labelLockerFilter = new System.Windows.Forms.Label();
             this.textBoxLockerFilter = new System.Windows.Forms.TextBox();
+            this.bindingSourceLocker = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bindingSourceLocker = new System.Windows.Forms.BindingSource(this.components);
+            this.Cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Locate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLockers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceLocker)).BeginInit();
             this.SuspendLayout();
@@ -72,41 +72,13 @@
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
             this.Cost,
-            this.Location});
+            this.Locate});
             this.dataGridViewLockers.DataSource = this.bindingSourceLocker;
             this.dataGridViewLockers.Location = new System.Drawing.Point(0, 41);
             this.dataGridViewLockers.Name = "dataGridViewLockers";
             this.dataGridViewLockers.RowHeadersVisible = false;
             this.dataGridViewLockers.Size = new System.Drawing.Size(1329, 512);
             this.dataGridViewLockers.TabIndex = 1;
-            // 
-            // Email
-            // 
-            this.Email.DataPropertyName = "Email";
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.Width = 200;
-            // 
-            // Phone
-            // 
-            this.Phone.DataPropertyName = "Phone";
-            this.Phone.HeaderText = "Phone";
-            this.Phone.Name = "Phone";
-            // 
-            // Cost
-            // 
-            this.Cost.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Cost.DataPropertyName = "Cost";
-            this.Cost.HeaderText = "Cost";
-            this.Cost.Name = "Cost";
-            this.Cost.Width = 50;
-            // 
-            // Location
-            // 
-            this.Location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Location.DataPropertyName = "Location";
-            this.Location.HeaderText = "Location";
-            this.Location.Name = "Location";
             // 
             // button1
             // 
@@ -152,6 +124,10 @@
             this.textBoxLockerFilter.Size = new System.Drawing.Size(77, 20);
             this.textBoxLockerFilter.TabIndex = 6;
             // 
+            // bindingSourceLocker
+            // 
+            this.bindingSourceLocker.DataSource = typeof(WoodClub.Lockers);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -177,6 +153,19 @@
             this.dataGridViewTextBoxColumn3.MaxInputLength = 20;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "Email";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.Width = 200;
+            // 
+            // Phone
+            // 
+            this.Phone.DataPropertyName = "Phone";
+            this.Phone.HeaderText = "Phone";
+            this.Phone.Name = "Phone";
             // 
             // dataGridViewCheckBoxColumn1
             // 
@@ -221,9 +210,20 @@
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             this.dataGridViewTextBoxColumn7.Width = 50;
             // 
-            // bindingSourceLocker
+            // Cost
             // 
-            this.bindingSourceLocker.DataSource = typeof(WoodClub.Lockers);
+            this.Cost.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Cost.DataPropertyName = "Cost";
+            this.Cost.HeaderText = "Cost";
+            this.Cost.Name = "Cost";
+            this.Cost.Width = 50;
+            // 
+            // Locate
+            // 
+            this.Locate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Locate.DataPropertyName = "Location";
+            this.Locate.HeaderText = "Location";
+            this.Locate.Name = "Locate";
             // 
             // LockerRpt
             // 
@@ -250,22 +250,21 @@
         private System.Windows.Forms.DataGridView dataGridViewLockers;
         private System.Windows.Forms.BindingSource bindingSourceLocker;
         private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
-		private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Cost;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Location;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textBoxTotalRevenue;
         private System.Windows.Forms.Label labelLockerFilter;
         private System.Windows.Forms.TextBox textBoxLockerFilter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Locate;
     }
 }
