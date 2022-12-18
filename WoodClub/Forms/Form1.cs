@@ -74,9 +74,27 @@ namespace WoodClub
             dataGridView1.DataSource = bsMembers;
             bsMembers.Position = 0;
             bindingNavigator1.BindingSource = bsMembers;
-            ActiveControl = toolStripTextBox1.Control;
+            toolStripTextBoxFilter.KeyUp += TextBoxName_KeyUp;
         }
-        
+
+        private void TextBoxName_KeyUp(object sender, KeyEventArgs e)
+        {
+            string filter = toolStripTextBoxFilter.Text;
+            if (filter == string.Empty)
+            {
+                bsMembers.DataSource = blMembers;
+            }
+            else
+            {
+                var filteredBindingList = new SortableBindingList<MemberRoster>(blMembers.Where(
+                    x => x.FirstName.ToUpper().Contains(filter.ToUpper()) || 
+                    x.LastName.ToUpper().Contains(filter.ToUpper()) ||
+                    x.Badge.Contains(filter)).ToList());
+                bsMembers.DataSource = filteredBindingList;
+                dataGridView1.Refresh();
+            }
+        }
+
         private void SetUpEventsForDataGridViewSorting()
         {
             bsMembers.PositionChanged += bsMembers_PositionChanged;
@@ -291,5 +309,23 @@ namespace WoodClub
             }
 
         }
-    }
+
+		private void locationsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+            LockerLocations lockerLocations = new LockerLocations();
+            lockerLocations.ShowDialog();
+		}
+
+		private void lockersToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+            LockerData ld = new LockerData();
+            ld.ShowDialog();
+		}
+
+		private void costsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+            LockerPrices lockerPrices = new LockerPrices();
+            lockerPrices.ShowDialog();
+		}
+	}
 }

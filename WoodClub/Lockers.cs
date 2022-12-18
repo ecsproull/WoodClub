@@ -19,6 +19,7 @@ namespace WoodClub
         public string LastDayValid { get; set; }
         public string ShopVisits { get; set; }
         public string HasLocker { get; set; }
-        public string Modified { get; set; }
+        public int Cost { get; set; }
+        public string Location { get; set; }
     }
 }

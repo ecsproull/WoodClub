@@ -30,25 +30,34 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewLockers = new System.Windows.Forms.DataGridView();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
-            this.bindingSourceLocker = new System.Windows.Forms.BindingSource(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxTotalRevenue = new System.Windows.Forms.TextBox();
+            this.labelLockerFilter = new System.Windows.Forms.Label();
+            this.textBoxLockerFilter = new System.Windows.Forms.TextBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSourceLocker = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLockers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceLocker)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewLockers
             // 
+            this.dataGridViewLockers.AllowUserToAddRows = false;
+            this.dataGridViewLockers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewLockers.AutoGenerateColumns = false;
             this.dataGridViewLockers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLockers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -62,12 +71,42 @@
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8});
+            this.Cost,
+            this.Location});
             this.dataGridViewLockers.DataSource = this.bindingSourceLocker;
             this.dataGridViewLockers.Location = new System.Drawing.Point(0, 41);
             this.dataGridViewLockers.Name = "dataGridViewLockers";
-            this.dataGridViewLockers.Size = new System.Drawing.Size(1243, 512);
+            this.dataGridViewLockers.RowHeadersVisible = false;
+            this.dataGridViewLockers.Size = new System.Drawing.Size(1329, 512);
             this.dataGridViewLockers.TabIndex = 1;
+            // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "Email";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.Width = 200;
+            // 
+            // Phone
+            // 
+            this.Phone.DataPropertyName = "Phone";
+            this.Phone.HeaderText = "Phone";
+            this.Phone.Name = "Phone";
+            // 
+            // Cost
+            // 
+            this.Cost.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Cost.DataPropertyName = "Cost";
+            this.Cost.HeaderText = "Cost";
+            this.Cost.Name = "Cost";
+            this.Cost.Width = 50;
+            // 
+            // Location
+            // 
+            this.Location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Location.DataPropertyName = "Location";
+            this.Location.HeaderText = "Location";
+            this.Location.Name = "Location";
             // 
             // button1
             // 
@@ -79,17 +118,49 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // bindingSourceLocker
+            // label1
             // 
-            this.bindingSourceLocker.DataSource = typeof(WoodClub.Lockers);
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1087, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(114, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Total Locker Revenue";
+            // 
+            // textBoxTotalRevenue
+            // 
+            this.textBoxTotalRevenue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTotalRevenue.Location = new System.Drawing.Point(1208, 10);
+            this.textBoxTotalRevenue.Name = "textBoxTotalRevenue";
+            this.textBoxTotalRevenue.Size = new System.Drawing.Size(72, 20);
+            this.textBoxTotalRevenue.TabIndex = 4;
+            // 
+            // labelLockerFilter
+            // 
+            this.labelLockerFilter.AutoSize = true;
+            this.labelLockerFilter.Location = new System.Drawing.Point(837, 12);
+            this.labelLockerFilter.Name = "labelLockerFilter";
+            this.labelLockerFilter.Size = new System.Drawing.Size(70, 13);
+            this.labelLockerFilter.TabIndex = 5;
+            this.labelLockerFilter.Text = "Filter Lockers";
+            // 
+            // textBoxLockerFilter
+            // 
+            this.textBoxLockerFilter.Location = new System.Drawing.Point(914, 10);
+            this.textBoxLockerFilter.Name = "textBoxLockerFilter";
+            this.textBoxLockerFilter.Size = new System.Drawing.Size(77, 20);
+            this.textBoxLockerFilter.TabIndex = 6;
             // 
             // dataGridViewTextBoxColumn1
             // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn1.DataPropertyName = "Badge";
             this.dataGridViewTextBoxColumn1.HeaderText = "Badge";
             this.dataGridViewTextBoxColumn1.MaxInputLength = 10;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 65;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -107,25 +178,14 @@
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
-            // Email
-            // 
-            this.Email.DataPropertyName = "Email";
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.Width = 200;
-            // 
-            // Phone
-            // 
-            this.Phone.DataPropertyName = "Phone";
-            this.Phone.HeaderText = "Phone";
-            this.Phone.Name = "Phone";
-            // 
             // dataGridViewCheckBoxColumn1
             // 
+            this.dataGridViewCheckBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewCheckBoxColumn1.DataPropertyName = "ClubDuesPaid";
-            this.dataGridViewCheckBoxColumn1.HeaderText = "Club Dues Paid";
+            this.dataGridViewCheckBoxColumn1.HeaderText = "Dues";
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
             this.dataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn1.Width = 50;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -153,25 +213,27 @@
             // 
             // dataGridViewTextBoxColumn7
             // 
+            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn7.DataPropertyName = "HasLocker";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Has Locker";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Locker";
             this.dataGridViewTextBoxColumn7.MaxInputLength = 20;
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 50;
             // 
-            // dataGridViewTextBoxColumn8
+            // bindingSourceLocker
             // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "Modified";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Modified";
-            this.dataGridViewTextBoxColumn8.MaxInputLength = 20;
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.bindingSourceLocker.DataSource = typeof(WoodClub.Lockers);
             // 
             // LockerRpt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1241, 565);
+            this.ClientSize = new System.Drawing.Size(1332, 565);
+            this.Controls.Add(this.textBoxLockerFilter);
+            this.Controls.Add(this.labelLockerFilter);
+            this.Controls.Add(this.textBoxTotalRevenue);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridViewLockers);
             this.Name = "LockerRpt";
@@ -180,6 +242,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLockers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceLocker)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -187,16 +250,22 @@
         private System.Windows.Forms.DataGridView dataGridViewLockers;
         private System.Windows.Forms.BindingSource bindingSourceLocker;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Cost;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Location;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox textBoxTotalRevenue;
+        private System.Windows.Forms.Label labelLockerFilter;
+        private System.Windows.Forms.TextBox textBoxLockerFilter;
     }
 }

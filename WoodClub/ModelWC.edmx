@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WoodclubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="WoodclubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Woodclub.dbo.Admin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Admin">
@@ -36,6 +36,29 @@ warning 6002: The table/view 'Woodclub.dbo.BadgeCodes' does not have a primary k
           <Property Name="BadgeCodeDesc" Type="nvarchar" MaxLength="40" />
           <Property Name="CodeValue" Type="nvarchar" MaxLength="10" />
           <Property Name="ShowInUi" Type="int" />
+        </EntityType>
+        <EntityType Name="LockerCost">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Cost" Type="int" />
+        </EntityType>
+        <EntityType Name="LockerLocations">
+          <Key>
+            <PropertyRef Name="Location" />
+          </Key>
+          <Property Name="Location" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="75" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lockers">
+          <Key>
+            <PropertyRef Name="LockerTitle" />
+          </Key>
+          <Property Name="LockerTitle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="LocationCode" Type="nvarchar" MaxLength="30" />
+          <Property Name="Badge" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Woodclub.dbo.MemberPhotos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -94,6 +117,17 @@ warning 6002: The table/view 'Woodclub.dbo.MemberPhotos' does not have a primary
           <Property Name="NewBadge" Type="bit" />
           <Property Name="Photo" Type="image" />
           <Property Name="GroupTime" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="MonitorParams">
+          <Key>
+            <PropertyRef Name="Monitor_ID" />
+          </Key>
+          <Property Name="Monitor_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Monitor_Badge" Type="varchar" MaxLength="50" />
+          <Property Name="Monitor_Preferred_Contact" Type="varchar" MaxLength="50" />
+          <Property Name="Monitor_Arrive_SCW" Type="varchar" MaxLength="50" />
+          <Property Name="Monitor_Depart_SCW" Type="varchar" MaxLength="50" />
+          <Property Name="Monitor_Secret" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Woodclub.dbo.Time_zones' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -165,8 +199,12 @@ warning 6002: The table/view 'Woodclub.dbo.Time_zones' does not have a primary k
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityContainer Name="WoodclubModelStoreContainer">
+          <EntitySet Name="LockerCost" EntityType="Self.LockerCost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LockerLocations" EntityType="Self.LockerLocations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lockers" EntityType="Self.Lockers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberRFcard" EntityType="Self.MemberRFcard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberRoster" EntityType="Self.MemberRoster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonitorParams" EntityType="Self.MonitorParams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin" EntityType="Self.Admin" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -252,19 +290,34 @@ warning 6002: The table/view 'Woodclub.dbo.Time_zones' does not have a primary k
     FROM [dbo].[Time_zones] AS [Time_zones]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WoodclubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="WoodclubEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="MemberRFcards" EntityType="WoodclubModel.MemberRFcard" />
-          <EntitySet Name="MemberRosters" EntityType="WoodclubModel.MemberRoster" />
-          <EntitySet Name="Transactions" EntityType="WoodclubModel.Transaction" />
-          <EntitySet Name="Admins" EntityType="WoodclubModel.Admin" />
-          <EntitySet Name="MemberPhotos" EntityType="WoodclubModel.MemberPhoto" />
-          <EntitySet Name="Time_zones" EntityType="WoodclubModel.Time_zones" />
-          <EntitySet Name="BadgeCodes" EntityType="WoodclubModel.BadgeCode" />
-        </EntityContainer>
+        <EntityType Name="LockerCost">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cost" Type="Int32" />
+        </EntityType>
+        <EntityType Name="LockerLocation">
+          <Key>
+            <PropertyRef Name="Location" />
+          </Key>
+          <Property Name="Location" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locker">
+          <Key>
+            <PropertyRef Name="LockerTitle" />
+          </Key>
+          <Property Name="LockerTitle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LocationCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Badge" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="MemberRFcard">
           <Key>
             <PropertyRef Name="RECORD_NR" />
@@ -282,7 +335,7 @@ warning 6002: The table/view 'Woodclub.dbo.Time_zones' does not have a primary k
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Badge" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Badge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -314,6 +367,17 @@ warning 6002: The table/view 'Woodclub.dbo.Time_zones' does not have a primary k
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="GroupTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="MonitorParam">
+          <Key>
+            <PropertyRef Name="Monitor_ID" />
+          </Key>
+          <Property Name="Monitor_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Monitor_Badge" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Monitor_Preferred_Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Monitor_Arrive_SCW" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Monitor_Depart_SCW" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Monitor_Secret" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Transaction">
           <Key>
             <PropertyRef Name="id" />
@@ -334,8 +398,8 @@ warning 6002: The table/view 'Woodclub.dbo.Time_zones' does not have a primary k
             <PropertyRef Name="IsDirty" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Badge" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="CardNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Badge" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CardNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Action" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="EntryCodes" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="AuthorizedTimeZone" Type="Int32" />
@@ -343,11 +407,22 @@ warning 6002: The table/view 'Woodclub.dbo.Time_zones' does not have a primary k
           <Property Name="ActionDate" Type="DateTime" Precision="3" />
           <Property Name="IsDirty" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="BadgeCode">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RFcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BadgeCode1" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="BadgeCodeDesc" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="CodeValue" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ShowInUi" Type="Int32" />
+        </EntityType>
         <EntityType Name="MemberPhoto">
           <Key>
             <PropertyRef Name="Badge" />
           </Key>
-          <Property Name="Badge" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Badge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Time_zones">
@@ -405,175 +480,215 @@ warning 6002: The table/view 'Woodclub.dbo.Time_zones' does not have a primary k
           <Property Name="saturday_start3" Type="DateTime" Precision="3" />
           <Property Name="saturday_end3" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="BadgeCode">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RFcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="BadgeCode1" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Name="BadgeCodeDesc" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="CodeValue" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="ShowInUi" Type="Int32" />
-        </EntityType>
+        <EntityContainer Name="WoodclubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LockerCosts" EntityType="Self.LockerCost" />
+          <EntitySet Name="LockerLocations" EntityType="Self.LockerLocation" />
+          <EntitySet Name="Lockers" EntityType="Self.Locker" />
+          <EntitySet Name="MemberRFcards" EntityType="Self.MemberRFcard" />
+          <EntitySet Name="MemberRosters" EntityType="Self.MemberRoster" />
+          <EntitySet Name="MonitorParams" EntityType="Self.MonitorParam" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="BadgeCodes" EntityType="Self.BadgeCode" />
+          <EntitySet Name="MemberPhotos" EntityType="Self.MemberPhoto" />
+          <EntitySet Name="Time_zones" EntityType="Self.Time_zones" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WoodclubModelStoreContainer" CdmEntityContainer="WoodclubEntities">
+          <EntitySetMapping Name="LockerCosts">
+            <EntityTypeMapping TypeName="WoodclubModel.LockerCost">
+              <MappingFragment StoreEntitySet="LockerCost">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LockerLocations">
+            <EntityTypeMapping TypeName="WoodclubModel.LockerLocation">
+              <MappingFragment StoreEntitySet="LockerLocations">
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lockers">
+            <EntityTypeMapping TypeName="WoodclubModel.Locker">
+              <MappingFragment StoreEntitySet="Lockers">
+                <ScalarProperty Name="LockerTitle" ColumnName="LockerTitle" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MemberRFcards">
             <EntityTypeMapping TypeName="WoodclubModel.MemberRFcard">
               <MappingFragment StoreEntitySet="MemberRFcard">
-                <ScalarProperty Name="RecCard" ColumnName="RecCard" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Badge" ColumnName="Badge" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="RECORD_NR" ColumnName="RECORD_NR" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="RecCard" ColumnName="RecCard" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MemberRosters">
             <EntityTypeMapping TypeName="WoodclubModel.MemberRoster">
               <MappingFragment StoreEntitySet="MemberRoster">
-                <ScalarProperty Name="GroupTime" ColumnName="GroupTime" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="NewBadge" ColumnName="NewBadge" />
-                <ScalarProperty Name="LastDayValid" ColumnName="LastDayValid" />
-                <ScalarProperty Name="OneTime" ColumnName="OneTime" />
-                <ScalarProperty Name="Authorized" ColumnName="Authorized" />
-                <ScalarProperty Name="AuthorizedTimeZone" ColumnName="AuthorizedTimeZone" />
-                <ScalarProperty Name="EntryCodes" ColumnName="EntryCodes" />
-                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
-                <ScalarProperty Name="CreditBank" ColumnName="CreditBank" />
-                <ScalarProperty Name="RecDuesPaid" ColumnName="RecDuesPaid" />
-                <ScalarProperty Name="ClubDuesPaidDate" ColumnName="ClubDuesPaidDate" />
-                <ScalarProperty Name="ClubDuesPaid" ColumnName="ClubDuesPaid" />
-                <ScalarProperty Name="EarlyAM" ColumnName="EarlyAM" />
-                <ScalarProperty Name="ExtHour" ColumnName="ExtHour" />
-                <ScalarProperty Name="ExemptModDate" ColumnName="ExemptModDate" />
-                <ScalarProperty Name="Exempt" ColumnName="Exempt" />
-                <ScalarProperty Name="QBmodified" ColumnName="QBmodified" />
-                <ScalarProperty Name="MemberDate" ColumnName="MemberDate" />
-                <ScalarProperty Name="Locker" ColumnName="Locker" />
-                <ScalarProperty Name="RecCard" ColumnName="RecCard" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Badge" ColumnName="Badge" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="RecCard" ColumnName="RecCard" />
+                <ScalarProperty Name="Locker" ColumnName="Locker" />
+                <ScalarProperty Name="MemberDate" ColumnName="MemberDate" />
+                <ScalarProperty Name="QBmodified" ColumnName="QBmodified" />
+                <ScalarProperty Name="Exempt" ColumnName="Exempt" />
+                <ScalarProperty Name="ExemptModDate" ColumnName="ExemptModDate" />
+                <ScalarProperty Name="ExtHour" ColumnName="ExtHour" />
+                <ScalarProperty Name="EarlyAM" ColumnName="EarlyAM" />
+                <ScalarProperty Name="ClubDuesPaid" ColumnName="ClubDuesPaid" />
+                <ScalarProperty Name="ClubDuesPaidDate" ColumnName="ClubDuesPaidDate" />
+                <ScalarProperty Name="RecDuesPaid" ColumnName="RecDuesPaid" />
+                <ScalarProperty Name="CreditBank" ColumnName="CreditBank" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="EntryCodes" ColumnName="EntryCodes" />
+                <ScalarProperty Name="AuthorizedTimeZone" ColumnName="AuthorizedTimeZone" />
+                <ScalarProperty Name="Authorized" ColumnName="Authorized" />
+                <ScalarProperty Name="OneTime" ColumnName="OneTime" />
+                <ScalarProperty Name="LastDayValid" ColumnName="LastDayValid" />
+                <ScalarProperty Name="NewBadge" ColumnName="NewBadge" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="GroupTime" ColumnName="GroupTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonitorParams">
+            <EntityTypeMapping TypeName="WoodclubModel.MonitorParam">
+              <MappingFragment StoreEntitySet="MonitorParams">
+                <ScalarProperty Name="Monitor_ID" ColumnName="Monitor_ID" />
+                <ScalarProperty Name="Monitor_Badge" ColumnName="Monitor_Badge" />
+                <ScalarProperty Name="Monitor_Preferred_Contact" ColumnName="Monitor_Preferred_Contact" />
+                <ScalarProperty Name="Monitor_Arrive_SCW" ColumnName="Monitor_Arrive_SCW" />
+                <ScalarProperty Name="Monitor_Depart_SCW" ColumnName="Monitor_Depart_SCW" />
+                <ScalarProperty Name="Monitor_Secret" ColumnName="Monitor_Secret" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transactions">
             <EntityTypeMapping TypeName="WoodclubModel.Transaction">
               <MappingFragment StoreEntitySet="Transactions">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="TransDate" ColumnName="TransDate" />
-                <ScalarProperty Name="CreditAmt" ColumnName="CreditAmt" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="EventType" ColumnName="EventType" />
-                <ScalarProperty Name="RecCard" ColumnName="RecCard" />
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="RecCard" ColumnName="RecCard" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CreditAmt" ColumnName="CreditAmt" />
+                <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Admins">
             <EntityTypeMapping TypeName="WoodclubModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
-                <ScalarProperty Name="IsDirty" ColumnName="IsDirty" />
-                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
-                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
-                <ScalarProperty Name="AuthorizedTimeZone" ColumnName="AuthorizedTimeZone" />
-                <ScalarProperty Name="EntryCodes" ColumnName="EntryCodes" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
                 <ScalarProperty Name="CardNo" ColumnName="CardNo" />
-                <ScalarProperty Name="Badge" ColumnName="Badge" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MemberPhotos">
-            <EntityTypeMapping TypeName="WoodclubModel.MemberPhoto">
-              <MappingFragment StoreEntitySet="MemberPhotos">
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="Badge" ColumnName="Badge" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Time_zones">
-            <EntityTypeMapping TypeName="WoodclubModel.Time_zones">
-              <MappingFragment StoreEntitySet="Time_zones">
-                <ScalarProperty Name="saturday_end3" ColumnName="saturday_end3" />
-                <ScalarProperty Name="saturday_start3" ColumnName="saturday_start3" />
-                <ScalarProperty Name="saturday_end2" ColumnName="saturday_end2" />
-                <ScalarProperty Name="saturday_start2" ColumnName="saturday_start2" />
-                <ScalarProperty Name="saturday_end1" ColumnName="saturday_end1" />
-                <ScalarProperty Name="saturday_start1" ColumnName="saturday_start1" />
-                <ScalarProperty Name="friday_end3" ColumnName="friday_end3" />
-                <ScalarProperty Name="friday_start3" ColumnName="friday_start3" />
-                <ScalarProperty Name="friday_end2" ColumnName="friday_end2" />
-                <ScalarProperty Name="friday_start2" ColumnName="friday_start2" />
-                <ScalarProperty Name="friday_end1" ColumnName="friday_end1" />
-                <ScalarProperty Name="friday_start1" ColumnName="friday_start1" />
-                <ScalarProperty Name="thursday_end3" ColumnName="thursday_end3" />
-                <ScalarProperty Name="thursday_start3" ColumnName="thursday_start3" />
-                <ScalarProperty Name="thursday_end2" ColumnName="thursday_end2" />
-                <ScalarProperty Name="thursday_start2" ColumnName="thursday_start2" />
-                <ScalarProperty Name="thursday_end1" ColumnName="thursday_end1" />
-                <ScalarProperty Name="thursday_start1" ColumnName="thursday_start1" />
-                <ScalarProperty Name="wednesday_end3" ColumnName="wednesday_end3" />
-                <ScalarProperty Name="wednesday_start3" ColumnName="wednesday_start3" />
-                <ScalarProperty Name="wednesday_end2" ColumnName="wednesday_end2" />
-                <ScalarProperty Name="wednesday_start2" ColumnName="wednesday_start2" />
-                <ScalarProperty Name="wednesday_end1" ColumnName="wednesday_end1" />
-                <ScalarProperty Name="wednesday_start1" ColumnName="wednesday_start1" />
-                <ScalarProperty Name="tuesday_end3" ColumnName="tuesday_end3" />
-                <ScalarProperty Name="tuesday_start3" ColumnName="tuesday_start3" />
-                <ScalarProperty Name="tuesday_end2" ColumnName="tuesday_end2" />
-                <ScalarProperty Name="tuesday_start2" ColumnName="tuesday_start2" />
-                <ScalarProperty Name="tuesday_end1" ColumnName="tuesday_end1" />
-                <ScalarProperty Name="tuesday_start1" ColumnName="tuesday_start1" />
-                <ScalarProperty Name="monday_end3" ColumnName="monday_end3" />
-                <ScalarProperty Name="monday_start3" ColumnName="monday_start3" />
-                <ScalarProperty Name="monday_end2" ColumnName="monday_end2" />
-                <ScalarProperty Name="monday_start2" ColumnName="monday_start2" />
-                <ScalarProperty Name="monday_end1" ColumnName="monday_end1" />
-                <ScalarProperty Name="monday_start1" ColumnName="monday_start1" />
-                <ScalarProperty Name="sunday_end3" ColumnName="sunday_end3" />
-                <ScalarProperty Name="sunday_start3" ColumnName="sunday_start3" />
-                <ScalarProperty Name="sunday_end2" ColumnName="sunday_end2" />
-                <ScalarProperty Name="sunday_start2" ColumnName="sunday_start2" />
-                <ScalarProperty Name="sunday_end1" ColumnName="sunday_end1" />
-                <ScalarProperty Name="sunday_start1" ColumnName="sunday_start1" />
-                <ScalarProperty Name="TZname" ColumnName="TZname" />
-                <ScalarProperty Name="TZ3dirty" ColumnName="TZ3dirty" />
-                <ScalarProperty Name="TZ2dirty" ColumnName="TZ2dirty" />
-                <ScalarProperty Name="TZ1dirty" ColumnName="TZ1dirty" />
-                <ScalarProperty Name="TimeZone3Id" ColumnName="TimeZone3Id" />
-                <ScalarProperty Name="TimeZone2Id" ColumnName="TimeZone2Id" />
-                <ScalarProperty Name="TimeZone1Id" ColumnName="TimeZone1Id" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="EntryCodes" ColumnName="EntryCodes" />
+                <ScalarProperty Name="AuthorizedTimeZone" ColumnName="AuthorizedTimeZone" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="IsDirty" ColumnName="IsDirty" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BadgeCodes">
             <EntityTypeMapping TypeName="WoodclubModel.BadgeCode">
               <MappingFragment StoreEntitySet="BadgeCodes">
-                <ScalarProperty Name="ShowInUi" ColumnName="ShowInUi" />
-                <ScalarProperty Name="CodeValue" ColumnName="CodeValue" />
-                <ScalarProperty Name="BadgeCodeDesc" ColumnName="BadgeCodeDesc" />
-                <ScalarProperty Name="BadgeCode1" ColumnName="BadgeCode" />
-                <ScalarProperty Name="RFcode" ColumnName="RFcode" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="RFcode" ColumnName="RFcode" />
+                <ScalarProperty Name="BadgeCode1" ColumnName="BadgeCode" />
+                <ScalarProperty Name="BadgeCodeDesc" ColumnName="BadgeCodeDesc" />
+                <ScalarProperty Name="CodeValue" ColumnName="CodeValue" />
+                <ScalarProperty Name="ShowInUi" ColumnName="ShowInUi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberPhotos">
+            <EntityTypeMapping TypeName="WoodclubModel.MemberPhoto">
+              <MappingFragment StoreEntitySet="MemberPhotos">
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Time_zones">
+            <EntityTypeMapping TypeName="WoodclubModel.Time_zones">
+              <MappingFragment StoreEntitySet="Time_zones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="TimeZone1Id" ColumnName="TimeZone1Id" />
+                <ScalarProperty Name="TimeZone2Id" ColumnName="TimeZone2Id" />
+                <ScalarProperty Name="TimeZone3Id" ColumnName="TimeZone3Id" />
+                <ScalarProperty Name="TZ1dirty" ColumnName="TZ1dirty" />
+                <ScalarProperty Name="TZ2dirty" ColumnName="TZ2dirty" />
+                <ScalarProperty Name="TZ3dirty" ColumnName="TZ3dirty" />
+                <ScalarProperty Name="TZname" ColumnName="TZname" />
+                <ScalarProperty Name="sunday_start1" ColumnName="sunday_start1" />
+                <ScalarProperty Name="sunday_end1" ColumnName="sunday_end1" />
+                <ScalarProperty Name="sunday_start2" ColumnName="sunday_start2" />
+                <ScalarProperty Name="sunday_end2" ColumnName="sunday_end2" />
+                <ScalarProperty Name="sunday_start3" ColumnName="sunday_start3" />
+                <ScalarProperty Name="sunday_end3" ColumnName="sunday_end3" />
+                <ScalarProperty Name="monday_start1" ColumnName="monday_start1" />
+                <ScalarProperty Name="monday_end1" ColumnName="monday_end1" />
+                <ScalarProperty Name="monday_start2" ColumnName="monday_start2" />
+                <ScalarProperty Name="monday_end2" ColumnName="monday_end2" />
+                <ScalarProperty Name="monday_start3" ColumnName="monday_start3" />
+                <ScalarProperty Name="monday_end3" ColumnName="monday_end3" />
+                <ScalarProperty Name="tuesday_start1" ColumnName="tuesday_start1" />
+                <ScalarProperty Name="tuesday_end1" ColumnName="tuesday_end1" />
+                <ScalarProperty Name="tuesday_start2" ColumnName="tuesday_start2" />
+                <ScalarProperty Name="tuesday_end2" ColumnName="tuesday_end2" />
+                <ScalarProperty Name="tuesday_start3" ColumnName="tuesday_start3" />
+                <ScalarProperty Name="tuesday_end3" ColumnName="tuesday_end3" />
+                <ScalarProperty Name="wednesday_start1" ColumnName="wednesday_start1" />
+                <ScalarProperty Name="wednesday_end1" ColumnName="wednesday_end1" />
+                <ScalarProperty Name="wednesday_start2" ColumnName="wednesday_start2" />
+                <ScalarProperty Name="wednesday_end2" ColumnName="wednesday_end2" />
+                <ScalarProperty Name="wednesday_start3" ColumnName="wednesday_start3" />
+                <ScalarProperty Name="wednesday_end3" ColumnName="wednesday_end3" />
+                <ScalarProperty Name="thursday_start1" ColumnName="thursday_start1" />
+                <ScalarProperty Name="thursday_end1" ColumnName="thursday_end1" />
+                <ScalarProperty Name="thursday_start2" ColumnName="thursday_start2" />
+                <ScalarProperty Name="thursday_end2" ColumnName="thursday_end2" />
+                <ScalarProperty Name="thursday_start3" ColumnName="thursday_start3" />
+                <ScalarProperty Name="thursday_end3" ColumnName="thursday_end3" />
+                <ScalarProperty Name="friday_start1" ColumnName="friday_start1" />
+                <ScalarProperty Name="friday_end1" ColumnName="friday_end1" />
+                <ScalarProperty Name="friday_start2" ColumnName="friday_start2" />
+                <ScalarProperty Name="friday_end2" ColumnName="friday_end2" />
+                <ScalarProperty Name="friday_start3" ColumnName="friday_start3" />
+                <ScalarProperty Name="friday_end3" ColumnName="friday_end3" />
+                <ScalarProperty Name="saturday_start1" ColumnName="saturday_start1" />
+                <ScalarProperty Name="saturday_end1" ColumnName="saturday_end1" />
+                <ScalarProperty Name="saturday_start2" ColumnName="saturday_start2" />
+                <ScalarProperty Name="saturday_end2" ColumnName="saturday_end2" />
+                <ScalarProperty Name="saturday_start3" ColumnName="saturday_start3" />
+                <ScalarProperty Name="saturday_end3" ColumnName="saturday_end3" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -41,49 +41,98 @@ namespace WoodClub
                 currentLocker = null;
             }
         }
+
         private void LockerForm_Load(object sender, EventArgs e)
         {
+            textBoxLockerFilter.KeyUp += TextBoxLockerFilter_KeyUp;
+            int totalRevenue = 0;
             using (WoodclubEntities context = new WoodclubEntities())
             {
 
-                var query = from rn in context.MemberRosters
-                            where rn.Locker != null && rn.Locker != ""
-                            select rn;
-                //
-                //  Creat new list for display
-                //
+                var lmcl = context.Lockers
+                .Join(
+                    context.MemberRosters,
+                    locker => locker.Badge,
+                    member => member.Badge,
+                    (locker, member) => new { locker, member })
+                .Join(
+                    context.LockerCosts,
+                    lockerMember => lockerMember.locker.Code,
+                    lockerCost => lockerCost.Code,
+                    (lockerMember, lockerCost) => new { lockerMember, lockerCost })
+                .Join(
+                    context.LockerLocations,
+                    lockerMemberCost => lockerMemberCost.lockerMember.locker.LocationCode,
+                    location => location.Location,
+                    (lockerMemberCost, location) => new
+                    {
+                        Badge = lockerMemberCost.lockerMember.member.Badge,
+                        FirstName = lockerMemberCost.lockerMember.member.FirstName,
+                        LastName = lockerMemberCost.lockerMember.member.LastName,
+                        Email = lockerMemberCost.lockerMember.member.Email,
+                        Phone = lockerMemberCost.lockerMember.member.Phone,
+                        ClubDuesPaid = lockerMemberCost.lockerMember.member.ClubDuesPaid,
+                        CreditBank = lockerMemberCost.lockerMember.member.CreditBank,
+                        LastDayValid = lockerMemberCost.lockerMember.member.CreditBank,
+                        Locker = lockerMemberCost.lockerMember.locker.LockerTitle,
+                        Cost = lockerMemberCost.lockerCost.Cost,
+                        Location = location.Description
+                    })
+                .OrderBy(x => x.Badge).ToList();
+ 
                 DSlocker = new List<Lockers>();
-                foreach (MemberRoster member in query)
+                foreach (var member in lmcl)
                 {
-                    //member = context.MemberRosters.Find(_id);
-                    Lockers locker = new Lockers();
-                    locker.Badge = member.Badge;
-                    locker.FirstName = member.FirstName;
-                    locker.LastName = member.LastName;
-                    locker.Email = member.Email;
-                    locker.Phone = member.Phone;
-                    locker.ClubDuesPaid = (bool)member.ClubDuesPaid;
-                    locker.CreditBank = member.CreditBank.ToString();
-                    locker.LastDayValid = member.LastDayValid.Value.ToShortDateString();
-                    locker.Modified = member.QBmodified == null ? "" : member.QBmodified.Value.ToShortDateString();
-                    locker.HasLocker = member.Locker == null ? "" : member.Locker;
-                    var yearvisit = from t in context.Transactions              // List of Usage by member
-                                    where t.TransDate.Value.Year == year
-                                         && t.Code == "U" | t.Code == "FD"
-                                         && t.Badge == member.Badge
-                                    select t.TransDate.Value;
-                    visitsCnt = yearvisit.DistinctBy(x => x.DayOfYear).Count();
-                    locker.ShopVisits = visitsCnt.ToString();
-                    DSlocker.Add(locker);
+					//member = context.MemberRosters.Find(_id);
+					Lockers locker = new Lockers();
+					locker.Badge = member.Badge;
+					locker.FirstName = member.FirstName;
+					locker.LastName = member.LastName;
+					locker.Email = member.Email;
+					locker.Phone = member.Phone;
+					locker.ClubDuesPaid = (bool)member.ClubDuesPaid;
+					locker.CreditBank = member.CreditBank.ToString();
+					locker.LastDayValid = member.LastDayValid;
+					locker.HasLocker = member.Locker;
+					var yearvisit = from t in context.Transactions              // List of Usage by member
+									where t.TransDate.Value.Year == year
+										 && t.Code == "U" | t.Code == "FD"
+										 && t.Badge == member.Badge
+									select t.TransDate.Value;
+					visitsCnt = yearvisit.DistinctBy(x => x.DayOfYear).Count();
+					locker.ShopVisits = visitsCnt.ToString();
+                    locker.Cost = member.Cost.Value;
+                    locker.Location = member.Location;
+					DSlocker.Add(locker);
+                    totalRevenue += member.Cost.Value;
+
                 }
             }
+
             blLockers = new SortableBindingList<Lockers>(DSlocker);
             bsLockers.DataSource = blLockers;
             dataGridViewLockers.DataSource = bsLockers;
             bsLockers.Position = 0;
             dataGridViewLockers.Refresh();
             dataGridViewLockers.Invalidate();
+            textBoxTotalRevenue.Text = String.Format("${0}", totalRevenue.ToString("N0"));
         }
+
+        private void TextBoxLockerFilter_KeyUp(object sender, KeyEventArgs e)
+        {
+            string filter = textBoxLockerFilter.Text;
+            if (filter == string.Empty)
+            {
+                bsLockers.DataSource = blLockers;
+            }
+            else
+            {
+                var filteredBindingList = new SortableBindingList<Lockers>(blLockers.Where(x => x.HasLocker.Contains(filter.ToUpper())).ToList());
+                bsLockers.DataSource = filteredBindingList;
+                dataGridViewLockers.Refresh();
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             string pathDesktop = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%") + "\\Documents";
@@ -100,7 +149,7 @@ namespace WoodClub
                 try
                 {
                     int length = DSlocker.Count();
-                    string hdr = "Badge,First,Last,Club Dues Paid,Shop Visits,Credit Bank, Last Day Valid, Modified, HasLocker";
+                    string hdr = "Badge,First,Last,Club Dues Paid,Shop Visits,Credit Bank, Last Day Valid, Locker, Cost, Location";
 
                     using (System.IO.TextWriter writer = File.CreateText(filePath))
                     {
@@ -115,8 +164,9 @@ namespace WoodClub
                                          locker.ShopVisits + "," +
                                          locker.CreditBank + "," +
                                          locker.LastDayValid + "," +
-                                         locker.Modified + "," +
-                                         locker.HasLocker;
+                                         locker.HasLocker + "," +
+                                         locker.Cost + "," +
+                                         locker.Location;
                             writer.WriteLine(string.Join(delimter, csv));
                         }
                     }
