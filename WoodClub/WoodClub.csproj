@@ -256,6 +256,11 @@
     <Compile Include="MonitorParam.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
     <Compile Include="Time_zones.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
@@ -326,6 +331,10 @@
     </Compile>
     <EmbeddedResource Include="Forms\SCWform.resx">
       <DependentUpon>SCWform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EntityDeploy Include="ModelWC.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

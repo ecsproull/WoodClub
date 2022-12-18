@@ -74,8 +74,27 @@ namespace WoodClub
             dataGridView1.DataSource = bsMembers;
             bsMembers.Position = 0;
             bindingNavigator1.BindingSource = bsMembers;
+            toolStripTextBoxFilter.KeyUp += TextBoxName_KeyUp;
         }
-        
+
+        private void TextBoxName_KeyUp(object sender, KeyEventArgs e)
+        {
+            string filter = toolStripTextBoxFilter.Text;
+            if (filter == string.Empty)
+            {
+                bsMembers.DataSource = blMembers;
+            }
+            else
+            {
+                var filteredBindingList = new SortableBindingList<MemberRoster>(blMembers.Where(
+                    x => x.FirstName.ToUpper().Contains(filter.ToUpper()) || 
+                    x.LastName.ToUpper().Contains(filter.ToUpper()) ||
+                    x.Badge.Contains(filter)).ToList());
+                bsMembers.DataSource = filteredBindingList;
+                dataGridView1.Refresh();
+            }
+        }
+
         private void SetUpEventsForDataGridViewSorting()
         {
             bsMembers.PositionChanged += bsMembers_PositionChanged;

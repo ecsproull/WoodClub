@@ -41,8 +41,10 @@ namespace WoodClub
                 currentLocker = null;
             }
         }
+
         private void LockerForm_Load(object sender, EventArgs e)
         {
+            textBoxLockerFilter.KeyUp += TextBoxLockerFilter_KeyUp;
             int totalRevenue = 0;
             using (WoodclubEntities context = new WoodclubEntities())
             {
@@ -106,6 +108,7 @@ namespace WoodClub
 
                 }
             }
+
             blLockers = new SortableBindingList<Lockers>(DSlocker);
             bsLockers.DataSource = blLockers;
             dataGridViewLockers.DataSource = bsLockers;
@@ -114,6 +117,22 @@ namespace WoodClub
             dataGridViewLockers.Invalidate();
             textBoxTotalRevenue.Text = String.Format("${0}", totalRevenue.ToString("N0"));
         }
+
+        private void TextBoxLockerFilter_KeyUp(object sender, KeyEventArgs e)
+        {
+            string filter = textBoxLockerFilter.Text;
+            if (filter == string.Empty)
+            {
+                bsLockers.DataSource = blLockers;
+            }
+            else
+            {
+                var filteredBindingList = new SortableBindingList<Lockers>(blLockers.Where(x => x.HasLocker.Contains(filter.ToUpper())).ToList());
+                bsLockers.DataSource = filteredBindingList;
+                dataGridViewLockers.Refresh();
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             string pathDesktop = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%") + "\\Documents";
