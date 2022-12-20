@@ -33,12 +33,10 @@ namespace WoodClub
         private bool newAccess = false;
         private bool newBadge = false;      // New Badge Request
         private Byte[] bArray = null;
-        public string BadgeCode1 { get; set; }
         private string entCode = "FS";      // Default
         private string today = DateTime.Now.Date.ToShortDateString();
         private int TZaccess = 0;
         
-        public int id { get; set; }
         public Editor(MemberRoster member)
         {
             InitializeComponent();
@@ -370,14 +368,34 @@ namespace WoodClub
                     {
                         if (member.Photo != null)
                         {
-                            MemberRFcard mrfc = new MemberRFcard();
-                            mrfc.Badge = member.Badge;
-                            mrfc.FirstName = member.FirstName;
-                            mrfc.LastName = member.LastName;
-                            mrfc.Title = member.Title;
-                            mrfc.Photo = member.Photo;
-                            mrfc.RecCard = member.RecCard;
-                            context.MemberRFcards.Add(mrfc);
+                            MemberRFcard mrfc = (from mf in context.MemberRFcards
+                                                 where mf.Badge == member.Badge
+                                                 select mf).FirstOrDefault();
+                            if (mrfc == null)
+                            {
+                                mrfc = new MemberRFcard();
+                                mrfc.Badge = member.Badge;
+                                mrfc.FirstName = member.FirstName;
+                                mrfc.LastName = member.LastName;
+                                mrfc.Title = member.Title;
+                                mrfc.Photo = member.Photo;
+                                mrfc.RecCard = member.RecCard;
+                                context.MemberRFcards.Add(mrfc);
+                            }
+                            else
+                            {
+                                mrfc.Badge = member.Badge;
+                                mrfc.FirstName = member.FirstName;
+                                mrfc.LastName = member.LastName;
+                                mrfc.Title = member.Title;
+                                mrfc.Photo = member.Photo;
+                                mrfc.RecCard = member.RecCard;
+                            }
+
+                            var mem = (from mm in context.MemberRosters
+                                       where mm.Badge == member.Badge
+                                       select mm).FirstOrDefault();
+                            mem.NewBadge = false;
                             context.SaveChanges();
                         }
                         else
@@ -558,6 +576,7 @@ namespace WoodClub
 
             populateNewCredits();
         }
+
         private void txtRFcard_TextChanged(object sender, EventArgs e)
         {
             newAccess = true;
@@ -574,9 +593,7 @@ namespace WoodClub
                 newAccess = true;
             }
         }
-        //
-        //  Follow state of checkbox
-        // 
+
         private void cbNewBadge_CheckedChanged(object sender, EventArgs e)
         {
             newBadge = cbNewBadge.Checked;        

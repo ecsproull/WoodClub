@@ -79,6 +79,11 @@ namespace WoodClub
 
         private void TextBoxName_KeyUp(object sender, KeyEventArgs e)
         {
+            setBsMembersDataSource();
+        }
+
+        private void setBsMembersDataSource()
+        {
             string filter = toolStripTextBoxFilter.Text;
             if (filter == string.Empty)
             {
@@ -87,7 +92,7 @@ namespace WoodClub
             else
             {
                 var filteredBindingList = new SortableBindingList<MemberRoster>(blMembers.Where(
-                    x => x.FirstName.ToUpper().Contains(filter.ToUpper()) || 
+                    x => x.FirstName.ToUpper().Contains(filter.ToUpper()) ||
                     x.LastName.ToUpper().Contains(filter.ToUpper()) ||
                     x.Badge.Contains(filter)).ToList());
                 bsMembers.DataSource = filteredBindingList;
@@ -189,7 +194,7 @@ namespace WoodClub
                     bsMembers.ResetCurrentItem();
                     members = new Members(true);
                     blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
-                    bsMembers.DataSource = blMembers;
+                    setBsMembersDataSource();
                     dataGridView1.DataSource = bsMembers;
                     roster = blMembers.FirstOrDefault(mem => mem.id == bsMembers.MemberIdentifier());
                     frm = new Editor(roster);
@@ -210,7 +215,7 @@ namespace WoodClub
             { 
                 members = new Members(true);
                 blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
-                bsMembers.DataSource = blMembers;
+                setBsMembersDataSource();
                 dataGridView1.DataSource = bsMembers;
             }
 
