@@ -679,10 +679,7 @@ namespace WoodClub
                 }
             }
         }
-        /*
-            Handle ALL doors on controllers - EntryMonitor not needed
-            Connected to second controller on startup
-        */
+
         private void DoorUpdate()
         {
             int PORT = 5724;

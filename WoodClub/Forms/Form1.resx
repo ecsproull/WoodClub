@@ -145,12 +145,6 @@
         rkJggg==
 </value>
   </data>
-  <metadata name="memberRosterBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>319, 17</value>
-  </metadata>
-  <metadata name="woodclubDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>171, 17</value>
-  </metadata>
   <data name="bindingNavigatorMoveFirstItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -217,7 +211,7 @@
   <data name="toolStripLabel2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAAAXZJREFUOE+dkrFqwmAUhYNurh18jA4+QhbR3SVDMmYVXJUUAj5AB5csBurwt5Og
+        vAAADrwBlbxySQAAAXZJREFUOE+dkrFqwmAUhYNurh18jA4+QhbR3SVDMmYVXJUUAj5AB5csBurwt5Og
         gx2cpO3gEzRLWrBbtUHEoXJ7TvwllMRCPfARvDnn+v/3xjin3W5XAjZYgD04gAj0wZW2FQuGCpgul0vp
         dDpSr9fFNE1xHEeUUrLdbld4f63teeFlOJlMpNlsShiGEr1G8ha/y2z2KLZtS7fbPTXJnwTFWhzH0mg0
         5PnpRTbrr1+sVh9pE54E3r6OZWIxCALxPC8XPsGT8DrwRjqWCUXV6/XkXj0Uhgmvw5nAe9CxTCiOfN+X
@@ -271,20 +265,8 @@
         0LyrKcHlmGjg8BTVOnHZL833fdvV9QoooriPRCiiigD/2Q==
 </value>
   </data>
-  <metadata name="woodclubDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>171, 17</value>
-  </metadata>
   <metadata name="memberRosterTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>530, 17</value>
-  </metadata>
-  <metadata name="EntryCodes.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="LastDayValid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Exempt.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>262</value>

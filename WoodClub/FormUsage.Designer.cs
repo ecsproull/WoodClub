@@ -75,7 +75,7 @@
             // 
             // memberRosterBindingSource
             // 
-            this.memberRosterBindingSource.DataMember = "MemberRoster";
+            //this.memberRosterBindingSource.DataMember = "MemberRoster";
             this.memberRosterBindingSource.DataSource = this.woodclubDataSet;
             // 
             // memberRosterTableAdapter

@@ -1,9 +1,6 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -14,7 +11,7 @@ using WoodClub.Forms;
 
 namespace WoodClub
 {
-    public partial class Form1 : Form
+	public partial class Form1 : Form
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger
                   (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -190,7 +187,6 @@ namespace WoodClub
                 DialogResult frmResult = DialogResult.Cancel;
                 while ((frmResult = frm.ShowDialog()) == DialogResult.Yes)        // Changes made - need to refresh from SQL
                 {
-                    woodclubDataSet.AcceptChanges();
                     bsMembers.ResetCurrentItem();
                     members = new Members(true);
                     blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
@@ -202,7 +198,6 @@ namespace WoodClub
 
                 if (frmResult == DialogResult.OK)
                 {
-                    woodclubDataSet.AcceptChanges();
                     bsMembers.ResetCurrentItem();
                     update = true;
                 }
