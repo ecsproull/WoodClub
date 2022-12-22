@@ -180,38 +180,21 @@ namespace WoodClub
         private void EditCurrentRow()
         {
             MemberRoster roster = blMembers.FirstOrDefault(mem => mem.id == bsMembers.MemberIdentifier());
-            bool update = false;
-            Editor frm = new Editor(roster);
+            Editor frm = new Editor(roster.Badge);
             try
             {
-                DialogResult frmResult = DialogResult.Cancel;
-                while ((frmResult = frm.ShowDialog()) == DialogResult.Yes)        // Changes made - need to refresh from SQL
+                if (frm.ShowDialog() == DialogResult.OK)        // Changes made - need to refresh from SQL
                 {
                     bsMembers.ResetCurrentItem();
                     members = new Members(true);
                     blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
                     setBsMembersDataSource();
                     dataGridView1.DataSource = bsMembers;
-                    roster = blMembers.FirstOrDefault(mem => mem.id == bsMembers.MemberIdentifier());
-                    frm = new Editor(roster);
-                }
-
-                if (frmResult == DialogResult.OK)
-                {
-                    bsMembers.ResetCurrentItem();
-                    update = true;
                 }
             }
             finally
             {
                 frm.Dispose();
-            }
-            if (update)     // need to reload sql
-            { 
-                members = new Members(true);
-                blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
-                setBsMembersDataSource();
-                dataGridView1.DataSource = bsMembers;
             }
 
             ActiveControl = toolStripTextBox1.Control;

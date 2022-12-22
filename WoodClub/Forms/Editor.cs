@@ -19,35 +19,44 @@ namespace WoodClub
                   (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private FormDirtyTracker formDirtyTracker = null;
         private MemberRoster member { get; set; }
+        private string badge = string.Empty;
         private bool Adding { get; set; }
-        private int currentId;
         private BindingSource bsBadges = new BindingSource();
         private List<BadgeCode> DataSource;
         private List<acc_timeseg> TZdatasource;
-        private List<Transaction> DStransactions = new List<Transaction>();
-        private bool authorize = false;
-        private bool oneTime = false;
         private bool newCredit = false;     // Credit values trigger transaction
         private double creditBankStart = 0.0;
         private Dictionary<string, TransactionAddition> creditTransactions = new Dictionary<string, TransactionAddition>();
-        private bool newAccess = false;
-        private bool newBadge = false;      // New Badge Request
-        private Byte[] bArray = null;
-        private string entCode = "FS";      // Default
-        private string today = DateTime.Now.Date.ToShortDateString();
+        private bool updateController = false;
         private int TZaccess = 0;
+        private WoodclubEntities context;
         
-        public Editor(MemberRoster member)
+        public Editor(string badge)
         {
             InitializeComponent();
-            this.member = member;
-            currentId = member.id;
-            var CfgReader = new System.Configuration.AppSettingsReader();
-           
+            this.badge = badge;
+        }
+
+        private void Editor_Load(object sender, EventArgs e)
+        {
+            this.context = new WoodclubEntities();
+            if (this.badge != null)
+            {
+                this.member = (from m in context.MemberRosters
+                               where m.Badge == badge
+                               select m).FirstOrDefault();
+            }
+            else
+            {
+                this.member = new MemberRoster();
+            }
+
+            this.memberBindingSource.DataSource = member;
+
             using (ZKTecoEntities zkcontext = new ZKTecoEntities())
             {
-                string groupTime = member.GroupTime; 
-                if(groupTime == null)
+                string groupTime = member.GroupTime;
+                if (groupTime == null)
                 {
                     groupTime = "Members";
                     member.GroupTime = groupTime;       // Set a default value
@@ -58,9 +67,9 @@ namespace WoodClub
                     TZdatasource = zkcontext.acc_timeseg.Select(c => c).ToList();
                     foreach (var element in TZdatasource)
                     {
-                        if(element.timeseg_name == groupTime)
+                        if (element.timeseg_name == groupTime)
                         {
-                            TZaccess = (int) element.id;
+                            TZaccess = (int)element.id;
                         }
                     }
                 }
@@ -69,123 +78,112 @@ namespace WoodClub
                     log.Fatal("Unable to load ZKTeco data", tz);
                 }
             }
-            using (WoodclubEntities context = new WoodclubEntities())
+
+            try
             {
-                try
+                DataSource = context.BadgeCodes.Select(c => c).Where(x => x.ShowInUi == 1).ToList();
+            }
+            catch (Exception ex)
+            {
+                log.Fatal("Unable to get data...", ex);         // Capture exception
+            }
+
+
+            BindingList<BadgeCode> blBadges = new BindingList<BadgeCode>(DataSource);
+            bsBadges.DataSource = blBadges;
+            dataGridViewCodes.DataSource = bsBadges.DataSource;
+            // Add names to list box
+            if (TZdatasource != null)
+            {
+                AccessTime.Items.Clear();
+                foreach (acc_timeseg tz in TZdatasource)
                 {
-                    DataSource = context.BadgeCodes.Select(c => c).Where(x => x.ShowInUi == 1).ToList();              
-                }
-                catch (Exception ex)
-                {
-                    log.Fatal("Unable to get data...", ex);         // Capture exception
-                }
-            
-           
-                BindingList<BadgeCode> blBadges = new BindingList<BadgeCode>(DataSource);
-                bsBadges.DataSource = blBadges;
-                dataGridViewCodes.DataSource = bsBadges.DataSource;
-                // Add names to list box
-                if(TZdatasource != null)
-                {
-                    AccessTime.Items.Clear();
-                    foreach (acc_timeseg tz in TZdatasource)
+                    AccessTime.Items.Add(tz.timeseg_name);
+                    if (member.GroupTime == tz.timeseg_name)
                     {
-                        AccessTime.Items.Add(tz.timeseg_name);
-                        if(member.GroupTime == tz.timeseg_name)
-                        {
-                            AccessTime.SelectedIndex = AccessTime.Items.Count-1;
-                        }  
+                        AccessTime.SelectedIndex = AccessTime.Items.Count - 1;
                     }
-                    
                 }
 
-                if (string.IsNullOrWhiteSpace(member.Badge))
+            }
+
+            if (string.IsNullOrWhiteSpace(member.Badge))
+            {
+                Adding = true;
+                this.Text = "Adding New Member";
+            }
+            else
+            {
+                Adding = false;
+                cbMain.Checked = EntryCodes(member.EntryCodes, "F");
+                cbSide.Checked = EntryCodes(member.EntryCodes, "S");
+                cbMaint.Checked = EntryCodes(member.EntryCodes, "M");
+                cbLumber.Checked = EntryCodes(member.EntryCodes, "L");
+                cbOffice.Checked = EntryCodes(member.EntryCodes, "O");
+                cbAssembly.Checked = EntryCodes(member.EntryCodes, "A");
+                cbMachine.Checked = EntryCodes(member.EntryCodes, "T");
+
+                creditBankStart = Convert.ToDouble(member.CreditBank == String.Empty ? "0" : member.CreditBank);
+                AuthorizedIndex();
+                //
+                // Show picture if it exist
+                if (member.Photo != null && member.Photo.Length > 0)
                 {
-                    Adding = true;
-                    this.Text = "Adding New Member";
-                }
-                else
-                {
-                    Adding = false;
-                    txtRecCard.Text = member.RecCard;
-                    txtBadge.Text = member.Badge;
-                    txtFirstNm.Text = member.FirstName;
-                    txtLastNm.Text = member.LastName;
-                    txtAddress.Text = member.Address;
-                    txtState.Text = member.State;
-                    txtZip.Text = member.Zip;
-                    txtPhone.Text = member.Phone;
-                    txtEmail.Text = member.Email;
-                    txtTitle.Text = member.Title;
-                    cbMain.Checked = EntryCodes(member.EntryCodes, "F");
-                    cbSide.Checked = EntryCodes(member.EntryCodes, "S");
-                    cbMaint.Checked = EntryCodes(member.EntryCodes, "M");
-                    cbLumber.Checked = EntryCodes(member.EntryCodes, "L");
-                    cbOffice.Checked = EntryCodes(member.EntryCodes, "O");
-                    cbAssembly.Checked = EntryCodes(member.EntryCodes, "A");
-                    cbMachine.Checked = EntryCodes(member.EntryCodes, "T");
-                    cbExempt.Checked = member.Exempt == null ? false : (bool)member.Exempt;
-                    cbClubDuesPaid.Checked = member.ClubDuesPaid == null ? false : (bool)member.ClubDuesPaid;
-                    cbRecDuesPaid.Checked = member.RecDuesPaid == null ? false : (bool)member.RecDuesPaid;
-                    cbNewBadge.Checked = member.NewBadge == null ? false : (bool)member.NewBadge;
-                    cbExtendHr.Checked = member.ExtHour == null ? false : (bool)member.ExtHour;
-                    txtJoinDate.Text = member.MemberDate == null ? "" : checkDate(member.MemberDate.Value);
-                    txtClubDuesPaid.Text = member.ClubDuesPaidDate == null ? today : member.ClubDuesPaidDate.Value.ToShortDateString();
-                    txtLastDay.Text = member.LastDayValid == null ? today : member.LastDayValid.Value.Date.ToShortDateString();
-                    txtCredits.Text = member.CreditBank == null ? txtCredits.Text = "0" : member.CreditBank;
-                    txtRFcard.Text = member.CardNo == null ? txtRFcard.Text = "" : member.CardNo;
-                    authorize = member.Authorized == null ? false : (bool)member.Authorized;
-                    oneTime = member.OneTime == null ? false : (bool)member.OneTime;
-                    creditBankStart = Convert.ToDouble(txtCredits.Text);
-                    PopulateLockers();
-                    AuthorizedIndex();
-                    //
-                    // Show picture if it exist
-                    if (member.Photo != null && member.Photo.Length > 0)
-                    {
-                        bArray = member.Photo;      // Save for later
-                        MemoryStream ms = new MemoryStream(bArray);
-                        Image img = Image.FromStream(ms);
-                        Image newImage = ScaleImage(img, 200, 200);
-                        pictureBox1.Image = newImage;
-                    }
+                    var bArray = member.Photo;      // Save for later
+                    MemoryStream ms = new MemoryStream(bArray);
+                    Image img = Image.FromStream(ms);
+                    Image newImage = ScaleImage(img, 200, 200);
+                    pictureBox1.Image = newImage;
                 }
             }
+
+
             populateTransactions();
             populateNewCredits();
-            formDirtyTracker = new FormDirtyTracker(this);
-            formDirtyTracker.MarkAsClean();
             AssignHandlersForControlCollection(this.Controls);
 
+            if (formDirtyTracker == null)
+            {
+                this.formDirtyTracker = new FormDirtyTracker(this);
+            }
+
+            if (sender == null) // we are reloadign the page after an edit.
+            {
+                foreach (Control control in this.Controls)
+                {
+                    this.formDirtyTracker.resetControlBackColor(control);
+                }
+            }
+
+            this.formDirtyTracker.MarkAsClean();
         }
 
         private void PopulateLockers()
         {
-            using (WoodclubEntities context = new WoodclubEntities())
+            List<Locker> lockers = (from l in this.context.Lockers
+                                    where l.Badge == member.Badge
+                                    select l).ToList();
+            if (lockers.Count == 0)
             {
-                List<Locker> lockers = (from l in context.Lockers
-                                        where l.Badge == member.Badge
-                                        select l).ToList();
-                if (lockers.Count == 0)
+                txtLocker.Text = "";
+            }
+            else
+            {
+                bool first = true;
+                foreach (Locker locker in lockers)
                 {
-                    txtLocker.Text = "";
-                }
-                else
-                {
-                    bool first = true;
-                    foreach (Locker locker in lockers)
+                    if (first)
                     {
-                        if (first)
-                        {
-                            txtLocker.Text = locker.LockerTitle.Trim();
-                            first = false;
-                        }
-                        else
-                        {
-                            txtLocker.Text += "," + locker.LockerTitle;
-                        }
+                        this.member.Locker = locker.LockerTitle.Trim();
+                        first = false;
+                    }
+                    else
+                    {
+                        this.member.Locker += "," + locker.LockerTitle;
                     }
                 }
+
+                this.memberBindingSource.ResetCurrentItem();
             }
         }
         //
@@ -210,18 +208,7 @@ namespace WoodClub
                 }
             }
         }
-        //
-        //      Date Check and conversion
-        //
-        private string checkDate(DateTime dt)
-        {
-            string result = DateTime.Now.ToShortDateString();
-            if(dt != null)
-            {
-                result = dt.ToShortDateString();
-            }
-            return result;
-        }
+
         //
         //  Entry codes represented in DB F=front, S=Side, M=Maintenance, L=Lumber
         //  Second controller O=office, A=assembly room rear, T=(tool / Machine Rear)
@@ -235,6 +222,7 @@ namespace WoodClub
             }
             return result;
         }
+
         public static Image ScaleImage(Image image, int maxWidth, int maxHeight)
         {
             var ratioX = (double)maxWidth / image.Width;
@@ -251,35 +239,15 @@ namespace WoodClub
 
             return newImage;
         }
-        private static DateTime convStringDate(String d)
-        {
-            DateTime dt = DateTime.Now.Date;
-            if (d != null)
-            {
-                try
-                { 
-                    dt = DateTime.Parse(d);
-                }
-                catch
-                {
-                    dt = DateTime.Now.Date;
-                }
-            }
-            return dt;
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            applyChanges();
-            DialogResult = DialogResult.OK;
-            return;
-        }
 
         private void applyChanges()
         {
-            Members newMember = new Members();
-            MemberRoster member = fillRecord();
-            member.id = currentId;
+            string fsml = getFSML();
+            if (fsml != this.member.EntryCodes.Trim())
+            {
+                this.member.EntryCodes = fsml;
+                updateController = true;
+            }
 
             if (TZaccess == 0)
             {
@@ -289,164 +257,106 @@ namespace WoodClub
 
             if (Adding)
             {
-                newMember.OneTime = true;
-                newMember.AddNew(member);
-                using (WoodclubEntities context = new WoodclubEntities())
+                this.member.OneTime = true;
+                if (this.member.NewBadge.Value)        // New Badge Request
                 {
-                    if (newBadge)        // New Badge Request
+                    if (member.Photo != null)    // no photo - no badge
                     {
-                        if (member.Photo != null)    // no photo - no badge
+                        MemberRFcard mrfc = new MemberRFcard();
+                        mrfc.Badge = member.Badge;
+                        mrfc.FirstName = member.FirstName;
+                        mrfc.LastName = member.LastName;
+                        mrfc.Title = member.Title;
+                        mrfc.Photo = member.Photo;
+                        this.context.MemberRFcards.Add(mrfc);
+                        this.member.NewBadge = false;
+ 
+                    }
+                    else
+                    {
+                        cbNewBadge.Checked = false;
+                        member.NewBadge = false;
+                        MessageBox.Show("New Badge requires photo!");
+                    }
+                }
+            }
+            else
+            {
+                if (newCredit)
+                {
+                    foreach (KeyValuePair<string, TransactionAddition> trans in creditTransactions)
+                    {
+                        Transaction creditTransaction = new Transaction();
+                        creditTransaction.Badge = txtBadge.Text;
+                        creditTransaction.Code = trans.Value.Code;
+                        creditTransaction.EventType = trans.Value.EventType;
+                        creditTransaction.CreditAmt = trans.Value.TotalAmount;
+                        creditTransaction.RecCard = txtRecCard.Text;
+                        creditTransaction.TransDate = DateTime.Now;
+                        this.context.Transactions.Add(creditTransaction);
+                    }
+                }
+
+                if (updateController)
+                {
+                    if (AccessTime.SelectedItem != null)
+                    {
+                        member.GroupTime = AccessTime.SelectedItem.ToString();
+                        AuthorizedIndex();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select members access time.");
+                        return;
+                    }
+                    member.AuthorizedTimeZone = TZaccess;
+                    member.EntryCodes = getFSML();
+                    DoorUpdate();
+                }
+
+                if (this.member.NewBadge.Value)        // New Badge Request
+                {
+                    if (member.Photo != null)
+                    {
+                        MemberRFcard mrfc = (from mf in context.MemberRFcards
+                                                where mf.Badge == member.Badge
+                                                select mf).FirstOrDefault();
+                        if (mrfc == null)
                         {
-                            MemberRFcard mrfc = new MemberRFcard();
+                            mrfc = new MemberRFcard();
                             mrfc.Badge = member.Badge;
                             mrfc.FirstName = member.FirstName;
                             mrfc.LastName = member.LastName;
                             mrfc.Title = member.Title;
                             mrfc.Photo = member.Photo;
-                            context.MemberRFcards.Add(mrfc);
-                            context.SaveChanges();
+                            mrfc.RecCard = member.RecCard;
+                            this.context.MemberRFcards.Add(mrfc);
                         }
                         else
                         {
-                            cbNewBadge.Checked = false;
-                            member.NewBadge = false;
-                            MessageBox.Show("New Badge requires photo!");
+                            mrfc.Badge = member.Badge;
+                            mrfc.FirstName = member.FirstName;
+                            mrfc.LastName = member.LastName;
+                            mrfc.Title = member.Title;
+                            mrfc.Photo = member.Photo;
+                            mrfc.RecCard = member.RecCard;
                         }
 
+                        this.member.NewBadge = false;
                     }
-                }
-                DialogResult = DialogResult.OK;
-            }
-            else
-            {
-                using (WoodclubEntities context = new WoodclubEntities())
-                {
-                    if (newCredit)
+                    else
                     {
-                        if (newMember.UpdateMember(member))
-                        {
-                            context.SaveChanges();
-
-                            foreach (KeyValuePair<string, TransactionAddition> trans in creditTransactions)
-                            {
-                                Transaction creditTransaction = new Transaction();
-                                creditTransaction.Badge = txtBadge.Text;
-                                creditTransaction.Code = trans.Value.Code;
-                                creditTransaction.EventType = trans.Value.EventType;
-                                creditTransaction.CreditAmt = trans.Value.TotalAmount;
-                                creditTransaction.RecCard = txtRecCard.Text;
-                                creditTransaction.TransDate = DateTime.Now;
-                                context.Transactions.Add(creditTransaction);
-                            }
-
-                            context.SaveChanges();
-                        }
-                    }
-
-                    if (newAccess)
-                    {
-                        if (AccessTime.SelectedItem != null)
-                        {
-                            member.GroupTime = AccessTime.SelectedItem.ToString();
-                            AuthorizedIndex();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Please select members access time.");
-                            return;
-                        }
-                        member.AuthorizedTimeZone = TZaccess;
-                        member.EntryCodes = getFSML();
-                        DoorUpdate();
-                        // Modifing record
-                        if (!newMember.UpdateMember(member))
-                        {
-                            MessageBox.Show("Update failed!");
-                        }
-                    }
-                    if (newBadge)        // New Badge Request
-                    {
-                        if (member.Photo != null)
-                        {
-                            MemberRFcard mrfc = (from mf in context.MemberRFcards
-                                                 where mf.Badge == member.Badge
-                                                 select mf).FirstOrDefault();
-                            if (mrfc == null)
-                            {
-                                mrfc = new MemberRFcard();
-                                mrfc.Badge = member.Badge;
-                                mrfc.FirstName = member.FirstName;
-                                mrfc.LastName = member.LastName;
-                                mrfc.Title = member.Title;
-                                mrfc.Photo = member.Photo;
-                                mrfc.RecCard = member.RecCard;
-                                context.MemberRFcards.Add(mrfc);
-                            }
-                            else
-                            {
-                                mrfc.Badge = member.Badge;
-                                mrfc.FirstName = member.FirstName;
-                                mrfc.LastName = member.LastName;
-                                mrfc.Title = member.Title;
-                                mrfc.Photo = member.Photo;
-                                mrfc.RecCard = member.RecCard;
-                            }
-
-                            var mem = (from mm in context.MemberRosters
-                                       where mm.Badge == member.Badge
-                                       select mm).FirstOrDefault();
-                            mem.NewBadge = false;
-                            context.SaveChanges();
-                        }
-                        else
-                        {
-                            cbNewBadge.Checked = false;
-                            member.NewBadge = false;
-                            MessageBox.Show("New Badge requires photo!");
-                        }
+                        cbNewBadge.Checked = false;
+                        member.NewBadge = false;
+                        MessageBox.Show("New Badge requires photo!");
                     }
                 }
             }
+
+            this.context.SaveChanges();
         }
 
-        //
-        //  Fills MemberRoster record with form data
-        //
-        private MemberRoster fillRecord()
-        {
-            DateTime today = new DateTime();
-            today = DateTime.Now.Date;               // Use as default if date not available         
-            MemberRoster member = new MemberRoster();
-            member.Badge = txtBadge.Text == null | txtBadge.Text == "" ? "0000" : txtBadge.Text;
-            member.RecCard = txtRecCard.Text;
-            member.FirstName = txtFirstNm.Text;
-            member.LastName = txtLastNm.Text;
-            member.Address = txtAddress.Text;
-            member.State = txtState.Text;
-            member.Zip = txtZip.Text;
-            member.Phone = txtPhone.Text;
-            member.Email = txtEmail.Text;
-            member.Title = txtTitle.Text;
-            member.Locker = txtLocker.Text;
-            member.RecCard = txtRecCard.Text;
-            member.CreditBank = txtCredits.Text;
-            member.CardNo = txtRFcard.Text == null ? "" : txtRFcard.Text;
-            member.MemberDate = txtJoinDate.Text == null ? today : (txtJoinDate.Text == "" ? today :convStringDate(txtJoinDate.Text));
-            member.ExemptModDate = txtExemptDate.Text == null ? today : (txtExemptDate.Text == "" ? today :convStringDate(txtExemptDate.Text));
-            member.LastDayValid = txtLastDay.Text == null ? today : (txtLastDay.Text == "" ? today : convStringDate(txtLastDay.Text));
-            member.ClubDuesPaidDate = txtClubDuesPaid.Text == null ? today : (txtClubDuesPaid.Text == "" ? today : convStringDate(txtClubDuesPaid.Text));
-            member.Exempt = cbExempt.Checked;
-            member.ClubDuesPaid = cbClubDuesPaid.Checked;
-            member.RecDuesPaid = cbRecDuesPaid.Checked;
-            member.NewBadge = cbNewBadge.Checked;
-            member.ExtHour = cbExtendHr.Checked;
-            member.Authorized = authorize;          // Flag current state
-            member.AuthorizedTimeZone = TZaccess;
-            member.OneTime = oneTime;
-            member.EntryCodes = getFSML();
-            member.Photo = bArray;
-            return member;
-        }
+
         //
         //  Converts values of check boxes Maintenance & Lumber return update string
         //
@@ -481,13 +391,13 @@ namespace WoodClub
             {
                 result += "T";
             }
-            entCode = result;           // Save for transaction record
+
             return result;
         }
 
         private new void TextChanged(object sender, EventArgs e)
         {
-            newAccess = true;
+            updateController = true;
         }
 
         private void btnLoadPhoto_Click(object sender, EventArgs e)
@@ -513,7 +423,7 @@ namespace WoodClub
                             using (var myStream = new MemoryStream())
                             {
                                 newImg.Save(myStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                bArray = myStream.ToArray();
+                                this.member.Photo = myStream.ToArray();
                             }
                         }
                     }
@@ -530,32 +440,27 @@ namespace WoodClub
             DataGridView dgv = sender as DataGridView;
             log.Info("Credits selected");
             float credit = float.Parse(txtCredits.Text);
-            float value = 12;
             DataGridViewRow selectedRow = dgv.SelectedRows[0];
             string value1 = selectedRow.Cells[0].Value.ToString();
             string value2 = selectedRow.Cells[1].Value.ToString();
             string value3 = selectedRow.Cells[2].Value.ToString();
 
             credit += float.Parse(value3);
-            value = credit > 12 ? 12 : credit;
-            authorize = true;
+            float value = credit > 12 ? 12 : credit;
             newCredit = true;
 
-            using (WoodclubEntities context = new WoodclubEntities())
+            DateTime dtLimit = DateTime.Now.AddDays(-3);
+            var previousEntry = (from m in this.context.Transactions             // List of members using club
+                                where member.Badge == m.Badge && m.TransDate >  dtLimit && m.Code == value1
+                            select m).OrderByDescending(x => x.TransDate).ToList();
+            if (previousEntry.Count > 0)
             {
-                DateTime dtLimit = DateTime.Now.AddDays(-3);
-                var previousEntry = (from m in context.Transactions             // List of members using club
-                                    where member.Badge == m.Badge && m.TransDate >  dtLimit && m.Code == value1
-                                select m).OrderByDescending(x => x.TransDate).ToList();
-                if (previousEntry.Count > 0)
+                string message = string.Format("This member has had {0} - {1} entries in the last 3 days.", previousEntry.Count.ToString(), value1);
+                message += Environment.NewLine + "Was this intentional?";
+                DialogResult dialogResult = MessageBox.Show(message, "Double Entry Check", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No)
                 {
-                    string message = string.Format("This member has had {0} - {1} entries in the last 3 days.", previousEntry.Count.ToString(), value1);
-                    message += Environment.NewLine + "Was this intentional?";
-                    DialogResult dialogResult = MessageBox.Show(message, "Double Entry Check", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.No)
-                    {
-                        return;
-                    }
+                    return;
                 }
             }
 
@@ -565,13 +470,17 @@ namespace WoodClub
                 if (dialogResult == DialogResult.Yes)
                 {
                     creditTransactions[value1].TotalAmount += float.Parse(value3);
-                    txtCredits.Text = value.ToString();
+                    //txtCredits.Text = value.ToString();
+                    this.member.CreditBank = value.ToString();
+                    this.memberBindingSource.ResetCurrentItem();
                 }
             }
             else
             {
                 creditTransactions.Add(value1, new TransactionAddition(value1, value2, float.Parse(value3)));
-                txtCredits.Text = value.ToString();
+                //txtCredits.Text = value.ToString();
+                this.member.CreditBank = value.ToString();
+                this.memberBindingSource.ResetCurrentItem();
             }
 
             populateNewCredits();
@@ -579,7 +488,7 @@ namespace WoodClub
 
         private void txtRFcard_TextChanged(object sender, EventArgs e)
         {
-            newAccess = true;
+            updateController = true;
         }
 
         private void AccessTime_SelectedIndexChanged(object sender, EventArgs e)
@@ -590,13 +499,8 @@ namespace WoodClub
             if(member != null)
             {
                 member.GroupTime = text;
-                newAccess = true;
+                updateController = true;
             }
-        }
-
-        private void cbNewBadge_CheckedChanged(object sender, EventArgs e)
-        {
-            newBadge = cbNewBadge.Checked;        
         }
 
         private void populateNewCredits()
@@ -617,66 +521,63 @@ namespace WoodClub
 
         private void populateTransactions()
         {
-            using (WoodclubEntities context = new WoodclubEntities())
+            try
             {
-                try
-                {
-                    TransDataGridView.Rows.Clear();
-                    var activity = (from m in context.Transactions             // List of members using club
-                                    where m.Badge == member.Badge
-                                    select m).OrderByDescending(x => x.TransDate);
+                TransDataGridView.Rows.Clear();
+                var activity = (from m in this.context.Transactions             // List of members using club
+                                where m.Badge == member.Badge
+                                select m).OrderByDescending(x => x.TransDate);
 
-                    TransDataGridView.ColumnCount = 4;
-                    TransDataGridView.Columns[0].Name = "Action";
-                    TransDataGridView.Columns[1].Name = "Code";
-                    TransDataGridView.Columns[2].Name = "Credits";
-                    TransDataGridView.Columns[3].Name = "Date/Time";
-                    TransDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    foreach (Transaction t in activity)
+                TransDataGridView.ColumnCount = 4;
+                TransDataGridView.Columns[0].Name = "Action";
+                TransDataGridView.Columns[1].Name = "Code";
+                TransDataGridView.Columns[2].Name = "Credits";
+                TransDataGridView.Columns[3].Name = "Date/Time";
+                TransDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                foreach (Transaction t in activity)
+                {
+                    Activity ac = new Activity();
+                    ac.Code = t.Code;
+                    ac.Credits = t.CreditAmt.ToString();
+                    if (t.EventType == "Door 1")
                     {
-                        Activity ac = new Activity();
-                        ac.Code = t.Code;
-                        ac.Credits = t.CreditAmt.ToString();
-                        if (t.EventType == "Door 1")
-                        {
-                            ac.Event = "Main Door";
-                        }
-                        else if (t.EventType == "Door 2")
-                        {
-                            ac.Event = "Assembly Door";
-                        }
-                        else if (t.EventType == "Door 3")
-                        {
-                            ac.Event = "Maintenace Door";
-                        }
-                        else if (t.EventType == "Door 4")
-                        {
-                            ac.Event = "Lumber Rm Door";
-                        }
-                        else
-                        {
-                            ac.Event = t.EventType;
-                        }
-                        ac.dateTime = (DateTime)t.TransDate;
-                        string[] row = new string[] { ac.Event, ac.Code, ac.Credits, ac.dateTime.ToString() };
-                        if (creditsOnlyChkbx.Checked)
-                        {
-                            if (ac.Code != "U")
-                            {
-                                TransDataGridView.Rows.Add(row);
-                            }
-                        }
-                        else
+                        ac.Event = "Main Door";
+                    }
+                    else if (t.EventType == "Door 2")
+                    {
+                        ac.Event = "Assembly Door";
+                    }
+                    else if (t.EventType == "Door 3")
+                    {
+                        ac.Event = "Maintenace Door";
+                    }
+                    else if (t.EventType == "Door 4")
+                    {
+                        ac.Event = "Lumber Rm Door";
+                    }
+                    else
+                    {
+                        ac.Event = t.EventType;
+                    }
+                    ac.dateTime = (DateTime)t.TransDate;
+                    string[] row = new string[] { ac.Event, ac.Code, ac.Credits, ac.dateTime.ToString() };
+                    if (creditsOnlyChkbx.Checked)
+                    {
+                        if (ac.Code != "U")
                         {
                             TransDataGridView.Rows.Add(row);
                         }
                     }
-                    log.Info("debug");
+                    else
+                    {
+                        TransDataGridView.Rows.Add(row);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    log.Fatal("Unable to get data...", ex);         // Capture exception
-                }
+                log.Info("debug");
+            }
+            catch (Exception ex)
+            {
+                log.Fatal("Unable to get data...", ex);         // Capture exception
             }
         }
 
@@ -705,16 +606,6 @@ namespace WoodClub
             populateNewCredits();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel; 
-        }
-
-        private void buttonApply_Click(object sender, EventArgs e)
-        {
-            applyChanges();
-            DialogResult = DialogResult.Yes;
-        }
 
         // event handlers
         private void GenericChangedHandler(object sender, EventArgs e)
@@ -724,6 +615,9 @@ namespace WoodClub
 
         private void SetBackgroundColor(Control c)
         {
+            if (formDirtyTracker == null)
+                return;
+
             bool resetBackColor = false;
             if (formDirtyTracker.IsDirty)
             {
@@ -776,5 +670,34 @@ namespace WoodClub
                 PopulateLockers();
             }
         }
-	}
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            applyChanges();
+            DialogResult = DialogResult.OK;
+            return;
+        }
+
+        private bool changesApplied = false;
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            if (changesApplied)
+            {
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                DialogResult = DialogResult.Cancel;
+            }
+        }
+
+        private void buttonApply_Click(object sender, EventArgs e)
+        {
+            applyChanges();
+            context.Dispose();
+
+            Editor_Load(null, null);
+            changesApplied = true;
+        }
+    }
 }

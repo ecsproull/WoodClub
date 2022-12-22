@@ -355,6 +355,7 @@
     <None Include="Properties\DataSources\BadgeCode.datasource" />
     <None Include="Properties\DataSources\Daily.datasource" />
     <None Include="Properties\DataSources\Lockers1.datasource" />
+    <None Include="Properties\DataSources\MemberRoster.datasource" />
     <None Include="Properties\DataSources\scwForm.datasource" />
     <None Include="Properties\DataSources\UnpaidMember.datasource" />
     <None Include="Properties\DataSources\Usage.datasource" />
