@@ -156,6 +156,7 @@ namespace WoodClub
             }
 
             this.formDirtyTracker.MarkAsClean();
+            this.updateController = false;
         }
 
         private void PopulateLockers()
