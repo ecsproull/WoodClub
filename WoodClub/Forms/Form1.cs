@@ -23,6 +23,7 @@ namespace WoodClub
         public bool update = false;
         public bool added = false;
         public static bool done = false;
+        public static bool lockersUpdated = false;
         private static int listenPort = 5725;
         private static UdpClient udpClient = new UdpClient();
 
@@ -245,6 +246,14 @@ namespace WoodClub
         {
             LockerRpt lr = new LockerRpt();
             lr.ShowDialog();
+            if (lockersUpdated)
+            {
+                lockersUpdated = false;
+                members = new Members(true);
+                blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
+                setBsMembersDataSource();
+                dataGridView1.DataSource = bsMembers;
+            }
         }
 
         private void dailySummaryToolStripMenuItem_Click(object sender, EventArgs e)

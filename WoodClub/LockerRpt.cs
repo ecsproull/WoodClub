@@ -22,6 +22,7 @@ namespace WoodClub
         private static Lockers currentLocker = null;
         private int year;
         private int visitsCnt;
+        private bool saveChanges = false;
         public LockerRpt()
         {
             InitializeComponent();
@@ -116,9 +117,23 @@ namespace WoodClub
             dataGridViewLockers.Refresh();
             dataGridViewLockers.Invalidate();
             textBoxTotalRevenue.Text = String.Format("${0}", totalRevenue.ToString("N0"));
+			dataGridViewLockers.CellContentClick += DataGridViewLockers_CellContentClick;
         }
 
-        private void TextBoxLockerFilter_KeyUp(object sender, KeyEventArgs e)
+		private void DataGridViewLockers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
+            if (e.ColumnIndex == 0)
+            {
+                string badge = dataGridViewLockers.Rows[e.RowIndex].Cells[0].Value.ToString();
+                Editor ed = new Editor(badge);
+                if (ed.ShowDialog() == DialogResult.OK)
+                {
+                    Form1.lockersUpdated = true;
+                }
+            }
+		}
+
+		private void TextBoxLockerFilter_KeyUp(object sender, KeyEventArgs e)
         {
             string filter = textBoxLockerFilter.Text;
             if (filter == string.Empty)
