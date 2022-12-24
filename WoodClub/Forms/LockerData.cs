@@ -51,7 +51,7 @@ namespace WoodClub.Forms
 				if (e.FormattedValue.ToString() == string.Empty || e.RowIndex < this.originalCount)
 					return;
 
-				bool match = Regex.IsMatch(e.FormattedValue.ToString(), "^[A-Z]*-[0-9]*$",	RegexOptions.Multiline);
+				bool match = Regex.IsMatch(e.FormattedValue.ToString(), "^[A-Z]*-[0-9.]*$",	RegexOptions.Multiline);
 				if (!match)
 				{
 					MessageBox.Show("Locker Title begin with capitol letters, then a dash followed by numbers. XX-1234");

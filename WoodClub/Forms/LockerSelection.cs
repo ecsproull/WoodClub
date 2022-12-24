@@ -147,7 +147,8 @@ namespace WoodClub.Forms
                                     Locker = lockerMember.locker.LockerTitle,
                                     Location = lockerLocation.Description
                                 })
-                            .Where(m => m.Badge == badge).ToList();
+                            .Where(m => m.Badge == badge)
+                            .OrderBy(l => l.Locker).ToList();
 
             List<JoinedListItem> joinedListCurrent = new List<JoinedListItem>();
             foreach (var locker in currentLockers)
@@ -186,7 +187,8 @@ namespace WoodClub.Forms
                         Locker = lockerMember.locker.LockerTitle,
                         Location = lockerLocation.Description
                     })
-                .Where(m => m.Badge != badge).ToList();
+                .Where(m => m.Badge != badge)
+                .OrderBy(l => l.Locker).ToList();
 
             List<JoinedListItem> joinedListAll = new List<JoinedListItem>();
             foreach (var locker in allLockers)
