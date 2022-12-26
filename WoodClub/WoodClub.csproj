@@ -188,6 +188,12 @@
     <Compile Include="Forms\FormDailyNew.Designer.cs">
       <DependentUpon>FormDailyNew.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormNewMembers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormNewMembers.designer.cs">
+      <DependentUpon>FormNewMembers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\formRFbadge.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -292,6 +298,7 @@
     <Compile Include="MonitorParam.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
+    <Compile Include="NewMember.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -334,6 +341,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormDailyNew.resx">
       <DependentUpon>FormDailyNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormNewMembers.resx">
+      <DependentUpon>FormNewMembers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\formRFbadge.resx">
       <DependentUpon>formRFbadge.cs</DependentUpon>

@@ -58,7 +58,7 @@ namespace WoodClub
             log.Info("Starting application");
             try
             {
-                members = new Members(true);            // Members datasource initialized from MemberRoster
+                LoadMembers();
             }
             catch (Exception ex)
             {
@@ -67,15 +67,30 @@ namespace WoodClub
             
             log.Info("members loaded");
 
-            blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
-            bsMembers.DataSource = blMembers;
-            dataGridView1.DataSource = bsMembers;
+            
             bsMembers.Position = 0;
             bindingNavigator1.BindingSource = bsMembers;
             toolStripTextBoxFilter.KeyUp += TextBoxName_KeyUp;
+			toolStripImportNewMembers.Click += ToolStripImportNewMembers_Click;
         }
 
-        private void TextBoxName_KeyUp(object sender, KeyEventArgs e)
+        private void LoadMembers()
+        {
+            members = new Members(true);
+            blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
+            bsMembers.DataSource = blMembers;
+            dataGridView1.DataSource = bsMembers;
+        }
+
+
+		private void ToolStripImportNewMembers_Click(object sender, EventArgs e)
+		{
+			FormNewMembers fnm = new FormNewMembers();
+            fnm.ShowDialog();
+            LoadMembers();
+		}
+
+		private void TextBoxName_KeyUp(object sender, KeyEventArgs e)
         {
             setBsMembersDataSource();
         }
@@ -165,10 +180,7 @@ namespace WoodClub
                         context.Database.ExecuteSqlCommand(cmd);
 
                         bsMembers.ResetCurrentItem();
-                        members = new Members(true);
-                        blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
-                        bsMembers.DataSource = blMembers;
-                        dataGridView1.DataSource = bsMembers;
+                        LoadMembers();
                     }
                     catch (Exception ex)
                     {
@@ -187,10 +199,7 @@ namespace WoodClub
                 if (frm.ShowDialog() == DialogResult.OK)        // Changes made - need to refresh from SQL
                 {
                     bsMembers.ResetCurrentItem();
-                    members = new Members(true);
-                    blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
-                    setBsMembersDataSource();
-                    dataGridView1.DataSource = bsMembers;
+                    LoadMembers();
                 }
             }
             finally
@@ -212,10 +221,7 @@ namespace WoodClub
         {
             formRFbadge frfb = new formRFbadge();
             frfb.ShowDialog();
-            members = new Members(true);
-            blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
-            bsMembers.DataSource = blMembers;
-            dataGridView1.DataSource = bsMembers;
+            LoadMembers();
         }
 
         private void monitorsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -230,10 +236,7 @@ namespace WoodClub
             DialogResult result = scwf.DialogResult;
             if (result == DialogResult.OK)
             {
-                members = new Members(true);
-                blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
-                bsMembers.DataSource = blMembers;
-                dataGridView1.DataSource = bsMembers;
+                LoadMembers();
             }
         }
         private void monthlyClubUsageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -249,10 +252,7 @@ namespace WoodClub
             if (lockersUpdated)
             {
                 lockersUpdated = false;
-                members = new Members(true);
-                blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
-                setBsMembersDataSource();
-                dataGridView1.DataSource = bsMembers;
+                LoadMembers();
             }
         }
 
