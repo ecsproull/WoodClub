@@ -238,11 +238,18 @@ namespace WoodClub
         private bool bFirstPage;
         private bool bNewPage;
         private int iTotalWidth;
+        private List<int> columnSkip = new List<int>();
 
 		private void PrintLockerReport_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
 		{
             try
             {
+                this.columnSkip.Add(3);
+                this.columnSkip.Add(4);
+                this.columnSkip.Add(5);
+                this.columnSkip.Add(10);
+
+                this.printLockerReport = new System.Drawing.Printing.PrintDocument();
                 strFormat = new StringFormat();
                 strFormat.Alignment = StringAlignment.Near;
                 strFormat.LineAlignment = StringAlignment.Center;
@@ -253,12 +260,18 @@ namespace WoodClub
                 iCellHeight = 0;
                 bFirstPage = true;
                 bNewPage = true;
+                rowsPrinted = 0;
 
                 // Calculating Total Widths
                 iTotalWidth = 0;
+                int col = 0;
                 foreach (DataGridViewColumn dgvGridCol in dataGridViewLockers.Columns)
                 {
-                    iTotalWidth += dgvGridCol.Width;
+                    if (!columnSkip.Contains(col))
+                    {
+                        iTotalWidth += dgvGridCol.Width;
+                    }
+                    col++;
                 }
             }
             catch (Exception ex)
@@ -283,19 +296,24 @@ namespace WoodClub
                 //For the first page to print set the cell width and header height
                 if (bFirstPage)
                 {
+                    int col = 0;
                     foreach (DataGridViewColumn GridCol in dataGridViewLockers.Columns)
                     {
-                        iTmpWidth = (int)(Math.Floor((double)((double)GridCol.Width /
-                            (double)iTotalWidth * (double)iTotalWidth *
-                            ((double)e.MarginBounds.Width / (double)iTotalWidth))));
+                        if (!columnSkip.Contains(col))
+                        {
+                            iTmpWidth = (int)(Math.Floor((double)((double)GridCol.Width /
+                                (double)iTotalWidth * (double)iTotalWidth *
+                                ((double)e.MarginBounds.Width / (double)iTotalWidth))));
 
-                        iHeaderHeight = (int)(e.Graphics.MeasureString(GridCol.HeaderText,
-                            GridCol.InheritedStyle.Font, iTmpWidth).Height) + 11;
+                            iHeaderHeight = (int)(e.Graphics.MeasureString(GridCol.HeaderText,
+                                GridCol.InheritedStyle.Font, iTmpWidth).Height) + 11;
 
-                        // Save width and height of headers
-                        arrColumnLefts.Add(iLeftMargin);
-                        arrColumnWidths.Add(iTmpWidth);
-                        iLeftMargin += iTmpWidth;
+                            // Save width and height of headers
+                            arrColumnLefts.Add(iLeftMargin);
+                            arrColumnWidths.Add(iTmpWidth);
+                            iLeftMargin += iTmpWidth;
+                        }
+                        col++;
                     }
                 }
 
@@ -342,44 +360,52 @@ namespace WoodClub
 
                             //Draw Columns                 
                             iTopMargin = e.MarginBounds.Top;
+                            int coll = 0;
                             foreach (DataGridViewColumn GridCol in dataGridViewLockers.Columns)
                             {
-                                e.Graphics.FillRectangle(new SolidBrush(Color.LightGray),
+                                if (!columnSkip.Contains(coll))
+                                {
+                                    e.Graphics.FillRectangle(new SolidBrush(Color.LightGray),
                                     new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
                                     (int)arrColumnWidths[iCount], iHeaderHeight));
 
-                                e.Graphics.DrawRectangle(Pens.Black,
-                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                    (int)arrColumnWidths[iCount], iHeaderHeight));
+                                    e.Graphics.DrawRectangle(Pens.Black,
+                                        new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+                                        (int)arrColumnWidths[iCount], iHeaderHeight));
 
-                                e.Graphics.DrawString(GridCol.HeaderText,
-                                    GridCol.InheritedStyle.Font,
-                                    new SolidBrush(GridCol.InheritedStyle.ForeColor),
-                                    new RectangleF((int)arrColumnLefts[iCount], iTopMargin,
-                                    (int)arrColumnWidths[iCount], iHeaderHeight), strFormat);
-                                iCount++;
+                                    e.Graphics.DrawString(GridCol.HeaderText,
+                                        GridCol.InheritedStyle.Font,
+                                        new SolidBrush(GridCol.InheritedStyle.ForeColor),
+                                        new RectangleF((int)arrColumnLefts[iCount], iTopMargin,
+                                        (int)arrColumnWidths[iCount], iHeaderHeight), strFormat);
+                                    iCount++;
+                                }
+                                coll++;
                             }
                             bNewPage = false;
                             iTopMargin += iHeaderHeight;
                         }
                         iCount = 0;
-                        //Draw Columns Contents                
+                        //Draw Columns Contents
                         foreach (DataGridViewCell Cel in GridRow.Cells)
                         {
-                            if (Cel.Value != null)
+                            //if (!columnSkip.Contains(iCount))
                             {
-                                e.Graphics.DrawString(Cel.Value.ToString(),
-                                    Cel.InheritedStyle.Font,
-                                    new SolidBrush(Cel.InheritedStyle.ForeColor),
-                                    new RectangleF((int)arrColumnLefts[iCount],
-                                    (float)iTopMargin,
-                                    (int)arrColumnWidths[iCount], (float)iCellHeight),
-                                    strFormat);
+                                if (Cel.Value != null)
+                                {
+                                    e.Graphics.DrawString(Cel.Value.ToString(),
+                                        Cel.InheritedStyle.Font,
+                                        new SolidBrush(Cel.InheritedStyle.ForeColor),
+                                        new RectangleF((int)arrColumnLefts[iCount],
+                                        (float)iTopMargin,
+                                        (int)arrColumnWidths[iCount], (float)iCellHeight),
+                                        strFormat);
+                                }
+                                //Drawing Cells Borders 
+                                e.Graphics.DrawRectangle(Pens.Black,
+                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+                                    (int)arrColumnWidths[iCount], iCellHeight));
                             }
-                            //Drawing Cells Borders 
-                            e.Graphics.DrawRectangle(Pens.Black,
-                                new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                (int)arrColumnWidths[iCount], iCellHeight));
                             iCount++;
                         }
                     }
