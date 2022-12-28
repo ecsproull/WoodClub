@@ -75,33 +75,58 @@ namespace WoodClub
                         Location = location.Description
                     })
                 .OrderBy(x => x.Badge).ToList();
- 
+
                 DSlocker = new List<Lockers>();
                 foreach (var member in lmcl)
                 {
-					//member = context.MemberRosters.Find(_id);
-					Lockers locker = new Lockers();
-					locker.Badge = member.Badge;
-					locker.FirstName = member.FirstName;
-					locker.LastName = member.LastName;
-					locker.Email = member.Email;
-					locker.Phone = member.Phone;
-					locker.ClubDuesPaid = (bool)member.ClubDuesPaid;
-					locker.CreditBank = member.CreditBank.ToString();
-					locker.LastDayValid = member.LastDayValid;
-					locker.HasLocker = member.Locker;
-					var yearvisit = from t in context.Transactions              // List of Usage by member
-									where t.TransDate.Value.Year == year
-										 && t.Code == "U" | t.Code == "FD"
-										 && t.Badge == member.Badge
-									select t.TransDate.Value;
-					visitsCnt = yearvisit.DistinctBy(x => x.DayOfYear).Count();
-					locker.ShopVisits = visitsCnt.ToString();
+                    //member = context.MemberRosters.Find(_id);
+                    Lockers locker = new Lockers();
+                    locker.Badge = member.Badge;
+                    locker.FirstName = member.FirstName;
+                    locker.LastName = member.LastName;
+                    locker.Email = member.Email;
+                    locker.Phone = member.Phone;
+                    locker.ClubDuesPaid = (bool)member.ClubDuesPaid;
+                    locker.CreditBank = member.CreditBank.ToString();
+                    locker.LastDayValid = member.LastDayValid;
+                    locker.HasLocker = member.Locker;
+                    var yearvisit = from t in context.Transactions              // List of Usage by member
+                                    where t.TransDate.Value.Year == year
+                                         && t.Code == "U" | t.Code == "FD"
+                                         && t.Badge == member.Badge
+                                    select t.TransDate.Value;
+                    visitsCnt = yearvisit.DistinctBy(x => x.DayOfYear).Count();
+                    locker.ShopVisits = visitsCnt.ToString();
                     locker.Cost = member.Cost.Value;
                     locker.Location = member.Location;
-					DSlocker.Add(locker);
+                    DSlocker.Add(locker);
                     totalRevenue += member.Cost.Value;
 
+                }
+
+                List<Locker> emptyLockers = (from l in context.Lockers
+                                             where l.Badge == string.Empty
+                                             select l).ToList();
+
+                foreach (var el in emptyLockers)
+                {
+                    //member = context.MemberRosters.Find(_id);
+                    Lockers locker = new Lockers();
+                    locker.Badge = el.Badge;
+                    locker.FirstName = string.Empty;
+                    locker.LastName = string.Empty;
+                    locker.Email = string.Empty;
+                    locker.Phone = string.Empty;
+                    locker.ClubDuesPaid = false;
+                    locker.CreditBank = string.Empty;
+                    locker.LastDayValid = string.Empty;
+                    locker.HasLocker = el.LockerTitle;
+                    var yearvisit = string.Empty;
+                    visitsCnt = 0;
+                    locker.ShopVisits = string.Empty;
+                    locker.Cost = 0;
+                    locker.Location = el.LocationCode;
+                    DSlocker.Add(locker);
                 }
             }
 
@@ -117,7 +142,7 @@ namespace WoodClub
 
 		private void DataGridViewLockers_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
                 string badge = dataGridViewLockers.Rows[e.RowIndex].Cells[0].Value.ToString();
                 Editor ed = new Editor(badge);
@@ -185,6 +210,19 @@ namespace WoodClub
                 {
                     MessageBox.Show("Error: Could not write file to disk. Original error: " + ex.Message);
                 }
+            }
+        }
+
+        private void buttonPrint_Click(object sender, EventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printLockerReport;
+            printDialog.UseEXDialog = true;
+            //Get the document
+            if (DialogResult.OK == printDialog.ShowDialog())
+            {
+                printLockerReport.DocumentName = "Locker Report";
+                printLockerReport.Print();
             }
         }
     }
