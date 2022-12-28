@@ -344,7 +344,6 @@ namespace WoodClub
 
                 if (updateController)
                 {
-                    MessageBox.Show("Controller Updating");
                     if (AccessTime.SelectedItem != null)
                     {
                         member.GroupTime = AccessTime.SelectedItem.ToString();
