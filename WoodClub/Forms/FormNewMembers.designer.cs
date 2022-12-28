@@ -30,8 +30,6 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.bs_newmember = new System.Windows.Forms.BindingSource(this.components);
-			this.buttonAddToDb = new System.Windows.Forms.Button();
 			this.Add = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,12 +43,17 @@
 			this.MemberDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.CardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.bs_newmember = new System.Windows.Forms.BindingSource(this.components);
+			this.buttonAddToDb = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bs_newmember)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// dataGridView1
 			// 
+			this.dataGridView1.AllowUserToAddRows = false;
+			this.dataGridView1.AllowUserToDeleteRows = false;
+			this.dataGridView1.AllowUserToOrderColumns = true;
 			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -72,18 +75,9 @@
             this.CardNo});
 			this.dataGridView1.Location = new System.Drawing.Point(3, 12);
 			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.RowHeadersVisible = false;
 			this.dataGridView1.Size = new System.Drawing.Size(1141, 388);
 			this.dataGridView1.TabIndex = 0;
-			// 
-			// buttonAddToDb
-			// 
-			this.buttonAddToDb.Location = new System.Drawing.Point(951, 415);
-			this.buttonAddToDb.Name = "buttonAddToDb";
-			this.buttonAddToDb.Size = new System.Drawing.Size(75, 23);
-			this.buttonAddToDb.TabIndex = 1;
-			this.buttonAddToDb.Text = "Add To DB";
-			this.buttonAddToDb.UseVisualStyleBackColor = true;
-			this.buttonAddToDb.Click += new System.EventHandler(this.buttonAddToDb_Click);
 			// 
 			// Add
 			// 
@@ -165,6 +159,16 @@
 			this.CardNo.DataPropertyName = "CardNo";
 			this.CardNo.HeaderText = "CardNo";
 			this.CardNo.Name = "CardNo";
+			// 
+			// buttonAddToDb
+			// 
+			this.buttonAddToDb.Location = new System.Drawing.Point(951, 415);
+			this.buttonAddToDb.Name = "buttonAddToDb";
+			this.buttonAddToDb.Size = new System.Drawing.Size(75, 23);
+			this.buttonAddToDb.TabIndex = 1;
+			this.buttonAddToDb.Text = "Add To DB";
+			this.buttonAddToDb.UseVisualStyleBackColor = true;
+			this.buttonAddToDb.Click += new System.EventHandler(this.buttonAddToDb_Click);
 			// 
 			// FormNewMembers
 			// 

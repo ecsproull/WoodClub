@@ -78,7 +78,7 @@ namespace WoodClub
         {
             members = new Members(true);
             blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
-            bsMembers.DataSource = blMembers;
+            setBsMembersDataSource();
             dataGridView1.DataSource = bsMembers;
         }
 
@@ -107,19 +107,13 @@ namespace WoodClub
                 var filteredBindingList = new SortableBindingList<MemberRoster>(blMembers.Where(
                     x => x.FirstName.ToUpper().Contains(filter.ToUpper()) ||
                     x.LastName.ToUpper().Contains(filter.ToUpper()) ||
+                    x.Title.ToUpper().Contains(filter.ToUpper()) ||
                     x.Badge.Contains(filter)).ToList());
                 bsMembers.DataSource = filteredBindingList;
                 dataGridView1.Refresh();
             }
         }
 
-        private void SetUpEventsForDataGridViewSorting()
-        {
-            bsMembers.PositionChanged += bsMembers_PositionChanged;
-            dataGridView1.Sorted += dataGridView1_Sorted;
-            bindingNavigator1.DeleteItem = null;
-            bindingNavigator1.AddNewItem = null;
-        }
         /// <summary>
         /// Use the form level variable currentCustomer set in the
         /// BindingSource PositionChanged event to keep the item current

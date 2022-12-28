@@ -24,6 +24,7 @@ namespace WoodClub
         private BindingSource bsBadges = new BindingSource();
         private List<BadgeCode> DataSource;
         private List<acc_timeseg> TZdatasource;
+        private List<string> controlsTriggerUpdate = new List<string>();
         private bool newCredit = false;     // Credit values trigger transaction
         private double creditBankStart = 0.0;
         private Dictionary<string, TransactionAddition> creditTransactions = new Dictionary<string, TransactionAddition>();
@@ -35,6 +36,21 @@ namespace WoodClub
         {
             InitializeComponent();
             this.badge = badge;
+            this.controlsTriggerUpdate.Add("cbUpdateControllers");
+            this.controlsTriggerUpdate.Add("cbExempt");
+            this.controlsTriggerUpdate.Add("txtRFcard");
+            this.controlsTriggerUpdate.Add("cbClubDuesPaid");
+            this.controlsTriggerUpdate.Add("txtCredits");
+            this.controlsTriggerUpdate.Add("txtLastDay");
+            this.controlsTriggerUpdate.Add("cbExtendHr");
+            this.controlsTriggerUpdate.Add("cbMain");
+            this.controlsTriggerUpdate.Add("cbSide");
+            this.controlsTriggerUpdate.Add("cbLumber");
+            this.controlsTriggerUpdate.Add("cbMaint");
+            this.controlsTriggerUpdate.Add("cbOffice");
+            this.controlsTriggerUpdate.Add("cbAssembly");
+            this.controlsTriggerUpdate.Add("cbMachine");
+            this.controlsTriggerUpdate.Add("AccessTime");
         }
 
         private void Editor_Load(object sender, EventArgs e)
@@ -142,24 +158,31 @@ namespace WoodClub
             populateNewCredits();
             AssignHandlersForControlCollection(this.Controls);
 
-            if (formDirtyTracker == null)
+            if (sender == null) // we are reloading the page after an edit.
             {
-                this.formDirtyTracker = new FormDirtyTracker(this);
-            }
-
-            if (sender == null) // we are reloadign the page after an edit.
-            {
-                foreach (Control control in this.Controls)
+                List<Control> controls = this.formDirtyTracker.GetListOfDirtyControls();
+                foreach (Control control in controls)
                 {
                     this.formDirtyTracker.resetControlBackColor(control);
                 }
             }
 
+            if (formDirtyTracker == null)
+            {
+                this.formDirtyTracker = new FormDirtyTracker(this);
+            }
+
+            this.txtRFcard.TextChanged += TxtRFcard_TextChanged;
             this.formDirtyTracker.MarkAsClean();
             this.updateController = false;
         }
 
-        private void PopulateLockers()
+		private void TxtRFcard_TextChanged(object sender, EventArgs e)
+		{
+			this.txtRFcard.Text = txtRFcard.Text.TrimStart('0');
+		}
+
+		private void PopulateLockers()
         {
             List<Locker> lockers = (from l in this.context.Lockers
                                     where l.Badge == member.Badge
@@ -243,13 +266,34 @@ namespace WoodClub
 
         private void applyChanges()
         {
-            string fsml = getFSML();
-            if (fsml != this.member.EntryCodes.Trim())
+            List<Control> controls = this.formDirtyTracker.GetListOfDirtyControls();
+            foreach (Control control in controls)
             {
-                this.member.EntryCodes = fsml;
-                updateController = true;
+                if (this.controlsTriggerUpdate.Contains(control.Name))
+                {
+                    if (control.Name == "txtCredits")
+                    {
+                        DateTime today = DateTime.Now.Date;
+                        string lastDayValid = txtLastDay.Text;
+                        string[] parts = lastDayValid.Split('/');
+                        DateTime ldv = new DateTime(Convert.ToInt32(parts[2]), 
+                            Convert.ToInt32(parts[0]), 
+                            Convert.ToInt32(parts[1]));
+
+                        if (today > ldv)
+                        {
+                            updateController = true;
+                        }
+                    }
+                    else
+                    {
+                        updateController = true;
+                    }
+                }
             }
 
+            string entryCodes = getDoorEntryCodes();
+            
             if (TZaccess == 0)
             {
                 MessageBox.Show("Please select members access time!");
@@ -300,6 +344,7 @@ namespace WoodClub
 
                 if (updateController)
                 {
+                    MessageBox.Show("Controller Updating");
                     if (AccessTime.SelectedItem != null)
                     {
                         member.GroupTime = AccessTime.SelectedItem.ToString();
@@ -311,7 +356,7 @@ namespace WoodClub
                         return;
                     }
                     member.AuthorizedTimeZone = TZaccess;
-                    member.EntryCodes = getFSML();
+                    member.EntryCodes = getDoorEntryCodes();
                     DoorUpdate();
                 }
 
@@ -361,7 +406,7 @@ namespace WoodClub
         //
         //  Converts values of check boxes Maintenance & Lumber return update string
         //
-        private string getFSML()
+        private string getDoorEntryCodes()
         {
             string result = "";
             if(cbMain.Checked)
@@ -394,11 +439,6 @@ namespace WoodClub
             }
 
             return result;
-        }
-
-        private new void TextChanged(object sender, EventArgs e)
-        {
-            updateController = true;
         }
 
         private void btnLoadPhoto_Click(object sender, EventArgs e)
@@ -487,11 +527,6 @@ namespace WoodClub
             populateNewCredits();
         }
 
-        private void txtRFcard_TextChanged(object sender, EventArgs e)
-        {
-            updateController = true;
-        }
-
         private void AccessTime_SelectedIndexChanged(object sender, EventArgs e)
         {
             log.Info("New Timezone");
@@ -500,7 +535,6 @@ namespace WoodClub
             if(member != null)
             {
                 member.GroupTime = text;
-                updateController = true;
             }
         }
 
@@ -585,7 +619,7 @@ namespace WoodClub
         private void DoorUpdate()
         {
             int PORT = 5724;
-            string codes = getFSML();
+            string codes = getDoorEntryCodes();
             member.EntryCodes = codes;
             string enable = txtBadge.Text + "," + txtRFcard.Text + "," + codes + "," + TZaccess.ToString();
             String dataOut = "[," + enable + ",]";

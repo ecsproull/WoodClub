@@ -12,13 +12,31 @@ namespace WoodClub
 		public FormNewMembers()
 		{
 			InitializeComponent();
+			dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
+			dataGridView1.CellClick += DataGridView1_CellClick;
+		}
+
+		private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.ColumnIndex == 0 && dataGridView1.Rows[e.RowIndex].Cells[0].ReadOnly)
+			{
+				MessageBox.Show("Rec Card is already in the database");
+			}
+		}
+
+		private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.ColumnIndex == 12)
+			{
+				dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value =
+					dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().TrimStart('0');
+			}
 		}
 
 		private async void Form1_Load(object sender, EventArgs e)
 		{
 			SignUpGenisus sug = new SignUpGenisus();
 			Rootobject ro =  await sug.GetSignup(DateTime.Now);
-
 			List<SignupSlot> slots = new List<SignupSlot>();
 			string startDate = string.Empty;
 			using (WoodclubEntities context = new WoodclubEntities())
@@ -64,6 +82,14 @@ namespace WoodClub
 
 			bs_newmember.DataSource = members;
 			this.dataGridView1.DataSource = bs_newmember;
+
+			for (int i = 0; i < members.Count; i++)
+			{
+				if (!members[i].Add)
+				{
+					this.dataGridView1.Rows[i].Cells[0].ReadOnly = true;
+				}
+			}
 		}
 
 		private void buttonAddToDb_Click(object sender, EventArgs e)
@@ -72,39 +98,42 @@ namespace WoodClub
 
 			using (WoodclubEntities context = new WoodclubEntities())
 			{
-				
+
 				foreach (NewMember r in members)
 				{
-					context.MemberRosters.Add(new MemberRoster
+					if (r.Add)
 					{
-						Title = "New Member",
-						Badge = r.Badge,
-						CardNo = r.CardNo,
-						FirstName = r.FirstName,
-						LastName = r.LastName,
-						Email = r.Email,
-						Phone = r.Phone,
-						Address = r.Address,
-						State = r.State,
-						Zip = r.ZipCode,
-						RecCard = r.RecNo,
-						MemberDate = r.MemberDate,
-						ClubDuesPaidDate = r.MemberDate,
-						OneTime = true,
-						EntryCodes = "F",
-						GroupTime = "Members",
-						RecDuesPaid = true,
-						ClubDuesPaid = true,
-						CreditBank = "0",
-						AuthorizedTimeZone = 3,
-						ExemptModDate = r.MemberDate,
-						Authorized = false,
-						ExtHour = false,
-						Exempt = false,
-						Locker = String.Empty,
-						NewBadge = false,
-						LastDayValid = DateTime.Now
-					});
+						context.MemberRosters.Add(new MemberRoster
+						{
+							Title = "New Member",
+							Badge = r.Badge,
+							CardNo = r.CardNo,
+							FirstName = r.FirstName,
+							LastName = r.LastName,
+							Email = r.Email,
+							Phone = r.Phone,
+							Address = r.Address,
+							State = r.State,
+							Zip = r.ZipCode,
+							RecCard = r.RecNo,
+							MemberDate = r.MemberDate,
+							ClubDuesPaidDate = r.MemberDate,
+							OneTime = true,
+							EntryCodes = "F",
+							GroupTime = "Members",
+							RecDuesPaid = true,
+							ClubDuesPaid = true,
+							CreditBank = "0",
+							AuthorizedTimeZone = 3,
+							ExemptModDate = r.MemberDate,
+							Authorized = false,
+							ExtHour = false,
+							Exempt = false,
+							Locker = String.Empty,
+							NewBadge = false,
+							LastDayValid = DateTime.Now
+						});
+					}
 				}
 
 				context.SaveChanges();
