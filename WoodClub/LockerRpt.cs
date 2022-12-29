@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -222,19 +223,20 @@ namespace WoodClub
 
         private void buttonPrint_Click(object sender, EventArgs e)
         {
-            PrintDialog printDialog = new PrintDialog();
-			printDialog.AllowSomePages = true;
-            PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
-            printPrvDlg.ClientSize = new System.Drawing.Size(1200, 800);
-            printDialog.Document = printLockerReport;
+			printDialogLockers.AllowSomePages = true;
+           // PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
+           // printPrvDlg.ClientSize = new System.Drawing.Size(1200, 800);
+            
 			printLockerReport.BeginPrint += PrintLockerReport_BeginPrint;
 			printLockerReport.PrintPage += PrintLockerReport_PrintPage;
-
-            printPrvDlg.Document = printLockerReport;
             printLockerReport.DefaultPageSettings.Landscape = true;
-            printPrvDlg.ShowDialog();
 
-            if (DialogResult.OK == printDialog.ShowDialog())
+            //  printPrvDlg.Document = printLockerReport;
+
+            //  printPrvDlg.ShowDialog();
+
+            printDialogLockers.Document = printLockerReport;
+            if (DialogResult.OK == printDialogLockers.ShowDialog())
             {
                 printLockerReport.DocumentName = "Locker Report";
                 printLockerReport.Print();
@@ -250,6 +252,8 @@ namespace WoodClub
         private bool bFirstPage;
         private bool bNewPage;
         private int iTotalWidth;
+        private int iHeaderHeight = 0;
+        private int pages = 1;
         private List<int> columnSkip = new List<int>();
 
 		private void PrintLockerReport_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
@@ -273,6 +277,8 @@ namespace WoodClub
                 bFirstPage = true;
                 bNewPage = true;
                 rowsPrinted = 0;
+                pages = 1;
+
 
                 // Calculating Total Widths
                 iTotalWidth = 0;
@@ -292,12 +298,31 @@ namespace WoodClub
             }
         }
 
-        private int iHeaderHeight = 0;
 
         private void PrintLockerReport_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             try
             {
+                
+                PrintDocument pd = sender as PrintDocument;
+                if (pd.PrinterSettings.FromPage != 0 && pd.PrinterSettings.ToPage != 0)
+                {
+                    if (pd.PrinterSettings.FromPage > pages)
+                    {
+                        e.HasMorePages = true;
+                        pages++;
+                        return;
+                    }
+                    else if (pd.PrinterSettings.ToPage < pages)
+                    {
+                        e.HasMorePages = false;
+                        pages++;
+                        return;
+                    }
+                }
+                pages++;
+
+
                 //Set the top margin
                 int iTopMargin = e.MarginBounds.Top;
                 //Whether more pages have to print or not
@@ -431,9 +456,14 @@ namespace WoodClub
                 }
                 //If more lines exist, print another page.
                 if (bMorePagesToPrint)
+                {
+                    rowsPrinted++;
                     e.HasMorePages = true;
+                }
                 else
+                {
                     e.HasMorePages = false;
+                }
             }
             catch (Exception exc)
             {
