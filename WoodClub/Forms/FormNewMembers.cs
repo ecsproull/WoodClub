@@ -123,7 +123,7 @@ namespace WoodClub
 							GroupTime = "Members",
 							RecDuesPaid = true,
 							ClubDuesPaid = true,
-							CreditBank = "0",
+							CreditBank = r.Badge == String.Empty ? "0" : "1",
 							AuthorizedTimeZone = 3,
 							ExemptModDate = r.MemberDate,
 							Authorized = false,
@@ -133,6 +133,19 @@ namespace WoodClub
 							NewBadge = false,
 							LastDayValid = DateTime.Now
 						});
+
+						if (Convert.ToInt32(r.Badge) < 9000)
+						{
+							context.Transactions.Add(new Transaction
+							{
+								Badge = r.Badge,
+								Code = "Q4",
+								TransDate = DateTime.Now,
+								CreditAmt = 1,
+								EventType = "Orientation 1 Credit",
+								RecCard = r.RecNo
+							});
+						}
 					}
 				}
 

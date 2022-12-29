@@ -146,10 +146,13 @@ namespace WoodClub
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
                 string badge = dataGridViewLockers.Rows[e.RowIndex].Cells[0].Value.ToString();
-                Editor ed = new Editor(badge);
-                if (ed.ShowDialog() == DialogResult.OK)
+                if (!string.IsNullOrEmpty(badge))
                 {
-                    Form1.lockersUpdated = true;
+                    Editor ed = new Editor(badge);
+                    if (ed.ShowDialog() == DialogResult.OK)
+                    {
+                        Form1.lockersUpdated = true;
+                    }
                 }
             }
 		}
