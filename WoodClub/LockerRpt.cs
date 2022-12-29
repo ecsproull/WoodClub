@@ -237,7 +237,7 @@ namespace WoodClub
             if (DialogResult.OK == printDialog.ShowDialog())
             {
                 printLockerReport.DocumentName = "Locker Report";
-               // printLockerReport.Print();
+                printLockerReport.Print();
             }
         }
 
