@@ -70,7 +70,7 @@ namespace WoodClub
                         Phone = lockerMemberCost.lockerMember.member.Phone,
                         ClubDuesPaid = lockerMemberCost.lockerMember.member.ClubDuesPaid,
                         CreditBank = lockerMemberCost.lockerMember.member.CreditBank,
-                        LastDayValid = lockerMemberCost.lockerMember.member.CreditBank,
+                        LastDayValid = lockerMemberCost.lockerMember.member.LastDayValid.ToString(),
                         Locker = lockerMemberCost.lockerMember.locker.LockerTitle,
                         Cost = lockerMemberCost.lockerCost.Cost,
                         Location = location.Description
@@ -163,7 +163,10 @@ namespace WoodClub
             }
             else
             {
-                var filteredBindingList = new SortableBindingList<Lockers>(blLockers.Where(x => x.HasLocker.Contains(filter.ToUpper())).ToList());
+                var filteredBindingList = new SortableBindingList<Lockers>(blLockers.Where(x => x.HasLocker.Contains(filter.ToUpper()) ||
+                                                                                                x.Badge.Contains(filter) ||
+                                                                                                x.FirstName.ToUpper().Contains(filter.ToUpper()) ||
+                                                                                                x.LastName.ToUpper().Contains(filter.ToUpper())).ToList());
                 bsLockers.DataSource = filteredBindingList;
                 dataGridViewLockers.Refresh();
             }
@@ -217,15 +220,21 @@ namespace WoodClub
         private void buttonPrint_Click(object sender, EventArgs e)
         {
             PrintDialog printDialog = new PrintDialog();
+			printDialog.AllowSomePages = true;
+            PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
+            printPrvDlg.ClientSize = new System.Drawing.Size(1200, 800);
             printDialog.Document = printLockerReport;
 			printLockerReport.BeginPrint += PrintLockerReport_BeginPrint;
 			printLockerReport.PrintPage += PrintLockerReport_PrintPage;
-            printDialog.UseEXDialog = true;
-            //Get the document
+
+            printPrvDlg.Document = printLockerReport;
+            printLockerReport.DefaultPageSettings.Landscape = true;
+            printPrvDlg.ShowDialog();
+
             if (DialogResult.OK == printDialog.ShowDialog())
             {
                 printLockerReport.DocumentName = "Locker Report";
-                printLockerReport.Print();
+               // printLockerReport.Print();
             }
         }
 
@@ -280,22 +289,23 @@ namespace WoodClub
             }
         }
 
+        private int iHeaderHeight = 0;
+
         private void PrintLockerReport_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             try
             {
-                //Set the left margin
-                int iLeftMargin = e.MarginBounds.Left;
                 //Set the top margin
                 int iTopMargin = e.MarginBounds.Top;
                 //Whether more pages have to print or not
                 bool bMorePagesToPrint = false;
-                int iTmpWidth = 0;
-                int iHeaderHeight = 0;
+                
 
                 //For the first page to print set the cell width and header height
                 if (bFirstPage)
                 {
+                    int iTmpWidth = 0;
+                    int iLeftMargin = e.MarginBounds.Left;
                     int col = 0;
                     foreach (DataGridViewColumn GridCol in dataGridViewLockers.Columns)
                     {
@@ -338,10 +348,10 @@ namespace WoodClub
                         if (bNewPage)
                         {
                             //Draw Header
-                            e.Graphics.DrawString("Customer Summary",
+                            e.Graphics.DrawString("Locker Summary",
                                 new Font(dataGridViewLockers.Font, FontStyle.Bold),
                                 Brushes.Black, e.MarginBounds.Left,
-                                e.MarginBounds.Top - e.Graphics.MeasureString("Customer Summary",
+                                e.MarginBounds.Top - e.Graphics.MeasureString("Locker Summary",
                                 new Font(dataGridViewLockers.Font, FontStyle.Bold),
                                 e.MarginBounds.Width).Height - 13);
 
@@ -387,9 +397,10 @@ namespace WoodClub
                         }
                         iCount = 0;
                         //Draw Columns Contents
+                        int col = 0;
                         foreach (DataGridViewCell Cel in GridRow.Cells)
                         {
-                            //if (!columnSkip.Contains(iCount))
+                            if (!columnSkip.Contains(col))
                             {
                                 if (Cel.Value != null)
                                 {
@@ -405,8 +416,10 @@ namespace WoodClub
                                 e.Graphics.DrawRectangle(Pens.Black,
                                     new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
                                     (int)arrColumnWidths[iCount], iCellHeight));
+                                iCount++;
                             }
-                            iCount++;
+
+                            col++;
                         }
                     }
                     rowsPrinted++;
@@ -415,7 +428,7 @@ namespace WoodClub
                 }
                 //If more lines exist, print another page.
                 if (bMorePagesToPrint)
-                    e.HasMorePages = false;
+                    e.HasMorePages = true;
                 else
                     e.HasMorePages = false;
             }

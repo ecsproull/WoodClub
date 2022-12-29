@@ -56,7 +56,7 @@ namespace WoodClub
         private void Editor_Load(object sender, EventArgs e)
         {
             this.context = new WoodclubEntities();
-            if (this.badge != null)
+            if (!string.IsNullOrEmpty(this.badge))
             {
                 this.member = (from m in context.MemberRosters
                                where m.Badge == badge
