@@ -30,18 +30,19 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.dataGridLockerData = new System.Windows.Forms.DataGridView();
-			this.bs_Lockers = new System.Windows.Forms.BindingSource(this.components);
 			this.bs_LockerLocationSelect = new System.Windows.Forms.BindingSource(this.components);
+			this.bs_Lockers = new System.Windows.Forms.BindingSource(this.components);
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.buttonApply = new System.Windows.Forms.Button();
 			this.lockerTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.LocationSelect = new System.Windows.Forms.DataGridViewComboBoxColumn();
+			this.Project = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DeleteCheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridLockerData)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bs_Lockers)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bs_LockerLocationSelect)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bs_Lockers)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// dataGridLockerData
@@ -56,6 +57,7 @@
             this.lockerTitle,
             this.Code,
             this.LocationSelect,
+            this.Project,
             this.DeleteCheckBox});
 			this.dataGridLockerData.DataSource = this.bs_Lockers;
 			this.dataGridLockerData.Location = new System.Drawing.Point(12, 12);
@@ -122,6 +124,12 @@
 			this.LocationSelect.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			this.LocationSelect.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			// 
+			// Project
+			// 
+			this.Project.DataPropertyName = "Project";
+			this.Project.HeaderText = "Project";
+			this.Project.Name = "Project";
+			// 
 			// DeleteCheckBox
 			// 
 			this.DeleteCheckBox.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -144,8 +152,8 @@
 			this.Text = "LockerData";
 			this.Load += new System.EventHandler(this.LockerData_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridLockerData)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bs_Lockers)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bs_LockerLocationSelect)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bs_Lockers)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -161,6 +169,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn lockerTitle;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Code;
 		private System.Windows.Forms.DataGridViewComboBoxColumn LocationSelect;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Project;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn DeleteCheckBox;
 	}
 }

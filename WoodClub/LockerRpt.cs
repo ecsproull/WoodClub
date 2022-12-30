@@ -28,6 +28,7 @@ namespace WoodClub
             bsLockers.PositionChanged += BsLockers_PositionChanged;
             year = DateTime.Now.Year;
         }
+
         private void BsLockers_PositionChanged(object sender, EventArgs e)
         {
             if (bsLockers.CurrentRowIsValid())
@@ -74,7 +75,8 @@ namespace WoodClub
                         LastDayValid = lockerMemberCost.lockerMember.member.LastDayValid.ToString(),
                         Locker = lockerMemberCost.lockerMember.locker.LockerTitle,
                         Cost = lockerMemberCost.lockerCost.Cost,
-                        Location = location.Description
+                        Location = location.Description,
+                        Project = lockerMemberCost.lockerMember.locker.Project
                     })
                 .OrderBy(x => x.Badge).ToList();
 
@@ -101,6 +103,7 @@ namespace WoodClub
                     locker.ShopVisits = visitsCnt.ToString();
                     locker.Cost = member.Cost.Value;
                     locker.Location = member.Location;
+                    locker.Project = member.Project;
                     DSlocker.Add(locker);
                     totalRevenue += member.Cost.Value;
 
@@ -128,6 +131,7 @@ namespace WoodClub
                     locker.ShopVisits = string.Empty;
                     locker.Cost = 0;
                     locker.Location = el.LocationCode;
+                    locker.Project = el.Project;
                     DSlocker.Add(locker);
                 }
             }
@@ -179,16 +183,15 @@ namespace WoodClub
         private void btnSave_Click(object sender, EventArgs e)
         {
             string pathDesktop = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%") + "\\Documents";
-            string filePath = pathDesktop + "\\monitor.csv";
             string delimter = ",";
-            SaveFileDialog theDialog = new SaveFileDialog();
-            theDialog.Title = "Save CSV File";
-            theDialog.FileName = "lockers.csv";
-            theDialog.InitialDirectory = theDialog.InitialDirectory = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%") + "\\Documents";
-            theDialog.Filter = "CSV files|*.csv";
-            if (theDialog.ShowDialog() == DialogResult.OK)
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Save CSV File";
+            saveFileDialog.FileName = "lockers.csv";
+            saveFileDialog.InitialDirectory = saveFileDialog.InitialDirectory = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%") + "\\Documents";
+            saveFileDialog.Filter = "CSV files|*.csv";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                filePath = theDialog.FileName;
+                string filePath = saveFileDialog.FileName;
                 try
                 {
                     int length = DSlocker.Count();
@@ -221,116 +224,82 @@ namespace WoodClub
             }
         }
 
+        private StringFormat strFormat;
+        private List<int> columnLefts = new List<int>();
+        private List<int> columnWidths = new List<int>();
+        private int cellHeight;
+        private int rowsPrinted = 0;
+        private bool firstPage;
+        private bool newPage;
+        private int totalWidth;
+        private int headerHeight = 0;
+        private List<int> columnSkip = new List<int>();
+
         private void buttonPrint_Click(object sender, EventArgs e)
         {
 			printDialogLockers.AllowSomePages = true;
-           // PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
-           // printPrvDlg.ClientSize = new System.Drawing.Size(1200, 800);
+            PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
+            printPrvDlg.ClientSize = new System.Drawing.Size(1200, 800);
             
 			printLockerReport.BeginPrint += PrintLockerReport_BeginPrint;
 			printLockerReport.PrintPage += PrintLockerReport_PrintPage;
             printLockerReport.DefaultPageSettings.Landscape = true;
 
-            //  printPrvDlg.Document = printLockerReport;
-
-            //  printPrvDlg.ShowDialog();
-
-            printDialogLockers.Document = printLockerReport;
-            if (DialogResult.OK == printDialogLockers.ShowDialog())
-            {
-                printLockerReport.DocumentName = "Locker Report";
-                printLockerReport.Print();
-            }
+            printPrvDlg.Document = printLockerReport;
+            printPrvDlg.ShowDialog();
         }
-
-
-        private StringFormat strFormat;
-        private List<int> arrColumnLefts = new List<int>();
-        private List<int> arrColumnWidths = new List<int>();
-        private int iCellHeight;
-        private int rowsPrinted = 0;
-        private bool bFirstPage;
-        private bool bNewPage;
-        private int iTotalWidth;
-        private int iHeaderHeight = 0;
-        private int pages = 1;
-        private List<int> columnSkip = new List<int>();
 
 		private void PrintLockerReport_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
 		{
             try
             {
-                this.columnSkip.Add(3);
-                this.columnSkip.Add(4);
-                this.columnSkip.Add(5);
-                this.columnSkip.Add(10);
+				columnSkip.Add(3);
+				columnSkip.Add(4);
+				columnSkip.Add(5);
+				columnSkip.Add(10);
 
-                this.printLockerReport = new System.Drawing.Printing.PrintDocument();
-                strFormat = new StringFormat();
-                strFormat.Alignment = StringAlignment.Near;
-                strFormat.LineAlignment = StringAlignment.Center;
-                strFormat.Trimming = StringTrimming.EllipsisCharacter;
+				printLockerReport = new PrintDocument();
+				strFormat = new StringFormat();
+				strFormat.Alignment = StringAlignment.Near;
+				strFormat.LineAlignment = StringAlignment.Center;
+				strFormat.Trimming = StringTrimming.EllipsisCharacter;
 
-                arrColumnLefts.Clear();
-                arrColumnWidths.Clear();
-                iCellHeight = 0;
-                bFirstPage = true;
-                bNewPage = true;
-                rowsPrinted = 0;
-                pages = 1;
+				columnLefts.Clear();
+				columnWidths.Clear();
+				cellHeight = 0;
+				firstPage = true;
+				newPage = true;
+				rowsPrinted = 0;
 
-
-                // Calculating Total Widths
-                iTotalWidth = 0;
-                int col = 0;
-                foreach (DataGridViewColumn dgvGridCol in dataGridViewLockers.Columns)
-                {
-                    if (!columnSkip.Contains(col))
-                    {
-                        iTotalWidth += dgvGridCol.Width;
-                    }
-                    col++;
-                }
-            }
+				// Calculating Total Widths
+				totalWidth = 0;
+				int col = 0;
+				foreach (DataGridViewColumn dgvGridCol in dataGridViewLockers.Columns)
+				{
+					if (!columnSkip.Contains(col))
+					{
+						totalWidth += dgvGridCol.Width;
+					}
+					col++;
+				}
+			}
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
         private void PrintLockerReport_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             try
             {
-                
-                PrintDocument pd = sender as PrintDocument;
-                if (pd.PrinterSettings.FromPage != 0 && pd.PrinterSettings.ToPage != 0)
-                {
-                    if (pd.PrinterSettings.FromPage > pages)
-                    {
-                        e.HasMorePages = true;
-                        pages++;
-                        return;
-                    }
-                    else if (pd.PrinterSettings.ToPage < pages)
-                    {
-                        e.HasMorePages = false;
-                        pages++;
-                        return;
-                    }
-                }
-                pages++;
-
-
                 //Set the top margin
                 int iTopMargin = e.MarginBounds.Top;
                 //Whether more pages have to print or not
                 bool bMorePagesToPrint = false;
                 
-
                 //For the first page to print set the cell width and header height
-                if (bFirstPage)
+                if (firstPage)
                 {
                     int iTmpWidth = 0;
                     int iLeftMargin = e.MarginBounds.Left;
@@ -340,15 +309,15 @@ namespace WoodClub
                         if (!columnSkip.Contains(col))
                         {
                             iTmpWidth = (int)(Math.Floor((double)((double)GridCol.Width /
-                                (double)iTotalWidth * (double)iTotalWidth *
-                                ((double)e.MarginBounds.Width / (double)iTotalWidth))));
+                                (double)totalWidth * (double)totalWidth *
+                                ((double)e.MarginBounds.Width / (double)totalWidth))));
 
-                            iHeaderHeight = (int)(e.Graphics.MeasureString(GridCol.HeaderText,
+                            headerHeight = (int)(e.Graphics.MeasureString(GridCol.HeaderText,
                                 GridCol.InheritedStyle.Font, iTmpWidth).Height) + 11;
 
                             // Save width and height of headers
-                            arrColumnLefts.Add(iLeftMargin);
-                            arrColumnWidths.Add(iTmpWidth);
+                            columnLefts.Add(iLeftMargin);
+                            columnWidths.Add(iTmpWidth);
                             iLeftMargin += iTmpWidth;
                         }
                         col++;
@@ -361,19 +330,19 @@ namespace WoodClub
                 {
                     DataGridViewRow GridRow = dataGridViewLockers.Rows[iRow];
                     //Set the cell height
-                    iCellHeight = GridRow.Height + 5;
+                    cellHeight = GridRow.Height + 5;
                     int iCount = 0;
                     //Check whether the current page settings allows more rows to print
-                    if (iTopMargin + iCellHeight >= e.MarginBounds.Height + e.MarginBounds.Top)
+                    if (iTopMargin + cellHeight >= e.MarginBounds.Height + e.MarginBounds.Top)
                     {
-                        bNewPage = true;
-                        bFirstPage = false;
+                        newPage = true;
+                        firstPage = false;
                         bMorePagesToPrint = true;
                         break;
                     }
                     else
                     {
-                        if (bNewPage)
+                        if (newPage)
                         {
                             //Draw Header
                             e.Graphics.DrawString("Locker Summary",
@@ -404,24 +373,25 @@ namespace WoodClub
                                 if (!columnSkip.Contains(coll))
                                 {
                                     e.Graphics.FillRectangle(new SolidBrush(Color.LightGray),
-                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                    (int)arrColumnWidths[iCount], iHeaderHeight));
+                                    new Rectangle((int)columnLefts[iCount], iTopMargin,
+                                    (int)columnWidths[iCount], headerHeight));
 
                                     e.Graphics.DrawRectangle(Pens.Black,
-                                        new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                        (int)arrColumnWidths[iCount], iHeaderHeight));
+                                        new Rectangle((int)columnLefts[iCount], iTopMargin,
+                                        (int)columnWidths[iCount], headerHeight));
 
                                     e.Graphics.DrawString(GridCol.HeaderText,
                                         GridCol.InheritedStyle.Font,
                                         new SolidBrush(GridCol.InheritedStyle.ForeColor),
-                                        new RectangleF((int)arrColumnLefts[iCount], iTopMargin,
-                                        (int)arrColumnWidths[iCount], iHeaderHeight), strFormat);
+                                        new RectangleF((int)columnLefts[iCount], iTopMargin,
+                                        (int)columnWidths[iCount], headerHeight), strFormat);
                                     iCount++;
                                 }
                                 coll++;
                             }
-                            bNewPage = false;
-                            iTopMargin += iHeaderHeight;
+
+                            newPage = false;
+                            iTopMargin += headerHeight;
                         }
                         iCount = 0;
                         //Draw Columns Contents
@@ -435,29 +405,30 @@ namespace WoodClub
                                     e.Graphics.DrawString(Cel.Value.ToString(),
                                         Cel.InheritedStyle.Font,
                                         new SolidBrush(Cel.InheritedStyle.ForeColor),
-                                        new RectangleF((int)arrColumnLefts[iCount],
+                                        new RectangleF((int)columnLefts[iCount],
                                         (float)iTopMargin,
-                                        (int)arrColumnWidths[iCount], (float)iCellHeight),
+                                        (int)columnWidths[iCount], (float)cellHeight),
                                         strFormat);
                                 }
                                 //Drawing Cells Borders 
                                 e.Graphics.DrawRectangle(Pens.Black,
-                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                    (int)arrColumnWidths[iCount], iCellHeight));
+                                    new Rectangle((int)columnLefts[iCount], iTopMargin,
+                                    (int)columnWidths[iCount], cellHeight));
                                 iCount++;
                             }
 
                             col++;
                         }
                     }
+
                     rowsPrinted++;
                     iRow++;
-                    iTopMargin += iCellHeight;
+                    iTopMargin += cellHeight;
                 }
+
                 //If more lines exist, print another page.
                 if (bMorePagesToPrint)
                 {
-                    rowsPrinted++;
                     e.HasMorePages = true;
                 }
                 else

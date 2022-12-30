@@ -115,7 +115,7 @@ namespace WoodClub.Forms
 			List<string> toDelete = new List<string>();
 			foreach (DataGridViewRow dgvr in dataGridLockerData.Rows)
 			{
-				if (dgvr.Cells[3].Value != null && (bool)dgvr.Cells[3].Value == true)
+				if (dgvr.Cells[4].Value != null && (bool)dgvr.Cells[4].Value == true)
 				{
 					toDelete.Add(dgvr.Cells[0].Value.ToString());
 				}

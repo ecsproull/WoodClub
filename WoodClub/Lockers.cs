@@ -21,5 +21,6 @@ namespace WoodClub
         public string HasLocker { get; set; }
         public int Cost { get; set; }
         public string Location { get; set; }
+        public string Project { get; set; }
     }
 }
