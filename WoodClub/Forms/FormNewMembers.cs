@@ -57,24 +57,33 @@ namespace WoodClub
 					if (startDate == sl.startdatestring)
 					{
 						string number = Regex.Replace(sl.phone, "[^a-zA-Z0-9]", String.Empty);
-						members.Add(new NewMember
+						string phone = string.Empty;
+						if (!string.IsNullOrEmpty(number))
 						{
-							Add = member == null,
-							FirstName = sl.firstname,
-							LastName = sl.lastname,
-							Email = sl.email,
-							Phone = number.Substring(0, 3) + "-" +
-								 number.Substring(3, 3) + "-" +
-								 number.Substring(6, 4),
-							Address = sl.address1,
-							City = sl.city,
-							State = sl.state,
-							ZipCode = sl.zipcode,
-							RecNo = sl.customfields[1].value,
-							MemberDate = DateTimeOffset.FromUnixTimeSeconds((long)sl.startdate).Date,
-							Badge = badge.ToString(),
-							CardNo = string.Empty
-						});
+							phone = number.Substring(0, 3) + "-" +
+									 number.Substring(3, 3) + "-" +
+									 number.Substring(6, 4);
+						}
+
+						if (!string.IsNullOrEmpty(sl.firstname))
+						{
+							members.Add(new NewMember
+							{
+								Add = member == null,
+								FirstName = sl.firstname,
+								LastName = sl.lastname,
+								Email = sl.email,
+								Phone = phone,
+								Address = sl.address1,
+								City = sl.city,
+								State = sl.state,
+								ZipCode = sl.zipcode,
+								RecNo = sl.customfields[1].value,
+								MemberDate = DateTimeOffset.FromUnixTimeSeconds((long)sl.startdate).Date,
+								Badge = badge.ToString(),
+								CardNo = string.Empty
+							});
+						}
 					}
 					badge--;
 				}

@@ -97,13 +97,15 @@ namespace WoodClub.Forms
 				dataGridLockerData.Rows[e.RowIndex].Cells[1].Value = parts[0];
 				dataGridLockerData.Rows[e.RowIndex].Cells[1].ReadOnly = true;
 				dataGridLockerData.Rows[e.RowIndex].Cells[2].Value = "TBD";
+				DataGridViewCell project = dataGridLockerData.Rows[e.RowIndex].Cells[3];
 
 				context.Lockers.Add(new Locker
 				{
 					LockerTitle = newLocker,
 					LocationCode = "TBD",
 					Code = parts[0],
-					Badge = String.Empty
+					Badge = String.Empty,
+					Project = project.Value == null ? "" : project.Value.ToString()
 				});
 				context.SaveChanges();
 				LoadLockers();
