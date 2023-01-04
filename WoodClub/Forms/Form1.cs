@@ -15,20 +15,25 @@ namespace WoodClub
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger
                   (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private SortableBindingList<MemberRoster> blMembers = new SortableBindingList<MemberRoster>();
-        // private static WoodclubEntities context = new WoodclubEntities();
-        private BindingSource bsMembers = new BindingSource();
+        public static bool lockersUpdated = false;
+
+        private readonly int listenPort = 5725;
+        private readonly UdpClient udpClient = new UdpClient();
+
+        private SortableBindingList<MemberRoster> blMembers;
+        private readonly BindingSource bsMembers;
         private MemberRoster currentMember;
         private Members members;
-        public bool update = false;
-        public bool added = false;
-        public static bool done = false;
-        public static bool lockersUpdated = false;
-        private static int listenPort = 5725;
-        private static UdpClient udpClient = new UdpClient();
-
+        private bool done;
+        public bool update;
+        public bool added;
+       
         public Form1()
         {
+            this.blMembers = new SortableBindingList<MemberRoster>();
+            this.bsMembers = new BindingSource();
+            this.update = false;
+            this.added = false;
             InitializeComponent();
             MessageIn();
         }
@@ -40,7 +45,7 @@ namespace WoodClub
             
             Task.Run(() =>
             {
-                while (!done)
+                while (true)
                 {
                     var recvBuffer = udpClient.Receive(ref from);
                     string MsgIn = Encoding.ASCII.GetString(recvBuffer);
@@ -48,7 +53,6 @@ namespace WoodClub
                     MethodInvoker mi = delegate () { MessageBox.Show(MsgIn); };
                     Invoke(mi);
                 }
-                
             });
         }
 
@@ -128,6 +132,7 @@ namespace WoodClub
                 bsMembers.Position = bsMembers.IndexOf(currentMember);
             }
         }
+
         /// <summary>
         /// Get the current member displayed in the DataGridView and
         /// assign it to a private variable for use in the Sorted event of
@@ -146,15 +151,12 @@ namespace WoodClub
                 currentMember = null;
             }
         }
+
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
            EditCurrentRow();
         }
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
-        {
-            bsMembers.MoveLast();
-            EditCurrentRow();
-        }
+
         private void DeleteItemClick(object sender, EventArgs e)
         {
             int id;
@@ -184,6 +186,7 @@ namespace WoodClub
                 }
             }
         }
+
         private void EditCurrentRow()
         {
             MemberRoster roster = blMembers.FirstOrDefault(mem => mem.id == bsMembers.MemberIdentifier());
@@ -223,6 +226,7 @@ namespace WoodClub
             MonitorForm mf = new MonitorForm();
             mf.ShowDialog();
         }
+
         private void sCWPaidListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             scwForm scwf = new scwForm();
@@ -233,10 +237,16 @@ namespace WoodClub
                 LoadMembers();
             }
         }
+
         private void monthlyClubUsageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormUsage uf = new FormUsage();
             uf.ShowDialog();
+        }
+
+        private void summaryReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lockerSummaryToolStripMenuItem_Click(sender, e);
         }
 
         private void lockerSummaryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -313,5 +323,5 @@ namespace WoodClub
             LockerPrices lockerPrices = new LockerPrices();
             lockerPrices.ShowDialog();
 		}
-	}
+    }
 }

@@ -45,13 +45,7 @@
             this.cbLumber = new System.Windows.Forms.CheckBox();
             this.TransDataGridView = new System.Windows.Forms.DataGridView();
             this.cbExtendHr = new System.Windows.Forms.CheckBox();
-            this.memberBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewCodes = new System.Windows.Forms.DataGridView();
-            this.badgeCode1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.badgeCodeDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codeValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.badgeCodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtRFcard = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -97,14 +91,20 @@
             this.lblLocker = new System.Windows.Forms.Label();
             this.editLocker = new System.Windows.Forms.Button();
             this.cbUpdateControllers = new System.Windows.Forms.CheckBox();
+            this.memberBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.badgeCode1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.badgeCodeDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codeValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.badgeCodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridViewNewCredits)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TransDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.memberBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCodes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memberBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -150,7 +150,7 @@
             this.buttonApply.TabIndex = 57;
             this.buttonApply.Text = "Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            this.buttonApply.Click += new System.EventHandler(this.ButtonApply_Click);
             // 
             // buttonClear
             // 
@@ -160,7 +160,7 @@
             this.buttonClear.TabIndex = 56;
             this.buttonClear.Text = "Clear Credits";
             this.buttonClear.UseVisualStyleBackColor = true;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            this.buttonClear.Click += new System.EventHandler(this.ButtonClear_Click);
             // 
             // buttonCancel
             // 
@@ -170,7 +170,7 @@
             this.buttonCancel.TabIndex = 55;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // GridViewNewCredits
             // 
@@ -192,7 +192,7 @@
             this.creditsOnlyChkbx.TabIndex = 53;
             this.creditsOnlyChkbx.Text = "Credits Only";
             this.creditsOnlyChkbx.UseVisualStyleBackColor = true;
-            this.creditsOnlyChkbx.CheckedChanged += new System.EventHandler(this.creditsOnlyChkbx_CheckedChanged);
+            this.creditsOnlyChkbx.CheckedChanged += new System.EventHandler(this.CreditsOnlyChkbx_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -300,10 +300,6 @@
             this.cbExtendHr.Text = "Extended Hours";
             this.cbExtendHr.UseVisualStyleBackColor = true;
             // 
-            // memberBindingSource
-            // 
-            this.memberBindingSource.DataSource = typeof(WoodClub.MemberRoster);
-            // 
             // dataGridViewCodes
             // 
             this.dataGridViewCodes.AllowUserToAddRows = false;
@@ -329,48 +325,7 @@
             this.dataGridViewCodes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewCodes.Size = new System.Drawing.Size(306, 224);
             this.dataGridViewCodes.TabIndex = 20;
-            this.dataGridViewCodes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewCodes_MouseDoubleClick);
-            // 
-            // badgeCode1DataGridViewTextBoxColumn
-            // 
-            this.badgeCode1DataGridViewTextBoxColumn.DataPropertyName = "BadgeCode1";
-            this.badgeCode1DataGridViewTextBoxColumn.HeaderText = "Codes";
-            this.badgeCode1DataGridViewTextBoxColumn.MaxInputLength = 15;
-            this.badgeCode1DataGridViewTextBoxColumn.Name = "badgeCode1DataGridViewTextBoxColumn";
-            this.badgeCode1DataGridViewTextBoxColumn.ReadOnly = true;
-            this.badgeCode1DataGridViewTextBoxColumn.Width = 62;
-            // 
-            // badgeCodeDescDataGridViewTextBoxColumn
-            // 
-            this.badgeCodeDescDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.badgeCodeDescDataGridViewTextBoxColumn.DataPropertyName = "BadgeCodeDesc";
-            this.badgeCodeDescDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.badgeCodeDescDataGridViewTextBoxColumn.MaxInputLength = 25;
-            this.badgeCodeDescDataGridViewTextBoxColumn.Name = "badgeCodeDescDataGridViewTextBoxColumn";
-            this.badgeCodeDescDataGridViewTextBoxColumn.ReadOnly = true;
-            this.badgeCodeDescDataGridViewTextBoxColumn.Width = 180;
-            // 
-            // codeValueDataGridViewTextBoxColumn
-            // 
-            this.codeValueDataGridViewTextBoxColumn.DataPropertyName = "CodeValue";
-            this.codeValueDataGridViewTextBoxColumn.HeaderText = "Value";
-            this.codeValueDataGridViewTextBoxColumn.MaxInputLength = 10;
-            this.codeValueDataGridViewTextBoxColumn.Name = "codeValueDataGridViewTextBoxColumn";
-            this.codeValueDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codeValueDataGridViewTextBoxColumn.Width = 59;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn.Visible = false;
-            this.idDataGridViewTextBoxColumn.Width = 40;
-            // 
-            // badgeCodeBindingSource
-            // 
-            this.badgeCodeBindingSource.DataSource = typeof(WoodClub.BadgeCode);
+            this.dataGridViewCodes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DataGridViewCodes_MouseDoubleClick);
             // 
             // txtRFcard
             // 
@@ -390,7 +345,7 @@
             this.btnSave.TabIndex = 42;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // label5
             // 
@@ -569,7 +524,6 @@
             this.txtZip.Name = "txtZip";
             this.txtZip.Size = new System.Drawing.Size(100, 20);
             this.txtZip.TabIndex = 36;
-            this.txtZip.Text = "85375";
             // 
             // lblZip
             // 
@@ -588,7 +542,6 @@
             this.txtState.Name = "txtState";
             this.txtState.Size = new System.Drawing.Size(100, 20);
             this.txtState.TabIndex = 34;
-            this.txtState.Text = "AZ";
             // 
             // lblState
             // 
@@ -725,7 +678,7 @@
             this.btnLoadPhoto.TabIndex = 44;
             this.btnLoadPhoto.Text = "Load Photo";
             this.btnLoadPhoto.UseVisualStyleBackColor = true;
-            this.btnLoadPhoto.Click += new System.EventHandler(this.btnLoadPhoto_Click);
+            this.btnLoadPhoto.Click += new System.EventHandler(this.BtnLoadPhoto_Click);
             // 
             // openFileDialog1
             // 
@@ -748,6 +701,7 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(100, 20);
             this.txtTitle.TabIndex = 46;
+            this.txtTitle.Text = "\"\"";
             // 
             // txtLocker
             // 
@@ -776,7 +730,7 @@
             this.editLocker.TabIndex = 49;
             this.editLocker.Text = "Edit Locker";
             this.editLocker.UseVisualStyleBackColor = true;
-            this.editLocker.Click += new System.EventHandler(this.editLocker_Click);
+            this.editLocker.Click += new System.EventHandler(this.EditLocker_Click);
             // 
             // cbUpdateControllers
             // 
@@ -787,6 +741,51 @@
             this.cbUpdateControllers.TabIndex = 50;
             this.cbUpdateControllers.Text = "Update Controllers";
             this.cbUpdateControllers.UseVisualStyleBackColor = true;
+            // 
+            // memberBindingSource
+            // 
+            this.memberBindingSource.DataSource = typeof(WoodClub.MemberRoster);
+            // 
+            // badgeCode1DataGridViewTextBoxColumn
+            // 
+            this.badgeCode1DataGridViewTextBoxColumn.DataPropertyName = "BadgeCode1";
+            this.badgeCode1DataGridViewTextBoxColumn.HeaderText = "Codes";
+            this.badgeCode1DataGridViewTextBoxColumn.MaxInputLength = 15;
+            this.badgeCode1DataGridViewTextBoxColumn.Name = "badgeCode1DataGridViewTextBoxColumn";
+            this.badgeCode1DataGridViewTextBoxColumn.ReadOnly = true;
+            this.badgeCode1DataGridViewTextBoxColumn.Width = 62;
+            // 
+            // badgeCodeDescDataGridViewTextBoxColumn
+            // 
+            this.badgeCodeDescDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.badgeCodeDescDataGridViewTextBoxColumn.DataPropertyName = "BadgeCodeDesc";
+            this.badgeCodeDescDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.badgeCodeDescDataGridViewTextBoxColumn.MaxInputLength = 25;
+            this.badgeCodeDescDataGridViewTextBoxColumn.Name = "badgeCodeDescDataGridViewTextBoxColumn";
+            this.badgeCodeDescDataGridViewTextBoxColumn.ReadOnly = true;
+            this.badgeCodeDescDataGridViewTextBoxColumn.Width = 180;
+            // 
+            // codeValueDataGridViewTextBoxColumn
+            // 
+            this.codeValueDataGridViewTextBoxColumn.DataPropertyName = "CodeValue";
+            this.codeValueDataGridViewTextBoxColumn.HeaderText = "Value";
+            this.codeValueDataGridViewTextBoxColumn.MaxInputLength = 10;
+            this.codeValueDataGridViewTextBoxColumn.Name = "codeValueDataGridViewTextBoxColumn";
+            this.codeValueDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codeValueDataGridViewTextBoxColumn.Width = 59;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Visible = false;
+            this.idDataGridViewTextBoxColumn.Width = 40;
+            // 
+            // badgeCodeBindingSource
+            // 
+            this.badgeCodeBindingSource.DataSource = typeof(WoodClub.BadgeCode);
             // 
             // Editor
             // 
@@ -831,10 +830,10 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TransDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.memberBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCodes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memberBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
