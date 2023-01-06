@@ -195,7 +195,7 @@ namespace WoodClub
                                     select l).ToList();
             if (lockers.Count == 0)
             {
-                txtLocker.Text = "";
+                this.member.Locker = "";
             }
             else
             {
@@ -212,9 +212,9 @@ namespace WoodClub
                         this.member.Locker += "," + locker.LockerTitle;
                     }
                 }
-
-                this.memberBindingSource.ResetCurrentItem();
             }
+
+            this.memberBindingSource.ResetCurrentItem();
         }
 
         //

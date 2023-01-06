@@ -701,7 +701,6 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(100, 20);
             this.txtTitle.TabIndex = 46;
-            this.txtTitle.Text = "\"\"";
             // 
             // txtLocker
             // 
