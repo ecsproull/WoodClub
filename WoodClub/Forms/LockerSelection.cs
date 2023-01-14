@@ -239,10 +239,41 @@ namespace WoodClub.Forms
         {
             foreach (JoinedListItem item in sblLockersCurrent)
             {
-                Locker l = (from loc in context.Lockers
+                Locker locker = (from loc in context.Lockers
                             where loc.LockerTitle == item.Locker
                             select loc).FirstOrDefault();
-                l.Badge = item.Badge;
+                locker.Badge = item.Badge;
+                context.SaveChanges();
+
+                if (item.Badge != item.BadgeOriginal)
+                {
+                    List<Locker> lockers = (from l in this.context.Lockers
+                                            where l.Badge == item.BadgeOriginal
+                                            select l).ToList();
+                    MemberRoster oldMember = (from m in this.context.MemberRosters
+                                              where m.Badge == item.BadgeOriginal
+                                              select m).FirstOrDefault();
+                    if (lockers.Count == 0)
+                    {
+                        oldMember.Locker = "";
+                    }
+                    else
+                    {
+                        bool first = true;
+                        foreach (Locker lkr in lockers)
+                        {
+                            if (first)
+                            {
+                                oldMember.Locker = lkr.LockerTitle.Trim();
+                                first = false;
+                            }
+                            else
+                            {
+                                oldMember.Locker += "," + lkr.LockerTitle;
+                            }
+                        }
+                    }
+                }
             }
 
             context.SaveChanges();

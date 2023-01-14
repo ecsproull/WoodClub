@@ -91,6 +91,7 @@
             this.lblLocker = new System.Windows.Forms.Label();
             this.editLocker = new System.Windows.Forms.Button();
             this.cbUpdateControllers = new System.Windows.Forms.CheckBox();
+            this.checkBoxFreeDay = new System.Windows.Forms.CheckBox();
             this.memberBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.badgeCode1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.badgeCodeDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -110,6 +111,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.groupBox1.Controls.Add(this.checkBoxFreeDay);
             this.groupBox1.Controls.Add(this.buttonApply);
             this.groupBox1.Controls.Add(this.buttonClear);
             this.groupBox1.Controls.Add(this.buttonCancel);
@@ -741,6 +743,18 @@
             this.cbUpdateControllers.Text = "Update Controllers";
             this.cbUpdateControllers.UseVisualStyleBackColor = true;
             // 
+            // checkBoxFreeDay
+            // 
+            this.checkBoxFreeDay.AutoSize = true;
+            this.checkBoxFreeDay.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.memberBindingSource, "OneTime", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "false"));
+            this.checkBoxFreeDay.Enabled = false;
+            this.checkBoxFreeDay.Location = new System.Drawing.Point(526, 15);
+            this.checkBoxFreeDay.Name = "checkBoxFreeDay";
+            this.checkBoxFreeDay.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxFreeDay.TabIndex = 59;
+            this.checkBoxFreeDay.Text = "Free Day";
+            this.checkBoxFreeDay.UseVisualStyleBackColor = true;
+            // 
             // memberBindingSource
             // 
             this.memberBindingSource.DataSource = typeof(WoodClub.MemberRoster);
@@ -908,5 +922,6 @@
 		private System.Windows.Forms.Button editLocker;
 		private System.Windows.Forms.BindingSource memberBindingSource;
 		private System.Windows.Forms.CheckBox cbUpdateControllers;
-	}
+        private System.Windows.Forms.CheckBox checkBoxFreeDay;
+    }
 }
