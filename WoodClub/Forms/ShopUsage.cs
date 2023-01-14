@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
-    public partial class FormUsage : Form
+    public partial class ShopUsage : Form
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger
                 (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -27,7 +27,7 @@ namespace WoodClub
         private int visitsCnt;          // Number of member visits
         private int monthCnt = 0;
         private MemberRoster member = null;
-        public FormUsage()
+        public ShopUsage()
         {
             InitializeComponent();
             bsUsage.DataSource = blUsage;

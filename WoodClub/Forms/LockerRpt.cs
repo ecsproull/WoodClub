@@ -160,7 +160,7 @@ namespace WoodClub
                     Editor ed = new Editor(badge);
                     if (ed.ShowDialog() == DialogResult.OK)
                     {
-                        Form1.lockersUpdated = true;
+                        MainMembers.lockersUpdated = true;
                     }
                 }
             }

@@ -170,11 +170,11 @@
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />
     <Compile Include="DirtyTracker\FormDirtyTracker.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="Forms\MainMembers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\MainMembers.Designer.cs">
+      <DependentUpon>MainMembers.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Editor.cs">
       <SubType>Form</SubType>
@@ -188,17 +188,17 @@
     <Compile Include="Forms\FormDailyNew.Designer.cs">
       <DependentUpon>FormDailyNew.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormNewMembers.cs">
+    <Compile Include="Forms\NewMembers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormNewMembers.designer.cs">
-      <DependentUpon>FormNewMembers.cs</DependentUpon>
+    <Compile Include="Forms\NewMembers.designer.cs">
+      <DependentUpon>NewMembers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\formRFbadge.cs">
+    <Compile Include="Forms\RFBadge.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\formRFbadge.Designer.cs">
-      <DependentUpon>formRFbadge.cs</DependentUpon>
+    <Compile Include="Forms\RFBadge.Designer.cs">
+      <DependentUpon>RFBadge.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LockerData.cs">
       <SubType>Form</SubType>
@@ -224,11 +224,11 @@
     <Compile Include="Forms\LockerSelection.Designer.cs">
       <DependentUpon>LockerSelection.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormUsage.cs">
+    <Compile Include="Forms\ShopUsage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormUsage.Designer.cs">
-      <DependentUpon>FormUsage.cs</DependentUpon>
+    <Compile Include="Forms\ShopUsage.Designer.cs">
+      <DependentUpon>ShopUsage.cs</DependentUpon>
     </Compile>
     <Compile Include="IRepository.cs" />
     <Compile Include="Locker.cs">
@@ -240,10 +240,10 @@
     <Compile Include="LockerLocation.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
-    <Compile Include="LockerRpt.cs">
+    <Compile Include="Forms\LockerRpt.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LockerRpt.Designer.cs">
+    <Compile Include="Forms\LockerRpt.Designer.cs">
       <DependentUpon>LockerRpt.cs</DependentUpon>
     </Compile>
     <Compile Include="Lockers.cs" />
@@ -332,8 +332,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WoodclubDataSet.xsd</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainMembers.resx">
+      <DependentUpon>MainMembers.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Editor.resx">
@@ -342,11 +342,11 @@
     <EmbeddedResource Include="Forms\FormDailyNew.resx">
       <DependentUpon>FormDailyNew.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormNewMembers.resx">
-      <DependentUpon>FormNewMembers.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\NewMembers.resx">
+      <DependentUpon>NewMembers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\formRFbadge.resx">
-      <DependentUpon>formRFbadge.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\RFBadge.resx">
+      <DependentUpon>RFBadge.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LockerData.resx">
       <DependentUpon>LockerData.cs</DependentUpon>
@@ -363,10 +363,10 @@
     <EmbeddedResource Include="Forms\MonitorForm.resx">
       <DependentUpon>MonitorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormUsage.resx">
-      <DependentUpon>FormUsage.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ShopUsage.resx">
+      <DependentUpon>ShopUsage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LockerRpt.resx">
+    <EmbeddedResource Include="Forms\LockerRpt.resx">
       <DependentUpon>LockerRpt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

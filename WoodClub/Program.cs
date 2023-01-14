@@ -22,7 +22,7 @@ namespace WoodClub
             
             if (Form1 == null)
             {
-                Form1 = new Form1();
+                Form1 = new MainMembers();
                 Application.Run(Form1);
             }           
         }

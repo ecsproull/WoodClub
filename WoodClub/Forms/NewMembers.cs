@@ -6,10 +6,10 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
-	public partial class FormNewMembers : Form
+	public partial class NewMembers : Form
 	{
 		private List<NewMember> members = new List<NewMember>();
-		public FormNewMembers()
+		public NewMembers()
 		{
 			InitializeComponent();
 			dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
@@ -33,7 +33,7 @@ namespace WoodClub
 			}
 		}
 
-		private async void Form1_Load(object sender, EventArgs e)
+		private async void FormNewMembers_Load(object sender, EventArgs e)
 		{
 			SignUpGenisus sug = new SignUpGenisus();
 			Rootobject ro =  await sug.GetSignup(DateTime.Now);

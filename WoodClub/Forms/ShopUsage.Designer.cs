@@ -1,6 +1,6 @@
 ﻿namespace WoodClub
 {
-    partial class FormUsage
+    partial class ShopUsage
     {
         /// <summary>
         /// Required designer variable.
@@ -30,6 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewUsage = new System.Windows.Forms.DataGridView();
+            this.badgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShopVisits = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastDayValidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usageBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.woodclubDataSet = new WoodClub.WoodclubDataSet();
             this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
@@ -38,17 +45,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtTotal = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.usageBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.badgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShopVisits = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastDayValidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usageBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.usageBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewUsage
@@ -68,6 +68,46 @@
             this.dataGridViewUsage.Size = new System.Drawing.Size(648, 482);
             this.dataGridViewUsage.TabIndex = 0;
             // 
+            // badgeDataGridViewTextBoxColumn
+            // 
+            this.badgeDataGridViewTextBoxColumn.DataPropertyName = "Badge";
+            this.badgeDataGridViewTextBoxColumn.HeaderText = "Badge";
+            this.badgeDataGridViewTextBoxColumn.Name = "badgeDataGridViewTextBoxColumn";
+            // 
+            // firstNameDataGridViewTextBoxColumn
+            // 
+            this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
+            this.firstNameDataGridViewTextBoxColumn.HeaderText = "FirstName";
+            this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
+            // 
+            // lastNameDataGridViewTextBoxColumn
+            // 
+            this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
+            this.lastNameDataGridViewTextBoxColumn.HeaderText = "LastName";
+            this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
+            // 
+            // ShopVisits
+            // 
+            this.ShopVisits.DataPropertyName = "ShopVisits";
+            this.ShopVisits.HeaderText = "ShopVisits";
+            this.ShopVisits.Name = "ShopVisits";
+            // 
+            // CreditBank
+            // 
+            this.CreditBank.DataPropertyName = "CreditBank";
+            this.CreditBank.HeaderText = "CreditBank";
+            this.CreditBank.Name = "CreditBank";
+            // 
+            // lastDayValidDataGridViewTextBoxColumn
+            // 
+            this.lastDayValidDataGridViewTextBoxColumn.DataPropertyName = "LastDayValid";
+            this.lastDayValidDataGridViewTextBoxColumn.HeaderText = "LastDayValid";
+            this.lastDayValidDataGridViewTextBoxColumn.Name = "lastDayValidDataGridViewTextBoxColumn";
+            // 
+            // usageBindingSource
+            // 
+            this.usageBindingSource.DataSource = typeof(WoodClub.Usage);
+            // 
             // woodclubDataSet
             // 
             this.woodclubDataSet.DataSetName = "WoodclubDataSet";
@@ -75,8 +115,8 @@
             // 
             // memberRosterBindingSource
             // 
-            //this.memberRosterBindingSource.DataMember = "MemberRoster";
             this.memberRosterBindingSource.DataSource = this.woodclubDataSet;
+            this.memberRosterBindingSource.Position = 0;
             // 
             // memberRosterTableAdapter
             // 
@@ -129,47 +169,7 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // usageBindingSource
-            // 
-            this.usageBindingSource.DataSource = typeof(WoodClub.Usage);
-            // 
-            // badgeDataGridViewTextBoxColumn
-            // 
-            this.badgeDataGridViewTextBoxColumn.DataPropertyName = "Badge";
-            this.badgeDataGridViewTextBoxColumn.HeaderText = "Badge";
-            this.badgeDataGridViewTextBoxColumn.Name = "badgeDataGridViewTextBoxColumn";
-            // 
-            // firstNameDataGridViewTextBoxColumn
-            // 
-            this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
-            this.firstNameDataGridViewTextBoxColumn.HeaderText = "FirstName";
-            this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
-            // 
-            // lastNameDataGridViewTextBoxColumn
-            // 
-            this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
-            this.lastNameDataGridViewTextBoxColumn.HeaderText = "LastName";
-            this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
-            // 
-            // ShopVisits
-            // 
-            this.ShopVisits.DataPropertyName = "ShopVisits";
-            this.ShopVisits.HeaderText = "ShopVisits";
-            this.ShopVisits.Name = "ShopVisits";
-            // 
-            // CreditBank
-            // 
-            this.CreditBank.DataPropertyName = "CreditBank";
-            this.CreditBank.HeaderText = "CreditBank";
-            this.CreditBank.Name = "CreditBank";
-            // 
-            // lastDayValidDataGridViewTextBoxColumn
-            // 
-            this.lastDayValidDataGridViewTextBoxColumn.DataPropertyName = "LastDayValid";
-            this.lastDayValidDataGridViewTextBoxColumn.HeaderText = "LastDayValid";
-            this.lastDayValidDataGridViewTextBoxColumn.Name = "lastDayValidDataGridViewTextBoxColumn";
-            // 
-            // FormUsage
+            // ShopUsage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -180,13 +180,13 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.dataGridViewUsage);
-            this.Name = "FormUsage";
+            this.Name = "ShopUsage";
             this.Text = "Monthly Usage";
             this.Load += new System.EventHandler(this.FormUsage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usageBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.usageBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

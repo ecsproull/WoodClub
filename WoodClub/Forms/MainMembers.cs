@@ -11,7 +11,7 @@ using WoodClub.Forms;
 
 namespace WoodClub
 {
-	public partial class Form1 : Form
+	public partial class MainMembers : Form
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger
                   (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -24,11 +24,10 @@ namespace WoodClub
         private readonly BindingSource bsMembers;
         private MemberRoster currentMember;
         private Members members;
-        private bool done;
         public bool update;
         public bool added;
        
-        public Form1()
+        public MainMembers()
         {
             this.blMembers = new SortableBindingList<MemberRoster>();
             this.bsMembers = new BindingSource();
@@ -89,7 +88,7 @@ namespace WoodClub
 
 		private void ToolStripImportNewMembers_Click(object sender, EventArgs e)
 		{
-			FormNewMembers fnm = new FormNewMembers();
+			NewMembers fnm = new NewMembers();
             fnm.ShowDialog();
             LoadMembers();
 		}
@@ -216,7 +215,7 @@ namespace WoodClub
         
         private void btnRFcard_Click(object sender, EventArgs e)
         {
-            formRFbadge frfb = new formRFbadge();
+            RFBadge frfb = new RFBadge();
             frfb.ShowDialog();
             LoadMembers();
         }
@@ -240,7 +239,7 @@ namespace WoodClub
 
         private void monthlyClubUsageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormUsage uf = new FormUsage();
+            ShopUsage uf = new ShopUsage();
             uf.ShowDialog();
         }
 

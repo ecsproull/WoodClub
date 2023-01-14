@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
-    public partial class formRFbadge : Form
+    public partial class RFBadge : Form
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger
                   (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private List<MemberRFcard> DataSource;
         private BindingSource bsRFcards = new BindingSource();
-        public formRFbadge()
+        public RFBadge()
         {
             InitializeComponent();
         }
