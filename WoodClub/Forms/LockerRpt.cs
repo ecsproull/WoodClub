@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
-	public partial class LockerRpt : Form
+    public partial class LockerRpt : Form
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger
                  (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -147,11 +147,11 @@ namespace WoodClub
             dataGridViewLockers.Refresh();
             dataGridViewLockers.Invalidate();
             textBoxTotalRevenue.Text = String.Format("${0}", totalRevenue.ToString("N0"));
-			dataGridViewLockers.CellContentClick += DataGridViewLockers_CellContentClick;
+            dataGridViewLockers.CellContentClick += DataGridViewLockers_CellContentClick;
         }
 
-		private void DataGridViewLockers_CellContentClick(object sender, DataGridViewCellEventArgs e)
-		{
+        private void DataGridViewLockers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
                 string badge = dataGridViewLockers.Rows[e.RowIndex].Cells[0].Value.ToString();
@@ -164,9 +164,9 @@ namespace WoodClub
                     }
                 }
             }
-		}
+        }
 
-		private void TextBoxLockerFilter_KeyUp(object sender, KeyEventArgs e)
+        private void TextBoxLockerFilter_KeyUp(object sender, KeyEventArgs e)
         {
             string filter = textBoxLockerFilter.Text;
             if (filter == string.Empty)
@@ -241,28 +241,28 @@ namespace WoodClub
 
         private void buttonPrint_Click(object sender, EventArgs e)
         {
-			printDialogLockers.AllowSomePages = true;
+            printDialogLockers.AllowSomePages = true;
             PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
             printPrvDlg.ClientSize = new System.Drawing.Size(1200, 800);
-            
-			printLockerReport.BeginPrint += PrintLockerReport_BeginPrint;
-			printLockerReport.PrintPage += PrintLockerReport_PrintPage;
+
+            printLockerReport.BeginPrint += PrintLockerReport_BeginPrint;
+            printLockerReport.PrintPage += PrintLockerReport_PrintPage;
             printLockerReport.DefaultPageSettings.Landscape = true;
 
             printPrvDlg.Document = printLockerReport;
             printPrvDlg.ShowDialog();
         }
 
-		private void PrintLockerReport_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
-		{
+        private void PrintLockerReport_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
             try
             {
-				columnSkip.Add(3);
-				columnSkip.Add(4);
-				columnSkip.Add(5);
-				columnSkip.Add(10);
+                columnSkip.Add(3);
+                columnSkip.Add(4);
+                columnSkip.Add(5);
+                columnSkip.Add(10);
 
-				printLockerReport = new PrintDocument();
+                printLockerReport = new PrintDocument();
                 strFormat = new StringFormat
                 {
                     Alignment = StringAlignment.Near,
@@ -270,25 +270,25 @@ namespace WoodClub
                     Trimming = StringTrimming.EllipsisCharacter
                 };
 
-				columnLefts.Clear();
-				columnWidths.Clear();
-				cellHeight = 0;
-				firstPage = true;
-				newPage = true;
-				rowsPrinted = 0;
+                columnLefts.Clear();
+                columnWidths.Clear();
+                cellHeight = 0;
+                firstPage = true;
+                newPage = true;
+                rowsPrinted = 0;
 
-				// Calculating Total Widths
-				totalWidth = 0;
-				int col = 0;
-				foreach (DataGridViewColumn dgvGridCol in dataGridViewLockers.Columns)
-				{
-					if (!columnSkip.Contains(col))
-					{
-						totalWidth += dgvGridCol.Width;
-					}
-					col++;
-				}
-			}
+                // Calculating Total Widths
+                totalWidth = 0;
+                int col = 0;
+                foreach (DataGridViewColumn dgvGridCol in dataGridViewLockers.Columns)
+                {
+                    if (!columnSkip.Contains(col))
+                    {
+                        totalWidth += dgvGridCol.Width;
+                    }
+                    col++;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -303,7 +303,7 @@ namespace WoodClub
                 int iTopMargin = e.MarginBounds.Top;
                 //Whether more pages have to print or not
                 bool bMorePagesToPrint = false;
-                
+
                 //For the first page to print set the cell width and header height
                 if (firstPage)
                 {

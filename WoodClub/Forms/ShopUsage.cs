@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -44,13 +41,13 @@ namespace WoodClub
                 currentUsage = null;
             }
         }
-            private void FormUsage_Load(object sender, EventArgs e)
+        private void FormUsage_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'woodclubDataSet.MemberRoster' table. You can move, or remove it, as needed.
-           // this.memberRosterTableAdapter.Fill(this.woodclubDataSet.MemberRoster);
+            // this.memberRosterTableAdapter.Fill(this.woodclubDataSet.MemberRoster);
             year = DateTime.Now.Year;
             month = DateTime.Now.Month;
-            LoadYear(year,month);
+            LoadYear(year, month);
         }
         private void LoadYear(int yr, int month)
         {
@@ -63,9 +60,9 @@ namespace WoodClub
             using (WoodclubEntities context = new WoodclubEntities())
             {
                 var memberUsage = from m in context.Transactions             // List of members using club
-                                 where m.TransDate.Value.Year == yr && m.TransDate.Value.Month == month
-                                 orderby m.Badge
-                                 select m;
+                                  where m.TransDate.Value.Year == yr && m.TransDate.Value.Month == month
+                                  orderby m.Badge
+                                  select m;
                 memberresult = new List<string>(memberUsage.ToList().Select(mb => mb.Badge).Distinct());
 
                 badgeLen = memberresult.Count();
@@ -85,10 +82,10 @@ namespace WoodClub
                     {
                         string sBadge = memberresult.ElementAt(i);                  // Get Badge value
                         var monthvisit = from t in context.Transactions              // List of Usage by member
-                                        where t.TransDate.Value.Year == year && t.TransDate.Value.Month == month
-                                             && t.Code == "U"
-                                             && t.Badge == (string)sBadge
-                                        select t.TransDate.Value;
+                                         where t.TransDate.Value.Year == year && t.TransDate.Value.Month == month
+                                              && t.Code == "U"
+                                              && t.Badge == (string)sBadge
+                                         select t.TransDate.Value;
 
                         visitsCnt = monthvisit.DistinctBy(x => x.DayOfYear).Count();
                         log.Info("debug");
@@ -108,11 +105,11 @@ namespace WoodClub
                             usage.CreditBank = member.CreditBank.ToString();
                             usage.LastDayValid = member.LastDayValid == null ? "" : member.LastDayValid.Value.ToShortDateString();
                             usage.ShopVisits = visitsCnt.ToString();
-                            if(visitsCnt > 0)
+                            if (visitsCnt > 0)
                             {
                                 DSusage.Add(usage);
                                 monthCnt += visitsCnt;
-                            }                       
+                            }
                         }
                     }
                 }
@@ -186,8 +183,8 @@ namespace WoodClub
             txtTotal.Text = "";
             if (year > 2015 && year <= todayYear)    // Keep inbounds
             {
-                LoadYear(year,month);
-                
+                LoadYear(year, month);
+
             }
             else
             {

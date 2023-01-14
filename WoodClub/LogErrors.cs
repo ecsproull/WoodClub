@@ -15,7 +15,7 @@ namespace WoodClub
         {
             errorNum = err;
             errMsg = source + ": ";
-            switch(errorNum)
+            switch (errorNum)
             {
                 case -1:
                     errMsg += "Command not sent successfully";
@@ -137,9 +137,9 @@ namespace WoodClub
                 default:
                     errCode = errorNum.ToString();
                     errMsg += "Undocumented SDK error: " + errCode;
-                    break; 
+                    break;
             }
-            log.Error(errMsg);    
+            log.Error(errMsg);
         }
     }
 }

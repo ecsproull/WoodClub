@@ -1,12 +1,9 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -28,7 +25,7 @@ namespace WoodClub
         private int badgeLen;
         private MemberRoster member = null;
         private int year;
-        
+
         public MonitorForm()
         {
             InitializeComponent();
@@ -70,7 +67,7 @@ namespace WoodClub
                                  orderby m.Badge
                                  select m;
                 memberresult = new List<string>(yearmember.ToList().Select(mb => mb.Badge).Distinct());
-                
+
                 badgeLen = memberresult.Count();
                 this.UseWaitCursor = true;
                 Task.Run(() => loadMonitor());
@@ -88,7 +85,7 @@ namespace WoodClub
             UseWaitCursor = false;
             this.btnRefresh.Enabled = true;
         }
-       
+
         private void loadMonitor()
         {
             using (WoodclubEntities context = new WoodclubEntities())
@@ -101,10 +98,10 @@ namespace WoodClub
                         var yearvisit = from t in context.Transactions              // List of Usage by member
                                         where t.TransDate.Value.Year == year
                                              && t.Code == "U"
-                                             
+
                                              && t.Badge == (string)sBadge
-                                             select t.TransDate.Value;
-                                        
+                                        select t.TransDate.Value;
+
                         visitsCnt = yearvisit.DistinctBy(x => x.DayOfYear).Count();
                         log.Info("debug");
                         var yearmonitor = from m in context.Transactions            // List of Credits by member
@@ -126,7 +123,7 @@ namespace WoodClub
                             monitor.Badge = sBadge;
                             monitor.FirstName = member.FirstName;
                             monitor.LastName = member.LastName;
-                            monitor.Exempt = member.Exempt == null ? false : (bool) member.Exempt;
+                            monitor.Exempt = member.Exempt == null ? false : (bool)member.Exempt;
                             monitor.ClubDuesPaidDate = member.ClubDuesPaidDate == null ? "" : member.ClubDuesPaidDate.Value.ToShortDateString();
                             monitor.ClubDuesPaid = (bool)member.ClubDuesPaid;
                             monitor.CreditBank = member.CreditBank.ToString();
@@ -187,7 +184,7 @@ namespace WoodClub
                 {
                     int length = DSmonitor.Count();
                     string hdr = "Badge,First,Last,Credits,Credit Bank,ShopVisits,Last Monitor,Club Dues Paid Date, Locker, Modified";
-                    
+
                     using (System.IO.TextWriter writer = File.CreateText(filePath))
                     {
                         writer.WriteLine(hdr);
@@ -204,7 +201,7 @@ namespace WoodClub
                                          mon.ClubDuesPaidDate + "," +
                                          mon.Lockers + "," +
                                          mon.Modified;
-                                        
+
                             writer.WriteLine(string.Join(delimter, csv));
                         }
                     }

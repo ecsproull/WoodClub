@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WoodClub
@@ -43,7 +40,7 @@ namespace WoodClub
             bindingNavigator1.BindingSource = bsRFcards;
         }
 
-       
+
         //
         //  Here for new RF card - delete record
         //
@@ -55,9 +52,9 @@ namespace WoodClub
                 foreach (MemberRFcard c in DataSource)
                 {
                     var query = from rn in context.MemberRosters
-                                where (string) rn.Badge == c.Badge 
+                                where (string)rn.Badge == c.Badge
                                 select rn;
-                    if(query.Any())     // Entered into member 
+                    if (query.Any())     // Entered into member 
                     {
                         query.Single().NewBadge = false;
                     }
@@ -67,7 +64,7 @@ namespace WoodClub
                     {
                         context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                     }
-                
+
                 }
                 context.SaveChanges();
                 bsRFcards.Clear();

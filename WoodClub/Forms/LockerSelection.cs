@@ -1,60 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WoodClub.Forms
 {
-	public partial class LockerSelection : Form
-	{
-		private MemberRoster member;
-		private string badge;
-		private SortableBindingList<JoinedListItem> sblLockersCurrent;
-		private SortableBindingList<JoinedListItem> sblLockersAll;
-		private WoodclubEntities context;
-		public LockerSelection(string badge)
-		{
-			this.badge = badge;
-			InitializeComponent();
-			this.dataGridViewSelectedLockers.DefaultCellStyle.SelectionBackColor = Color.LightCyan;
-			this.dataGridViewSelectedLockers.DefaultCellStyle.SelectionForeColor = Color.Black;
-			this.dataGridViewSelectedLockers.CellContentClick += this.dataGridViewSelectedLockers_CellContentClick;
-			this.dataGridViewAllLockers.DefaultCellStyle.SelectionBackColor = Color.LightCyan;
-			this.dataGridViewAllLockers.DefaultCellStyle.SelectionForeColor = Color.Black;
-			this.dataGridViewAllLockers.CellContentClick += this.dataGridViewSelectedLockers_CellContentClick;
+    public partial class LockerSelection : Form
+    {
+        private MemberRoster member;
+        private string badge;
+        private SortableBindingList<JoinedListItem> sblLockersCurrent;
+        private SortableBindingList<JoinedListItem> sblLockersAll;
+        private WoodclubEntities context;
+        public LockerSelection(string badge)
+        {
+            this.badge = badge;
+            InitializeComponent();
+            this.dataGridViewSelectedLockers.DefaultCellStyle.SelectionBackColor = Color.LightCyan;
+            this.dataGridViewSelectedLockers.DefaultCellStyle.SelectionForeColor = Color.Black;
+            this.dataGridViewSelectedLockers.CellContentClick += this.dataGridViewSelectedLockers_CellContentClick;
+            this.dataGridViewAllLockers.DefaultCellStyle.SelectionBackColor = Color.LightCyan;
+            this.dataGridViewAllLockers.DefaultCellStyle.SelectionForeColor = Color.Black;
+            this.dataGridViewAllLockers.CellContentClick += this.dataGridViewSelectedLockers_CellContentClick;
 
-			context = new WoodclubEntities();
-			member = (from m in context.MemberRosters
-						where m.Badge == badge
-						select m).FirstOrDefault();
-		}
+            context = new WoodclubEntities();
+            member = (from m in context.MemberRosters
+                      where m.Badge == badge
+                      select m).FirstOrDefault();
+        }
 
-		private void dataGridViewSelectedLockers_CellContentClick(object sender, DataGridViewCellEventArgs e)
-		{
-			DataGridView dataGridView = (DataGridView)sender;
-			string senderName = dataGridView.Name;
-			string buttonText = string.Empty;
-			bool isCheckBoxCell = false;
+        private void dataGridViewSelectedLockers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            string senderName = dataGridView.Name;
+            string buttonText = string.Empty;
+            bool isCheckBoxCell = false;
 
-			if (e.ColumnIndex == 0 && e.RowIndex >= 0)
-			{
-				dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
-				buttonText = dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-				isCheckBoxCell = true;
-			}
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            {
+                dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                buttonText = dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                isCheckBoxCell = true;
+            }
 
-			if (isCheckBoxCell)
-			{
-				if (buttonText == "Add")
-				{
-					if (senderName == "dataGridViewAllLockers")
-					{
-						JoinedListItem jli = this.sblLockersAll[e.RowIndex];
+            if (isCheckBoxCell)
+            {
+                if (buttonText == "Add")
+                {
+                    if (senderName == "dataGridViewAllLockers")
+                    {
+                        JoinedListItem jli = this.sblLockersAll[e.RowIndex];
                         //                  JoinedListItem jli = new JoinedListItem
                         //                  {
                         //                      Selected = "Remove",
@@ -71,14 +68,14 @@ namespace WoodClub.Forms
                         jli.FirstName = this.member.FirstName;
                         jli.Selected = "Remove";
 
-						sblLockersCurrent.Add(jli);
-						sblLockersAll.Remove(sblLockersAll[e.RowIndex]);
-						this.dataGridViewAllLockers.EndEdit();
-						this.dataGridViewAllLockers.Refresh();
+                        sblLockersCurrent.Add(jli);
+                        sblLockersAll.Remove(sblLockersAll[e.RowIndex]);
+                        this.dataGridViewAllLockers.EndEdit();
+                        this.dataGridViewAllLockers.Refresh();
 
-					}
-					else
-					{
+                    }
+                    else
+                    {
                         JoinedListItem jli = sblLockersCurrent[e.RowIndex];
                         jli.Badge = member.Badge;
                         jli.FirstName = member.FirstName;
@@ -87,11 +84,11 @@ namespace WoodClub.Forms
                         this.dataGridViewSelectedLockers.EndEdit();
                         this.dataGridViewSelectedLockers.Refresh();
                     }
-				}
-				else
-				{
-					if (senderName == "dataGridViewSelectedLockers")
-					{
+                }
+                else
+                {
+                    if (senderName == "dataGridViewSelectedLockers")
+                    {
                         JoinedListItem jli = sblLockersCurrent[e.RowIndex];
                         if (jli.Badge == jli.BadgeOriginal)
                         {
@@ -113,16 +110,16 @@ namespace WoodClub.Forms
                             this.dataGridViewAllLockers.EndEdit();
                             this.dataGridViewAllLockers.Refresh();
                         }
-					}
-					else
-					{
-						//Shouldn't happen
-					}
-				} 
-			}
-		}
+                    }
+                    else
+                    {
+                        //Shouldn't happen
+                    }
+                }
+            }
+        }
 
-		private void LockerSelection_Load(object sender, EventArgs e)
+        private void LockerSelection_Load(object sender, EventArgs e)
         {
             LoadLockers();
         }
@@ -240,8 +237,8 @@ namespace WoodClub.Forms
             foreach (JoinedListItem item in sblLockersCurrent)
             {
                 Locker locker = (from loc in context.Lockers
-                            where loc.LockerTitle == item.Locker
-                            select loc).FirstOrDefault();
+                                 where loc.LockerTitle == item.Locker
+                                 select loc).FirstOrDefault();
                 locker.Badge = item.Badge;
                 context.SaveChanges();
 
@@ -286,25 +283,25 @@ namespace WoodClub.Forms
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
-		{
-			DialogResult = DialogResult.Cancel;
-		}
+        {
+            DialogResult = DialogResult.Cancel;
+        }
 
-		private void buttonApply_Click(object sender, EventArgs e)
-		{
+        private void buttonApply_Click(object sender, EventArgs e)
+        {
             SaveChanges();
             LoadLockers();
-		}
-	}
+        }
+    }
 
-	public partial class JoinedListItem
-	{
-		public string Selected { get; set; }
-		public string Badge { get; set; }
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-		public string Locker { get; set; }
-		public string Location { get; set; }
+    public partial class JoinedListItem
+    {
+        public string Selected { get; set; }
+        public string Badge { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Locker { get; set; }
+        public string Location { get; set; }
 
         public string BadgeOriginal { get; set; }
         public string FirstNameOriginal { get; set; }

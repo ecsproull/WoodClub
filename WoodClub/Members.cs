@@ -38,7 +38,7 @@ namespace WoodClub
                     log.Fatal("Unable to get data...", ex);         // Capture exception
                 }
             }
-            
+
         }
 
         //
@@ -52,22 +52,22 @@ namespace WoodClub
                 int _id = EditedMember.id;
                 NewIdentifier = _id;
                 try
-                {        
-                        var entity = context.MemberRosters.Find(_id);
-                        context.Entry(entity).CurrentValues.SetValues(EditedMember);
-                        context.SaveChanges();   
-                        ValidationMessage = "";
-                        return true;
-                }
-                catch(Exception ex)
                 {
-                    log.Error("Update failed..",ex);
+                    var entity = context.MemberRosters.Find(_id);
+                    context.Entry(entity).CurrentValues.SetValues(EditedMember);
+                    context.SaveChanges();
+                    ValidationMessage = "";
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Update failed..", ex);
                     return false;
                 }
             }
         }
 
-        
+
 
         public bool AddNew(MemberRoster NewMember)
         {

@@ -2,23 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WoodClub
 {
-    public partial class scwForm: Form
+    public partial class scwForm : Form
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger
                   (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private List<string> paidList = new List<string>();
         private List<UnpaidMember> DSunpaid = new List<UnpaidMember>();
         private List<MemberRoster> DSroster = new List<MemberRoster>();
-        
+
 
         public scwForm()
         {
@@ -102,7 +100,7 @@ namespace WoodClub
                 foreach (MemberRoster MemberRoster in DSroster)
                 {
                     string tmp = MemberRoster.RecCard;
-                    if(tmp != null && tmp !="")
+                    if (tmp != null && tmp != "")
                     {
                         card = tmp.TrimStart('0');
                         mrFound = paidList.Find(item => item == card);
@@ -146,7 +144,7 @@ namespace WoodClub
                         }
                     }
                 }
-               
+
             }
         }
 
@@ -156,13 +154,13 @@ namespace WoodClub
             {
                 foreach (UnpaidMember unpaid in DSunpaid)
                 {
-                    if(unpaid.Delete == true)
+                    if (unpaid.Delete == true)
                     {
                         var query = from rn in context.MemberRosters
                                     where rn.Badge == unpaid.Badge && rn.RecCard != null && rn.RecCard != ""
                                     select rn;
                         // query.Single().NewBadge = false;
-                        if(query.Any())
+                        if (query.Any())
                         {
                             int id = query.Single().id;
 
@@ -171,7 +169,7 @@ namespace WoodClub
                             {
                                 context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                             }
-                        } 
+                        }
                     }
                 }
                 context.SaveChanges();

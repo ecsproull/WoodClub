@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WoodClub
@@ -19,12 +16,12 @@ namespace WoodClub
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
             if (Form1 == null)
             {
                 Form1 = new MainMembers();
                 Application.Run(Form1);
-            }           
+            }
         }
     }
 }

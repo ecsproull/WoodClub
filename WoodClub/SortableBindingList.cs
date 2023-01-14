@@ -8,18 +8,18 @@ using System.ComponentModel;
 /// </summary>
 namespace WoodClub
 {
-	/// <summary>
-	/// Provides a generic collection that supports data binding and additionally supports sorting.
-	/// See http://msdn.microsoft.com/en-us/library/ms993236.aspx
-	/// If the elements are IComparable it uses that; otherwise compares the ToString()
-	/// </summary>
-	/// <typeparam name="T">The type of elements in the list.</typeparam>
-	public class SortableBindingList<T> : BindingList<T> where T : class
+    /// <summary>
+    /// Provides a generic collection that supports data binding and additionally supports sorting.
+    /// See http://msdn.microsoft.com/en-us/library/ms993236.aspx
+    /// If the elements are IComparable it uses that; otherwise compares the ToString()
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the list.</typeparam>
+    public class SortableBindingList<T> : BindingList<T> where T : class
     {
         private bool _isSorted;
         private ListSortDirection _sortDirection = ListSortDirection.Ascending;
         private PropertyDescriptor _sortProperty;
-        
+
 
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace WoodClub
         /// Initializes a new instance of the <see cref="SortableBindingList{T}"/> class.
         /// </summary>
         /// <param name="list">An <see cref="T:System.Collections.Generic.IList`1" /> of items to be contained in the <see cref="T:System.ComponentModel.BindingList`1" />.</param>
-        public SortableBindingList(IList<T> list)  : base(list) { }
+        public SortableBindingList(IList<T> list) : base(list) { }
 
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace WoodClub
         {
             object lhsValue = lhs == null ? null : _sortProperty.GetValue(lhs);
             object rhsValue = rhs == null ? null : _sortProperty.GetValue(rhs);
-            
+
             if (lhsValue == null)
             {
                 return (rhsValue == null) ? 0 : -1; //nulls are equal
@@ -116,10 +116,10 @@ namespace WoodClub
             {
                 return 1; //first has value, second doesn't
             }
-            if(lhsValue is IComparable)
+            if (lhsValue is IComparable)
             {
                 string type = lhsValue.GetType().ToString();
-                if(type != "System.DateTime")
+                if (type != "System.DateTime")
                 {
                     if (IsNumeric(lhsValue) && IsNumeric(rhsValue))
                     {
@@ -135,7 +135,7 @@ namespace WoodClub
                 }
                 return ((IComparable)lhsValue).CompareTo(rhsValue);
             }
-            
+
             if (lhsValue.Equals(rhsValue))
             {
                 return 0; //both are the same
@@ -151,7 +151,7 @@ namespace WoodClub
             }
 
             int i;
-            return Int32.TryParse((string)value, out i);                   
+            return Int32.TryParse((string)value, out i);
         }
     }
 }

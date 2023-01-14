@@ -11,7 +11,7 @@ using WoodClub.Forms;
 
 namespace WoodClub
 {
-	public partial class MainMembers : Form
+    public partial class MainMembers : Form
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger
                   (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -26,7 +26,7 @@ namespace WoodClub
         private Members members;
         public bool update;
         public bool added;
-       
+
         public MainMembers()
         {
             this.blMembers = new SortableBindingList<MemberRoster>();
@@ -41,7 +41,7 @@ namespace WoodClub
         {
             udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, listenPort));
             var from = new IPEndPoint(0, 0);
-            
+
             Task.Run(() =>
             {
                 while (true)
@@ -67,14 +67,14 @@ namespace WoodClub
             {
                 log.Error("Members failed ", ex);
             }
-            
+
             log.Info("members loaded");
 
-            
+
             bsMembers.Position = 0;
             bindingNavigator1.BindingSource = bsMembers;
             toolStripTextBoxFilter.KeyUp += TextBoxName_KeyUp;
-			toolStripImportNewMembers.Click += ToolStripImportNewMembers_Click;
+            toolStripImportNewMembers.Click += ToolStripImportNewMembers_Click;
         }
 
         private void LoadMembers()
@@ -86,14 +86,14 @@ namespace WoodClub
         }
 
 
-		private void ToolStripImportNewMembers_Click(object sender, EventArgs e)
-		{
-			NewMembers fnm = new NewMembers();
+        private void ToolStripImportNewMembers_Click(object sender, EventArgs e)
+        {
+            NewMembers fnm = new NewMembers();
             fnm.ShowDialog();
             LoadMembers();
-		}
+        }
 
-		private void TextBoxName_KeyUp(object sender, KeyEventArgs e)
+        private void TextBoxName_KeyUp(object sender, KeyEventArgs e)
         {
             setBsMembersDataSource();
         }
@@ -153,7 +153,7 @@ namespace WoodClub
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-           EditCurrentRow();
+            EditCurrentRow();
         }
 
         private void DeleteItemClick(object sender, EventArgs e)
@@ -212,7 +212,7 @@ namespace WoodClub
         {
             Application.Exit();
         }
-        
+
         private void btnRFcard_Click(object sender, EventArgs e)
         {
             RFBadge frfb = new RFBadge();
@@ -305,22 +305,22 @@ namespace WoodClub
 
         }
 
-		private void locationsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
+        private void locationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             LockerLocations lockerLocations = new LockerLocations();
             lockerLocations.ShowDialog();
-		}
+        }
 
-		private void lockersToolStripMenuItem_Click(object sender, EventArgs e)
-		{
+        private void lockersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             LockerData ld = new LockerData();
             ld.ShowDialog();
-		}
+        }
 
-		private void costsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
+        private void costsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             LockerPrices lockerPrices = new LockerPrices();
             lockerPrices.ShowDialog();
-		}
+        }
     }
 }

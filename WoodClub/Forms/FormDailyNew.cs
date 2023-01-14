@@ -67,7 +67,7 @@ namespace WoodClub.Forms
 
             for (int d = 1; d <= dayMonth; d++)
             {
-                for(int i=0; i<24; i++)
+                for (int i = 0; i < 24; i++)
                 {
                     hourTotal[i] = 0;      // Clear array
                 }
@@ -84,8 +84,8 @@ namespace WoodClub.Forms
 
                         this.UseWaitCursor = true;
                         List<Transaction> hr_visits = memberResult.ToList();
-                        
-                        foreach (Transaction TransDate in hr_visits)  
+
+                        foreach (Transaction TransDate in hr_visits)
                         {
                             Transaction nx = TransDate;
                             int hr = nx.TransDate.Value.Hour;
@@ -115,7 +115,7 @@ namespace WoodClub.Forms
                 int afterSix = hourTotal[18] + hourTotal[19] + hourTotal[20] + hourTotal[21] + hourTotal[22];
                 daily.six_pm = afterSix.ToString();
                 DSdaily.Add(daily);
-               
+
             }
             this.Invoke(new Action(() => OnShowDaily()));
         }

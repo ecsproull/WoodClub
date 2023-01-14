@@ -183,12 +183,12 @@ namespace WoodClub
             this.updateController = false;
         }
 
-		private void TxtRFcard_TextChanged(object sender, EventArgs e)
-		{
-			this.txtRFcard.Text = txtRFcard.Text.TrimStart('0');
-		}
+        private void TxtRFcard_TextChanged(object sender, EventArgs e)
+        {
+            this.txtRFcard.Text = txtRFcard.Text.TrimStart('0');
+        }
 
-		private void PopulateLockers()
+        private void PopulateLockers()
         {
             List<Locker> lockers = (from l in this.context.Lockers
                                     where l.Badge == member.Badge
@@ -248,7 +248,7 @@ namespace WoodClub
         {
             bool result = false;
             if (fsml != null)
-            { 
+            {
                 result = fsml.Contains(code);
             }
             return result;
@@ -320,8 +320,8 @@ namespace WoodClub
                         DateTime today = DateTime.Now.Date;
                         string lastDayValid = txtLastDay.Text;
                         string[] parts = lastDayValid.Split('/');
-                        DateTime ldv = new DateTime(Convert.ToInt32(parts[2]), 
-                            Convert.ToInt32(parts[0]), 
+                        DateTime ldv = new DateTime(Convert.ToInt32(parts[2]),
+                            Convert.ToInt32(parts[0]),
                             Convert.ToInt32(parts[1]));
 
                         if (today > ldv)
@@ -337,7 +337,7 @@ namespace WoodClub
             }
 
             string entryCodes = getDoorEntryCodes();
-            
+
             if (TZaccess == 0)
             {
                 MessageBox.Show("Please select members access time!");
@@ -362,7 +362,7 @@ namespace WoodClub
 
                         this.context.MemberRFcards.Add(mrfc);
                         this.member.NewBadge = false;
- 
+
                     }
                     else
                     {
@@ -416,8 +416,8 @@ namespace WoodClub
                     if (member.Photo != null)
                     {
                         MemberRFcard mrfc = (from mf in context.MemberRFcards
-                                                where mf.Badge == member.Badge
-                                                select mf).FirstOrDefault();
+                                             where mf.Badge == member.Badge
+                                             select mf).FirstOrDefault();
                         if (mrfc == null)
                         {
                             mrfc = new MemberRFcard
@@ -463,7 +463,7 @@ namespace WoodClub
         private string getDoorEntryCodes()
         {
             string result = "";
-            if(cbMain.Checked)
+            if (cbMain.Checked)
             {
                 result = "F";
             }
@@ -471,23 +471,23 @@ namespace WoodClub
             {
                 result += "S";
             }
-            if(cbMaint.Checked)
+            if (cbMaint.Checked)
             {
                 result += "M";
             }
-            if(cbLumber.Checked)
+            if (cbLumber.Checked)
             {
                 result += "L";
             }
-            if(cbOffice.Checked)
+            if (cbOffice.Checked)
             {
                 result += "O";
             }
-            if(cbAssembly.Checked)
+            if (cbAssembly.Checked)
             {
                 result += "A";
             }
-            if(cbMachine.Checked)
+            if (cbMachine.Checked)
             {
                 result += "T";
             }
@@ -517,7 +517,7 @@ namespace WoodClub
                             Image newImage = ScaleImage(img, 200, 200);
                             pictureBox1.Image = newImage;
                             Image newImg = ScaleImage(img, 800, 420);
-                            
+
                             using (var myStream = new MemoryStream())
                             {
                                 newImg.Save(myStream, System.Drawing.Imaging.ImageFormat.Jpeg);
@@ -549,8 +549,8 @@ namespace WoodClub
 
             DateTime dtLimit = DateTime.Now.AddDays(-3);
             var previousEntry = (from m in this.context.Transactions             // List of members using club
-                                where member.Badge == m.Badge && m.TransDate >  dtLimit && m.Code == value1
-                            select m).OrderByDescending(x => x.TransDate).ToList();
+                                 where member.Badge == m.Badge && m.TransDate > dtLimit && m.Code == value1
+                                 select m).OrderByDescending(x => x.TransDate).ToList();
             if (previousEntry.Count > 0)
             {
                 string message = string.Format("This member has had {0} - {1} entries in the last 3 days.", previousEntry.Count.ToString(), value1);
@@ -589,7 +589,7 @@ namespace WoodClub
             log.Info("New Timezone");
             int select = AccessTime.SelectedIndex;
             string text = AccessTime.GetItemText(AccessTime.SelectedItem);
-            if(member != null)
+            if (member != null)
             {
                 member.GroupTime = text;
             }
@@ -604,7 +604,7 @@ namespace WoodClub
             GridViewNewCredits.Columns[2].Name = "Value";
             GridViewNewCredits.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            foreach(KeyValuePair<string, TransactionAddition> kvp in creditTransactions)
+            foreach (KeyValuePair<string, TransactionAddition> kvp in creditTransactions)
             {
                 string[] row = new string[] { kvp.Value.Code, kvp.Value.EventType, kvp.Value.TotalAmount.ToString() };
                 GridViewNewCredits.Rows.Add(row);
@@ -730,7 +730,7 @@ namespace WoodClub
                 resetBackColor = true;
             }
 
-            if(resetBackColor)
+            if (resetBackColor)
             {
                 formDirtyTracker.resetControlBackColor(c);
             }
@@ -757,8 +757,8 @@ namespace WoodClub
             }
         }
 
-		private void EditLocker_Click(object sender, EventArgs e)
-		{
+        private void EditLocker_Click(object sender, EventArgs e)
+        {
             using (LockerSelection frm = new LockerSelection(member.Badge))
             {
                 frm.ShowDialog();

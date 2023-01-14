@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-
-namespace WoodClub
+﻿namespace WoodClub
 {
     //[MetadataTypeAttribute(typeof(MembersMetadata))]
     //public partial class Members : WoodclubEntities,IRepository, IValidatableObject
@@ -58,20 +51,20 @@ namespace WoodClub
 
     //    }
 
-        /// <summary>
-        /// This ensures these fields are not empty
-        /// </summary>
-        //public class MembersMetadata
-        //{
-        //    [Required]
-        //    [StringLength(40, ErrorMessage = "Must be 40 characters or less")]
+    /// <summary>
+    /// This ensures these fields are not empty
+    /// </summary>
+    //public class MembersMetadata
+    //{
+    //    [Required]
+    //    [StringLength(40, ErrorMessage = "Must be 40 characters or less")]
 
-        //    public string CompanyName { get; set; }
-        //    [Required]
-        //    public string ContactName { get; set; }
-        //    [Required]
-        //    public string ContactTitle { get; set; }
-        //}
-    }
+    //    public string CompanyName { get; set; }
+    //    [Required]
+    //    public string ContactName { get; set; }
+    //    [Required]
+    //    public string ContactTitle { get; set; }
+    //}
+}
 
 
