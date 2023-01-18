@@ -242,7 +242,7 @@ namespace WoodClub.Forms
 				locker.Badge = item.Badge;
 				context.SaveChanges();
 
-				if (item.Badge != item.BadgeOriginal)
+				if (!string.IsNullOrEmpty(item.BadgeOriginal) && item.Badge != item.BadgeOriginal)
 				{
 					List<Locker> lockers = (from l in this.context.Lockers
 											where l.Badge == item.BadgeOriginal
