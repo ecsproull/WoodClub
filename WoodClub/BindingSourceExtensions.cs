@@ -2,12 +2,12 @@
 
 namespace WoodClub
 {
-    public static class BindingSourceExtensions
-    {
-        public static int MemberIdentifier(this BindingSource sender)
-        {
-            return ((MemberRoster)sender.Current).id;
-        }
-    }
+	public static class BindingSourceExtensions
+	{
+		public static int MemberIdentifier(this BindingSource sender)
+		{
+			return ((MemberRoster)sender.Current).id;
+		}
+	}
 
 }

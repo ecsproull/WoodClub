@@ -257,7 +257,6 @@
     <Compile Include="MemberRoster.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
-    <Compile Include="MemberRosterPartial.cs" />
     <Compile Include="Members.cs" />
     <Compile Include="Forms\MonitorForm.cs">
       <SubType>Form</SubType>
@@ -319,11 +318,11 @@
     <Compile Include="Monitors.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Forms\SCWform.cs">
+    <Compile Include="Forms\UnPaidMembers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SCWform.Designer.cs">
-      <DependentUpon>SCWform.cs</DependentUpon>
+    <Compile Include="Forms\UnPaidMembers.Designer.cs">
+      <DependentUpon>UnPaidMembers.cs</DependentUpon>
     </Compile>
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="UnpaidMember.cs" />
@@ -379,8 +378,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Forms\SCWform.resx">
-      <DependentUpon>SCWform.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\UnPaidMembers.resx">
+      <DependentUpon>UnPaidMembers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
