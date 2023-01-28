@@ -13,7 +13,7 @@ namespace WoodClub
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
 				 (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-		private static List<Lockers> DSlocker = new List<Lockers>();
+		private static SortableBindingList<Lockers> DSlocker = new SortableBindingList<Lockers>();
 		private static SortableBindingList<Lockers> blLockers = new SortableBindingList<Lockers>(DSlocker);
 		private static BindingSource bsLockers = new BindingSource();
 		private static List<Transaction> DStransaction = new List<Transaction>();
@@ -80,7 +80,7 @@ namespace WoodClub
 					})
 				.OrderBy(x => x.Badge).ToList();
 
-				DSlocker = new List<Lockers>();
+				DSlocker = new SortableBindingList<Lockers>();
 				foreach (var member in lmcl)
 				{
 					var yearvisit = from t in context.Transactions              // List of Usage by member
@@ -448,5 +448,33 @@ namespace WoodClub
 				   MessageBoxIcon.Error);
 			}
 		}
-	}
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			ComboBox cb = sender as ComboBox;
+			SortableBindingList<Lockers> filteredBindingList = DSlocker;
+			switch(cb.Text)
+            {
+				case "Open":
+					filteredBindingList = new SortableBindingList<Lockers>(DSlocker.Where(
+						x => x.Badge == string.Empty && (x.Project == null || x.Project == string.Empty)).ToList());
+					break;
+				case "Assigned":
+					filteredBindingList = new SortableBindingList<Lockers>(DSlocker.Where(
+						x => x.Badge != string.Empty).ToList());
+					break;
+				case "Training":
+					filteredBindingList = new SortableBindingList<Lockers>(DSlocker.Where(
+						x => x.Project != null && x.Project != string.Empty).ToList());
+					break;
+				case "Special Project":
+					filteredBindingList = new SortableBindingList<Lockers>(DSlocker.Where(
+						x => x.Project != null && x.Project.ToLower().StartsWith("sp ")).ToList());
+					break;
+			}
+
+			bsLockers.DataSource = filteredBindingList;
+			dataGridViewLockers.Refresh();
+		}
+    }
 }
