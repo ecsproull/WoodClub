@@ -49,6 +49,11 @@ namespace WoodClub
 								  where m.RecCard == recNo
 								  select m).FirstOrDefault();
 
+					if (DateTime.Parse(sl.startdatestring) < DateTime.Now)
+                    {
+						continue;
+                    }
+
 					if (startDate == string.Empty)
 					{
 						startDate = sl.startdatestring;
@@ -67,22 +72,25 @@ namespace WoodClub
 
 						if (!string.IsNullOrEmpty(sl.firstname))
 						{
-							members.Add(new NewMember
+							for (int i = 0; i < sl.myqty; i++)
 							{
-								Add = member == null,
-								FirstName = sl.firstname,
-								LastName = sl.lastname,
-								Email = sl.email,
-								Phone = phone,
-								Address = sl.address1,
-								City = sl.city,
-								State = sl.state,
-								ZipCode = sl.zipcode,
-								RecNo = sl.customfields[1].value,
-								MemberDate = DateTimeOffset.FromUnixTimeSeconds((long)sl.startdate).Date,
-								Badge = badge.ToString(),
-								CardNo = string.Empty
-							});
+								members.Add(new NewMember
+								{
+									Add = member == null,
+									FirstName = sl.firstname,
+									LastName = sl.lastname,
+									Email = sl.email,
+									Phone = phone,
+									Address = sl.address1,
+									City = sl.city,
+									State = sl.state,
+									ZipCode = sl.zipcode,
+									RecNo = sl.customfields[1].value,
+									MemberDate = DateTimeOffset.FromUnixTimeSeconds((long)sl.startdate).Date,
+									Badge = badge.ToString(),
+									CardNo = string.Empty
+								});
+							}
 						}
 					}
 					badge--;
@@ -140,7 +148,7 @@ namespace WoodClub
 							Exempt = false,
 							Locker = String.Empty,
 							NewBadge = false,
-							LastDayValid = DateTime.Now
+							LastDayValid = r.MemberDate.AddDays(2)
 						});
 
 						if (Convert.ToInt32(r.Badge) < 9000)
