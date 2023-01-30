@@ -75,6 +75,13 @@ namespace WoodClub
 			bindingNavigator1.BindingSource = bsMembers;
 			toolStripTextBoxFilter.KeyUp += TextBoxName_KeyUp;
 			toolStripImportNewMembers.Click += ToolStripImportNewMembers_Click;
+			MultipleMembersButton.Click += MultipleMembersButton_Click;
+		}
+
+		private void MultipleMembersButton_Click(object sender, EventArgs e)
+		{
+			MultipleEditor me = new MultipleEditor();
+			me.ShowDialog();
 		}
 
 		private void LoadMembers()
