@@ -39,6 +39,8 @@ namespace WoodClub
 			Rootobject ro = await sug.GetSignup(DateTime.Now);
 			List<SignupSlot> slots = new List<SignupSlot>();
 			string startDate = string.Empty;
+			DateTime startScanDate = DateTime.Now.AddDays(-10);
+			DateTime endScanDate = DateTime.Now.AddDays(+10);
 			using (WoodclubEntities context = new WoodclubEntities())
 			{
 				int badge = 9999;
@@ -49,7 +51,8 @@ namespace WoodClub
 								  where m.RecCard == recNo
 								  select m).FirstOrDefault();
 
-					if (DateTime.Parse(sl.startdatestring) < DateTime.Now)
+					if (DateTime.Parse(sl.startdatestring) < startScanDate ||
+						DateTime.Parse(sl.startdatestring) > endScanDate)
                     {
 						continue;
                     }
