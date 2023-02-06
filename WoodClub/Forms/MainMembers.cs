@@ -82,6 +82,8 @@ namespace WoodClub
 		{
 			MultipleEditor me = new MultipleEditor();
 			me.ShowDialog();
+			bsMembers.ResetCurrentItem();
+			LoadMembers();
 		}
 
 		private void LoadMembers()

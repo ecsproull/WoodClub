@@ -72,45 +72,47 @@ namespace WoodClub
 									 select m).ToList();
 			this.members = new SortableBindingList<MultipleEditMember>();
 			foreach (var member in membersForCredits)
-			{
-				Transaction transaction = (from t in context.Transactions
-										   where t.Badge == member.Badge && t.Code != "U" && t.CreditAmt > 0
-										   select t).OrderByDescending(td => td.TransDate).FirstOrDefault();
+            {
+                Transaction transaction = (from t in context.Transactions
+                                           where t.Badge == member.Badge && t.Code != "U" && t.CreditAmt > 0
+                                           select t).OrderByDescending(td => td.TransDate).FirstOrDefault();
 
-				int TzAccess = 0;
-				using (ZKTecoEntities zkcontext = new ZKTecoEntities())
-				{
-					List<acc_timeseg> TZdatasource = zkcontext.acc_timeseg.Select(c => c).ToList();
-					foreach (var element in TZdatasource)
-					{
-						if (element.timeseg_name == member.GroupTime)
-						{
-							TzAccess = (int)element.id;
-						}
-					}
-				}
+                int TzAccess = GetAccessTime(member.GroupTime);
 
-				this.members.Add(new MultipleEditMember
-				{
-					Badge = member.Badge,
-					FirstName = member.FirstName,
-					LastName = member.LastName,
-					Credits = member.CreditBank,
-					LastCreditAwarded = transaction == null ? "None" : transaction.EventType,
-					TransactionDate = transaction == null ? "None" : transaction.TransDate.Value.Date.ToShortDateString(),
-					LastDayValid = member.LastDayValid == null ? DateTime.Now.AddDays(-1) : member.LastDayValid.Value,
-					EntryCodes = member.EntryCodes,
-					CardNo = member.CardNo,
-					TzAccess = TzAccess,
-					RecCard = member.RecCard
-				});
+                this.members.Add(new MultipleEditMember
+                {
+                    Badge = member.Badge,
+                    FirstName = member.FirstName,
+                    LastName = member.LastName,
+                    Credits = member.CreditBank,
+                    LastCreditAwarded = transaction == null ? "None" : transaction.EventType,
+                    TransactionDate = transaction == null ? "None" : transaction.TransDate.Value.Date.ToShortDateString(),
+                });
 
-				this.memberBindingSource.DataSource = this.members;
-				this.dataGridMultiMember.DataSource = this.memberBindingSource;
-			}
-		}
+                this.memberBindingSource.DataSource = this.members;
+                this.dataGridMultiMember.DataSource = this.memberBindingSource;
+            }
+        }
 
-		private void ApplyChanges()
+        private static int GetAccessTime(string groupTime)
+        {
+            int TzAccess = 0;
+            using (ZKTecoEntities zkcontext = new ZKTecoEntities())
+            {
+                List<acc_timeseg> TZdatasource = zkcontext.acc_timeseg.Select(c => c).ToList();
+                foreach (var element in TZdatasource)
+                {
+                    if (element.timeseg_name == groupTime)
+                    {
+                        TzAccess = (int)element.id;
+                    }
+                }
+            }
+
+            return TzAccess;
+        }
+
+        private void ApplyChanges()
 		{
 			if (newCredit)
 			{
@@ -134,7 +136,11 @@ namespace WoodClub
 							}
 						}
 
-						bool updateController = member.LastDayValid < DateTime.Now && float.Parse(member.Credits) < 1;
+						MemberRoster memberRoster = (from m in context.MemberRosters
+													 where m.Badge == member.Badge
+													 select m).FirstOrDefault();
+
+						bool updateController = memberRoster.LastDayValid < DateTime.Now && float.Parse(memberRoster.CreditBank) < 1 && !memberRoster.OneTime.Value;
 						
 						Transaction creditTransaction = new Transaction
 						{
@@ -142,16 +148,12 @@ namespace WoodClub
 							Code = trans.Value.Code,
 							EventType = trans.Value.EventType,
 							CreditAmt = trans.Value.TotalAmount,
-							RecCard = member.RecCard,
+							RecCard = memberRoster.RecCard,
 							TransDate = DateTime.Now
 						};
 
 						this.context.Transactions.Add(creditTransaction);
 						
-
-						MemberRoster memberRoster = (from m in context.MemberRosters
-													 where m.Badge == member.Badge
-													 select m).FirstOrDefault();
 						float creditBank = float.Parse(memberRoster.CreditBank);
 						creditBank += trans.Value.TotalAmount;
 						creditBank = creditBank > 12 ? 12 : creditBank;
@@ -160,12 +162,14 @@ namespace WoodClub
 
 						if (updateController)
 						{
-							DoorUpdate(member);
+							DoorUpdate(memberRoster);
 						}
 					}
 				}
 
 				LoadMembers();
+				btnSave.Enabled = false;
+				buttonApply.Enabled = false;
 			}
 		}
 
@@ -207,11 +211,11 @@ namespace WoodClub
 			}
 		}
 
-
-		private void DoorUpdate(MultipleEditMember member)
+		private void DoorUpdate(MemberRoster member)
 		{
+			int zkAccessTime = GetAccessTime(member.GroupTime);
 			int PORT = 5724;
-			string enable = member.Badge + "," + member.CardNo + "," + member.EntryCodes + "," + member.TzAccess.ToString();
+			string enable = member.Badge + "," + member.CardNo + "," + member.EntryCodes.Trim() + "," + zkAccessTime.ToString();
 			String dataOut = "[," + enable + ",]";
 			log.Info("Enabled: " + enable);
 			byte[] bytesOut1 = Encoding.ASCII.GetBytes(dataOut);

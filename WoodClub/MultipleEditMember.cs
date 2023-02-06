@@ -10,10 +10,5 @@ namespace WoodClub
 		public string Credits { get; set; }
 		public string LastCreditAwarded { get; set; }
 		public string TransactionDate { get; set; }
-		public DateTime LastDayValid { get; set; }
-		public string EntryCodes { get; set; }
-		public string CardNo { get; set; }
-		public int TzAccess { get; set; }
-		public string RecCard { get; set; }
 	}
 }
