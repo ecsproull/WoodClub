@@ -66,7 +66,7 @@ namespace WoodClub
 
 		private void LoadMembers()
 		{
-			List<string> badges = new List<string>(this.memberBadgesTextBox.Text.Split(','));
+			List<string> badges = new List<string>(this.memberBadgesTextBox.Text.Split('.'));
 			var membersForCredits = (from m in context.MemberRosters
 									 where badges.Contains(m.Badge)
 									 select m).ToList();

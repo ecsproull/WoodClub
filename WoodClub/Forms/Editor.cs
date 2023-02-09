@@ -347,6 +347,9 @@ namespace WoodClub
 			if (adding)
 			{
 				this.member.OneTime = true;
+				this.context.MemberRosters.Add(this.member);
+				this.context.SaveChanges();
+				
 				if (this.member.NewBadge != null && this.member.NewBadge.Value)        // New Badge Request
 				{
 					if (member.Photo != null)    // no photo - no badge
@@ -357,7 +360,8 @@ namespace WoodClub
 							FirstName = member.FirstName,
 							LastName = member.LastName,
 							Title = member.Title,
-							Photo = member.Photo
+							Photo = member.Photo,
+							RecCard = member.RecCard
 						};
 
 						this.context.MemberRFcards.Add(mrfc);
@@ -371,8 +375,6 @@ namespace WoodClub
 						MessageBox.Show("New Badge requires photo!");
 					}
 				}
-
-				this.context.MemberRosters.Add(this.member);
 			}
 			else
 			{
@@ -413,6 +415,7 @@ namespace WoodClub
 
 				if (this.member.NewBadge != null && this.member.NewBadge.Value)        // New Badge Request
 				{
+					this.context.SaveChanges();
 					if (member.Photo != null)
 					{
 						MemberRFcard mrfc = (from mf in context.MemberRFcards
