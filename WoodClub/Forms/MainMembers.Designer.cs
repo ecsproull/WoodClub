@@ -83,9 +83,9 @@
 			this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
 			this.toolStripImportNewMembers = new System.Windows.Forms.ToolStripMenuItem();
-			this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
-			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
+			this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).BeginInit();
@@ -561,9 +561,10 @@
 			this.toolStripImportNewMembers.Size = new System.Drawing.Size(110, 22);
 			this.toolStripImportNewMembers.Text = "Import";
 			// 
-			// memberRosterTableAdapter
+			// toolStripSeparator6
 			// 
-			this.memberRosterTableAdapter.ClearBeforeFill = true;
+			this.toolStripSeparator6.Name = "toolStripSeparator6";
+			this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
 			// 
 			// MultipleMembersButton
 			// 
@@ -574,10 +575,9 @@
 			this.MultipleMembersButton.Size = new System.Drawing.Size(79, 22);
 			this.MultipleMembersButton.Text = "Multi Credits";
 			// 
-			// toolStripSeparator6
+			// memberRosterTableAdapter
 			// 
-			this.toolStripSeparator6.Name = "toolStripSeparator6";
-			this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+			this.memberRosterTableAdapter.ClearBeforeFill = true;
 			// 
 			// MainMembers
 			// 

@@ -13,8 +13,7 @@ namespace WoodClub
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
 				 (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-		private static SortableBindingList<Lockers> DSlocker = new SortableBindingList<Lockers>();
-		private static SortableBindingList<Lockers> blLockers = new SortableBindingList<Lockers>(DSlocker);
+		private static SortableBindingList<Lockers> blLockers = new SortableBindingList<Lockers>();
 		private static BindingSource bsLockers = new BindingSource();
 		private static List<Transaction> DStransaction = new List<Transaction>();
 		private static Lockers currentLocker = null;
@@ -80,7 +79,7 @@ namespace WoodClub
 					})
 				.OrderBy(x => x.Badge).ToList();
 
-				DSlocker = new SortableBindingList<Lockers>();
+				blLockers = new SortableBindingList<Lockers>();
 				foreach (var member in lmcl)
 				{
 					var yearvisit = from t in context.Transactions              // List of Usage by member
@@ -107,7 +106,7 @@ namespace WoodClub
 						Project = member.Project
 					};
 
-					DSlocker.Add(locker);
+					blLockers.Add(locker);
 					totalRevenue += member.Cost.Value;
 
 				}
@@ -136,11 +135,10 @@ namespace WoodClub
 						Project = el.Project
 					};
 
-					DSlocker.Add(locker);
+					blLockers.Add(locker);
 				}
 			}
 
-			blLockers = new SortableBindingList<Lockers>(DSlocker);
 			bsLockers.DataSource = blLockers;
 			dataGridViewLockers.DataSource = bsLockers;
 			bsLockers.Position = 0;
@@ -198,7 +196,7 @@ namespace WoodClub
 				string filePath = saveFileDialog.FileName;
 				try
 				{
-					int length = DSlocker.Count();
+					int length = blLockers.Count();
 					string hdr = "Badge,First,Last,Club Dues Paid,Shop Visits,Credit Bank, Last Day Valid, Locker, Cost, Location";
 
 					using (System.IO.TextWriter writer = File.CreateText(filePath))
@@ -206,7 +204,7 @@ namespace WoodClub
 						writer.WriteLine(hdr);
 						for (int index = 0; index < length; index++)
 						{
-							Lockers locker = DSlocker[index];
+							Lockers locker = blLockers[index];
 							string csv = locker.Badge + "," +
 										 locker.FirstName + "," +
 										 locker.LastName + "," +
@@ -452,23 +450,23 @@ namespace WoodClub
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 			ComboBox cb = sender as ComboBox;
-			SortableBindingList<Lockers> filteredBindingList = DSlocker;
+			SortableBindingList<Lockers> filteredBindingList = blLockers;
 			switch(cb.Text)
             {
 				case "Open":
-					filteredBindingList = new SortableBindingList<Lockers>(DSlocker.Where(
+					filteredBindingList = new SortableBindingList<Lockers>(blLockers.Where(
 						x => x.Badge == string.Empty && (x.Project == null || x.Project == string.Empty)).ToList());
 					break;
 				case "Assigned":
-					filteredBindingList = new SortableBindingList<Lockers>(DSlocker.Where(
+					filteredBindingList = new SortableBindingList<Lockers>(blLockers.Where(
 						x => x.Badge != string.Empty).ToList());
 					break;
 				case "Training":
-					filteredBindingList = new SortableBindingList<Lockers>(DSlocker.Where(
+					filteredBindingList = new SortableBindingList<Lockers>(blLockers.Where(
 						x => x.Project != null && x.Project != string.Empty).ToList());
 					break;
 				case "Special Project":
-					filteredBindingList = new SortableBindingList<Lockers>(DSlocker.Where(
+					filteredBindingList = new SortableBindingList<Lockers>(blLockers.Where(
 						x => x.Project != null && x.Project.ToLower().StartsWith("sp ")).ToList());
 					break;
 			}
