@@ -30,20 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewLockers = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxLocker = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Locate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Project = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bindingSourceLocker = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxTotalRevenue = new System.Windows.Forms.TextBox();
@@ -53,6 +44,15 @@
             this.buttonPrint = new System.Windows.Forms.Button();
             this.printDialogLockers = new System.Windows.Forms.PrintDialog();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxLocker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSourceLocker = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLockers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceLocker)).BeginInit();
             this.SuspendLayout();
@@ -80,38 +80,11 @@
             this.Locate,
             this.Project});
             this.dataGridViewLockers.DataSource = this.bindingSourceLocker;
-            this.dataGridViewLockers.Location = new System.Drawing.Point(0, 41);
+            this.dataGridViewLockers.Location = new System.Drawing.Point(-68, 41);
             this.dataGridViewLockers.Name = "dataGridViewLockers";
             this.dataGridViewLockers.RowHeadersVisible = false;
             this.dataGridViewLockers.Size = new System.Drawing.Size(1339, 512);
             this.dataGridViewLockers.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Badge";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Badge";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn1.Width = 65;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "FirstName";
-            this.dataGridViewTextBoxColumn2.HeaderText = "First Name";
-            this.dataGridViewTextBoxColumn2.MaxInputLength = 20;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "LastName";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Last Name";
-            this.dataGridViewTextBoxColumn3.MaxInputLength = 20;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
             // Email
             // 
@@ -125,49 +98,6 @@
             this.Phone.DataPropertyName = "Phone";
             this.Phone.HeaderText = "Phone";
             this.Phone.Name = "Phone";
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            this.dataGridViewCheckBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewCheckBoxColumn1.DataPropertyName = "ClubDuesPaid";
-            this.dataGridViewCheckBoxColumn1.HeaderText = "Dues";
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn1.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "CreditBank";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Credit Bank";
-            this.dataGridViewTextBoxColumn4.MaxInputLength = 20;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "LastDayValid";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Last Day Valid";
-            this.dataGridViewTextBoxColumn5.MaxInputLength = 20;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "ShopVisits";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Shop Visits";
-            this.dataGridViewTextBoxColumn6.MaxInputLength = 10;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxLocker
-            // 
-            this.dataGridViewTextBoxLocker.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxLocker.DataPropertyName = "HasLocker";
-            this.dataGridViewTextBoxLocker.HeaderText = "Locker";
-            this.dataGridViewTextBoxLocker.MaxInputLength = 20;
-            this.dataGridViewTextBoxLocker.Name = "dataGridViewTextBoxLocker";
-            this.dataGridViewTextBoxLocker.ReadOnly = true;
-            this.dataGridViewTextBoxLocker.Width = 75;
             // 
             // Cost
             // 
@@ -191,10 +121,6 @@
             this.Project.HeaderText = "Project";
             this.Project.Name = "Project";
             this.Project.Width = 120;
-            // 
-            // bindingSourceLocker
-            // 
-            this.bindingSourceLocker.DataSource = typeof(WoodClub.Lockers);
             // 
             // button1
             // 
@@ -269,6 +195,80 @@
             this.comboBox1.TabIndex = 8;
             this.comboBox1.Text = "All";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Badge";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Badge";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn1.Width = 65;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "FirstName";
+            this.dataGridViewTextBoxColumn2.HeaderText = "First Name";
+            this.dataGridViewTextBoxColumn2.MaxInputLength = 20;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "LastName";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Last Name";
+            this.dataGridViewTextBoxColumn3.MaxInputLength = 20;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewCheckBoxColumn1.DataPropertyName = "ClubDuesPaid";
+            this.dataGridViewCheckBoxColumn1.HeaderText = "Dues";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn1.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "CreditBank";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Credit Bank";
+            this.dataGridViewTextBoxColumn4.MaxInputLength = 20;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "LastDayValid";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Last Day Valid";
+            this.dataGridViewTextBoxColumn5.MaxInputLength = 20;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "ShopVisits";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Shop Visits";
+            this.dataGridViewTextBoxColumn6.MaxInputLength = 10;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxLocker
+            // 
+            this.dataGridViewTextBoxLocker.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewTextBoxLocker.DataPropertyName = "HasLocker";
+            this.dataGridViewTextBoxLocker.HeaderText = "Locker";
+            this.dataGridViewTextBoxLocker.MaxInputLength = 20;
+            this.dataGridViewTextBoxLocker.Name = "dataGridViewTextBoxLocker";
+            this.dataGridViewTextBoxLocker.ReadOnly = true;
+            this.dataGridViewTextBoxLocker.Width = 75;
+            // 
+            // bindingSourceLocker
+            // 
+            this.bindingSourceLocker.DataSource = typeof(WoodClub.Lockers);
             // 
             // LockerRpt
             // 
