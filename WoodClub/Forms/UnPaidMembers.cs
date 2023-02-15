@@ -62,7 +62,8 @@ namespace WoodClub
 					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
 				}
 
-				ScanSCW();
+				//ScanSCW();
+				Reconcile();
 				unpaidMemberBindingSource.DataSource = ds_Unpaid;
 				dataGridView1.DataSource = unpaidMemberBindingSource.DataSource;
 				dataGridView1.Invalidate();
@@ -92,28 +93,54 @@ namespace WoodClub
 					else
 					{
 						member.ClubDuesPaid = false;
-
-						UnpaidMember upm = new UnpaidMember
-						{
-							Badge = member.Badge,
-							FirstName = member.FirstName,
-							LastName = member.LastName,
-							MemberDate = member.MemberDate,
-							RecCard = member.RecCard,
-							Address = member.Address,
-							ClubDuesPaid = member.ClubDuesPaid,
-							ClubDuesPaidDate = member.ClubDuesPaidDate,
-							Phone = member.Phone,
-							Email = member.Email,
-							State = member.State,
-							Delete = false
-						};
-
-						ds_Unpaid.Add(upm);
+						AddToList(member);
 					}
 				}
 				//context.SaveChanges();
 			}
+		}
+
+		private void Reconcile()
+		{
+			ds_Unpaid = new SortableBindingList<UnpaidMember>();
+			using (WoodclubEntities context = new WoodclubEntities())
+			{
+				List<MemberRoster> members = (from m in context.MemberRosters
+											  select m).OrderBy(mem => mem.Badge).ToList();
+				foreach (MemberRoster member in members)
+				{
+					BadgeDate mrFound = paidList.Find(item => item.Badge == member.Badge);
+					if (mrFound != null && !member.ClubDuesPaid.Value)        // found item
+					{
+						AddToList(member, false);
+					}
+					else if (mrFound == null && member.ClubDuesPaid.Value)
+					{
+						AddToList(member, false);
+					}
+				}
+			}
+		}
+
+		private void AddToList(MemberRoster member, bool delete = false)
+		{
+			UnpaidMember upm = new UnpaidMember
+			{
+				Badge = member.Badge,
+				FirstName = member.FirstName,
+				LastName = member.LastName,
+				MemberDate = member.MemberDate,
+				RecCard = member.RecCard,
+				Address = member.Address,
+				ClubDuesPaid = member.ClubDuesPaid,
+				ClubDuesPaidDate = member.ClubDuesPaidDate,
+				Phone = member.Phone,
+				Email = member.Email,
+				State = member.State,
+				Delete = delete
+			};
+
+			ds_Unpaid.Add(upm);
 		}
 
 		private void btnDelete_Click(object sender, EventArgs e)
