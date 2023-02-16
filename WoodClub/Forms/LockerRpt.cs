@@ -159,6 +159,7 @@ namespace WoodClub
 					if (ed.ShowDialog() == DialogResult.OK)
 					{
 						MainMembers.lockersUpdated = true;
+						LockerForm_Load(null, null);
 					}
 				}
 			}
