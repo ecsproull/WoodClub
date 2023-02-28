@@ -76,9 +76,16 @@ namespace WoodClub
 			toolStripTextBoxFilter.KeyUp += TextBoxName_KeyUp;
 			toolStripImportNewMembers.Click += ToolStripImportNewMembers_Click;
 			MultipleMembersButton.Click += MultipleMembersButton_Click;
+            menuItemFreeDayOnly.Click += MenuItemFreeDayOnly_Click;
 		}
 
-		private void MultipleMembersButton_Click(object sender, EventArgs e)
+        private void MenuItemFreeDayOnly_Click(object sender, EventArgs e)
+        {
+			FreeDayOnlyUsers fdo = new FreeDayOnlyUsers();
+			fdo.Show();
+        }
+
+        private void MultipleMembersButton_Click(object sender, EventArgs e)
 		{
 			MultipleEditor me = new MultipleEditor();
 			me.ShowDialog();

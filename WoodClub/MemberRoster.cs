@@ -46,5 +46,6 @@ namespace WoodClub
         public Nullable<bool> NewBadge { get; set; }
         public byte[] Photo { get; set; }
         public string GroupTime { get; set; }
+        public Nullable<bool> AdminBlock { get; set; }
     }
 }

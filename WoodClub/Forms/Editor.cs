@@ -38,8 +38,10 @@ namespace WoodClub
 			this.controlsTriggerUpdate = new List<string>();
 			this.controlsTriggerUpdate.Add("cbUpdateControllers");
 			this.controlsTriggerUpdate.Add("cbExempt");
+			this.controlsTriggerUpdate.Add("cbAdminBlock");
 			this.controlsTriggerUpdate.Add("txtRFcard");
 			this.controlsTriggerUpdate.Add("cbClubDuesPaid");
+			this.controlsTriggerUpdate.Add("cbRecDuesPaid");
 			this.controlsTriggerUpdate.Add("txtCredits");
 			this.controlsTriggerUpdate.Add("txtLastDay");
 			this.controlsTriggerUpdate.Add("cbExtendHr");
@@ -305,6 +307,7 @@ namespace WoodClub
 			member.NewBadge = member.NewBadge == null ? false : member.NewBadge;
 			member.RecDuesPaid = member.RecDuesPaid == null ? false : member.RecDuesPaid;
 			member.AuthorizedTimeZone = member.AuthorizedTimeZone == null ? 3 : member.AuthorizedTimeZone;
+			member.AdminBlock = member.AdminBlock == null ? false : member.AdminBlock;
 		}
 
 		private void ApplyChanges()

@@ -116,9 +116,35 @@ namespace WoodClub
 					}
 					else if (mrFound == null && member.ClubDuesPaid.Value)
 					{
-						AddToList(member, false);
+						AddToList(member, true);
 					}
+
+					if (mrFound != null)
+                    {
+						paidList.Remove(mrFound);
+                    }
 				}
+
+				if (paidList.Count > 0)
+                {
+					foreach (BadgeDate bd in paidList)
+                    {
+						if (!string.IsNullOrEmpty(bd.Badge))
+						{
+							MemberRoster mr = (from m in context.MemberRosters
+											   where m.Badge == bd.Badge
+											   select m).FirstOrDefault();
+							if (mr != null)
+							{
+								MessageBox.Show("Missed Badge Number : " + mr.Badge + " Dues Paid: " + mr.ClubDuesPaid.Value.ToString());
+							}
+							else
+							{
+								MessageBox.Show("Not in database, Badge Number : " + bd.Badge);
+							}
+						}
+					}
+                }
 			}
 		}
 

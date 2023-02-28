@@ -5,7 +5,7 @@ using System.Linq;
 namespace WoodClub
 {
 	// <param name="init"> false does not initialize list </param>
-	public class Members : MemberRoster
+	public class Members
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
 				  (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
