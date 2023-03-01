@@ -32,7 +32,6 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RFBadge));
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -73,10 +72,6 @@
 			// memberRosterBindingSource
 			// 
 			this.memberRosterBindingSource.DataMember = "MemberRoster";
-			// 
-			// memberRosterTableAdapter
-			// 
-			this.memberRosterTableAdapter.ClearBeforeFill = true;
 			// 
 			// bindingNavigator1
 			// 
@@ -238,7 +233,6 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource memberRosterBindingSource;
-        private WoodclubDataSetTableAdapters.MemberRosterTableAdapter memberRosterTableAdapter;
         private System.Windows.Forms.BindingNavigator bindingNavigator1;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;

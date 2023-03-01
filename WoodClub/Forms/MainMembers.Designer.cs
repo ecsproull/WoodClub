@@ -70,7 +70,6 @@
 			this.toolStripImportNewMembers = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
-			this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
 			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -216,6 +215,7 @@
 			// 
 			this.bindingNavigatorPositionItem.AccessibleName = "Position";
 			this.bindingNavigatorPositionItem.AutoSize = false;
+			this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
 			this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
 			this.bindingNavigatorPositionItem.Text = "0";
@@ -389,6 +389,7 @@
 			// 
 			// toolStripTextBox1
 			// 
+			this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBox1.Name = "toolStripTextBox1";
 			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
 			this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
@@ -409,6 +410,7 @@
 			// 
 			// toolStripTextBoxFilter
 			// 
+			this.toolStripTextBoxFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBoxFilter.Name = "toolStripTextBoxFilter";
 			this.toolStripTextBoxFilter.Size = new System.Drawing.Size(100, 25);
 			// 
@@ -448,10 +450,6 @@
 			this.MultipleMembersButton.Name = "MultipleMembersButton";
 			this.MultipleMembersButton.Size = new System.Drawing.Size(79, 22);
 			this.MultipleMembersButton.Text = "Multi Credits";
-			// 
-			// memberRosterTableAdapter
-			// 
-			this.memberRosterTableAdapter.ClearBeforeFill = true;
 			// 
 			// Badge
 			// 
@@ -611,7 +609,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingSource memberRosterBindingSource;
-        private WoodclubDataSetTableAdapters.MemberRosterTableAdapter memberRosterTableAdapter;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripDropDownButton ReportsDownButton;

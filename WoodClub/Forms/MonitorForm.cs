@@ -47,7 +47,6 @@ namespace WoodClub
 
 		private void MonitorForm_Load(object sender, EventArgs e)
 		{
-			// TODO: This line of code loads data into the 'woodclubDataSet1.MemberRoster' table. You can move, or remove it, as needed.
 			year = DateTime.Now.Year;
 			LoadYear(year);
 		}
