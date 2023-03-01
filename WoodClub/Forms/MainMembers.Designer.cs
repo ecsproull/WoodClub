@@ -32,7 +32,6 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMembers));
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.woodclubDataSet = new WoodClub.WoodclubDataSet();
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -72,25 +71,24 @@
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
 			this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
-			this.badgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.addressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.phoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.emailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.recCardDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.lockerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cardNoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.RecCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Locker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.CardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.EntryCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.creditBankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Visits = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Credits = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.OneTime = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.LastDayValid = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Exempt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
 			this.bindingNavigator1.SuspendLayout();
 			this.SuspendLayout();
@@ -104,23 +102,22 @@
 			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.badgeDataGridViewTextBoxColumn,
-            this.firstNameDataGridViewTextBoxColumn,
-            this.lastNameDataGridViewTextBoxColumn,
-            this.addressDataGridViewTextBoxColumn,
-            this.phoneDataGridViewTextBoxColumn,
-            this.emailDataGridViewTextBoxColumn,
-            this.titleDataGridViewTextBoxColumn,
-            this.recCardDataGridViewTextBoxColumn,
-            this.lockerDataGridViewTextBoxColumn,
-            this.cardNoDataGridViewTextBoxColumn,
+            this.Badge,
+            this.FirstName,
+            this.LastName,
+            this.Address,
+            this.Phone,
+            this.Email,
+            this.Title,
+            this.RecCard,
+            this.Locker,
+            this.CardNo,
             this.EntryCodes,
-            this.creditBankDataGridViewTextBoxColumn,
             this.Visits,
+            this.Credits,
             this.OneTime,
             this.LastDayValid,
             this.Exempt});
-			this.dataGridView1.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.memberRosterBindingSource, "id", true));
 			this.dataGridView1.DataSource = this.memberRosterBindingSource;
 			this.dataGridView1.Location = new System.Drawing.Point(12, 28);
 			this.dataGridView1.Name = "dataGridView1";
@@ -131,16 +128,6 @@
 			this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
 			this.dataGridView1.SelectionChanged += new System.EventHandler(this.bsMembers_PositionChanged);
 			this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
-			// 
-			// memberRosterBindingSource
-			// 
-			this.memberRosterBindingSource.DataMember = "MemberRoster";
-			this.memberRosterBindingSource.DataSource = this.woodclubDataSet;
-			// 
-			// woodclubDataSet
-			// 
-			this.woodclubDataSet.DataSetName = "WoodclubDataSet";
-			this.woodclubDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
 			// 
 			// bindingNavigator1
 			// 
@@ -466,81 +453,75 @@
 			// 
 			this.memberRosterTableAdapter.ClearBeforeFill = true;
 			// 
-			// badgeDataGridViewTextBoxColumn
+			// Badge
 			// 
-			this.badgeDataGridViewTextBoxColumn.DataPropertyName = "Badge";
-			this.badgeDataGridViewTextBoxColumn.HeaderText = "Badge";
-			this.badgeDataGridViewTextBoxColumn.Name = "badgeDataGridViewTextBoxColumn";
-			this.badgeDataGridViewTextBoxColumn.ReadOnly = true;
+			this.Badge.DataPropertyName = "Badge";
+			this.Badge.HeaderText = "Badge";
+			this.Badge.Name = "Badge";
+			this.Badge.ReadOnly = true;
 			// 
-			// firstNameDataGridViewTextBoxColumn
+			// FirstName
 			// 
-			this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
-			this.firstNameDataGridViewTextBoxColumn.HeaderText = "FirstName";
-			this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
-			this.firstNameDataGridViewTextBoxColumn.ReadOnly = true;
+			this.FirstName.DataPropertyName = "FirstName";
+			this.FirstName.HeaderText = "First Name";
+			this.FirstName.Name = "FirstName";
+			this.FirstName.ReadOnly = true;
 			// 
-			// lastNameDataGridViewTextBoxColumn
+			// LastName
 			// 
-			this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
-			this.lastNameDataGridViewTextBoxColumn.HeaderText = "LastName";
-			this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
-			this.lastNameDataGridViewTextBoxColumn.ReadOnly = true;
+			this.LastName.DataPropertyName = "LastName";
+			this.LastName.HeaderText = "Last Name";
+			this.LastName.Name = "LastName";
+			this.LastName.ReadOnly = true;
 			// 
-			// addressDataGridViewTextBoxColumn
+			// Address
 			// 
-			this.addressDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.addressDataGridViewTextBoxColumn.DataPropertyName = "Address";
-			this.addressDataGridViewTextBoxColumn.HeaderText = "Address";
-			this.addressDataGridViewTextBoxColumn.Name = "addressDataGridViewTextBoxColumn";
-			this.addressDataGridViewTextBoxColumn.ReadOnly = true;
+			this.Address.DataPropertyName = "Address";
+			this.Address.HeaderText = "Address";
+			this.Address.Name = "Address";
+			this.Address.ReadOnly = true;
 			// 
-			// phoneDataGridViewTextBoxColumn
+			// Phone
 			// 
-			this.phoneDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.phoneDataGridViewTextBoxColumn.DataPropertyName = "Phone";
-			this.phoneDataGridViewTextBoxColumn.HeaderText = "Phone";
-			this.phoneDataGridViewTextBoxColumn.Name = "phoneDataGridViewTextBoxColumn";
-			this.phoneDataGridViewTextBoxColumn.ReadOnly = true;
-			this.phoneDataGridViewTextBoxColumn.Width = 85;
+			this.Phone.DataPropertyName = "Phone";
+			this.Phone.HeaderText = "Phone";
+			this.Phone.Name = "Phone";
+			this.Phone.ReadOnly = true;
 			// 
-			// emailDataGridViewTextBoxColumn
+			// Email
 			// 
-			this.emailDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.emailDataGridViewTextBoxColumn.DataPropertyName = "Email";
-			this.emailDataGridViewTextBoxColumn.HeaderText = "Email";
-			this.emailDataGridViewTextBoxColumn.Name = "emailDataGridViewTextBoxColumn";
-			this.emailDataGridViewTextBoxColumn.ReadOnly = true;
+			this.Email.DataPropertyName = "Email";
+			this.Email.HeaderText = "Email";
+			this.Email.Name = "Email";
+			this.Email.ReadOnly = true;
 			// 
-			// titleDataGridViewTextBoxColumn
+			// Title
 			// 
-			this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
-			this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
-			this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
-			this.titleDataGridViewTextBoxColumn.ReadOnly = true;
+			this.Title.DataPropertyName = "Title";
+			this.Title.HeaderText = "Title";
+			this.Title.Name = "Title";
+			this.Title.ReadOnly = true;
 			// 
-			// recCardDataGridViewTextBoxColumn
+			// RecCard
 			// 
-			this.recCardDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.recCardDataGridViewTextBoxColumn.DataPropertyName = "RecCard";
-			this.recCardDataGridViewTextBoxColumn.HeaderText = "RecCard";
-			this.recCardDataGridViewTextBoxColumn.Name = "recCardDataGridViewTextBoxColumn";
-			this.recCardDataGridViewTextBoxColumn.ReadOnly = true;
-			this.recCardDataGridViewTextBoxColumn.Width = 65;
+			this.RecCard.DataPropertyName = "RecCard";
+			this.RecCard.HeaderText = "RecCard";
+			this.RecCard.Name = "RecCard";
+			this.RecCard.ReadOnly = true;
 			// 
-			// lockerDataGridViewTextBoxColumn
+			// Locker
 			// 
-			this.lockerDataGridViewTextBoxColumn.DataPropertyName = "Locker";
-			this.lockerDataGridViewTextBoxColumn.HeaderText = "Locker";
-			this.lockerDataGridViewTextBoxColumn.Name = "lockerDataGridViewTextBoxColumn";
-			this.lockerDataGridViewTextBoxColumn.ReadOnly = true;
+			this.Locker.DataPropertyName = "Locker";
+			this.Locker.HeaderText = "Locker";
+			this.Locker.Name = "Locker";
+			this.Locker.ReadOnly = true;
 			// 
-			// cardNoDataGridViewTextBoxColumn
+			// CardNo
 			// 
-			this.cardNoDataGridViewTextBoxColumn.DataPropertyName = "CardNo";
-			this.cardNoDataGridViewTextBoxColumn.HeaderText = "CardNo";
-			this.cardNoDataGridViewTextBoxColumn.Name = "cardNoDataGridViewTextBoxColumn";
-			this.cardNoDataGridViewTextBoxColumn.ReadOnly = true;
+			this.CardNo.DataPropertyName = "CardNo";
+			this.CardNo.HeaderText = "CardNo";
+			this.CardNo.Name = "CardNo";
+			this.CardNo.ReadOnly = true;
 			// 
 			// EntryCodes
 			// 
@@ -548,15 +529,6 @@
 			this.EntryCodes.HeaderText = "EntryCodes";
 			this.EntryCodes.Name = "EntryCodes";
 			this.EntryCodes.ReadOnly = true;
-			// 
-			// creditBankDataGridViewTextBoxColumn
-			// 
-			this.creditBankDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.creditBankDataGridViewTextBoxColumn.DataPropertyName = "CreditBank";
-			this.creditBankDataGridViewTextBoxColumn.HeaderText = "Credits";
-			this.creditBankDataGridViewTextBoxColumn.Name = "creditBankDataGridViewTextBoxColumn";
-			this.creditBankDataGridViewTextBoxColumn.ReadOnly = true;
-			this.creditBankDataGridViewTextBoxColumn.Width = 50;
 			// 
 			// Visits
 			// 
@@ -566,6 +538,13 @@
 			this.Visits.Name = "Visits";
 			this.Visits.ReadOnly = true;
 			this.Visits.Width = 50;
+			// 
+			// Credits
+			// 
+			this.Credits.DataPropertyName = "CreditBank";
+			this.Credits.HeaderText = "Credits";
+			this.Credits.Name = "Credits";
+			this.Credits.ReadOnly = true;
 			// 
 			// OneTime
 			// 
@@ -609,7 +588,6 @@
 			this.Load += new System.EventHandler(this.Form1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
 			this.bindingNavigator1.ResumeLayout(false);
 			this.bindingNavigator1.PerformLayout();
@@ -632,7 +610,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private WoodclubDataSet woodclubDataSet;
         private System.Windows.Forms.BindingSource memberRosterBindingSource;
         private WoodclubDataSetTableAdapters.MemberRosterTableAdapter memberRosterTableAdapter;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
@@ -662,19 +639,19 @@
 		private System.Windows.Forms.ToolStripButton MultipleMembersButton;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem menuItemFreeDayOnly;
-		private System.Windows.Forms.DataGridViewTextBoxColumn badgeDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn addressDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn phoneDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn emailDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn recCardDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn lockerDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn cardNoDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Badge;
+		private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn LastName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Address;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Title;
+		private System.Windows.Forms.DataGridViewTextBoxColumn RecCard;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Locker;
+		private System.Windows.Forms.DataGridViewTextBoxColumn CardNo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn EntryCodes;
-		private System.Windows.Forms.DataGridViewTextBoxColumn creditBankDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Visits;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Credits;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn OneTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn LastDayValid;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn Exempt;
