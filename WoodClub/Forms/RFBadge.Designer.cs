@@ -31,7 +31,6 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RFBadge));
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.RecCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.memberRosterTableAdapter = new WoodClub.WoodclubDataSetTableAdapters.MemberRosterTableAdapter();
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
@@ -46,12 +45,14 @@
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-			this.woodclubDataSet = new WoodClub.WoodclubDataSet();
+			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.RecCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
 			this.bindingNavigator1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// dataGridView1
@@ -59,18 +60,15 @@
 			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Badge,
+            this.FirstName,
+            this.LastName,
             this.RecCard});
 			this.dataGridView1.DataSource = this.memberRosterBindingSource;
 			this.dataGridView1.Location = new System.Drawing.Point(2, 28);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.Size = new System.Drawing.Size(444, 472);
 			this.dataGridView1.TabIndex = 0;
-			// 
-			// RecCard
-			// 
-			this.RecCard.DataPropertyName = "RecCard";
-			this.RecCard.HeaderText = "RecCard";
-			this.RecCard.Name = "RecCard";
 			// 
 			// memberRosterBindingSource
 			// 
@@ -192,10 +190,29 @@
 			this.toolStripLabel1.Text = "Clear List";
 			this.toolStripLabel1.Click += new System.EventHandler(this.toolStripButton2_Click);
 			// 
-			// woodclubDataSet
+			// Badge
 			// 
-			this.woodclubDataSet.DataSetName = "WoodclubDataSet";
-			this.woodclubDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+			this.Badge.DataPropertyName = "Badge";
+			this.Badge.HeaderText = "Badge";
+			this.Badge.Name = "Badge";
+			// 
+			// FirstName
+			// 
+			this.FirstName.DataPropertyName = "FirstName";
+			this.FirstName.HeaderText = "First Name";
+			this.FirstName.Name = "FirstName";
+			// 
+			// LastName
+			// 
+			this.LastName.DataPropertyName = "LastName";
+			this.LastName.HeaderText = "Last Name";
+			this.LastName.Name = "LastName";
+			// 
+			// RecCard
+			// 
+			this.RecCard.DataPropertyName = "RecCard";
+			this.RecCard.HeaderText = "RecCard";
+			this.RecCard.Name = "RecCard";
 			// 
 			// RFBadge
 			// 
@@ -212,7 +229,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
 			this.bindingNavigator1.ResumeLayout(false);
 			this.bindingNavigator1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.woodclubDataSet)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -235,7 +251,9 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RecCard;
-		private WoodclubDataSet woodclubDataSet;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Badge;
+		private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn LastName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn RecCard;
 	}
 }

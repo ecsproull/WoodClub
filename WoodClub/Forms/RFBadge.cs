@@ -68,7 +68,6 @@ namespace WoodClub
 				}
 				context.SaveChanges();
 				bsRFcards.Clear();
-				woodclubDataSet.AcceptChanges();
 				dataGridView1.Invalidate();
 			}
 		}
