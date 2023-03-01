@@ -20,7 +20,7 @@ namespace WoodClub
 		private readonly int listenPort = 5725;
 		private readonly UdpClient udpClient = new UdpClient();
 
-		private SortableBindingList<MemberRoster> blMembers;
+		private SortableBindingList<MembersExtended> blMembers;
 		private readonly BindingSource bsMembers;
 		private MemberRoster currentMember;
 		private Members members;
@@ -29,7 +29,7 @@ namespace WoodClub
 
 		public MainMembers()
 		{
-			this.blMembers = new SortableBindingList<MemberRoster>();
+			this.blMembers = new SortableBindingList<MembersExtended>();
 			this.bsMembers = new BindingSource();
 			this.update = false;
 			this.added = false;
@@ -96,7 +96,7 @@ namespace WoodClub
 		private void LoadMembers()
 		{
 			members = new Members(true);
-			blMembers = new SortableBindingList<MemberRoster>(members.DataSource);  // blMembers list of members
+			blMembers = new SortableBindingList<MembersExtended>(members.DataSource);  // blMembers list of members
 			setBsMembersDataSource();
 			dataGridView1.DataSource = bsMembers;
 		}
@@ -123,7 +123,7 @@ namespace WoodClub
 			}
 			else
 			{
-				var filteredBindingList = new SortableBindingList<MemberRoster>(blMembers.Where(
+				var filteredBindingList = new SortableBindingList<MembersExtended>(blMembers.Where(
 					x => x.FirstName.ToUpper().Contains(filter.ToUpper()) ||
 					x.LastName.ToUpper().Contains(filter.ToUpper()) ||
 					x.Title.ToUpper().Contains(filter.ToUpper()) ||

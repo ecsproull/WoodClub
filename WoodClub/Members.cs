@@ -20,7 +20,8 @@ namespace WoodClub
 			}
 		}
 
-		public List<MemberRoster> DataSource { get; set; }
+		public List<MembersExtended> DataSource { get; set; } = new List<MembersExtended>();
+		private List<MemberRoster> data;
 
 		public void GetMembers()
 		{
@@ -28,7 +29,7 @@ namespace WoodClub
 			{
 				try
 				{
-					DataSource = context.MemberRosters.Select(mem => mem)
+					data = context.MemberRosters.Select(mem => mem)
 						.Distinct()
 						.OrderBy(mem => mem.Badge)
 						.ToList();
@@ -38,6 +39,11 @@ namespace WoodClub
 					log.Fatal("Unable to get data...", ex);         // Capture exception
 				}
 			}
+
+			foreach (MemberRoster mr in data)
+            {
+				DataSource.Add(new MembersExtended(mr));
+            }
 
 		}
 
