@@ -128,7 +128,6 @@ namespace WoodClub
 							monitor.ClubDuesPaid = (bool)member.ClubDuesPaid;
 							monitor.CreditBank = member.CreditBank.ToString();
 							monitor.LastDayValid = member.LastDayValid == null ? "" : member.LastDayValid.Value.ToShortDateString();
-							monitor.Modified = member.QBmodified == null ? "" : member.QBmodified.Value.ToShortDateString();
 							monitor.Lockers = member.Locker == null ? "None" : member.Locker;
 							monitor.CreditAmt = yearmonitor.Sum(x => x.CreditAmt).ToString();
 							monitor.ShopVisits = visitsCnt.ToString();
@@ -183,7 +182,7 @@ namespace WoodClub
 				try
 				{
 					int length = DSmonitor.Count();
-					string hdr = "Badge,First,Last,Credits,Credit Bank,ShopVisits,Last Monitor,Club Dues Paid Date, Locker, Modified";
+					string hdr = "Badge,First,Last,Credits,Credit Bank,ShopVisits,Last Monitor,Club Dues Paid Date, Locker";
 
 					using (System.IO.TextWriter writer = File.CreateText(filePath))
 					{
@@ -199,8 +198,7 @@ namespace WoodClub
 										 mon.ShopVisits + "," +
 										 mon.LastMonitor + "," +
 										 mon.ClubDuesPaidDate + "," +
-										 mon.Lockers + "," +
-										 mon.Modified;
+										 mon.Lockers + ",";
 
 							writer.WriteLine(string.Join(delimter, csv));
 						}

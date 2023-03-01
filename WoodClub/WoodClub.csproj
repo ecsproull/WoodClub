@@ -158,13 +158,13 @@
       <DependentUpon>ModelTK.tt</DependentUpon>
     </Compile>
     <Compile Include="Activity.cs" />
-    <Compile Include="Admin.cs">
-      <DependentUpon>ModelWC.tt</DependentUpon>
-    </Compile>
     <Compile Include="BadgeCode.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
     <Compile Include="BindingSourceExtensions.cs" />
+    <Compile Include="CreditTotal.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Daily.cs" />
     <Compile Include="DirtyTracker\ControlDirtyTracker.cs" />
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />
@@ -243,6 +243,12 @@
       <DependentUpon>ShopUsage.cs</DependentUpon>
     </Compile>
     <Compile Include="IRepository.cs" />
+    <Compile Include="Forms\LockerRpt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LockerRpt.Designer.cs">
+      <DependentUpon>LockerRpt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Locker.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
@@ -251,12 +257,6 @@
     </Compile>
     <Compile Include="LockerLocation.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\LockerRpt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\LockerRpt.Designer.cs">
-      <DependentUpon>LockerRpt.cs</DependentUpon>
     </Compile>
     <Compile Include="Lockers.cs" />
     <Compile Include="LogErrors.cs" />
@@ -405,10 +405,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="ModelWC.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelWC.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="ModelTK.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelTK.Designer.cs</LastGenOutput>
@@ -416,6 +412,10 @@
     <None Include="ModelTK.edmx.diagram">
       <DependentUpon>ModelTK.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="ModelWC.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelWC.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="ModelWC.edmx.diagram">
       <DependentUpon>ModelWC.edmx</DependentUpon>
     </None>

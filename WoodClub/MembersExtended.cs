@@ -24,7 +24,6 @@ namespace WoodClub
             this.RecCard = mr.RecCard;
             this.Locker = mr.Locker;
             this.MemberDate = mr.MemberDate;
-            this.QBmodified = mr.QBmodified;
             this.Exempt = mr.Exempt;
             this.ExemptModDate = mr.ExemptModDate;
             this.ExtHour = mr.ExtHour;
@@ -43,6 +42,19 @@ namespace WoodClub
             this.Photo = mr.Photo;
             this.GroupTime = mr.GroupTime;
             this.AdminBlock = mr.AdminBlock;
+
+            using (WoodclubEntities context = new WoodclubEntities())
+            {
+                var yearvisit = from t in context.Transactions              // List of Usage by member
+                                where t.TransDate.Value.Year == DateTime.Now.Year
+                                     && t.Code == "U" | t.Code == "FD"
+                                     && t.Badge == mr.Badge
+                                select t.TransDate.Value;
+                this.Visits = yearvisit.DistinctBy(x => x.DayOfYear).Count();
+            }
+
         }
+
+        public int Visits { get; set; } = 10;
     }
 }

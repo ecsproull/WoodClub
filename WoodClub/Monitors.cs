@@ -15,6 +15,5 @@
 		public string LastMonitor { get; set; }
 		public string ShopVisits { get; set; }
 		public string Lockers { get; set; }
-		public string Modified { get; set; }
 	}
 }

@@ -150,8 +150,9 @@ namespace WoodClub
 				return false;
 			}
 
+
 			int i;
-			return Int32.TryParse((string)value, out i);
+			return Int32.TryParse(value.ToString(), out i);
 		}
 	}
 }
