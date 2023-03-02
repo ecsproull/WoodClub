@@ -340,11 +340,6 @@
     </Compile>
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="UnpaidMember.cs" />
-    <Compile Include="WoodclubDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WoodclubDataSet.xsd</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Forms\FreeDayOnlyUsers.resx">
       <DependentUpon>FreeDayOnlyUsers.cs</DependentUpon>
     </EmbeddedResource>
@@ -438,17 +433,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="woodclub.pfx" />
-    <None Include="WoodclubDataSet.xsc">
-      <DependentUpon>WoodclubDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="WoodclubDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>WoodclubDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="WoodclubDataSet.xss">
-      <DependentUpon>WoodclubDataSet.xsd</DependentUpon>
-    </None>
     <None Include="WoodClub_1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

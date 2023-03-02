@@ -69,7 +69,7 @@ namespace WoodClub
 
 				badgeLen = memberresult.Count();
 				this.UseWaitCursor = true;
-				Task.Run(() => loadMonitor());
+				loadMonitor();
 				log.Info("LoadYear: Monitor Load completed.");
 			}
 		}
@@ -123,10 +123,10 @@ namespace WoodClub
 							monitor.FirstName = member.FirstName;
 							monitor.LastName = member.LastName;
 							monitor.Exempt = member.Exempt == null ? false : (bool)member.Exempt;
-							monitor.ClubDuesPaidDate = member.ClubDuesPaidDate == null ? "" : member.ClubDuesPaidDate.Value.ToShortDateString();
+							monitor.ClubDuesPaidDate = member.ClubDuesPaidDate == null ? DateTime.Now.AddYears(-5) : member.ClubDuesPaidDate.Value;
 							monitor.ClubDuesPaid = (bool)member.ClubDuesPaid;
 							monitor.CreditBank = member.CreditBank.ToString();
-							monitor.LastDayValid = member.LastDayValid == null ? "" : member.LastDayValid.Value.ToShortDateString();
+							monitor.LastDayValid = member.LastDayValid == null ? DateTime.Now.AddYears(-5) : member.LastDayValid.Value;
 							monitor.Lockers = member.Locker == null ? "None" : member.Locker;
 							monitor.CreditAmt = yearmonitor.Sum(x => x.CreditAmt).ToString();
 							monitor.ShopVisits = visitsCnt.ToString();
@@ -162,7 +162,7 @@ namespace WoodClub
 				}
 			}
 			log.Info("Scan complete");
-			this.Invoke(new Action(() => OnShowMonitor()));
+			OnShowMonitor();
 		}
 
 		private void btnSave_Click(object sender, EventArgs e)

@@ -1,29 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WoodClub.Forms
 {
-    public partial class FreeDayOnlyUsers : Form
+	public partial class FreeDayOnlyUsers : Form
     {
+        private DateTime startDate;
+        private DateTime endDate;
+        private int creditAmount = 0;
         public FreeDayOnlyUsers()
         {
             InitializeComponent();
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.CustomFormat = "MM/yyyy";
+			dateTimePicker1.ValueChanged += DateTimePicker1_ValueChanged;
+            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year;
+            this.startDate = DateTime.Parse("1/1/2023");
+            this.endDate = startDate.AddMonths(1);
+			nMaxCredits.ValueChanged += NMaxCredits_ValueChanged;
         }
 
-        private void FreeDayOnlyUsers_Load(object sender, EventArgs e)
+		private void NMaxCredits_ValueChanged(object sender, EventArgs e)
+		{
+            this.creditAmount = (int)nMaxCredits.Value;
+            FreeDayOnlyUsers_Load(null, null);
+        }
+
+		private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
+		{
+            this.startDate = DateTime.Parse(dateTimePicker1.Value.Date.Month.ToString() + "/1/" + dateTimePicker1.Value.Date.Year.ToString());
+            this.endDate = startDate.AddMonths(1);
+            FreeDayOnlyUsers_Load(null, null);
+
+        }
+
+		private void FreeDayOnlyUsers_Load(object sender, EventArgs e)
         {
             List<Transaction> fdo = new List<Transaction>();
             using(WoodclubEntities context = new WoodclubEntities())
             {
-                DateTime startDate = DateTime.Parse("1/1/2023");
-                DateTime endDate = DateTime.Parse("2/1/2023");
                 var users = (from m in context.Transactions
                              where m.Code == "FD" && m.TransDate > startDate && m.TransDate < endDate
                              select m).ToList();
@@ -46,7 +65,7 @@ namespace WoodClub.Forms
                     MemberRoster mr = (from m in context.MemberRosters
                                                 where m.Badge == trans.Badge
                                                 select m).FirstOrDefault();
-                    if (mr != null && Convert.ToDouble(mr.CreditBank) < 1)
+                    if (mr != null && Convert.ToDouble(mr.CreditBank) <= this.creditAmount)
                     {
                         deadBeats.Add(mr);
                     }
