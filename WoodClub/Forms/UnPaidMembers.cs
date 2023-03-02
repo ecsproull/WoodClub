@@ -96,7 +96,7 @@ namespace WoodClub
 						AddToList(member);
 					}
 				}
-				//context.SaveChanges();
+				context.SaveChanges();
 			}
 		}
 

@@ -30,10 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewMonitor = new System.Windows.Forms.DataGridView();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.badgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,8 +42,9 @@
             this.lastMonitorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.shopVisitsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lockersDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modifiedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.monitorsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMonitor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.monitorsBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -70,44 +67,13 @@
             this.creditAmtDataGridViewTextBoxColumn,
             this.lastMonitorDataGridViewTextBoxColumn,
             this.shopVisitsDataGridViewTextBoxColumn,
-            this.lockersDataGridViewTextBoxColumn,
-            this.modifiedDataGridViewTextBoxColumn});
+            this.lockersDataGridViewTextBoxColumn});
             this.dataGridViewMonitor.DataSource = this.monitorsBindingSource;
             this.dataGridViewMonitor.Location = new System.Drawing.Point(13, 69);
             this.dataGridViewMonitor.Name = "dataGridViewMonitor";
             this.dataGridViewMonitor.ReadOnly = true;
             this.dataGridViewMonitor.Size = new System.Drawing.Size(1053, 600);
             this.dataGridViewMonitor.TabIndex = 0;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(13, 29);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Location = new System.Drawing.Point(94, 29);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 7;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.CustomFormat = "yyyy";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(187, 32);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.ShowUpDown = true;
-            this.dateTimePicker1.Size = new System.Drawing.Size(54, 20);
-            this.dateTimePicker1.TabIndex = 6;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // badgeDataGridViewTextBoxColumn
             // 
@@ -126,7 +92,7 @@
             this.firstNameDataGridViewTextBoxColumn.MaxInputLength = 30;
             this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
             this.firstNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.firstNameDataGridViewTextBoxColumn.Width = 82;
+            this.firstNameDataGridViewTextBoxColumn.Width = 76;
             // 
             // lastNameDataGridViewTextBoxColumn
             // 
@@ -136,7 +102,7 @@
             this.lastNameDataGridViewTextBoxColumn.MaxInputLength = 30;
             this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
             this.lastNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.lastNameDataGridViewTextBoxColumn.Width = 83;
+            this.lastNameDataGridViewTextBoxColumn.Width = 77;
             // 
             // exemptDataGridViewCheckBoxColumn
             // 
@@ -227,18 +193,19 @@
             this.lockersDataGridViewTextBoxColumn.ReadOnly = true;
             this.lockersDataGridViewTextBoxColumn.Width = 70;
             // 
-            // modifiedDataGridViewTextBoxColumn
-            // 
-            this.modifiedDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.modifiedDataGridViewTextBoxColumn.DataPropertyName = "Modified";
-            this.modifiedDataGridViewTextBoxColumn.HeaderText = "Modified";
-            this.modifiedDataGridViewTextBoxColumn.Name = "modifiedDataGridViewTextBoxColumn";
-            this.modifiedDataGridViewTextBoxColumn.ReadOnly = true;
-            this.modifiedDataGridViewTextBoxColumn.Width = 72;
-            // 
             // monitorsBindingSource
             // 
             this.monitorsBindingSource.DataSource = typeof(WoodClub.Monitors);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(18, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(441, 20);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "A list of those that got credit for monitoring  since 11/18/2022 ";
             // 
             // MonitorForm
             // 
@@ -246,9 +213,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1078, 761);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridViewMonitor);
             this.Name = "MonitorForm";
             this.Text = "MonitorForm";
@@ -256,15 +221,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMonitor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.monitorsBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.DataGridView dataGridViewMonitor;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.BindingSource monitorsBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn badgeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn;
@@ -278,6 +241,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn lastMonitorDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn shopVisitsDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lockersDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn modifiedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label label1;
     }
 }

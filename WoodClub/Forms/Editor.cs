@@ -19,10 +19,10 @@ namespace WoodClub
 		private Dictionary<string, TransactionAddition> creditTransactions;
 		private List<BadgeCode> DataSource;
 		private List<acc_timeseg> TZdatasource;
-		private List<string> controlsTriggerUpdate;
+		private readonly List<string> controlsTriggerUpdate;
 		private FormDirtyTracker formDirtyTracker;
-		private string badge = string.Empty;
-		private BindingSource bsBadges;
+		private readonly string badge = string.Empty;
+		private readonly BindingSource bsBadges;
 		private bool newCredit;
 		private double creditBankStart;
 		private bool updateController;
@@ -275,39 +275,39 @@ namespace WoodClub
 
 		private void AvoidNulls(MemberRoster member)
 		{
-			member.Badge = member.Badge == null ? string.Empty : member.Badge;
-			member.FirstName = member.FirstName == null ? string.Empty : member.FirstName;
-			member.LastName = member.LastName == null ? string.Empty : member.LastName;
-			member.Address = member.Address == null ? string.Empty : member.Address;
-			//member.City = member.City == null ? string.Empty : member.City;
-			member.State = member.State == null ? "AZ" : member.State;
-			member.Zip = member.Zip == null ? "85375" : member.Zip;
-			member.Phone = member.Phone == null ? string.Empty : member.Phone;
-			member.Email = member.Email == null ? string.Empty : member.Email;
-			member.Title = member.Title == null ? string.Empty : member.Title;
-			member.RecCard = member.RecCard == null ? string.Empty : member.RecCard;
-			member.Locker = member.Locker == null ? string.Empty : member.Locker;
-			member.CreditBank = member.CreditBank == null ? "0" : member.CreditBank;
-			member.CardNo = member.CardNo == null ? string.Empty : member.CardNo;
-			member.EntryCodes = member.EntryCodes == null ? string.Empty : member.EntryCodes;
-			member.GroupTime = member.GroupTime == null ? string.Empty : member.GroupTime;
+			member.Badge = member.Badge ?? member.Badge;
+			member.FirstName = member.FirstName ?? member.FirstName;
+			member.LastName = member.LastName ?? member.LastName;
+			member.Address = member.Address ?? member.Address;
+			//member.City = member.City ?? member.City;
+			member.State = member.State ?? "AZ";
+			member.Zip = member.Zip ?? "85375";
+			member.Phone = member.Phone ?? member.Phone;
+			member.Email = member.Email ?? member.Email;
+			member.Title = member.Title ?? member.Title;
+			member.RecCard = member.RecCard ?? member.RecCard;
+			member.Locker = member.Locker ?? member.Locker;
+			member.CreditBank = member.CreditBank ?? "0";
+			member.CardNo = member.CardNo ?? member.CardNo;
+			member.EntryCodes = member.EntryCodes ?? member.EntryCodes;
+			member.GroupTime = member.GroupTime ?? member.GroupTime;
 
-			member.MemberDate = member.MemberDate == null ? DateTime.Now.Date : member.MemberDate;
-			member.ExemptModDate = member.ExemptModDate == null ? DateTime.Now.Date : member.ExemptModDate;
-			member.ClubDuesPaidDate = member.ClubDuesPaidDate == null ? DateTime.Now.Date : member.ClubDuesPaidDate;
-			member.LastDayValid = member.LastDayValid == null ? DateTime.Now.Date : member.LastDayValid;
+			member.MemberDate = member.MemberDate ?? DateTime.Now.Date;
+			member.ExemptModDate = member.ExemptModDate ?? DateTime.Now.Date;
+			member.ClubDuesPaidDate = member.ClubDuesPaidDate ?? DateTime.Now.Date;
+			member.LastDayValid = member.LastDayValid ?? DateTime.Now.Date;
 
-			member.Exempt = member.Exempt == null ? false : member.Exempt;
-			member.ExtHour = member.ExtHour == null ? false : member.ExtHour;
-			member.EarlyAM = member.EarlyAM == null ? false : member.EarlyAM;
-			member.ClubDuesPaid = member.ClubDuesPaid == null ? false : member.ClubDuesPaid;
-			member.Authorized = member.Authorized == null ? false : member.Authorized;
-			member.OneTime = member.OneTime == null ? false : member.OneTime;
+			member.Exempt = member.Exempt ?? false;
+			member.ExtHour = member.ExtHour ?? false;
+			member.EarlyAM = member.EarlyAM ?? false;
+			member.ClubDuesPaid = member.ClubDuesPaid ?? false;
+			member.Authorized = member.Authorized ?? false;
+			member.OneTime = member.OneTime ?? false;
 
-			member.NewBadge = member.NewBadge == null ? false : member.NewBadge;
-			member.RecDuesPaid = member.RecDuesPaid == null ? false : member.RecDuesPaid;
-			member.AuthorizedTimeZone = member.AuthorizedTimeZone == null ? 3 : member.AuthorizedTimeZone;
-			member.AdminBlock = member.AdminBlock == null ? false : member.AdminBlock;
+			member.NewBadge = member.NewBadge ?? false;
+			member.RecDuesPaid = member.RecDuesPaid ?? false;
+			member.AuthorizedTimeZone = member.AuthorizedTimeZone ?? 3;
+			member.AdminBlock = member.AdminBlock ?? false;
 		}
 
 		private void ApplyChanges()
@@ -397,6 +397,9 @@ namespace WoodClub
 
 						this.context.Transactions.Add(creditTransaction);
 					}
+
+					newCredit = false;
+					ButtonClear_Click(null, null);
 				}
 
 				if (updateController)

@@ -123,9 +123,9 @@ namespace WoodClub
 				{
 					if (IsNumeric(lhsValue) && IsNumeric(rhsValue))
 					{
-						if (Convert.ToInt32(lhsValue) > Convert.ToInt32(rhsValue)) return 1;
-						if (Convert.ToInt32(lhsValue) < Convert.ToInt32(rhsValue)) return -1;
-						if (Convert.ToInt32(lhsValue) == Convert.ToInt32(rhsValue)) return 0;
+						if (Convert.ToDouble(lhsValue) > Convert.ToDouble(rhsValue)) return 1;
+						if (Convert.ToDouble(lhsValue) < Convert.ToDouble(rhsValue)) return -1;
+						if (Convert.ToDouble(lhsValue) == Convert.ToDouble(rhsValue)) return 0;
 					}
 					if (IsNumeric(lhsValue) && !IsNumeric(rhsValue))
 						return -1;
@@ -150,9 +150,9 @@ namespace WoodClub
 				return false;
 			}
 
-
+			double x;
 			int i;
-			return Int32.TryParse(value.ToString(), out i);
+			return Int32.TryParse(value.ToString(), out i) || double.TryParse(value.ToString(), out x);
 		}
 	}
 }
