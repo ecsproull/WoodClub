@@ -30,36 +30,36 @@ namespace WoodClub.Forms
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewFreeDay = new System.Windows.Forms.DataGridView();
+			this.Badge = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.bs_FreeDayOnly = new System.Windows.Forms.BindingSource(this.components);
 			this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
 			this.nMaxCredits = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewFreeDay)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bs_FreeDayOnly)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nMaxCredits)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// dataGridView1
+			// dataGridViewFreeDay
 			// 
-			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dataGridViewFreeDay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridView1.AutoGenerateColumns = false;
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+			this.dataGridViewFreeDay.AutoGenerateColumns = false;
+			this.dataGridViewFreeDay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewFreeDay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Badge,
             this.FirstName,
             this.LastName});
-			this.dataGridView1.DataSource = this.bs_FreeDayOnly;
-			this.dataGridView1.Location = new System.Drawing.Point(13, 39);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.RowHeadersVisible = false;
-			this.dataGridView1.Size = new System.Drawing.Size(303, 399);
-			this.dataGridView1.TabIndex = 0;
+			this.dataGridViewFreeDay.DataSource = this.bs_FreeDayOnly;
+			this.dataGridViewFreeDay.Location = new System.Drawing.Point(13, 39);
+			this.dataGridViewFreeDay.Name = "dataGridViewFreeDay";
+			this.dataGridViewFreeDay.RowHeadersVisible = false;
+			this.dataGridViewFreeDay.Size = new System.Drawing.Size(303, 399);
+			this.dataGridViewFreeDay.TabIndex = 0;
 			// 
 			// Badge
 			// 
@@ -110,11 +110,11 @@ namespace WoodClub.Forms
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.nMaxCredits);
 			this.Controls.Add(this.dateTimePicker1);
-			this.Controls.Add(this.dataGridView1);
+			this.Controls.Add(this.dataGridViewFreeDay);
 			this.Name = "FreeDayOnlyUsers";
 			this.Text = "FreeDayOnlyUsers";
 			this.Load += new System.EventHandler(this.FreeDayOnlyUsers_Load);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewFreeDay)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bs_FreeDayOnly)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nMaxCredits)).EndInit();
 			this.ResumeLayout(false);
@@ -132,9 +132,5 @@ namespace WoodClub.Forms
         private System.Windows.Forms.DataGridViewButtonColumn Badge;
         private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastName;
-        private System.Windows.Forms.BindingSource bs_FreeDayOnly;
-		private System.Windows.Forms.DateTimePicker dateTimePicker1;
-		public System.Windows.Forms.NumericUpDown nMaxCredits;
-		private System.Windows.Forms.Label label1;
 	}
 }

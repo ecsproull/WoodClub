@@ -2,67 +2,78 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace WoodClub
 {
-    public partial class MonitorForm : Form
+	public partial class MonitorForm : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
 				 (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 		private static List<Monitors> DSmonitor = new List<Monitors>();
+		private static List<Transaction> DStransaction = new List<Transaction>();
+		//private static BindingList<Monitors> blMonitors = null;
 		private static SortableBindingList<Monitors> blMonitors = new SortableBindingList<Monitors>(DSmonitor);
 		private static BindingSource bsMonitors = new BindingSource();
+		private static List<string> memberresult = new List<string>();
+		private static Monitors currentMonitor = null;
+		private int visitsCnt;
+		private int monitorCnt;
+		private int badgeLen;
+		private MemberRoster member = null;
+		private int year;
+
 		public MonitorForm()
 		{
 			InitializeComponent();
-		}
-		private void MonitorForm_Load(object sender, EventArgs e)
-		{
-			ShowMonitors();
+			bsMonitors.DataSource = blMonitors;
+			bsMonitors.PositionChanged += BsMonitors_PositionChanged;
 		}
 
-		private void LoadMonitors()
+		private void BsMonitors_PositionChanged(object sender, EventArgs e)
 		{
+			if (bsMonitors.CurrentRowIsValid())
+			{
+				currentMonitor = ((Monitors)bsMonitors.Current);
+			}
+			else
+			{
+				currentMonitor = null;
+			}
+		}
+
+		private void MonitorForm_Load(object sender, EventArgs e)
+		{
+			year = DateTime.Now.Year;
+			LoadYear(year);
+		}
+
+		private void LoadYear(int yr)
+		{
+			//
+			// 	Find totals for year
+			//  Total visits
+			//  Total monitors
+			//
+			btnRefresh.Enabled = false;
 			using (WoodclubEntities context = new WoodclubEntities())
 			{
-				DateTime ddd = DateTime.Parse("1999-01-01");
-				DateTime dt = DateTime.Parse("2022/11/18");
-				List<Monitors> lmcl = context.Transactions
-					.Join(
-						context.MemberRosters,
-						tr => tr.Badge,
-						mem => mem.Badge,
-						(tr, mem) => new Monitors
-						{
-							Badge = tr.Badge,
-							FirstName = mem.FirstName,
-							LastName = mem.LastName,
-							Exempt = mem.Exempt ?? false,
-							ClubDuesPaid = mem.ClubDuesPaid ?? false,
-							ClubDuesPaidDate = mem.ClubDuesPaidDate ?? ddd,
-							CreditBank = mem.CreditBank,
-							LastDayValid = mem.LastDayValid.ToString(),
-							CreditAmt = tr.CreditAmt ?? 0,
-							LastMonitor = tr.TransDate ?? ddd,
-							Code = tr.Code,
-							ShopVisits = 10,
-							Lockers = mem.Locker
-						})
-					.Where(t => t.Code == "M4" && t.LastMonitor >= dt)
-					.OrderByDescending(x => x.LastMonitor).ToList();
+				var yearmember = from m in context.Transactions             // List of members using club
+								 where m.TransDate.Value.Year == year
+								 orderby m.Badge
+								 select m;
+				memberresult = new List<string>(yearmember.ToList().Select(mb => mb.Badge).Distinct());
 
 				badgeLen = memberresult.Count();
 				this.UseWaitCursor = true;
 				loadMonitor();
 				log.Info("LoadYear: Monitor Load completed.");
 			}
-
 		}
-		public void ShowMonitors()
+		public void OnShowMonitor()
 		{
-			LoadMonitors();
 			blMonitors = new SortableBindingList<Monitors>(DSmonitor);
 			bsMonitors.DataSource = blMonitors;
 			dataGridViewMonitor.DataSource = bsMonitors;
@@ -216,5 +227,4 @@ namespace WoodClub
 			year = dateTimePicker1.Value.Year;
 		}
 	}
-
 }
