@@ -14,15 +14,12 @@ namespace WoodClub.Forms
         public FreeDayOnlyUsers()
         {
             InitializeComponent();
-            dataGridViewFreeDay.CellClick += DataGridView1_CellContentClick;
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "MM/yyyy";
 			dateTimePicker1.ValueChanged += DateTimePicker1_ValueChanged;
             int month = DateTime.Now.Month;
             int year = DateTime.Now.Year;
-            this.startDate = DateTime.Now;
-            int day = this.startDate.Day;
-            this.startDate = this.startDate.AddDays(-1 * (day - (day - 1)));
+            this.startDate = DateTime.Parse("1/1/2023");
             this.endDate = startDate.AddMonths(1);
 			nMaxCredits.ValueChanged += NMaxCredits_ValueChanged;
         }
@@ -73,17 +70,7 @@ namespace WoodClub.Forms
                     MemberRoster mr = (from m in context.MemberRosters
                                                 where m.Badge == trans.Badge
                                                 select m).FirstOrDefault();
-                    double creditBank = 0;
-                    if (entry != null)
-                    {
-                        creditBank = Convert.ToDouble(entry.CreditAmt);
-                    }
-                    else
-                    {
-                        creditBank = Convert.ToDouble(mr.CreditBank);
-                    }
-
-                    if (mr != null && creditBank <= this.creditAmount)
+                    if (mr != null && Convert.ToDouble(mr.CreditBank) <= this.creditAmount)
                     {
                         deadBeats.Add(mr);
                     }
