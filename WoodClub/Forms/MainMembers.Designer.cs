@@ -49,7 +49,6 @@
 			this.Exempt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
-			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
 			this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -86,6 +85,7 @@
 			this.toolStripImportNewMembers = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -262,7 +262,7 @@
 			// 
 			// bindingNavigator1
 			// 
-			this.bindingNavigator1.AddNewItem = this.bindingNavigatorAddNewItem;
+			this.bindingNavigator1.AddNewItem = null;
 			this.bindingNavigator1.BindingSource = this.memberRosterBindingSource;
 			this.bindingNavigator1.CountItem = this.bindingNavigatorCountItem;
 			this.bindingNavigator1.DeleteItem = null;
@@ -276,7 +276,7 @@
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorCountItem,
             this.bindingNavigatorSeparator2,
-            this.bindingNavigatorAddNewItem,
+            this.toolStripButton2,
             this.toolStripButton1,
             this.toolStripLabel1,
             this.toolStripSeparator1,
@@ -303,15 +303,6 @@
 			this.bindingNavigator1.Size = new System.Drawing.Size(1513, 25);
 			this.bindingNavigator1.TabIndex = 1;
 			this.bindingNavigator1.Text = "bindingNavigator1";
-			// 
-			// bindingNavigatorAddNewItem
-			// 
-			this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-			this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-			this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
-			this.bindingNavigatorAddNewItem.Text = "Add new";
 			// 
 			// bindingNavigatorCountItem
 			// 
@@ -347,6 +338,7 @@
 			// 
 			this.bindingNavigatorPositionItem.AccessibleName = "Position";
 			this.bindingNavigatorPositionItem.AutoSize = false;
+			this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
 			this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
 			this.bindingNavigatorPositionItem.Text = "0";
@@ -520,6 +512,7 @@
 			// 
 			// toolStripTextBox1
 			// 
+			this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBox1.Name = "toolStripTextBox1";
 			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
 			this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
@@ -540,6 +533,7 @@
 			// 
 			// toolStripTextBoxFilter
 			// 
+			this.toolStripTextBoxFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBoxFilter.Name = "toolStripTextBoxFilter";
 			this.toolStripTextBoxFilter.Size = new System.Drawing.Size(100, 25);
 			// 
@@ -580,6 +574,16 @@
 			this.MultipleMembersButton.Size = new System.Drawing.Size(79, 22);
 			this.MultipleMembersButton.Text = "Multi Credits";
 			// 
+			// toolStripButton2
+			// 
+			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton2.Name = "toolStripButton2";
+			this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+			this.toolStripButton2.Text = "toolStripButton2";
+			this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+			// 
 			// MainMembers
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -606,7 +610,6 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingNavigator bindingNavigator1;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
@@ -660,6 +663,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn OneTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastDayValid;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Exempt;
-    }
+		private System.Windows.Forms.ToolStripButton toolStripButton2;
+	}
 }
 

@@ -80,12 +80,12 @@ namespace WoodClub
 								members.Add(new NewMember
 								{
 									Add = member == null,
-									FirstName = sl.firstname,
-									LastName = sl.lastname,
+									FirstName = this.FormatProperName(sl.firstname),
+									LastName = this.FormatProperName(sl.lastname),
 									Email = sl.email,
 									Phone = phone,
-									Address = sl.address1,
-									City = sl.city,
+									Address = this.FormatAddress(sl.address1),
+									City = this.FormatCity(sl.city),
 									State = sl.state,
 									ZipCode = sl.zipcode,
 									RecNo = sl.customfields[1].value,
@@ -110,6 +110,63 @@ namespace WoodClub
 					this.dataGridView1.Rows[i].Cells[0].ReadOnly = true;
 				}
 			}
+		}
+
+		private string FormatProperName(string name)
+		{
+			if (string.IsNullOrEmpty(name))
+			{
+				return name;
+			}
+
+			string ret = name.ToLower();
+			string firstChar = ret.Substring(0, 1).ToUpper();
+			string rest = ret.Substring(1, ret.Length - 1);
+			ret = firstChar + rest;
+			return ret;
+		}
+
+		private string FormatAddress(string addr)
+		{
+			if (string.IsNullOrEmpty(addr))
+			{
+				return addr;
+			}
+
+			addr = addr.Replace(".", "").Replace(",", "");
+
+			var parts = addr.Split(' ');
+			string ret = parts[0];
+			for (int i = 1; i < parts.Length; i++)
+			{
+				ret += " " + FormatProperName(parts[i]);
+			}
+
+			return ret;
+		}
+
+		private string FormatCity(string city)
+		{
+			if (string.IsNullOrEmpty(city))
+			{
+				return city;
+			}
+
+			city = city.Replace(".", "");
+
+			if (city.ToLower() == "scw")
+			{
+				return "Sun City West";
+			}
+
+			var parts = city.Split(' ');
+			string ret = FormatProperName(parts[0]);
+			for (int i = 1; i < parts.Length; i++)
+			{
+				ret += " " + FormatProperName(parts[i]);
+			}
+
+			return ret;
 		}
 
 		private void buttonAddToDb_Click(object sender, EventArgs e)

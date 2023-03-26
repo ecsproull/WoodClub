@@ -275,22 +275,22 @@ namespace WoodClub
 
 		private void AvoidNulls(MemberRoster member)
 		{
-			member.Badge = member.Badge ?? member.Badge;
-			member.FirstName = member.FirstName ?? member.FirstName;
-			member.LastName = member.LastName ?? member.LastName;
-			member.Address = member.Address ?? member.Address;
+			member.Badge = member.Badge ?? string.Empty;
+			member.FirstName = member.FirstName ?? string.Empty;
+			member.LastName = member.LastName ?? string.Empty;
+			member.Address = member.Address ?? string.Empty;
 			//member.City = member.City ?? member.City;
 			member.State = member.State ?? "AZ";
 			member.Zip = member.Zip ?? "85375";
-			member.Phone = member.Phone ?? member.Phone;
-			member.Email = member.Email ?? member.Email;
-			member.Title = member.Title ?? member.Title;
-			member.RecCard = member.RecCard ?? member.RecCard;
-			member.Locker = member.Locker ?? member.Locker;
+			member.Phone = member.Phone ?? string.Empty;
+			member.Email = member.Email ?? string.Empty;
+			member.Title = member.Title ?? string.Empty;
+			member.RecCard = member.RecCard ?? string.Empty;
+			member.Locker = member.Locker ?? string.Empty;
 			member.CreditBank = member.CreditBank ?? "0";
-			member.CardNo = member.CardNo ?? member.CardNo;
-			member.EntryCodes = member.EntryCodes ?? member.EntryCodes;
-			member.GroupTime = member.GroupTime ?? member.GroupTime;
+			member.CardNo = member.CardNo ?? string.Empty;
+			member.EntryCodes = member.EntryCodes ?? string.Empty;
+			member.GroupTime = member.GroupTime ?? string.Empty;
 
 			member.MemberDate = member.MemberDate ?? DateTime.Now.Date;
 			member.ExemptModDate = member.ExemptModDate ?? DateTime.Now.Date;

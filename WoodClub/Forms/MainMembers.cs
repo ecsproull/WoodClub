@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Data;
 using System.Linq;
 using System.Net;
@@ -336,6 +335,23 @@ namespace WoodClub
 		{
 			LockerPrices lockerPrices = new LockerPrices();
 			lockerPrices.ShowDialog();
+		}
+
+		private void toolStripButton2_Click(object sender, EventArgs e)
+		{
+			Editor frm = new Editor(string.Empty);
+			try
+			{
+				if (frm.ShowDialog() == DialogResult.OK)        // Changes made - need to refresh from SQL
+				{
+					bsMembers.ResetCurrentItem();
+					LoadMembers();
+				}
+			}
+			finally
+			{
+				frm.Dispose();
+			}
 		}
 	}
 }
