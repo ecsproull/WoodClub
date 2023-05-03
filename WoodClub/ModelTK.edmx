@@ -171,7 +171,7 @@
           <Property Name="TimeZone3Id" Type="Int32" />
           <Property Name="TimeZoneHolidayId" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="ZKTecoEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ZKAccessEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="acc_timeseg" EntityType="Self.acc_timeseg" />
         </EntityContainer>
       </Schema>
@@ -179,7 +179,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ZKAccessModelStoreContainer" CdmEntityContainer="ZKTecoEntities">
+        <EntityContainerMapping StorageEntityContainer="ZKAccessModelStoreContainer" CdmEntityContainer="ZKAccessEntities">
           <EntitySetMapping Name="acc_timeseg">
             <EntityTypeMapping TypeName="ZKAccessModel.acc_timeseg">
               <MappingFragment StoreEntitySet="acc_timeseg">

@@ -158,6 +158,9 @@
       <DependentUpon>ModelTK.tt</DependentUpon>
     </Compile>
     <Compile Include="Activity.cs" />
+    <Compile Include="Admin.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="BadgeCode.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>

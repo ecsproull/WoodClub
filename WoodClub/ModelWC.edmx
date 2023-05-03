@@ -4,7 +4,26 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WoodClubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="WoodClubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'WoodClub.dbo.Admin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="Badge" />
+            <PropertyRef Name="CardNo" />
+            <PropertyRef Name="IsDirty" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Badge" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="CardNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="5" />
+          <Property Name="EntryCodes" Type="nvarchar" MaxLength="6" />
+          <Property Name="AuthorizedTimeZone" Type="int" />
+          <Property Name="RequestDate" Type="datetime" />
+          <Property Name="ActionDate" Type="datetime" />
+          <Property Name="IsDirty" Type="bit" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'WoodClub.dbo.BadgeCodes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BadgeCodes">
@@ -202,6 +221,19 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="MemberRoster" EntityType="Self.MemberRoster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonitorParams" EntityType="Self.MonitorParams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Admin].[id] AS [id], 
+    [Admin].[Badge] AS [Badge], 
+    [Admin].[CardNo] AS [CardNo], 
+    [Admin].[Action] AS [Action], 
+    [Admin].[EntryCodes] AS [EntryCodes], 
+    [Admin].[AuthorizedTimeZone] AS [AuthorizedTimeZone], 
+    [Admin].[RequestDate] AS [RequestDate], 
+    [Admin].[ActionDate] AS [ActionDate], 
+    [Admin].[IsDirty] AS [IsDirty]
+    FROM [dbo].[Admin] AS [Admin]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="BadgeCodes" EntityType="Self.BadgeCodes" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [BadgeCodes].[id] AS [id], 
@@ -273,10 +305,24 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
     FROM [dbo].[Time_zones] AS [Time_zones]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WoodClubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CreditTotal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Total" Type="Double" />
+          <Property Name="Awarded" Type="Double" />
+          <Property Name="Used" Type="Double" />
+          <Property Name="Diff" Type="Double" />
+          <Property Name="FreeDays" Type="Int32" />
+          <Property Name="ShopUsage" Type="Int32" />
+        </EntityType>
         <EntityType Name="LockerCost">
           <Key>
             <PropertyRef Name="Code" />
@@ -373,6 +419,23 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="TransDate" Type="DateTime" Precision="3" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="Badge" />
+            <PropertyRef Name="CardNo" />
+            <PropertyRef Name="IsDirty" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Badge" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CardNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Action" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="EntryCodes" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorizedTimeZone" Type="Int32" />
+          <Property Name="RequestDate" Type="DateTime" Precision="3" />
+          <Property Name="ActionDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDirty" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="BadgeCode">
           <Key>
             <PropertyRef Name="id" />
@@ -446,7 +509,8 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="saturday_start3" Type="DateTime" Precision="3" />
           <Property Name="saturday_end3" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityContainer Name="WoodclubEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="WoodClubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CreditTotals" EntityType="Self.CreditTotal" />
           <EntitySet Name="LockerCosts" EntityType="Self.LockerCost" />
           <EntitySet Name="LockerLocations" EntityType="Self.LockerLocation" />
           <EntitySet Name="Lockers" EntityType="Self.Locker" />
@@ -454,30 +518,31 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="MemberRosters" EntityType="Self.MemberRoster" />
           <EntitySet Name="MonitorParams" EntityType="Self.MonitorParam" />
           <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
           <EntitySet Name="BadgeCodes" EntityType="Self.BadgeCode" />
           <EntitySet Name="MemberPhotos" EntityType="Self.MemberPhoto" />
           <EntitySet Name="Time_zones" EntityType="Self.Time_zones" />
-          <EntitySet Name="CreditTotals" EntityType="WoodClubModel.CreditTotal" />
         </EntityContainer>
-        <EntityType Name="CreditTotal">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="Total" Type="Double" />
-          <Property Name="Awarded" Type="Double" />
-          <Property Name="Used" Type="Double" />
-          <Property Name="Diff" Type="Double" />
-          <Property Name="FreeDays" Type="Int32" />
-          <Property Name="ShopUsage" Type="Int32" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WoodClubModelStoreContainer" CdmEntityContainer="WoodclubEntities">
+        <EntityContainerMapping StorageEntityContainer="WoodClubModelStoreContainer" CdmEntityContainer="WoodClubEntities">
+          <EntitySetMapping Name="CreditTotals">
+            <EntityTypeMapping TypeName="WoodClubModel.CreditTotal">
+              <MappingFragment StoreEntitySet="CreditTotals">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+                <ScalarProperty Name="Used" ColumnName="Used" />
+                <ScalarProperty Name="Diff" ColumnName="Diff" />
+                <ScalarProperty Name="FreeDays" ColumnName="FreeDays" />
+                <ScalarProperty Name="ShopUsage" ColumnName="ShopUsage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LockerCosts">
             <EntityTypeMapping TypeName="WoodClubModel.LockerCost">
               <MappingFragment StoreEntitySet="LockerCost">
@@ -581,6 +646,21 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="WoodClubModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="EntryCodes" ColumnName="EntryCodes" />
+                <ScalarProperty Name="AuthorizedTimeZone" ColumnName="AuthorizedTimeZone" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="IsDirty" ColumnName="IsDirty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="BadgeCodes">
             <EntityTypeMapping TypeName="WoodClubModel.BadgeCode">
               <MappingFragment StoreEntitySet="BadgeCodes">
@@ -654,20 +734,6 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
                 <ScalarProperty Name="saturday_end2" ColumnName="saturday_end2" />
                 <ScalarProperty Name="saturday_start3" ColumnName="saturday_start3" />
                 <ScalarProperty Name="saturday_end3" ColumnName="saturday_end3" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CreditTotals">
-            <EntityTypeMapping TypeName="WoodClubModel.CreditTotal">
-              <MappingFragment StoreEntitySet="CreditTotals">
-                <ScalarProperty Name="ShopUsage" ColumnName="ShopUsage" />
-                <ScalarProperty Name="FreeDays" ColumnName="FreeDays" />
-                <ScalarProperty Name="Diff" ColumnName="Diff" />
-                <ScalarProperty Name="Used" ColumnName="Used" />
-                <ScalarProperty Name="Awarded" ColumnName="Awarded" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
