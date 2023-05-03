@@ -13,7 +13,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>C:\Users\developer\source\repos\WoodClub\Publish2\</PublishUrl>
+    <PublishUrl>D:\temp\WoodShop_Publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>36</ApplicationRevision>
+    <ApplicationRevision>37</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -158,13 +158,13 @@
       <DependentUpon>ModelTK.tt</DependentUpon>
     </Compile>
     <Compile Include="Activity.cs" />
-    <Compile Include="Admin.cs">
-      <DependentUpon>ModelWC.tt</DependentUpon>
-    </Compile>
     <Compile Include="BadgeCode.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
     <Compile Include="BindingSourceExtensions.cs" />
+    <Compile Include="CreditTotal.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Daily.cs" />
     <Compile Include="DirtyTracker\ControlDirtyTracker.cs" />
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />
