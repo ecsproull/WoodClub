@@ -82,12 +82,13 @@ namespace WoodClub
 			using (ZKTecoEntities zkcontext = new ZKTecoEntities())
 			{
 				string groupTime = member.GroupTime;
-				if (groupTime == null)
+				if (string.IsNullOrEmpty(groupTime))
 				{
 					groupTime = "Members";
 					member.GroupTime = groupTime;       // Set a default value
 					AccessTime.SelectedItem = "Members";
 				}
+
 				try
 				{
 					TZdatasource = zkcontext.acc_timeseg.Select(c => c).ToList();
@@ -606,9 +607,14 @@ namespace WoodClub
 			log.Info("New Timezone");
 			int select = AccessTime.SelectedIndex;
 			string text = AccessTime.GetItemText(AccessTime.SelectedItem);
-			if (member != null)
+			if (member != null && !string.IsNullOrEmpty(text))
 			{
 				member.GroupTime = text;
+			}
+
+			if (string.IsNullOrEmpty(text))
+			{
+				MessageBox.Show("Member Group Time is Empty.");
 			}
 		}
 

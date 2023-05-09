@@ -43,7 +43,6 @@ namespace WoodClub
 			DateTime endScanDate = DateTime.Now.AddDays(+10);
 			using (WoodclubEntities context = new WoodclubEntities())
 			{
-				int badge = 9999;
 				foreach (SignupSlot sl in ro.data.signup)
 				{
 					string recNo = sl.customfields[1].value;
@@ -90,13 +89,12 @@ namespace WoodClub
 									ZipCode = sl.zipcode,
 									RecNo = sl.customfields[1].value,
 									MemberDate = DateTimeOffset.FromUnixTimeSeconds((long)sl.startdate).Date,
-									Badge = badge.ToString(),
+									Badge = string.Empty,
 									CardNo = string.Empty
 								});
 							}
 						}
 					}
-					badge--;
 				}
 			}
 
@@ -182,7 +180,7 @@ namespace WoodClub
 					{
 						context.MemberRosters.Add(new MemberRoster
 						{
-							Title = "New Member",
+							Title = string.Empty,
 							Badge = r.Badge,
 							CardNo = r.CardNo,
 							FirstName = r.FirstName,
@@ -208,7 +206,7 @@ namespace WoodClub
 							Exempt = false,
 							Locker = String.Empty,
 							NewBadge = false,
-							LastDayValid = r.MemberDate.AddDays(2)
+							LastDayValid = r.MemberDate.AddDays(2),
 						});
 
 						if (Convert.ToInt32(r.Badge) < 9000)

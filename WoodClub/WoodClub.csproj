@@ -168,6 +168,9 @@
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
     <Compile Include="BindingSourceExtensions.cs" />
+    <Compile Include="CreditTotal.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Daily.cs" />
     <Compile Include="DirtyTracker\ControlDirtyTracker.cs" />
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />

@@ -12,16 +12,15 @@ namespace WoodClub
     using System;
     using System.Collections.Generic;
     
-    public partial class Admin
+    public partial class CreditTotal
     {
         public int id { get; set; }
-        public string Badge { get; set; }
-        public string CardNo { get; set; }
-        public string Action { get; set; }
-        public string EntryCodes { get; set; }
-        public Nullable<int> AuthorizedTimeZone { get; set; }
-        public Nullable<System.DateTime> RequestDate { get; set; }
-        public Nullable<System.DateTime> ActionDate { get; set; }
-        public bool IsDirty { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public Nullable<double> Total { get; set; }
+        public Nullable<double> Awarded { get; set; }
+        public Nullable<double> Used { get; set; }
+        public Nullable<double> Diff { get; set; }
+        public Nullable<int> FreeDays { get; set; }
+        public Nullable<int> ShopUsage { get; set; }
     }
 }

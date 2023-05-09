@@ -124,7 +124,6 @@ namespace WoodClub
 				var filteredBindingList = new SortableBindingList<MembersExtended>(blMembers.Where(
 					x => x.FirstName.ToUpper().Contains(filter.ToUpper()) ||
 					x.LastName.ToUpper().Contains(filter.ToUpper()) ||
-					x.Title.ToUpper().Contains(filter.ToUpper()) ||
 					x.Badge.Contains(filter)).ToList());
 				bsMembers.DataSource = filteredBindingList;
 				dataGridView1.Refresh();

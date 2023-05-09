@@ -31,22 +31,6 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMembers));
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.RecCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Locker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.CardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.EntryCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Visits = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Credits = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.OneTime = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.LastDayValid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Exempt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -58,6 +42,7 @@
 			this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -85,7 +70,23 @@
 			this.toolStripImportNewMembers = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.RecCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Locker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.CardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.EntryCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Visits = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Credits = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.OneTime = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.LastDayValid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Exempt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.ClubDuesPaid = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -117,7 +118,8 @@
             this.Credits,
             this.OneTime,
             this.LastDayValid,
-            this.Exempt});
+            this.Exempt,
+            this.ClubDuesPaid});
 			this.dataGridView1.DataSource = this.memberRosterBindingSource;
 			this.dataGridView1.Location = new System.Drawing.Point(0, 28);
 			this.dataGridView1.Name = "dataGridView1";
@@ -128,137 +130,6 @@
 			this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
 			this.dataGridView1.SelectionChanged += new System.EventHandler(this.bsMembers_PositionChanged);
 			this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
-			// 
-			// Badge
-			// 
-			this.Badge.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Badge.DataPropertyName = "Badge";
-			this.Badge.HeaderText = "Badge";
-			this.Badge.Name = "Badge";
-			this.Badge.ReadOnly = true;
-			this.Badge.Width = 50;
-			// 
-			// FirstName
-			// 
-			this.FirstName.DataPropertyName = "FirstName";
-			this.FirstName.HeaderText = "First Name";
-			this.FirstName.Name = "FirstName";
-			this.FirstName.ReadOnly = true;
-			// 
-			// LastName
-			// 
-			this.LastName.DataPropertyName = "LastName";
-			this.LastName.HeaderText = "Last Name";
-			this.LastName.Name = "LastName";
-			this.LastName.ReadOnly = true;
-			// 
-			// Address
-			// 
-			this.Address.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.Address.DataPropertyName = "Address";
-			this.Address.HeaderText = "Address";
-			this.Address.Name = "Address";
-			this.Address.ReadOnly = true;
-			// 
-			// Phone
-			// 
-			this.Phone.DataPropertyName = "Phone";
-			this.Phone.HeaderText = "Phone";
-			this.Phone.Name = "Phone";
-			this.Phone.ReadOnly = true;
-			// 
-			// Email
-			// 
-			this.Email.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.Email.DataPropertyName = "Email";
-			this.Email.HeaderText = "Email";
-			this.Email.Name = "Email";
-			this.Email.ReadOnly = true;
-			// 
-			// Title
-			// 
-			this.Title.DataPropertyName = "Title";
-			this.Title.HeaderText = "Title";
-			this.Title.Name = "Title";
-			this.Title.ReadOnly = true;
-			// 
-			// RecCard
-			// 
-			this.RecCard.DataPropertyName = "RecCard";
-			this.RecCard.HeaderText = "RecCard";
-			this.RecCard.Name = "RecCard";
-			this.RecCard.ReadOnly = true;
-			// 
-			// Locker
-			// 
-			this.Locker.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Locker.DataPropertyName = "Locker";
-			this.Locker.HeaderText = "Locker";
-			this.Locker.Name = "Locker";
-			this.Locker.ReadOnly = true;
-			this.Locker.Width = 60;
-			// 
-			// CardNo
-			// 
-			this.CardNo.DataPropertyName = "CardNo";
-			this.CardNo.HeaderText = "CardNo";
-			this.CardNo.Name = "CardNo";
-			this.CardNo.ReadOnly = true;
-			// 
-			// EntryCodes
-			// 
-			this.EntryCodes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.EntryCodes.DataPropertyName = "EntryCodes";
-			this.EntryCodes.HeaderText = "EntryCodes";
-			this.EntryCodes.Name = "EntryCodes";
-			this.EntryCodes.ReadOnly = true;
-			this.EntryCodes.Width = 75;
-			// 
-			// Visits
-			// 
-			this.Visits.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Visits.DataPropertyName = "Visits";
-			this.Visits.HeaderText = "Visits";
-			this.Visits.Name = "Visits";
-			this.Visits.ReadOnly = true;
-			this.Visits.Width = 50;
-			// 
-			// Credits
-			// 
-			this.Credits.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Credits.DataPropertyName = "CreditBank";
-			this.Credits.HeaderText = "Credits";
-			this.Credits.Name = "Credits";
-			this.Credits.ReadOnly = true;
-			this.Credits.Width = 50;
-			// 
-			// OneTime
-			// 
-			this.OneTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.OneTime.DataPropertyName = "OneTime";
-			this.OneTime.HeaderText = "Free";
-			this.OneTime.Name = "OneTime";
-			this.OneTime.ReadOnly = true;
-			this.OneTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.OneTime.Width = 50;
-			// 
-			// LastDayValid
-			// 
-			this.LastDayValid.DataPropertyName = "LastDayValid";
-			this.LastDayValid.HeaderText = "LastDayValid";
-			this.LastDayValid.Name = "LastDayValid";
-			this.LastDayValid.ReadOnly = true;
-			// 
-			// Exempt
-			// 
-			this.Exempt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Exempt.DataPropertyName = "Exempt";
-			this.Exempt.HeaderText = "Exempt";
-			this.Exempt.Name = "Exempt";
-			this.Exempt.ReadOnly = true;
-			this.Exempt.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.Exempt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.Exempt.Width = 50;
 			// 
 			// bindingNavigator1
 			// 
@@ -338,7 +209,6 @@
 			// 
 			this.bindingNavigatorPositionItem.AccessibleName = "Position";
 			this.bindingNavigatorPositionItem.AutoSize = false;
-			this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
 			this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
 			this.bindingNavigatorPositionItem.Text = "0";
@@ -371,6 +241,16 @@
 			// 
 			this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
 			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+			// 
+			// toolStripButton2
+			// 
+			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton2.Name = "toolStripButton2";
+			this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+			this.toolStripButton2.Text = "toolStripButton2";
+			this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
 			// 
 			// toolStripButton1
 			// 
@@ -512,7 +392,6 @@
 			// 
 			// toolStripTextBox1
 			// 
-			this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBox1.Name = "toolStripTextBox1";
 			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
 			this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
@@ -533,7 +412,6 @@
 			// 
 			// toolStripTextBoxFilter
 			// 
-			this.toolStripTextBoxFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBoxFilter.Name = "toolStripTextBoxFilter";
 			this.toolStripTextBoxFilter.Size = new System.Drawing.Size(100, 25);
 			// 
@@ -574,15 +452,147 @@
 			this.MultipleMembersButton.Size = new System.Drawing.Size(79, 22);
 			this.MultipleMembersButton.Text = "Multi Credits";
 			// 
-			// toolStripButton2
+			// Badge
 			// 
-			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton2.Name = "toolStripButton2";
-			this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButton2.Text = "toolStripButton2";
-			this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+			this.Badge.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Badge.DataPropertyName = "Badge";
+			this.Badge.HeaderText = "Badge";
+			this.Badge.Name = "Badge";
+			this.Badge.ReadOnly = true;
+			this.Badge.Width = 50;
+			// 
+			// FirstName
+			// 
+			this.FirstName.DataPropertyName = "FirstName";
+			this.FirstName.HeaderText = "First Name";
+			this.FirstName.Name = "FirstName";
+			this.FirstName.ReadOnly = true;
+			// 
+			// LastName
+			// 
+			this.LastName.DataPropertyName = "LastName";
+			this.LastName.HeaderText = "Last Name";
+			this.LastName.Name = "LastName";
+			this.LastName.ReadOnly = true;
+			// 
+			// Address
+			// 
+			this.Address.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.Address.DataPropertyName = "Address";
+			this.Address.HeaderText = "Address";
+			this.Address.Name = "Address";
+			this.Address.ReadOnly = true;
+			// 
+			// Phone
+			// 
+			this.Phone.DataPropertyName = "Phone";
+			this.Phone.HeaderText = "Phone";
+			this.Phone.Name = "Phone";
+			this.Phone.ReadOnly = true;
+			// 
+			// Email
+			// 
+			this.Email.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.Email.DataPropertyName = "Email";
+			this.Email.HeaderText = "Email";
+			this.Email.Name = "Email";
+			this.Email.ReadOnly = true;
+			// 
+			// Title
+			// 
+			this.Title.DataPropertyName = "Title";
+			this.Title.HeaderText = "Title";
+			this.Title.Name = "Title";
+			this.Title.ReadOnly = true;
+			// 
+			// RecCard
+			// 
+			this.RecCard.DataPropertyName = "RecCard";
+			this.RecCard.HeaderText = "RecCard";
+			this.RecCard.Name = "RecCard";
+			this.RecCard.ReadOnly = true;
+			// 
+			// Locker
+			// 
+			this.Locker.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Locker.DataPropertyName = "Locker";
+			this.Locker.HeaderText = "Locker";
+			this.Locker.Name = "Locker";
+			this.Locker.ReadOnly = true;
+			this.Locker.Width = 60;
+			// 
+			// CardNo
+			// 
+			this.CardNo.DataPropertyName = "CardNo";
+			this.CardNo.HeaderText = "CardNo";
+			this.CardNo.Name = "CardNo";
+			this.CardNo.ReadOnly = true;
+			// 
+			// EntryCodes
+			// 
+			this.EntryCodes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.EntryCodes.DataPropertyName = "EntryCodes";
+			this.EntryCodes.HeaderText = "EntryCodes";
+			this.EntryCodes.Name = "EntryCodes";
+			this.EntryCodes.ReadOnly = true;
+			this.EntryCodes.Width = 75;
+			// 
+			// Visits
+			// 
+			this.Visits.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Visits.DataPropertyName = "Visits";
+			this.Visits.HeaderText = "Visits";
+			this.Visits.Name = "Visits";
+			this.Visits.ReadOnly = true;
+			this.Visits.Width = 50;
+			// 
+			// Credits
+			// 
+			this.Credits.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Credits.DataPropertyName = "CreditBank";
+			this.Credits.HeaderText = "Credits";
+			this.Credits.Name = "Credits";
+			this.Credits.ReadOnly = true;
+			this.Credits.Width = 50;
+			// 
+			// OneTime
+			// 
+			this.OneTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.OneTime.DataPropertyName = "OneTime";
+			this.OneTime.HeaderText = "Free";
+			this.OneTime.Name = "OneTime";
+			this.OneTime.ReadOnly = true;
+			this.OneTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.OneTime.Width = 50;
+			// 
+			// LastDayValid
+			// 
+			this.LastDayValid.DataPropertyName = "LastDayValid";
+			this.LastDayValid.HeaderText = "LastDayValid";
+			this.LastDayValid.Name = "LastDayValid";
+			this.LastDayValid.ReadOnly = true;
+			// 
+			// Exempt
+			// 
+			this.Exempt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Exempt.DataPropertyName = "Exempt";
+			this.Exempt.HeaderText = "Exempt";
+			this.Exempt.Name = "Exempt";
+			this.Exempt.ReadOnly = true;
+			this.Exempt.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.Exempt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.Exempt.Width = 50;
+			// 
+			// ClubDuesPaid
+			// 
+			this.ClubDuesPaid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.ClubDuesPaid.DataPropertyName = "ClubDuesPaid";
+			this.ClubDuesPaid.HeaderText = "Dues Paid";
+			this.ClubDuesPaid.Name = "ClubDuesPaid";
+			this.ClubDuesPaid.ReadOnly = true;
+			this.ClubDuesPaid.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.ClubDuesPaid.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.ClubDuesPaid.Width = 80;
 			// 
 			// MainMembers
 			// 
@@ -647,23 +657,24 @@
 		private System.Windows.Forms.ToolStripButton MultipleMembersButton;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem menuItemFreeDayOnly;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Badge;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Title;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RecCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Locker;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CardNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EntryCodes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Visits;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Credits;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn OneTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastDayValid;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Exempt;
 		private System.Windows.Forms.ToolStripButton toolStripButton2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Badge;
+		private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn LastName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Address;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Title;
+		private System.Windows.Forms.DataGridViewTextBoxColumn RecCard;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Locker;
+		private System.Windows.Forms.DataGridViewTextBoxColumn CardNo;
+		private System.Windows.Forms.DataGridViewTextBoxColumn EntryCodes;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Visits;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Credits;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn OneTime;
+		private System.Windows.Forms.DataGridViewTextBoxColumn LastDayValid;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn Exempt;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn ClubDuesPaid;
 	}
 }
 
