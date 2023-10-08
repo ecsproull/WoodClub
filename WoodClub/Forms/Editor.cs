@@ -79,7 +79,7 @@ namespace WoodClub
 
 			this.memberBindingSource.DataSource = member;
 
-			using (ZKTecoEntities zkcontext = new ZKTecoEntities())
+			using (ZKAccessEntities zkcontext = new ZKAccessEntities())
 			{
 				string groupTime = member.GroupTime;
 				if (string.IsNullOrEmpty(groupTime))

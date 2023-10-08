@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WoodClub.Forms
+{
+	public partial class FirstBadgeNumber : Form
+	{
+		public FirstBadgeNumber()
+		{
+			InitializeComponent();
+			startingBadgeNumber.ValueChanged += StartingBadgeNumber_ValueChanged;
+		}
+
+		private void StartingBadgeNumber_ValueChanged(object sender, EventArgs e)
+		{
+			this.BadgeNumber = (int)((NumericUpDown)sender).Value;
+		}
+
+		private void id_ok_Click(object sender, EventArgs e)
+		{
+			this.DialogResult = DialogResult.OK;
+		}
+		
+		public int BadgeNumber {get;set;}
+
+		private void id_skip_Click(object sender, EventArgs e)
+		{
+			this.BadgeNumber = -1;
+			this.DialogResult = DialogResult.OK;
+		}
+	}
+}

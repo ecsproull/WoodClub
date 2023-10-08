@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>41</ApplicationRevision>
+    <ApplicationRevision>44</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -176,6 +176,12 @@
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />
     <Compile Include="DirtyTracker\FormDirtyTracker.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Forms\FirstBadgeNumber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FirstBadgeNumber.Designer.cs">
+      <DependentUpon>FirstBadgeNumber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FreeDayOnlyUsers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,6 +353,9 @@
     </Compile>
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="UnpaidMember.cs" />
+    <EmbeddedResource Include="Forms\FirstBadgeNumber.resx">
+      <DependentUpon>FirstBadgeNumber.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FreeDayOnlyUsers.resx">
       <DependentUpon>FreeDayOnlyUsers.cs</DependentUpon>
     </EmbeddedResource>

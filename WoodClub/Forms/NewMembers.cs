@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using WoodClub.Forms;
 
 namespace WoodClub
 {
@@ -14,6 +16,27 @@ namespace WoodClub
 			InitializeComponent();
 			dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
 			dataGridView1.CellClick += DataGridView1_CellClick;
+			dataGridView1.MouseClick += DataGridView1_MouseClick;
+			dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+		}
+
+		private void DataGridView1_MouseClick(object sender, MouseEventArgs e)
+		{
+			MenuItem copyItem = new MenuItem("Copy");
+			copyItem.Click += Copy_Click;
+			if (e.Button == MouseButtons.Right)
+			{
+				ContextMenu m = new ContextMenu();
+				m.MenuItems.Add(copyItem);
+
+				m.Show(dataGridView1, new Point(e.X, e.Y));
+			}
+		}
+
+		private void Copy_Click(object sender, EventArgs e)
+		{
+			DataObject dataObj = dataGridView1.GetClipboardContent();
+			Clipboard.SetDataObject(dataObj, true);
 		}
 
 		private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -33,14 +56,43 @@ namespace WoodClub
 			}
 		}
 
+		private int GetStartingBadgeNumber()
+		{
+			FirstBadgeNumber fbn = new FirstBadgeNumber();
+			fbn.ShowDialog();
+			return fbn.BadgeNumber;	
+		}
+
 		private async void FormNewMembers_Load(object sender, EventArgs e)
 		{
+			int firstBadgeNumber = GetStartingBadgeNumber();
 			SignUpGenisus sug = new SignUpGenisus();
-			Rootobject ro = await sug.GetSignup(DateTime.Now);
+			Rootobject ro = await sug.GetSignup(DateTime.Now.AddDays(-15));
+
+			if (ro == null)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					System.Threading.Thread.Sleep(5000);
+					ro = await sug.GetSignup(DateTime.Now);
+
+					if (ro != null)
+					{
+						break;
+					}
+				}
+
+				if (ro == null)
+				{
+					MessageBox.Show("SignupGenisus is on vacation, Try again in a few minutes");
+					return;
+				}
+			}
+
 			List<SignupSlot> slots = new List<SignupSlot>();
 			string startDate = string.Empty;
 			DateTime startScanDate = DateTime.Now.AddDays(-10);
-			DateTime endScanDate = DateTime.Now.AddDays(+10);
+			DateTime endScanDate = DateTime.Now.AddDays(+15);
 			using (WoodclubEntities context = new WoodclubEntities())
 			{
 				foreach (SignupSlot sl in ro.data.signup)
@@ -89,8 +141,8 @@ namespace WoodClub
 									ZipCode = sl.zipcode,
 									RecNo = sl.customfields[1].value,
 									MemberDate = DateTimeOffset.FromUnixTimeSeconds((long)sl.startdate).Date,
-									Badge = string.Empty,
-									CardNo = string.Empty
+									Badge = member != null ? member.Badge : string.Empty,
+									CardNo = member != null ? member.CardNo : string.Empty,
 								});
 							}
 						}
@@ -103,12 +155,28 @@ namespace WoodClub
 
 			for (int i = 0; i < members.Count; i++)
 			{
+				this.dataGridView1.Rows[i].Cells["BillTo"].Value = members[i].FirstName + " " + members[i].LastName;
 				if (!members[i].Add)
 				{
 					this.dataGridView1.Rows[i].Cells[0].ReadOnly = true;
 				}
+				else
+				{
+					if (firstBadgeNumber > 0)
+					{
+						this.dataGridView1.Rows[i].Cells["Badge"].Value = firstBadgeNumber.ToString();
+						firstBadgeNumber++;
+					}
+				}
 			}
-		}
+
+			dataGridView1.Columns["Add"].DisplayIndex = 0;
+			dataGridView1.Columns["Badge"].DisplayIndex = 1;
+			dataGridView1.Columns["RecNo"].DisplayIndex = 2;
+			dataGridView1.Columns["FirstName"].DisplayIndex = 3;
+			dataGridView1.Columns["LastName"].DisplayIndex = 4;
+			dataGridView1.Columns["BillTo"].DisplayIndex = 5;
+	}
 
 		private string FormatProperName(string name)
 		{

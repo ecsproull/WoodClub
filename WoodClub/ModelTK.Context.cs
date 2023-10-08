@@ -13,9 +13,9 @@ namespace WoodClub
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ZKTecoEntities : DbContext
+    public partial class ZKAccessEntities : DbContext
     {
-        public ZKTecoEntities()
+        public ZKAccessEntities()
             : base("name=ZKAccessEntities")
         {
         }

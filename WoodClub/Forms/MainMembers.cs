@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -350,6 +353,38 @@ namespace WoodClub
 			finally
 			{
 				frm.Dispose();
+			}
+		}
+
+		private void clubTracksToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (WoodclubEntities context = new WoodclubEntities())
+			{
+				List<MemberRoster> members = (from m in context.MemberRosters.OrderBy(x => x.LastName).ThenBy(x => x.FirstName)
+											  where m.ClubDuesPaid == true
+											  select m).ToList();
+				
+				StringBuilder stringBuilder = new StringBuilder();
+				foreach (MemberRoster m in members)
+				{
+					int badgeInt =  int.Parse(m.Badge);
+					if (badgeInt < 10000)
+					{
+						stringBuilder.AppendLine(string.Format("{0},{1},{2}", m.RecCard, m.LastName, m.FirstName));
+					}
+				}
+
+				string filename = @"c:\ClubTracks\members_" + DateTime.Now.ToString("MM-dd-yyy_HH_mm_ss") + ".csv";
+				System.IO.File.WriteAllText(filename, stringBuilder.ToString());
+
+				if (File.Exists(filename))
+				{
+					Process.Start("explorer.exe", Path.GetDirectoryName(filename));
+				}
+				else
+				{
+					MessageBox.Show("Opps, make sure this path is accessible: " + Path.GetDirectoryName(filename));
+				}
 			}
 		}
 	}

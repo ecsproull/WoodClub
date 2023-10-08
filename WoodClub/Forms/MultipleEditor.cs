@@ -97,7 +97,7 @@ namespace WoodClub
         private static int GetAccessTime(string groupTime)
         {
             int TzAccess = 0;
-            using (ZKTecoEntities zkcontext = new ZKTecoEntities())
+            using (ZKAccessEntities zkcontext = new ZKAccessEntities())
             {
                 List<acc_timeseg> TZdatasource = zkcontext.acc_timeseg.Select(c => c).ToList();
                 foreach (var element in TZdatasource)
