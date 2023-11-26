@@ -12,7 +12,7 @@ namespace WoodClub
     using System;
     using System.Collections.Generic;
     
-    public partial class MemberRoster
+    public partial class MemberBackup
     {
         public int id { get; set; }
         public string Badge { get; set; }
@@ -28,6 +28,7 @@ namespace WoodClub
         public string RecCard { get; set; }
         public string Locker { get; set; }
         public Nullable<System.DateTime> MemberDate { get; set; }
+        public Nullable<System.DateTime> QBmodified { get; set; }
         public Nullable<bool> Exempt { get; set; }
         public Nullable<System.DateTime> ExemptModDate { get; set; }
         public Nullable<bool> ExtHour { get; set; }
@@ -46,6 +47,5 @@ namespace WoodClub
         public byte[] Photo { get; set; }
         public string GroupTime { get; set; }
         public Nullable<bool> AdminBlock { get; set; }
-        public Nullable<System.DateTime> QBmodified { get; set; }
     }
 }

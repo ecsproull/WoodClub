@@ -77,7 +77,7 @@ namespace WoodClub
 		private void ScanSCW()
 		{
 			ds_Unpaid = new SortableBindingList<UnpaidMember>();
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				List<MemberRoster> members = (from m in context.MemberRosters
 											  select m).OrderBy(mem => mem.Badge).ToList();
@@ -103,7 +103,7 @@ namespace WoodClub
 		private void Reconcile()
 		{
 			ds_Unpaid = new SortableBindingList<UnpaidMember>();
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				List<MemberRoster> members = (from m in context.MemberRosters
 											  select m).OrderBy(mem => mem.Badge).ToList();
@@ -171,7 +171,7 @@ namespace WoodClub
 
 		private void btnDelete_Click(object sender, EventArgs e)
 		{
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				foreach (UnpaidMember unpaid in ds_Unpaid)
 				{

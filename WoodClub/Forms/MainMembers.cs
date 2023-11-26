@@ -102,7 +102,6 @@ namespace WoodClub
 			dataGridView1.DataSource = bsMembers;
 		}
 
-
 		private void ToolStripImportNewMembers_Click(object sender, EventArgs e)
 		{
 			NewMembers fnm = new NewMembers();
@@ -183,7 +182,7 @@ namespace WoodClub
 
 				bsMembers.EndEdit();
 				bsMembers.RemoveCurrent();
-				using (WoodclubEntities context = new WoodclubEntities())
+				using (WoodClubEntities context = new WoodClubEntities())
 				{
 					string cmd = "delete from MemberRoster where id=" + id.ToString();
 					try
@@ -356,18 +355,19 @@ namespace WoodClub
 			}
 		}
 
-		private void clubTracksToolStripMenuItem_Click(object sender, EventArgs e)
+		private void clubTracksToolStripMenuItem_Click_1(object sender, EventArgs e)
 		{
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				List<MemberRoster> members = (from m in context.MemberRosters.OrderBy(x => x.LastName).ThenBy(x => x.FirstName)
 											  where m.ClubDuesPaid == true
 											  select m).ToList();
-				
+
 				StringBuilder stringBuilder = new StringBuilder();
+				stringBuilder.AppendLine(string.Format("{0},{1},{2}", "Member Id", "Last Name", "First Name"));
 				foreach (MemberRoster m in members)
 				{
-					int badgeInt =  int.Parse(m.Badge);
+					int badgeInt = int.Parse(m.Badge);
 					if (badgeInt < 10000)
 					{
 						stringBuilder.AppendLine(string.Format("{0},{1},{2}", m.RecCard, m.LastName, m.FirstName));
@@ -386,6 +386,22 @@ namespace WoodClub
 					MessageBox.Show("Opps, make sure this path is accessible: " + Path.GetDirectoryName(filename));
 				}
 			}
+
+		}
+
+		private void restoreOldToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			RestoreOldMember rso = new RestoreOldMember();
+			var x = rso.ShowDialog();
+			if (x == DialogResult.OK)
+			{
+				Form1_Load(null, null);
+			}
+		}
+
+		private void toolStripButton3_Click(object sender, EventArgs e)
+		{
+			Form1_Load(null, null);
 		}
 	}
 }

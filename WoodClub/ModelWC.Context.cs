@@ -6,16 +6,16 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#pragma warning disable 6002
 namespace WoodClub
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WoodclubEntities : DbContext
+    public partial class WoodClubEntities : DbContext
     {
-        public WoodclubEntities()
+        public WoodClubEntities()
             : base("name=WoodClubEntities")
         {
         }
@@ -37,5 +37,6 @@ namespace WoodClub
         public virtual DbSet<BadgeCode> BadgeCodes { get; set; }
         public virtual DbSet<MemberPhoto> MemberPhotos { get; set; }
         public virtual DbSet<Time_zones> Time_zones { get; set; }
+        public virtual DbSet<MemberBackup> MemberBackups { get; set; }
     }
 }

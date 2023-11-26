@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WoodClub
 {
-    public class MembersExtended : MemberRoster
+	public class MembersExtended : MemberRoster
     {
+        public MembersExtended() { }
         public MembersExtended(MemberRoster mr)
         {
             this.id = mr.id;
@@ -43,7 +41,7 @@ namespace WoodClub
             this.GroupTime = mr.GroupTime;
             this.AdminBlock = mr.AdminBlock;
 
-            using (WoodclubEntities context = new WoodclubEntities())
+            using (WoodClubEntities context = new WoodClubEntities())
             {
                 var yearvisit = from t in context.Transactions              // List of Usage by member
                                 where t.TransDate.Value.Year == DateTime.Now.Year
@@ -52,7 +50,6 @@ namespace WoodClub
                                 select t.TransDate.Value;
                 this.Visits = yearvisit.DistinctBy(x => x.DayOfYear).Count();
             }
-
         }
 
         public int Visits { get; set; } = 10;

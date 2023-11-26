@@ -42,14 +42,14 @@
 			this.btnSave = new System.Windows.Forms.Button();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.dataGridMultiMember = new System.Windows.Forms.DataGridView();
-			this.memberBadgesTextBox = new System.Windows.Forms.TextBox();
-			this.labelMultiBadges = new System.Windows.Forms.Label();
 			this.BadgeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Credits = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.LastCreditAwarded = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.TransactionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.memberBadgesTextBox = new System.Windows.Forms.TextBox();
+			this.labelMultiBadges = new System.Windows.Forms.Label();
 			this.memberBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.badgeCodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.groupBox1.SuspendLayout();
@@ -214,22 +214,6 @@
 			this.dataGridMultiMember.Size = new System.Drawing.Size(647, 465);
 			this.dataGridMultiMember.TabIndex = 42;
 			// 
-			// memberBadgesTextBox
-			// 
-			this.memberBadgesTextBox.Location = new System.Drawing.Point(43, 24);
-			this.memberBadgesTextBox.Name = "memberBadgesTextBox";
-			this.memberBadgesTextBox.Size = new System.Drawing.Size(647, 20);
-			this.memberBadgesTextBox.TabIndex = 43;
-			// 
-			// labelMultiBadges
-			// 
-			this.labelMultiBadges.AutoSize = true;
-			this.labelMultiBadges.Location = new System.Drawing.Point(43, 5);
-			this.labelMultiBadges.Name = "labelMultiBadges";
-			this.labelMultiBadges.Size = new System.Drawing.Size(164, 13);
-			this.labelMultiBadges.TabIndex = 44;
-			this.labelMultiBadges.Text = "Enter Badges, Comma Seperated";
-			// 
 			// BadgeNumber
 			// 
 			this.BadgeNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -276,6 +260,22 @@
 			this.TransactionDate.HeaderText = "Date";
 			this.TransactionDate.Name = "TransactionDate";
 			this.TransactionDate.ReadOnly = true;
+			// 
+			// memberBadgesTextBox
+			// 
+			this.memberBadgesTextBox.Location = new System.Drawing.Point(43, 24);
+			this.memberBadgesTextBox.Name = "memberBadgesTextBox";
+			this.memberBadgesTextBox.Size = new System.Drawing.Size(647, 20);
+			this.memberBadgesTextBox.TabIndex = 43;
+			// 
+			// labelMultiBadges
+			// 
+			this.labelMultiBadges.AutoSize = true;
+			this.labelMultiBadges.Location = new System.Drawing.Point(43, 5);
+			this.labelMultiBadges.Name = "labelMultiBadges";
+			this.labelMultiBadges.Size = new System.Drawing.Size(159, 13);
+			this.labelMultiBadges.TabIndex = 44;
+			this.labelMultiBadges.Text = "Enter Badges, Period Seperated";
 			// 
 			// memberBindingSource
 			// 

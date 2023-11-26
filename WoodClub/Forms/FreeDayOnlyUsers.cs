@@ -41,7 +41,7 @@ namespace WoodClub.Forms
 		private void FreeDayOnlyUsers_Load(object sender, EventArgs e)
         {
             List<Transaction> fdo = new List<Transaction>();
-            using(WoodclubEntities context = new WoodclubEntities())
+            using(WoodClubEntities context = new WoodClubEntities())
             {
                 var users = (from m in context.Transactions
                              where m.Code == "FD" && m.TransDate > startDate && m.TransDate < endDate

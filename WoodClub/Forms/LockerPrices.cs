@@ -9,7 +9,7 @@ namespace WoodClub.Forms
 {
 	public partial class LockerPrices : Form
 	{
-		WoodclubEntities context = new WoodclubEntities();
+		WoodClubEntities context = new WoodClubEntities();
 		List<LockerCost> lockerCostList;
 		int originalCount;
 		public LockerPrices()

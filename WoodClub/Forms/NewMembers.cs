@@ -93,7 +93,7 @@ namespace WoodClub
 			string startDate = string.Empty;
 			DateTime startScanDate = DateTime.Now.AddDays(-10);
 			DateTime endScanDate = DateTime.Now.AddDays(+15);
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				foreach (SignupSlot sl in ro.data.signup)
 				{
@@ -239,7 +239,7 @@ namespace WoodClub
 		{
 			bs_newmember.EndEdit();
 
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 
 				foreach (NewMember r in members)

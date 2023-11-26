@@ -10,7 +10,7 @@ namespace WoodClub.Forms
 	{
 		List<LockerLocation> mLockerLocations;
 		private int originalCount = -1;
-		private WoodclubEntities context = new WoodclubEntities();
+		private WoodClubEntities context = new WoodClubEntities();
 		public LockerLocations()
 		{
 			InitializeComponent();

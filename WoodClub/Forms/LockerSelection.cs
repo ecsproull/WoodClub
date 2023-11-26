@@ -13,7 +13,7 @@ namespace WoodClub.Forms
 		private string badge;
 		private SortableBindingList<JoinedListItem> sblLockersCurrent;
 		private SortableBindingList<JoinedListItem> sblLockersAll;
-		private WoodclubEntities context;
+		private WoodClubEntities context;
 		public LockerSelection(string badge)
 		{
 			this.badge = badge;
@@ -25,7 +25,7 @@ namespace WoodClub.Forms
 			this.dataGridViewAllLockers.DefaultCellStyle.SelectionForeColor = Color.Black;
 			this.dataGridViewAllLockers.CellContentClick += this.dataGridViewSelectedLockers_CellContentClick;
 
-			context = new WoodclubEntities();
+			context = new WoodClubEntities();
 			member = (from m in context.MemberRosters
 					  where m.Badge == badge
 					  select m).FirstOrDefault();

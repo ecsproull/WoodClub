@@ -25,7 +25,7 @@ namespace WoodClub
 
 		public void GetMembers()
 		{
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				try
 				{
@@ -53,7 +53,7 @@ namespace WoodClub
 		public bool UpdateMember(MemberRoster EditedMember)
 		{
 
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				int _id = EditedMember.id;
 				NewIdentifier = _id;
@@ -78,7 +78,7 @@ namespace WoodClub
 		public bool AddNew(MemberRoster NewMember)
 		{
 			int _id = NewMember.id;
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				try
 				{

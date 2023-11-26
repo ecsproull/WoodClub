@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WoodClubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WoodClubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'WoodClub.dbo.Admin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Admin">
@@ -74,6 +74,44 @@ warning 6002: The table/view 'WoodClub.dbo.BadgeCodes' does not have a primary k
           <Property Name="Badge" Type="nvarchar" MaxLength="5" />
           <Property Name="Project" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="MemberBackup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Badge" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" />
+          <Property Name="State" Type="nvarchar" MaxLength="20" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="20" />
+          <Property Name="RecCard" Type="nvarchar" MaxLength="50" />
+          <Property Name="Locker" Type="nvarchar" MaxLength="30" />
+          <Property Name="MemberDate" Type="date" />
+          <Property Name="QBmodified" Type="date" />
+          <Property Name="Exempt" Type="bit" />
+          <Property Name="ExemptModDate" Type="date" />
+          <Property Name="ExtHour" Type="bit" />
+          <Property Name="EarlyAM" Type="bit" />
+          <Property Name="ClubDuesPaid" Type="bit" />
+          <Property Name="ClubDuesPaidDate" Type="date" />
+          <Property Name="RecDuesPaid" Type="bit" />
+          <Property Name="CreditBank" Type="nvarchar" MaxLength="10" />
+          <Property Name="CardNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="EntryCodes" Type="nchar" MaxLength="10" />
+          <Property Name="AuthorizedTimeZone" Type="int" />
+          <Property Name="Authorized" Type="bit" />
+          <Property Name="OneTime" Type="bit" />
+          <Property Name="LastDayValid" Type="date" />
+          <Property Name="NewBadge" Type="bit" />
+          <Property Name="Photo" Type="image" />
+          <Property Name="GroupTime" Type="nvarchar" MaxLength="20" />
+          <Property Name="AdminBlock" Type="bit" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'WoodClub.dbo.MemberPhotos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MemberPhotos">
@@ -113,6 +151,7 @@ warning 6002: The table/view 'WoodClub.dbo.MemberPhotos' does not have a primary
           <Property Name="RecCard" Type="nvarchar" MaxLength="50" />
           <Property Name="Locker" Type="nvarchar" MaxLength="30" />
           <Property Name="MemberDate" Type="date" />
+          <Property Name="QBmodified" Type="date" />
           <Property Name="Exempt" Type="bit" />
           <Property Name="ExemptModDate" Type="date" />
           <Property Name="ExtHour" Type="bit" />
@@ -217,6 +256,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="LockerCost" EntityType="Self.LockerCost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LockerLocations" EntityType="Self.LockerLocations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lockers" EntityType="Self.Lockers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberBackup" EntityType="Self.MemberBackup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberRFcard" EntityType="Self.MemberRFcard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberRoster" EntityType="Self.MemberRoster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonitorParams" EntityType="Self.MonitorParams" Schema="dbo" store:Type="Tables" />
@@ -305,8 +345,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
     FROM [dbo].[Time_zones] AS [Time_zones]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WoodClubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -395,6 +434,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="GroupTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="AdminBlock" Type="Boolean" />
+          <Property Name="QBmodified" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="MonitorParam">
           <Key>
@@ -522,7 +562,46 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="BadgeCodes" EntityType="Self.BadgeCode" />
           <EntitySet Name="MemberPhotos" EntityType="Self.MemberPhoto" />
           <EntitySet Name="Time_zones" EntityType="Self.Time_zones" />
+          <EntitySet Name="MemberBackups" EntityType="WoodClubModel.MemberBackup" />
         </EntityContainer>
+        <EntityType Name="MemberBackup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Badge" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RecCard" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Locker" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MemberDate" Type="DateTime" Precision="0" />
+          <Property Name="QBmodified" Type="DateTime" Precision="0" />
+          <Property Name="Exempt" Type="Boolean" />
+          <Property Name="ExemptModDate" Type="DateTime" Precision="0" />
+          <Property Name="ExtHour" Type="Boolean" />
+          <Property Name="EarlyAM" Type="Boolean" />
+          <Property Name="ClubDuesPaid" Type="Boolean" />
+          <Property Name="ClubDuesPaidDate" Type="DateTime" Precision="0" />
+          <Property Name="RecDuesPaid" Type="Boolean" />
+          <Property Name="CreditBank" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CardNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EntryCodes" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AuthorizedTimeZone" Type="Int32" />
+          <Property Name="Authorized" Type="Boolean" />
+          <Property Name="OneTime" Type="Boolean" />
+          <Property Name="LastDayValid" Type="DateTime" Precision="0" />
+          <Property Name="NewBadge" Type="Boolean" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="GroupTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AdminBlock" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -586,6 +665,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySetMapping Name="MemberRosters">
             <EntityTypeMapping TypeName="WoodClubModel.MemberRoster">
               <MappingFragment StoreEntitySet="MemberRoster">
+                <ScalarProperty Name="QBmodified" ColumnName="QBmodified" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -734,6 +814,45 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
                 <ScalarProperty Name="saturday_end2" ColumnName="saturday_end2" />
                 <ScalarProperty Name="saturday_start3" ColumnName="saturday_start3" />
                 <ScalarProperty Name="saturday_end3" ColumnName="saturday_end3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberBackups">
+            <EntityTypeMapping TypeName="WoodClubModel.MemberBackup">
+              <MappingFragment StoreEntitySet="MemberBackup">
+                <ScalarProperty Name="AdminBlock" ColumnName="AdminBlock" />
+                <ScalarProperty Name="GroupTime" ColumnName="GroupTime" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="NewBadge" ColumnName="NewBadge" />
+                <ScalarProperty Name="LastDayValid" ColumnName="LastDayValid" />
+                <ScalarProperty Name="OneTime" ColumnName="OneTime" />
+                <ScalarProperty Name="Authorized" ColumnName="Authorized" />
+                <ScalarProperty Name="AuthorizedTimeZone" ColumnName="AuthorizedTimeZone" />
+                <ScalarProperty Name="EntryCodes" ColumnName="EntryCodes" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="CreditBank" ColumnName="CreditBank" />
+                <ScalarProperty Name="RecDuesPaid" ColumnName="RecDuesPaid" />
+                <ScalarProperty Name="ClubDuesPaidDate" ColumnName="ClubDuesPaidDate" />
+                <ScalarProperty Name="ClubDuesPaid" ColumnName="ClubDuesPaid" />
+                <ScalarProperty Name="EarlyAM" ColumnName="EarlyAM" />
+                <ScalarProperty Name="ExtHour" ColumnName="ExtHour" />
+                <ScalarProperty Name="ExemptModDate" ColumnName="ExemptModDate" />
+                <ScalarProperty Name="Exempt" ColumnName="Exempt" />
+                <ScalarProperty Name="QBmodified" ColumnName="QBmodified" />
+                <ScalarProperty Name="MemberDate" ColumnName="MemberDate" />
+                <ScalarProperty Name="Locker" ColumnName="Locker" />
+                <ScalarProperty Name="RecCard" ColumnName="RecCard" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

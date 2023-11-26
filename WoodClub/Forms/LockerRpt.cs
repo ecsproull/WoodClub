@@ -44,7 +44,7 @@ namespace WoodClub
 		{
 			textBoxLockerFilter.KeyUp += TextBoxLockerFilter_KeyUp;
 			int totalRevenue = 0;
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 
 				var lmcl = context.Lockers

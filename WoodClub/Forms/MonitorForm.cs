@@ -58,7 +58,7 @@ namespace WoodClub
 			//  Total monitors
 			//
 			btnRefresh.Enabled = false;
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				var yearmember = from m in context.Transactions             // List of members using club
 								 where m.TransDate.Value.Year == year
@@ -86,7 +86,7 @@ namespace WoodClub
 
 		private void loadMonitor()
 		{
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				try
 				{

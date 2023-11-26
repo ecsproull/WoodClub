@@ -17,7 +17,7 @@ namespace WoodClub
 		private List<BadgeCode> DataSource;
 		private BindingSource bsBadges;
 		private bool newCredit;
-		private WoodclubEntities context;
+		private WoodClubEntities context;
 		private SortableBindingList<MultipleEditMember> members;
 
 		public MultipleEditor()
@@ -32,7 +32,7 @@ namespace WoodClub
 		{
 			this.dataGridMultiMember.AutoGenerateColumns = false;
 			this.dataGridViewCodesMulti.AutoGenerateColumns = false;
-			this.context = new WoodclubEntities();
+			this.context = new WoodClubEntities();
 			try
 			{
 				DataSource = context.BadgeCodes.Select(c => c).Where(x => x.ShowInUi == 1).ToList();

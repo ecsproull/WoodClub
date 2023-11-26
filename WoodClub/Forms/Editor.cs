@@ -27,7 +27,7 @@ namespace WoodClub
 		private double creditBankStart;
 		private bool updateController;
 		private int TZaccess;
-		private WoodclubEntities context;
+		private WoodClubEntities context;
 		private MemberRoster member;
 		private bool adding;
 
@@ -65,7 +65,7 @@ namespace WoodClub
 
 		private void Editor_Load(object sender, EventArgs e)
 		{
-			this.context = new WoodclubEntities();
+			this.context = new WoodClubEntities();
 			if (!string.IsNullOrEmpty(this.badge))
 			{
 				this.member = (from m in context.MemberRosters

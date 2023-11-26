@@ -71,7 +71,7 @@ namespace WoodClub.Forms
 				{
 					hourTotal[i] = 0;      // Clear array
 				}
-				using (WoodclubEntities context = new WoodclubEntities())
+				using (WoodClubEntities context = new WoodClubEntities())
 				{
 					var memberResult = (from m in context.Transactions          // List of members using club
 										where m.TransDate.Value.Year == yr && m.TransDate.Value.Month == month && m.TransDate.Value.Day == d && m.Code == "U"

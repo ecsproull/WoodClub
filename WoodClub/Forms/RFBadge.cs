@@ -16,11 +16,25 @@ namespace WoodClub
 		public RFBadge()
 		{
 			InitializeComponent();
+			dataGridView1.CellEndEdit += DataGridView1_CellEndEdit;
+		}
+
+		private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		{
+			MemberRFcard rfnc = DataSource[e.RowIndex];
+			using (WoodClubEntities context = new WoodClubEntities())
+			{
+				MemberRFcard newBadgeMember = (from rn in context.MemberRFcards
+								where (string)rn.Badge == rfnc.Badge
+								select rn).FirstOrDefault();
+				newBadgeMember.FirstName = rfnc.FirstName;
+				context.SaveChanges();
+			}
 		}
 
 		private void formRFbadge_Load(object sender, EventArgs e)
 		{
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				try
 				{
@@ -45,7 +59,7 @@ namespace WoodClub
 		private void toolStripButton2_Click(object sender, EventArgs e)
 		{
 			int id;
-			using (WoodclubEntities context = new WoodclubEntities())
+			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				foreach (MemberRFcard c in DataSource)
 				{
@@ -69,5 +83,6 @@ namespace WoodClub
 				dataGridView1.Invalidate();
 			}
 		}
+
 	}
 }

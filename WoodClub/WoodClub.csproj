@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>D:\source\WoodClub\Publish\</PublishUrl>
+    <PublishUrl>C:\Users\presi\OneDrive\Binaries\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>44</ApplicationRevision>
+    <ApplicationRevision>47</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -218,6 +218,12 @@
     <Compile Include="Forms\NewMembers.designer.cs">
       <DependentUpon>NewMembers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RestoreOldMember.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RestoreOldMember.Designer.cs">
+      <DependentUpon>RestoreOldMember.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RFBadge.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,6 +279,9 @@
     </Compile>
     <Compile Include="Lockers.cs" />
     <Compile Include="LogErrors.cs" />
+    <Compile Include="MemberBackup.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="MemberPhoto.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
@@ -290,6 +299,7 @@
       <DependentUpon>MonitorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MembersExtended.cs" />
+    <Compile Include="MembersShort.cs" />
     <Compile Include="ModelTK.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -374,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewMembers.resx">
       <DependentUpon>NewMembers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RestoreOldMember.resx">
+      <DependentUpon>RestoreOldMember.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RFBadge.resx">
       <DependentUpon>RFBadge.cs</DependentUpon>

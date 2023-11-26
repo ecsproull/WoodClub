@@ -16,6 +16,13 @@ namespace WoodClub.Forms
 		{
 			InitializeComponent();
 			startingBadgeNumber.ValueChanged += StartingBadgeNumber_ValueChanged;
+			using (WoodClubEntities context = new WoodClubEntities())
+			{
+				long nextBadge = (from m in context.MemberRosters
+											 where m.Badge != "20001"
+											 select m).ToList().Max(e => Convert.ToInt32(e.Badge));
+				startingBadgeNumber.Value = ++nextBadge;
+			}
 		}
 
 		private void StartingBadgeNumber_ValueChanged(object sender, EventArgs e)

@@ -31,6 +31,10 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RFBadge));
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.RecCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
@@ -44,10 +48,6 @@
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.RecCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -56,6 +56,7 @@
 			// 
 			// dataGridView1
 			// 
+			this.dataGridView1.AllowUserToAddRows = false;
 			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -68,6 +69,33 @@
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.Size = new System.Drawing.Size(444, 472);
 			this.dataGridView1.TabIndex = 0;
+			// 
+			// Badge
+			// 
+			this.Badge.DataPropertyName = "Badge";
+			this.Badge.HeaderText = "Badge";
+			this.Badge.Name = "Badge";
+			this.Badge.ReadOnly = true;
+			// 
+			// FirstName
+			// 
+			this.FirstName.DataPropertyName = "FirstName";
+			this.FirstName.HeaderText = "First Name";
+			this.FirstName.Name = "FirstName";
+			// 
+			// LastName
+			// 
+			this.LastName.DataPropertyName = "LastName";
+			this.LastName.HeaderText = "Last Name";
+			this.LastName.Name = "LastName";
+			this.LastName.ReadOnly = true;
+			// 
+			// RecCard
+			// 
+			this.RecCard.DataPropertyName = "RecCard";
+			this.RecCard.HeaderText = "RecCard";
+			this.RecCard.Name = "RecCard";
+			this.RecCard.ReadOnly = true;
 			// 
 			// memberRosterBindingSource
 			// 
@@ -184,30 +212,6 @@
 			this.toolStripLabel1.Size = new System.Drawing.Size(55, 22);
 			this.toolStripLabel1.Text = "Clear List";
 			this.toolStripLabel1.Click += new System.EventHandler(this.toolStripButton2_Click);
-			// 
-			// Badge
-			// 
-			this.Badge.DataPropertyName = "Badge";
-			this.Badge.HeaderText = "Badge";
-			this.Badge.Name = "Badge";
-			// 
-			// FirstName
-			// 
-			this.FirstName.DataPropertyName = "FirstName";
-			this.FirstName.HeaderText = "First Name";
-			this.FirstName.Name = "FirstName";
-			// 
-			// LastName
-			// 
-			this.LastName.DataPropertyName = "LastName";
-			this.LastName.HeaderText = "Last Name";
-			this.LastName.Name = "LastName";
-			// 
-			// RecCard
-			// 
-			this.RecCard.DataPropertyName = "RecCard";
-			this.RecCard.HeaderText = "RecCard";
-			this.RecCard.Name = "RecCard";
 			// 
 			// RFBadge
 			// 
