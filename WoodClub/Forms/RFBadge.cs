@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Text;
 using System.Windows.Forms;
 
 namespace WoodClub
@@ -84,5 +90,37 @@ namespace WoodClub
 			}
 		}
 
+		private void exportButton_Click(object sender, EventArgs e)
+		{
+			using (WoodClubEntities context = new WoodClubEntities())
+			{
+				List<MemberRFcard> members = (from m in context.MemberRFcards
+											  select m).ToList();
+				Export(members);
+			}
+		}
+
+		public static void Export(List<MemberRFcard> members)
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.AppendLine("FirstName, LastName, Badge, Title, RecCard");
+			foreach (MemberRFcard m in members)
+			{
+				if (m.Photo != null)
+				{
+					using (Image image = Image.FromStream(new MemoryStream(m.Photo)))
+					{
+						image.Save(@"c:\CardPrint\images\" + m.Badge + ".jpg", ImageFormat.Jpeg);
+					}
+				}
+
+				stringBuilder.AppendLine(string.Format("{0},{1},{2},{3},{4}",
+					m.FirstName, m.LastName, m.Badge, m.Title, m.RecCard));
+			}
+
+			string filename = @"c:\CardPrint\CardsToPrint.csv";
+			System.IO.File.WriteAllText(filename, stringBuilder.ToString());
+			MessageBox.Show("All Done");
+		}
 	}
 }

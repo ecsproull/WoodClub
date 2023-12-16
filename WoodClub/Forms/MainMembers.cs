@@ -227,14 +227,6 @@ namespace WoodClub
 		{
 			Application.Exit();
 		}
-
-		private void btnRFcard_Click(object sender, EventArgs e)
-		{
-			RFBadge frfb = new RFBadge();
-			frfb.ShowDialog();
-			LoadMembers();
-		}
-
 		private void monitorsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			MonitorForm mf = new MonitorForm();
@@ -402,6 +394,38 @@ namespace WoodClub
 		private void toolStripButton3_Click(object sender, EventArgs e)
 		{
 			Form1_Load(null, null);
+		}
+
+		private void exportAllToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (WoodClubEntities context = new WoodClubEntities())
+			{
+				List<MemberRoster> allmembers = (from m in context.MemberRosters
+												 where m.ClubDuesPaid == true
+												 select m).ToList();
+				List<MemberRFcard> members = new List<MemberRFcard>();
+				foreach (MemberRoster m in allmembers)
+				{
+					members.Add(new MemberRFcard
+					{
+						FirstName = m.FirstName,
+						LastName = m.LastName,
+						Badge = m.Badge,
+						Title = m.Title,
+						Photo = m.Photo,
+						RecCard = m.RecCard
+					});
+				}
+
+				RFBadge.Export(members);
+			}
+		}
+
+		private void selectedToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			RFBadge frfb = new RFBadge();
+			frfb.ShowDialog();
+			LoadMembers();
 		}
 	}
 }

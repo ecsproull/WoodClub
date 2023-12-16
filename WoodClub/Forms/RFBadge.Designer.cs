@@ -48,6 +48,7 @@
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+			this.exportButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -67,7 +68,7 @@
 			this.dataGridView1.DataSource = this.memberRosterBindingSource;
 			this.dataGridView1.Location = new System.Drawing.Point(2, 28);
 			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.Size = new System.Drawing.Size(444, 472);
+			this.dataGridView1.Size = new System.Drawing.Size(444, 432);
 			this.dataGridView1.TabIndex = 0;
 			// 
 			// Badge
@@ -213,11 +214,22 @@
 			this.toolStripLabel1.Text = "Clear List";
 			this.toolStripLabel1.Click += new System.EventHandler(this.toolStripButton2_Click);
 			// 
+			// exportButton
+			// 
+			this.exportButton.Location = new System.Drawing.Point(171, 469);
+			this.exportButton.Name = "exportButton";
+			this.exportButton.Size = new System.Drawing.Size(77, 23);
+			this.exportButton.TabIndex = 2;
+			this.exportButton.Text = "Export Selected";
+			this.exportButton.UseVisualStyleBackColor = true;
+			this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
+			// 
 			// RFBadge
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(453, 501);
+			this.Controls.Add(this.exportButton);
 			this.Controls.Add(this.bindingNavigator1);
 			this.Controls.Add(this.dataGridView1);
 			this.Name = "RFBadge";
@@ -253,5 +265,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn LastName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn RecCard;
+		private System.Windows.Forms.Button exportButton;
 	}
 }

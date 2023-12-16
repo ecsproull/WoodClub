@@ -51,6 +51,7 @@
 			this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
+			this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -62,7 +63,9 @@
 			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+			this.badgesDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+			this.selectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.ReportsDownButton = new System.Windows.Forms.ToolStripDropDownButton();
 			this.monitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,7 +93,6 @@
 			this.clubTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -297,7 +299,7 @@
             this.toolStripButton2,
             this.toolStripButton1,
             this.toolStripSeparator7,
-            this.toolStripLabel1,
+            this.badgesDropDownButton,
             this.toolStripSeparator1,
             this.ReportsDownButton,
             this.toolStripSeparator3,
@@ -329,6 +331,16 @@
 			this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
 			this.bindingNavigatorCountItem.Text = "of {0}";
 			this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+			// 
+			// toolStripButton3
+			// 
+			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton3.Name = "toolStripButton3";
+			this.toolStripButton3.Size = new System.Drawing.Size(50, 22);
+			this.toolStripButton3.Text = "Refresh";
+			this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
 			// 
 			// bindingNavigatorMoveFirstItem
 			// 
@@ -417,12 +429,31 @@
 			this.toolStripSeparator7.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
 			this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
 			// 
-			// toolStripLabel1
+			// badgesDropDownButton
 			// 
-			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(67, 22);
-			this.toolStripLabel1.Text = "New Badge";
-			this.toolStripLabel1.Click += new System.EventHandler(this.btnRFcard_Click);
+			this.badgesDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.badgesDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectedToolStripMenuItem,
+            this.selectAllToolStripMenuItem});
+			this.badgesDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("badgesDropDownButton.Image")));
+			this.badgesDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.badgesDropDownButton.Name = "badgesDropDownButton";
+			this.badgesDropDownButton.Size = new System.Drawing.Size(58, 22);
+			this.badgesDropDownButton.Text = "Badges";
+			// 
+			// selectedToolStripMenuItem
+			// 
+			this.selectedToolStripMenuItem.Name = "selectedToolStripMenuItem";
+			this.selectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.selectedToolStripMenuItem.Text = "Selected";
+			this.selectedToolStripMenuItem.Click += new System.EventHandler(this.selectedToolStripMenuItem_Click);
+			// 
+			// selectAllToolStripMenuItem
+			// 
+			this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+			this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.selectAllToolStripMenuItem.Text = "ExportAll";
+			this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.exportAllToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator1
 			// 
@@ -625,16 +656,6 @@
 			this.MultipleMembersButton.Size = new System.Drawing.Size(79, 22);
 			this.MultipleMembersButton.Text = "Multi Credits";
 			// 
-			// toolStripButton3
-			// 
-			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton3.Name = "toolStripButton3";
-			this.toolStripButton3.Size = new System.Drawing.Size(50, 22);
-			this.toolStripButton3.Text = "Refresh";
-			this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
-			// 
 			// MainMembers
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -671,7 +692,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingSource memberRosterBindingSource;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripDropDownButton ReportsDownButton;
         private System.Windows.Forms.ToolStripMenuItem monitorToolStripMenuItem;
@@ -720,6 +740,9 @@
 		private System.Windows.Forms.ToolStripMenuItem restoreOldToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem clubTracksToolStripMenuItem;
 		private System.Windows.Forms.ToolStripButton toolStripButton3;
+		private System.Windows.Forms.ToolStripDropDownButton badgesDropDownButton;
+		private System.Windows.Forms.ToolStripMenuItem selectedToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
 	}
 }
 

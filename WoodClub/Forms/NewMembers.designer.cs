@@ -46,6 +46,7 @@
 			this.CardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.bs_newmember = new System.Windows.Forms.BindingSource(this.components);
 			this.buttonAddToDb = new System.Windows.Forms.Button();
+			this.quickBooksButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bs_newmember)).BeginInit();
 			this.SuspendLayout();
@@ -176,11 +177,22 @@
 			this.buttonAddToDb.UseVisualStyleBackColor = true;
 			this.buttonAddToDb.Click += new System.EventHandler(this.buttonAddToDb_Click);
 			// 
+			// quickBooksButton
+			// 
+			this.quickBooksButton.Location = new System.Drawing.Point(115, 415);
+			this.quickBooksButton.Name = "quickBooksButton";
+			this.quickBooksButton.Size = new System.Drawing.Size(75, 23);
+			this.quickBooksButton.TabIndex = 2;
+			this.quickBooksButton.Text = "Add To QB";
+			this.quickBooksButton.UseVisualStyleBackColor = true;
+			this.quickBooksButton.Click += new System.EventHandler(this.quickBooksButton_Click);
+			// 
 			// NewMembers
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1156, 450);
+			this.Controls.Add(this.quickBooksButton);
 			this.Controls.Add(this.buttonAddToDb);
 			this.Controls.Add(this.dataGridView1);
 			this.Name = "NewMembers";
@@ -211,6 +223,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Zip;
 		private System.Windows.Forms.DataGridViewTextBoxColumn MemberDate;
 		private System.Windows.Forms.DataGridViewTextBoxColumn CardNo;
+		private System.Windows.Forms.Button quickBooksButton;
 	}
 }
 

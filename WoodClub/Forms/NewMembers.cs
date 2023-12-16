@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Interop.QBXMLRP2;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -295,6 +296,11 @@ namespace WoodClub
 				context.SaveChanges();
 				DialogResult = DialogResult.OK;
 			}
+		}
+
+		private void quickBooksButton_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
