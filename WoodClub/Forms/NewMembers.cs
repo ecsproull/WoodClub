@@ -5,11 +5,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml;
 using WoodClub.Forms;
 
 namespace WoodClub
 {
-	public partial class NewMembers : Form
+    public partial class NewMembers : Form
 	{
 		private List<NewMember> members = new List<NewMember>();
 		public NewMembers()
@@ -19,6 +20,11 @@ namespace WoodClub
 			dataGridView1.CellClick += DataGridView1_CellClick;
 			dataGridView1.MouseClick += DataGridView1_MouseClick;
 			dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+
+			if (System.Environment.MachineName != "TREASURERS_PC")
+			{
+				quickBooksButton.Enabled = false;
+			}
 		}
 
 		private void DataGridView1_MouseClick(object sender, MouseEventArgs e)
@@ -150,6 +156,26 @@ namespace WoodClub
 					}
 				}
 			}
+
+			//if (members.Count == 0)
+			//{
+			//	for(int i = 0; i < 3; i++)
+			//	{
+			//		members.Add(new NewMember
+			//		{
+			//			Add = i % 2 == 0 ? true : false,
+			//			FirstName = "FirstNmame_" + i.ToString(),
+			//			LastName = "LastName_" + i.ToString(),
+			//			Email = "foo_" + i.ToString() + "@bar.com",
+			//			Phone = "623-975-999" + i.ToString(),
+			//			Address = i.ToString() + " My Lane",
+			//			City = "Sun City West",
+			//			State = "AZ",
+			//			ZipCode = "85375",
+			//			RecNo = i.ToString() + "5555"
+            //      });
+			//	}
+			//}
 
 			bs_newmember.DataSource = members;
 			this.dataGridView1.DataSource = bs_newmember;
@@ -298,9 +324,121 @@ namespace WoodClub
 			}
 		}
 
+        private string sessionTicket;
+        private RequestProcessor2 requestProcessor = null;
+        private string maxVersion;
+        private string companyFile = "";
+        private QBFileMode qbFileMode = QBFileMode.qbFileOpenDoNotCare;
+        private static string appID = "IDN12345";
+        private static string appName = "WoodClub";
 		private void quickBooksButton_Click(object sender, EventArgs e)
 		{
+            connectToQB();
+            try
+            {
+				foreach (NewMember member in members)
+				{
+					if (member.Add)
+					{
+						string response = processRequestFromQB(buildAddCustomersQueryRqXML(member));
+					}
+				}
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+			finally { disconnectFromQB(); }
+        }
 
-		}
-	}
+        private string buildAddCustomersQueryRqXML(NewMember newMember)
+        {
+            string xml = "";
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+            qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+            XmlElement customerAddRq = xmlDoc.CreateElement("CustomerAddRq");
+            qbXMLMsgsRq.AppendChild(customerAddRq);
+
+            XmlElement customerAdd = xmlDoc.CreateElement("CustomerAdd");
+			customerAdd.AppendChild(xmlDoc.CreateElement("Name")).InnerText = newMember.Badge;
+            customerAdd.AppendChild(xmlDoc.CreateElement("IsActive")).InnerText = "true";
+            customerAdd.AppendChild(xmlDoc.CreateElement("FirstName")).InnerText = newMember.FirstName;
+            customerAdd.AppendChild(xmlDoc.CreateElement("LastName")).InnerText = newMember.LastName;
+
+            XmlElement billAddress = xmlDoc.CreateElement("BillAddress");
+            billAddress.AppendChild(xmlDoc.CreateElement("Addr1")).InnerText = newMember.FirstName + " " + newMember.LastName;
+			billAddress.AppendChild(xmlDoc.CreateElement("Addr2")).InnerText = newMember.Address;
+			billAddress.AppendChild(xmlDoc.CreateElement("City")).InnerText = "Sun City West";
+			billAddress.AppendChild(xmlDoc.CreateElement("State")).InnerText = "AZ";
+            billAddress.AppendChild(xmlDoc.CreateElement("PostalCode")).InnerText = "85375";
+            customerAdd.AppendChild(billAddress);
+
+            customerAdd.AppendChild(xmlDoc.CreateElement("Phone")).InnerText = newMember.Phone;
+            customerAdd.AppendChild(xmlDoc.CreateElement("Fax")).InnerText = newMember.Badge;
+            customerAdd.AppendChild(xmlDoc.CreateElement("Email")).InnerText = newMember.Email;
+
+			XmlElement customerTypeRef = xmlDoc.CreateElement("CustomerTypeRef");
+			customerTypeRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "Club Member:X06F";
+			customerAdd.AppendChild(customerTypeRef);
+
+            customerAdd.AppendChild(xmlDoc.CreateElement("AccountNumber")).InnerText = newMember.RecNo;
+
+            customerAddRq.AppendChild(customerAdd);
+
+            xml = xmlDoc.OuterXml;
+            return xml;
+        }
+
+        private XmlElement buildRqEnvelope(XmlDocument doc, string maxVer)
+        {
+            doc.AppendChild(doc.CreateXmlDeclaration("1.0", null, null));
+            doc.AppendChild(doc.CreateProcessingInstruction("qbxml", "version=\"" + maxVer + "\""));
+            XmlElement qbXML = doc.CreateElement("QBXML");
+            doc.AppendChild(qbXML);
+            XmlElement qbXMLMsgsRq = doc.CreateElement("QBXMLMsgsRq");
+            qbXML.AppendChild(qbXMLMsgsRq);
+            qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+            return qbXMLMsgsRq;
+        }
+
+        private void connectToQB()
+        {
+            if (string.IsNullOrEmpty(sessionTicket))
+            {
+                requestProcessor = new RequestProcessor2Class();
+                requestProcessor.OpenConnection(appID, appName);
+                sessionTicket = requestProcessor.BeginSession(companyFile, qbFileMode);
+                string[] versions = requestProcessor.get_QBXMLVersionsForSession(sessionTicket);
+                maxVersion = versions[versions.Length - 1];
+            }
+        }
+
+        private void disconnectFromQB()
+        {
+            if (sessionTicket != null)
+            {
+                try
+                {
+                    requestProcessor.EndSession(sessionTicket);
+                    sessionTicket = null;
+                    requestProcessor.CloseConnection();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+        }
+
+        private string processRequestFromQB(string request)
+        {
+            try
+            {
+                return requestProcessor.ProcessRequest(sessionTicket, request);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+    }
 }
