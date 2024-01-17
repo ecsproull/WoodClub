@@ -39,20 +39,22 @@
 			this.buttonPrint = new System.Windows.Forms.Button();
 			this.printDialogLockers = new System.Windows.Forms.PrintDialog();
 			this.comboBox1 = new System.Windows.Forms.ComboBox();
-			this.bindingSourceLocker = new System.Windows.Forms.BindingSource(this.components);
+			this.PrintTag = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Locate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Project = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxLocker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Locate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Project = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.bindingSourceLocker = new System.Windows.Forms.BindingSource(this.components);
+			this.button2 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewLockers)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingSourceLocker)).BeginInit();
 			this.SuspendLayout();
@@ -67,6 +69,7 @@
 			this.dataGridViewLockers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewLockers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
+            this.PrintTag,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.Email,
@@ -117,7 +120,7 @@
 			// labelLockerFilter
 			// 
 			this.labelLockerFilter.AutoSize = true;
-			this.labelLockerFilter.Location = new System.Drawing.Point(764, 13);
+			this.labelLockerFilter.Location = new System.Drawing.Point(459, 9);
 			this.labelLockerFilter.Name = "labelLockerFilter";
 			this.labelLockerFilter.Size = new System.Drawing.Size(134, 13);
 			this.labelLockerFilter.TabIndex = 5;
@@ -125,14 +128,14 @@
 			// 
 			// textBoxLockerFilter
 			// 
-			this.textBoxLockerFilter.Location = new System.Drawing.Point(914, 10);
+			this.textBoxLockerFilter.Location = new System.Drawing.Point(607, 6);
 			this.textBoxLockerFilter.Name = "textBoxLockerFilter";
-			this.textBoxLockerFilter.Size = new System.Drawing.Size(77, 20);
+			this.textBoxLockerFilter.Size = new System.Drawing.Size(112, 20);
 			this.textBoxLockerFilter.TabIndex = 6;
 			// 
 			// buttonPrint
 			// 
-			this.buttonPrint.Location = new System.Drawing.Point(113, 3);
+			this.buttonPrint.Location = new System.Drawing.Point(110, 3);
 			this.buttonPrint.Name = "buttonPrint";
 			this.buttonPrint.Size = new System.Drawing.Size(75, 23);
 			this.buttonPrint.TabIndex = 7;
@@ -153,16 +156,56 @@
             "Open",
             "Training",
             "Special Project"});
-			this.comboBox1.Location = new System.Drawing.Point(217, 4);
+			this.comboBox1.Location = new System.Drawing.Point(306, 4);
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(121, 21);
 			this.comboBox1.TabIndex = 8;
 			this.comboBox1.Text = "All";
 			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
 			// 
-			// bindingSourceLocker
+			// PrintTag
 			// 
-			this.bindingSourceLocker.DataSource = typeof(WoodClub.Lockers);
+			this.PrintTag.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.PrintTag.DataPropertyName = "PrintTag";
+			this.PrintTag.HeaderText = "Tag";
+			this.PrintTag.Name = "PrintTag";
+			this.PrintTag.Width = 35;
+			// 
+			// Email
+			// 
+			this.Email.DataPropertyName = "Email";
+			this.Email.HeaderText = "Email";
+			this.Email.Name = "Email";
+			this.Email.Width = 200;
+			// 
+			// Phone
+			// 
+			this.Phone.DataPropertyName = "Phone";
+			this.Phone.HeaderText = "Phone";
+			this.Phone.Name = "Phone";
+			// 
+			// Cost
+			// 
+			this.Cost.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Cost.DataPropertyName = "Cost";
+			this.Cost.HeaderText = "Cost";
+			this.Cost.Name = "Cost";
+			this.Cost.Width = 50;
+			// 
+			// Locate
+			// 
+			this.Locate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.Locate.DataPropertyName = "Location";
+			this.Locate.HeaderText = "Location";
+			this.Locate.Name = "Locate";
+			// 
+			// Project
+			// 
+			this.Project.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Project.DataPropertyName = "Project";
+			this.Project.HeaderText = "Project";
+			this.Project.Name = "Project";
+			this.Project.Width = 120;
 			// 
 			// dataGridViewTextBoxColumn1
 			// 
@@ -190,19 +233,6 @@
 			this.dataGridViewTextBoxColumn3.MaxInputLength = 20;
 			this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
 			this.dataGridViewTextBoxColumn3.ReadOnly = true;
-			// 
-			// Email
-			// 
-			this.Email.DataPropertyName = "Email";
-			this.Email.HeaderText = "Email";
-			this.Email.Name = "Email";
-			this.Email.Width = 200;
-			// 
-			// Phone
-			// 
-			this.Phone.DataPropertyName = "Phone";
-			this.Phone.HeaderText = "Phone";
-			this.Phone.Name = "Phone";
 			// 
 			// dataGridViewCheckBoxColumn1
 			// 
@@ -247,34 +277,26 @@
 			this.dataGridViewTextBoxLocker.ReadOnly = true;
 			this.dataGridViewTextBoxLocker.Width = 75;
 			// 
-			// Cost
+			// bindingSourceLocker
 			// 
-			this.Cost.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Cost.DataPropertyName = "Cost";
-			this.Cost.HeaderText = "Cost";
-			this.Cost.Name = "Cost";
-			this.Cost.Width = 50;
+			this.bindingSourceLocker.DataSource = typeof(WoodClub.Lockers);
 			// 
-			// Locate
+			// button2
 			// 
-			this.Locate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.Locate.DataPropertyName = "Location";
-			this.Locate.HeaderText = "Location";
-			this.Locate.Name = "Locate";
-			// 
-			// Project
-			// 
-			this.Project.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Project.DataPropertyName = "Project";
-			this.Project.HeaderText = "Project";
-			this.Project.Name = "Project";
-			this.Project.Width = 120;
+			this.button2.Location = new System.Drawing.Point(208, 2);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(75, 23);
+			this.button2.TabIndex = 9;
+			this.button2.Text = "Print Tags";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
 			// LockerRpt
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1422, 619);
+			this.Controls.Add(this.button2);
 			this.Controls.Add(this.comboBox1);
 			this.Controls.Add(this.buttonPrint);
 			this.Controls.Add(this.textBoxLockerFilter);
@@ -306,6 +328,7 @@
         private System.Windows.Forms.PrintDialog printDialogLockers;
         private System.Windows.Forms.ComboBox comboBox1;
 		private System.Windows.Forms.DataGridViewButtonColumn dataGridViewTextBoxColumn1;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn PrintTag;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Email;
@@ -318,5 +341,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Cost;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Locate;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Project;
+		private System.Windows.Forms.Button button2;
 	}
 }
