@@ -178,11 +178,12 @@ namespace WoodClub
 			}
 
 			dataGridView1.Columns["Add"].DisplayIndex = 0;
-			dataGridView1.Columns["Badge"].DisplayIndex = 1;
-			dataGridView1.Columns["RecNo"].DisplayIndex = 2;
-			dataGridView1.Columns["FirstName"].DisplayIndex = 3;
-			dataGridView1.Columns["LastName"].DisplayIndex = 4;
-			dataGridView1.Columns["BillTo"].DisplayIndex = 5;
+			dataGridView1.Columns["Invoice"].DisplayIndex = 1;
+			dataGridView1.Columns["Badge"].DisplayIndex = 2;
+			dataGridView1.Columns["RecNo"].DisplayIndex = 3;
+			dataGridView1.Columns["FirstName"].DisplayIndex = 4;
+			dataGridView1.Columns["LastName"].DisplayIndex = 5;
+			dataGridView1.Columns["BillTo"].DisplayIndex = 6;
 	}
 
 		private string FormatProperName(string name)

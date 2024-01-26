@@ -235,6 +235,12 @@
     <Compile Include="Forms\NewMembers.designer.cs">
       <DependentUpon>NewMembers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PhotoImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PhotoImport.Designer.cs">
+      <DependentUpon>PhotoImport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RestoreOldMember.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -309,6 +315,7 @@
     <Compile Include="MemberPhoto.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
+    <Compile Include="MemberPictureEdit.cs" />
     <Compile Include="MemberRFcard.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
