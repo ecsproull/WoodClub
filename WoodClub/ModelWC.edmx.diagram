@@ -18,6 +18,8 @@
         <EntityTypeShape EntityType="WoodClubModel.MemberPhoto" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WoodClubModel.Time_zones" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WoodClubModel.MemberBackup" Width="1.5" PointX="9.375" PointY="7.75" />
+        <EntityTypeShape EntityType="WoodClubModel.MachineId" Width="1.5" PointX="2.5" PointY="10.5" />
+        <EntityTypeShape EntityType="WoodClubModel.MachinePerm" Width="1.5" PointX="4.5" PointY="10.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

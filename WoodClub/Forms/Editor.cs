@@ -817,5 +817,11 @@ namespace WoodClub
 			Editor_Load(null, null);
 			changesApplied = true;
 		}
+
+		private void permissions_Click(object sender, EventArgs e)
+		{
+			EditMachinePermissions ep = new EditMachinePermissions(this.badge);
+			ep.ShowDialog();
+		}
 	}
 }

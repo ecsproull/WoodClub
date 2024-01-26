@@ -93,6 +93,10 @@
 			this.clubTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+			this.machinePermissions = new System.Windows.Forms.ToolStripDropDownButton();
+			this.editPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -313,7 +317,9 @@
             this.toolStripSeparator5,
             this.toolStripDropDownButton3,
             this.toolStripSeparator6,
-            this.MultipleMembersButton});
+            this.MultipleMembersButton,
+            this.toolStripSeparator8,
+            this.machinePermissions});
 			this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
 			this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
 			this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -369,7 +375,6 @@
 			// 
 			this.bindingNavigatorPositionItem.AccessibleName = "Position";
 			this.bindingNavigatorPositionItem.AutoSize = false;
-			this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
 			this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
 			this.bindingNavigatorPositionItem.Text = "0";
@@ -444,14 +449,14 @@
 			// selectedToolStripMenuItem
 			// 
 			this.selectedToolStripMenuItem.Name = "selectedToolStripMenuItem";
-			this.selectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.selectedToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
 			this.selectedToolStripMenuItem.Text = "Selected";
 			this.selectedToolStripMenuItem.Click += new System.EventHandler(this.selectedToolStripMenuItem_Click);
 			// 
 			// selectAllToolStripMenuItem
 			// 
 			this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-			this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
 			this.selectAllToolStripMenuItem.Text = "ExportAll";
 			this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.exportAllToolStripMenuItem_Click);
 			// 
@@ -578,7 +583,6 @@
 			// 
 			// toolStripTextBox1
 			// 
-			this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBox1.Name = "toolStripTextBox1";
 			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
 			this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
@@ -599,7 +603,6 @@
 			// 
 			// toolStripTextBoxFilter
 			// 
-			this.toolStripTextBoxFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBoxFilter.Name = "toolStripTextBoxFilter";
 			this.toolStripTextBoxFilter.Size = new System.Drawing.Size(100, 25);
 			// 
@@ -655,6 +658,36 @@
 			this.MultipleMembersButton.Name = "MultipleMembersButton";
 			this.MultipleMembersButton.Size = new System.Drawing.Size(79, 22);
 			this.MultipleMembersButton.Text = "Multi Credits";
+			// 
+			// toolStripSeparator8
+			// 
+			this.toolStripSeparator8.Name = "toolStripSeparator8";
+			this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
+			// 
+			// machinePermissions
+			// 
+			this.machinePermissions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.machinePermissions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editPermissionsToolStripMenuItem,
+            this.reportToolStripMenuItem});
+			this.machinePermissions.Image = ((System.Drawing.Image)(resources.GetObject("machinePermissions.Image")));
+			this.machinePermissions.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.machinePermissions.Name = "machinePermissions";
+			this.machinePermissions.Size = new System.Drawing.Size(70, 22);
+			this.machinePermissions.Text = "MC Perm";
+			// 
+			// editPermissionsToolStripMenuItem
+			// 
+			this.editPermissionsToolStripMenuItem.Name = "editPermissionsToolStripMenuItem";
+			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.editPermissionsToolStripMenuItem.Text = "Edit Permissions";
+			this.editPermissionsToolStripMenuItem.Click += new System.EventHandler(this.editMachinePermissions_Click);
+			// 
+			// reportToolStripMenuItem
+			// 
+			this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
+			this.reportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.reportToolStripMenuItem.Text = "Report";
 			// 
 			// MainMembers
 			// 
@@ -743,6 +776,10 @@
 		private System.Windows.Forms.ToolStripDropDownButton badgesDropDownButton;
 		private System.Windows.Forms.ToolStripMenuItem selectedToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+		private System.Windows.Forms.ToolStripDropDownButton machinePermissions;
+		private System.Windows.Forms.ToolStripMenuItem editPermissionsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
 	}
 }
 

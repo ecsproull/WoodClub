@@ -6,7 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-#pragma warning disable 6002
+
 namespace WoodClub
 {
     using System;
@@ -38,5 +38,7 @@ namespace WoodClub
         public virtual DbSet<MemberPhoto> MemberPhotos { get; set; }
         public virtual DbSet<Time_zones> Time_zones { get; set; }
         public virtual DbSet<MemberBackup> MemberBackups { get; set; }
+        public virtual DbSet<MachineId> MachineIds { get; set; }
+        public virtual DbSet<MachinePerm> MachinePerms { get; set; }
     }
 }

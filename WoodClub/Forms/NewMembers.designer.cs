@@ -30,7 +30,11 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.bs_newmember = new System.Windows.Forms.BindingSource(this.components);
+			this.buttonAddToDb = new System.Windows.Forms.Button();
+			this.quickBooksButton = new System.Windows.Forms.Button();
 			this.Add = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.Invoice = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.RecNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,9 +48,6 @@
 			this.Zip = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.MemberDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.CardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.bs_newmember = new System.Windows.Forms.BindingSource(this.components);
-			this.buttonAddToDb = new System.Windows.Forms.Button();
-			this.quickBooksButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bs_newmember)).BeginInit();
 			this.SuspendLayout();
@@ -62,6 +63,7 @@
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Add,
+            this.Invoice,
             this.Badge,
             this.RecNo,
             this.FirstName,
@@ -78,8 +80,28 @@
 			this.dataGridView1.Location = new System.Drawing.Point(3, 12);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowHeadersVisible = false;
-			this.dataGridView1.Size = new System.Drawing.Size(1141, 388);
+			this.dataGridView1.Size = new System.Drawing.Size(1155, 397);
 			this.dataGridView1.TabIndex = 0;
+			// 
+			// buttonAddToDb
+			// 
+			this.buttonAddToDb.Location = new System.Drawing.Point(951, 418);
+			this.buttonAddToDb.Name = "buttonAddToDb";
+			this.buttonAddToDb.Size = new System.Drawing.Size(75, 23);
+			this.buttonAddToDb.TabIndex = 1;
+			this.buttonAddToDb.Text = "Add To DB";
+			this.buttonAddToDb.UseVisualStyleBackColor = true;
+			this.buttonAddToDb.Click += new System.EventHandler(this.buttonAddToDb_Click);
+			// 
+			// quickBooksButton
+			// 
+			this.quickBooksButton.Location = new System.Drawing.Point(115, 418);
+			this.quickBooksButton.Name = "quickBooksButton";
+			this.quickBooksButton.Size = new System.Drawing.Size(75, 23);
+			this.quickBooksButton.TabIndex = 2;
+			this.quickBooksButton.Text = "Add To QB";
+			this.quickBooksButton.UseVisualStyleBackColor = true;
+			this.quickBooksButton.Click += new System.EventHandler(this.quickBooksButton_Click);
 			// 
 			// Add
 			// 
@@ -88,6 +110,14 @@
 			this.Add.HeaderText = "Add";
 			this.Add.Name = "Add";
 			this.Add.Width = 60;
+			// 
+			// Invoice
+			// 
+			this.Invoice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Invoice.DataPropertyName = "CreateInvoice";
+			this.Invoice.HeaderText = "Invoice";
+			this.Invoice.Name = "Invoice";
+			this.Invoice.Width = 60;
 			// 
 			// Badge
 			// 
@@ -167,26 +197,6 @@
 			this.CardNo.HeaderText = "CardNo";
 			this.CardNo.Name = "CardNo";
 			// 
-			// buttonAddToDb
-			// 
-			this.buttonAddToDb.Location = new System.Drawing.Point(951, 415);
-			this.buttonAddToDb.Name = "buttonAddToDb";
-			this.buttonAddToDb.Size = new System.Drawing.Size(75, 23);
-			this.buttonAddToDb.TabIndex = 1;
-			this.buttonAddToDb.Text = "Add To DB";
-			this.buttonAddToDb.UseVisualStyleBackColor = true;
-			this.buttonAddToDb.Click += new System.EventHandler(this.buttonAddToDb_Click);
-			// 
-			// quickBooksButton
-			// 
-			this.quickBooksButton.Location = new System.Drawing.Point(115, 415);
-			this.quickBooksButton.Name = "quickBooksButton";
-			this.quickBooksButton.Size = new System.Drawing.Size(75, 23);
-			this.quickBooksButton.TabIndex = 2;
-			this.quickBooksButton.Text = "Add To QB";
-			this.quickBooksButton.UseVisualStyleBackColor = true;
-			this.quickBooksButton.Click += new System.EventHandler(this.quickBooksButton_Click);
-			// 
 			// NewMembers
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,7 +219,9 @@
 		private System.Windows.Forms.DataGridView dataGridView1;
 		private System.Windows.Forms.BindingSource bs_newmember;
 		private System.Windows.Forms.Button buttonAddToDb;
+		private System.Windows.Forms.Button quickBooksButton;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn Add;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn Invoice;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Badge;
 		private System.Windows.Forms.DataGridViewTextBoxColumn RecNo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
@@ -223,7 +235,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Zip;
 		private System.Windows.Forms.DataGridViewTextBoxColumn MemberDate;
 		private System.Windows.Forms.DataGridViewTextBoxColumn CardNo;
-		private System.Windows.Forms.Button quickBooksButton;
 	}
 }
 

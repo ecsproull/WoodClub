@@ -465,5 +465,11 @@ namespace WoodClub
 			frfb.ShowDialog();
 			LoadMembers();
 		}
+
+		private void editMachinePermissions_Click(object sender, EventArgs e)
+		{
+			var perms = new EditMachinePermissions();
+			perms.ShowDialog();
+		}
 	}
 }
