@@ -329,7 +329,7 @@ namespace WoodClub
 					}
 				}
 
-				//Loop till all the grid rows not get printed
+				//Loop till all the grid rows get printed
 				int iRow = rowsPrinted;
 				while (iRow <= dataGridViewLockers.Rows.Count - 1)
 				{

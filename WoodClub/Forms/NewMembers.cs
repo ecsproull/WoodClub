@@ -74,7 +74,7 @@ namespace WoodClub
 		{
 			int firstBadgeNumber = GetStartingBadgeNumber();
 			SignUpGenisus sug = new SignUpGenisus();
-			Rootobject ro = await sug.GetSignup(DateTime.Now.AddDays(-15));
+			Rootobject ro = await sug.GetSignup(DateTime.Now.AddDays(-10));
 
 			if (ro == null)
 			{
@@ -99,7 +99,7 @@ namespace WoodClub
 			List<SignupSlot> slots = new List<SignupSlot>();
 			string startDate = string.Empty;
 			DateTime startScanDate = DateTime.Now.AddDays(-10);
-			DateTime endScanDate = DateTime.Now.AddDays(+15);
+			DateTime endScanDate = DateTime.Now.AddDays(+23);
 			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				foreach (SignupSlot sl in ro.data.signup)
@@ -156,26 +156,6 @@ namespace WoodClub
 					}
 				}
 			}
-
-			//if (members.Count == 0)
-			//{
-			//	for(int i = 0; i < 3; i++)
-			//	{
-			//		members.Add(new NewMember
-			//		{
-			//			Add = i % 2 == 0 ? true : false,
-			//			FirstName = "FirstNmame_" + i.ToString(),
-			//			LastName = "LastName_" + i.ToString(),
-			//			Email = "foo_" + i.ToString() + "@bar.com",
-			//			Phone = "623-975-999" + i.ToString(),
-			//			Address = i.ToString() + " My Lane",
-			//			City = "Sun City West",
-			//			State = "AZ",
-			//			ZipCode = "85375",
-			//			RecNo = i.ToString() + "5555"
-            //      });
-			//	}
-			//}
 
 			bs_newmember.DataSource = members;
 			this.dataGridView1.DataSource = bs_newmember;
