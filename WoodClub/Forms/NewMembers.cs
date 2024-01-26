@@ -300,7 +300,6 @@ namespace WoodClub
 				}
 
 				context.SaveChanges();
-				DialogResult = DialogResult.OK;
 			}
 		}
 
@@ -320,7 +319,7 @@ namespace WoodClub
 				{
 					if (member.Add)
 					{
-						string response = processRequestFromQB(buildAddCustomersQueryRqXML(member));
+						//string response = processRequestFromQB(buildAddCustomersQueryRqXML(member));
 					}
 				}
             }

@@ -3,6 +3,7 @@
 	class Lockers
 	{
 		public int id { get; set; }
+		public bool PrintTag { get; set; }
 		public string Badge { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }

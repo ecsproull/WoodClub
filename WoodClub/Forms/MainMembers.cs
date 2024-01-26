@@ -23,11 +23,13 @@ namespace WoodClub
 		private readonly UdpClient udpClient = new UdpClient();
 
 		private SortableBindingList<MembersExtended> blMembers;
+		private SortableBindingList<MembersExtended> filteredBindingList = new SortableBindingList<MembersExtended>();
 		private readonly BindingSource bsMembers;
 		private MemberRoster currentMember;
 		private Members members;
 		public bool update;
 		public bool added;
+		private bool filteredBoxEdit = false;
 
 		public MainMembers()
 		{
@@ -75,12 +77,18 @@ namespace WoodClub
 			bsMembers.Position = 0;
 			bindingNavigator1.BindingSource = bsMembers;
 			toolStripTextBoxFilter.KeyUp += TextBoxName_KeyUp;
+			toolStripTextBox1.KeyUp += ToolStripTextBox1_KeyUp; ;
 			toolStripImportNewMembers.Click += ToolStripImportNewMembers_Click;
 			MultipleMembersButton.Click += MultipleMembersButton_Click;
             menuItemFreeDayOnly.Click += MenuItemFreeDayOnly_Click;
 		}
 
-        private void MenuItemFreeDayOnly_Click(object sender, EventArgs e)
+		private void ToolStripTextBox1_KeyUp(object sender, KeyEventArgs e)
+		{
+			filteredBoxEdit = false;
+		}
+
+		private void MenuItemFreeDayOnly_Click(object sender, EventArgs e)
         {
 			FreeDayOnlyUsers fdo = new FreeDayOnlyUsers();
 			fdo.Show();
@@ -111,7 +119,38 @@ namespace WoodClub
 
 		private void TextBoxName_KeyUp(object sender, KeyEventArgs e)
 		{
+			filteredBoxEdit = true;
 			setBsMembersDataSource();
+
+			if (e.KeyData == Keys.Enter && filteredBindingList.Count == 1)
+			{
+				Editor editor = new Editor(filteredBindingList[0].Badge);
+				editor.ShowDialog();
+
+				setTextBoxFocus();
+			}
+		}
+
+		private void setTextBoxFocus()
+		{
+			if (filteredBoxEdit)
+			{
+				if (toolStripTextBoxFilter.Control.Text.Length > 0)
+				{
+					ActiveControl = toolStripTextBoxFilter.Control;
+					toolStripTextBoxFilter.SelectionStart = 0;
+					toolStripTextBoxFilter.SelectionLength = toolStripTextBoxFilter.Control.Text.Length;
+				}
+			}
+			else
+			{
+				if (toolStripTextBox1.Control.Text.Length > 0)
+				{
+					ActiveControl = toolStripTextBox1.Control;
+					toolStripTextBox1.SelectionStart = 0;
+					toolStripTextBox1.SelectionLength = toolStripTextBox1.Control.Text.Length;
+				}
+			}
 		}
 
 		private void setBsMembersDataSource()
@@ -123,7 +162,7 @@ namespace WoodClub
 			}
 			else
 			{
-				var filteredBindingList = new SortableBindingList<MembersExtended>(blMembers.Where(
+				filteredBindingList = new SortableBindingList<MembersExtended>(blMembers.Where(
 					x => x.FirstName.ToUpper().Contains(filter.ToUpper()) ||
 					x.LastName.ToUpper().Contains(filter.ToUpper()) ||
 					x.Badge.Contains(filter)).ToList());
@@ -218,9 +257,7 @@ namespace WoodClub
 				frm.Dispose();
 			}
 
-			ActiveControl = toolStripTextBox1.Control;
-			toolStripTextBox1.SelectionStart = 0;
-			toolStripTextBox1.SelectionLength = toolStripTextBox1.Control.Text.Length;
+			setTextBoxFocus();
 		}
 
 		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -274,6 +311,7 @@ namespace WoodClub
 
 		private void tb_KeyDown(object sender, KeyEventArgs e)
 		{
+			filteredBoxEdit = false;
 			if (e.KeyCode == Keys.Enter)
 			{
 				Find_Badge();
@@ -426,6 +464,12 @@ namespace WoodClub
 			RFBadge frfb = new RFBadge();
 			frfb.ShowDialog();
 			LoadMembers();
+		}
+
+		private void editMachinePermissions_Click(object sender, EventArgs e)
+		{
+			var perms = new EditMachinePermissions();
+			perms.ShowDialog();
 		}
 	}
 }

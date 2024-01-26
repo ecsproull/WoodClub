@@ -74,6 +74,27 @@ warning 6002: The table/view 'WoodClub.dbo.BadgeCodes' does not have a primary k
           <Property Name="Badge" Type="nvarchar" MaxLength="5" />
           <Property Name="Project" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'WoodClub.dbo.MachineIds' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MachineIds">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="MachineTypeName" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MachineTypeName" Type="nvarchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MachinePerms">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Badge" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="MachineId" Type="int" Nullable="false" />
+          <Property Name="ApprovedBy" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ApprovedDate" Type="datetime" Nullable="false" />
+          <Property Name="Blocked" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="MemberBackup">
           <Key>
             <PropertyRef Name="id" />
@@ -256,6 +277,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="LockerCost" EntityType="Self.LockerCost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LockerLocations" EntityType="Self.LockerLocations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lockers" EntityType="Self.Lockers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MachinePerms" EntityType="Self.MachinePerms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberBackup" EntityType="Self.MemberBackup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberRFcard" EntityType="Self.MemberRFcard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberRoster" EntityType="Self.MemberRoster" Schema="dbo" store:Type="Tables" />
@@ -283,6 +305,12 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
     [BadgeCodes].[CodeValue] AS [CodeValue], 
     [BadgeCodes].[ShowInUi] AS [ShowInUi]
     FROM [dbo].[BadgeCodes] AS [BadgeCodes]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MachineIds" EntityType="Self.MachineIds" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MachineIds].[id] AS [id], 
+    [MachineIds].[MachineTypeName] AS [MachineTypeName]
+    FROM [dbo].[MachineIds] AS [MachineIds]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="MemberPhotos" EntityType="Self.MemberPhotos" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -563,6 +591,8 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="MemberPhotos" EntityType="Self.MemberPhoto" />
           <EntitySet Name="Time_zones" EntityType="Self.Time_zones" />
           <EntitySet Name="MemberBackups" EntityType="WoodClubModel.MemberBackup" />
+          <EntitySet Name="MachineIds" EntityType="WoodClubModel.MachineId" />
+          <EntitySet Name="MachinePerms" EntityType="WoodClubModel.MachinePerm" />
         </EntityContainer>
         <EntityType Name="MemberBackup">
           <Key>
@@ -601,6 +631,25 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="GroupTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="AdminBlock" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="MachineId">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="MachineTypeName" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MachineTypeName" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MachinePerm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Badge" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="MachineId" Type="Int32" Nullable="false" />
+          <Property Name="ApprovedBy" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Blocked" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -851,6 +900,26 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MachineIds">
+            <EntityTypeMapping TypeName="WoodClubModel.MachineId">
+              <MappingFragment StoreEntitySet="MachineIds">
+                <ScalarProperty Name="MachineTypeName" ColumnName="MachineTypeName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MachinePerms">
+            <EntityTypeMapping TypeName="WoodClubModel.MachinePerm">
+              <MappingFragment StoreEntitySet="MachinePerms">
+                <ScalarProperty Name="Blocked" ColumnName="Blocked" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="MachineId" ColumnName="MachineId" />
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

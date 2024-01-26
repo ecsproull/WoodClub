@@ -6,6 +6,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WoodClub
 {
@@ -475,5 +476,91 @@ namespace WoodClub
 			bsLockers.DataSource = filteredBindingList;
 			dataGridViewLockers.Refresh();
 		}
-    }
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			var tagsToPrint = blLockers.Filter(l => l.PrintTag == true);
+			string message = string.Empty;
+			
+			PrintDocument printDocument = new PrintDocument();
+			printDocument.PrintPage += printTags;
+			PrintDialog printDialog = new PrintDialog();
+			PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
+			printPreviewDialog.Document = printDocument;
+			DialogResult result = printPreviewDialog.ShowDialog();
+			// printDocument.Print();
+			
+			
+			
+			foreach (var tag in tagsToPrint)
+			{
+				message += tag.FirstName + " " + tag.LastName + " - " + tag.HasLocker + Environment.NewLine;
+			}
+			//MessageBox.Show(message);
+		}
+
+		private void printTags(object sender, PrintPageEventArgs e)
+		{
+			var tagsToPrint = blLockers.Filter(l => l.PrintTag == true);
+			Graphics g = e.Graphics;
+
+			// Set the page unit to millimeters
+			g.PageUnit = GraphicsUnit.Inch;
+			float x = 0.25f;
+			float y = 0.25f;
+			float width = 3.75f;
+			float height = 2f;
+
+			//Locker text rect
+			float textRectLockerTop = 0.25f;
+			float textRectNameTop = 1.15f;
+			float textLockerHeight = 0.625f;
+			float textNameHeight = 0.45f;
+
+			int i = 0;
+			foreach( var tag in tagsToPrint)
+			{
+				float x1;
+				float y1;
+				if (i < 4)
+				{
+					y1 = y + (i * y) + (i * height);
+					x1 = x;
+				}
+				else
+				{
+					y1 = y + ((i - 4) * y) + ((i - 4)  * height);
+					x1 = 2 * x + width;
+				}
+
+				// Create a rectangle object
+				RectangleF rectOutter = new RectangleF(x, y, width, height);
+				Pen pen = new Pen(Color.Black, 0.01f);
+				g.DrawRectangle(pen, x1, y1, rectOutter.Width, rectOutter.Height);
+
+
+				RectangleF rectLocker = new RectangleF(x1, y1 + textRectLockerTop, width - 0.1f, textLockerHeight);
+				Font fontLocker = new Font("Arial", 48, FontStyle.Bold);
+				Brush brush = Brushes.Black;
+				var format = new StringFormat() { Alignment = StringAlignment.Far };
+				g.DrawString(tag.HasLocker, fontLocker, brush, rectLocker, format);
+
+
+				RectangleF rectName = new RectangleF(x1, y1 + textRectNameTop, width - 0.1f, textNameHeight);
+				string name = tag.FirstName + " " + tag.LastName;
+				Font fontName;
+				if (name.Length > 16)
+				{
+					fontName = new Font("Arial", 24, FontStyle.Bold);
+				}
+				else
+				{
+					fontName = new Font("Arial", 28, FontStyle.Bold);
+				}
+					g.DrawString(name, fontName, brush, rectName, format);
+
+				i++;
+			}
+		}
+	}
 }

@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>50</ApplicationRevision>
+    <ApplicationRevision>52</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -181,6 +181,18 @@
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />
     <Compile Include="DirtyTracker\FormDirtyTracker.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Forms\AddPermissions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddPermissions.Designer.cs">
+      <DependentUpon>AddPermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditMachinePermissions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditMachinePermissions.Designer.cs">
+      <DependentUpon>EditMachinePermissions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FirstBadgeNumber.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -284,9 +296,16 @@
     </Compile>
     <Compile Include="Lockers.cs" />
     <Compile Include="LogErrors.cs" />
+    <Compile Include="MachineId.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MachinePerm.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="MemberBackup.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
+    <Compile Include="MemberPermissionsItem.cs" />
     <Compile Include="MemberPhoto.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
@@ -368,6 +387,12 @@
     </Compile>
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="UnpaidMember.cs" />
+    <EmbeddedResource Include="Forms\AddPermissions.resx">
+      <DependentUpon>AddPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditMachinePermissions.resx">
+      <DependentUpon>EditMachinePermissions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FirstBadgeNumber.resx">
       <DependentUpon>FirstBadgeNumber.cs</DependentUpon>
     </EmbeddedResource>
