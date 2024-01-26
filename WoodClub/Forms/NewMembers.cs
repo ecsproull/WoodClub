@@ -319,7 +319,12 @@ namespace WoodClub
 				{
 					if (member.Add)
 					{
-						//string response = processRequestFromQB(buildAddCustomersQueryRqXML(member));
+						string response = processRequestFromQB(buildAddCustomersQueryRqXML(member));
+
+						if (member.CreateInvoice)
+						{
+							response = processRequestFromQB(buildInvoiceAddRqXML(member.Badge));
+						}
 					}
 				}
             }
@@ -366,7 +371,51 @@ namespace WoodClub
             return xml;
         }
 
-        private XmlElement buildRqEnvelope(XmlDocument doc, string maxVer)
+		private string buildInvoiceAddRqXML(string customer)
+		{
+			string requestXML = "";
+
+			//if (!validateInput()) return null;
+
+			//GET ALL INPUT INTO XML
+			XmlDocument xmlDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+			XmlElement InvoiceAddRq = xmlDoc.CreateElement("InvoiceAddRq");
+			qbXMLMsgsRq.AppendChild(InvoiceAddRq);
+			XmlElement InvoiceAdd = xmlDoc.CreateElement("InvoiceAdd");
+			InvoiceAddRq.AppendChild(InvoiceAdd);
+
+			XmlElement Element_CustomerRef = xmlDoc.CreateElement("CustomerRef");
+			InvoiceAdd.AppendChild(Element_CustomerRef);
+			XmlElement Element_CustomerRef_FullName = xmlDoc.CreateElement("FullName");
+			Element_CustomerRef.AppendChild(Element_CustomerRef_FullName).InnerText = customer;
+
+
+			//Line Items
+			XmlElement invoiceLineAdd = xmlDoc.CreateElement("InvoiceLineAdd");
+			InvoiceAdd.AppendChild(invoiceLineAdd);
+			XmlElement itemRef = xmlDoc.CreateElement("ItemRef");
+			invoiceLineAdd.AppendChild(itemRef);
+			itemRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "X065";
+			invoiceLineAdd.AppendChild(xmlDoc.CreateElement("Quantity")).InnerText = "1";
+			invoiceLineAdd.AppendChild(xmlDoc.CreateElement("Amount")).InnerText = "50.00";
+
+			XmlElement invoiceLineAdd2 = xmlDoc.CreateElement("InvoiceLineAdd");
+			InvoiceAdd.AppendChild(invoiceLineAdd2);
+			XmlElement itemRef2 = xmlDoc.CreateElement("ItemRef");
+			invoiceLineAdd2.AppendChild(itemRef2);
+			itemRef2.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "X02";
+			invoiceLineAdd2.AppendChild(xmlDoc.CreateElement("Quantity")).InnerText = "1";
+			invoiceLineAdd2.AppendChild(xmlDoc.CreateElement("Amount")).InnerText = "35.00";
+
+			InvoiceAddRq.SetAttribute("requestID", "99");
+			requestXML = xmlDoc.OuterXml;
+
+			return requestXML;
+		}
+
+		private XmlElement buildRqEnvelope(XmlDocument doc, string maxVer)
         {
             doc.AppendChild(doc.CreateXmlDeclaration("1.0", null, null));
             doc.AppendChild(doc.CreateProcessingInstruction("qbxml", "version=\"" + maxVer + "\""));
