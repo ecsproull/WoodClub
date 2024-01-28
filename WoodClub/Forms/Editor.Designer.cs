@@ -702,16 +702,16 @@
 			// pictureBox1
 			// 
 			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.pictureBox1.Location = new System.Drawing.Point(481, 3);
+			this.pictureBox1.Location = new System.Drawing.Point(506, 3);
 			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(200, 200);
+			this.pictureBox1.Size = new System.Drawing.Size(184, 200);
 			this.pictureBox1.TabIndex = 26;
 			this.pictureBox1.TabStop = false;
 			// 
 			// lblPhoto
 			// 
 			this.lblPhoto.AutoSize = true;
-			this.lblPhoto.Location = new System.Drawing.Point(440, 79);
+			this.lblPhoto.Location = new System.Drawing.Point(464, 79);
 			this.lblPhoto.Name = "lblPhoto";
 			this.lblPhoto.Size = new System.Drawing.Size(35, 13);
 			this.lblPhoto.TabIndex = 25;

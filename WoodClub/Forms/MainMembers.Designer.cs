@@ -97,6 +97,7 @@
 			this.machinePermissions = new System.Windows.Forms.ToolStripDropDownButton();
 			this.editPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.importPhotosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -375,6 +376,7 @@
 			// 
 			this.bindingNavigatorPositionItem.AccessibleName = "Position";
 			this.bindingNavigatorPositionItem.AutoSize = false;
+			this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
 			this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
 			this.bindingNavigatorPositionItem.Text = "0";
@@ -583,6 +585,7 @@
 			// 
 			// toolStripTextBox1
 			// 
+			this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBox1.Name = "toolStripTextBox1";
 			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
 			this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
@@ -603,6 +606,7 @@
 			// 
 			// toolStripTextBoxFilter
 			// 
+			this.toolStripTextBoxFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBoxFilter.Name = "toolStripTextBoxFilter";
 			this.toolStripTextBoxFilter.Size = new System.Drawing.Size(100, 25);
 			// 
@@ -616,6 +620,7 @@
 			this.toolStripDropDownButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripImportNewMembers,
+            this.importPhotosToolStripMenuItem,
             this.restoreOldToolStripMenuItem,
             this.clubTracksToolStripMenuItem});
 			this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
@@ -628,20 +633,20 @@
 			// toolStripImportNewMembers
 			// 
 			this.toolStripImportNewMembers.Name = "toolStripImportNewMembers";
-			this.toolStripImportNewMembers.Size = new System.Drawing.Size(173, 22);
+			this.toolStripImportNewMembers.Size = new System.Drawing.Size(180, 22);
 			this.toolStripImportNewMembers.Text = "Import Orientation";
 			// 
 			// restoreOldToolStripMenuItem
 			// 
 			this.restoreOldToolStripMenuItem.Name = "restoreOldToolStripMenuItem";
-			this.restoreOldToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+			this.restoreOldToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.restoreOldToolStripMenuItem.Text = "Restore Old";
 			this.restoreOldToolStripMenuItem.Click += new System.EventHandler(this.restoreOldToolStripMenuItem_Click);
 			// 
 			// clubTracksToolStripMenuItem
 			// 
 			this.clubTracksToolStripMenuItem.Name = "clubTracksToolStripMenuItem";
-			this.clubTracksToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+			this.clubTracksToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.clubTracksToolStripMenuItem.Text = "Club Tracks";
 			this.clubTracksToolStripMenuItem.Click += new System.EventHandler(this.clubTracksToolStripMenuItem_Click_1);
 			// 
@@ -679,15 +684,22 @@
 			// editPermissionsToolStripMenuItem
 			// 
 			this.editPermissionsToolStripMenuItem.Name = "editPermissionsToolStripMenuItem";
-			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.editPermissionsToolStripMenuItem.Text = "Edit Permissions";
 			this.editPermissionsToolStripMenuItem.Click += new System.EventHandler(this.editMachinePermissions_Click);
 			// 
 			// reportToolStripMenuItem
 			// 
 			this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-			this.reportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.reportToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.reportToolStripMenuItem.Text = "Report";
+			// 
+			// importPhotosToolStripMenuItem
+			// 
+			this.importPhotosToolStripMenuItem.Name = "importPhotosToolStripMenuItem";
+			this.importPhotosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.importPhotosToolStripMenuItem.Text = "Import Photos";
+			this.importPhotosToolStripMenuItem.Click += new System.EventHandler(this.importPhotosToolStripMenuItem_Click);
 			// 
 			// MainMembers
 			// 
@@ -780,6 +792,7 @@
 		private System.Windows.Forms.ToolStripDropDownButton machinePermissions;
 		private System.Windows.Forms.ToolStripMenuItem editPermissionsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem importPhotosToolStripMenuItem;
 	}
 }
 

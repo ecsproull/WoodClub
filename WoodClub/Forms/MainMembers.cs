@@ -471,5 +471,11 @@ namespace WoodClub
 			var perms = new EditMachinePermissions();
 			perms.ShowDialog();
 		}
+
+		private void importPhotosToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			PhotoImport photoImport = new PhotoImport();
+			photoImport.ShowDialog();
+		}
 	}
 }

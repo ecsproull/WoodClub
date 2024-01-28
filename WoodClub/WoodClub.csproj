@@ -422,6 +422,9 @@
     <EmbeddedResource Include="Forms\NewMembers.resx">
       <DependentUpon>NewMembers.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PhotoImport.resx">
+      <DependentUpon>PhotoImport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RestoreOldMember.resx">
       <DependentUpon>RestoreOldMember.cs</DependentUpon>
     </EmbeddedResource>

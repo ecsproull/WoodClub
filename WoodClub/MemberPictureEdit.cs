@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Drawing;
 
 namespace WoodClub
 {
 	internal class MemberPictureEdit
 	{
+		public string OriginalPath { get; set; }
+		public string SavePath { get; set; }
 		public string Badge { get; set; }
-		public PictureBox FullSize { get; set; }
-		public PictureBox Cropped { get; set; }
-		public PictureBox BadgeSize { get; set; }
-		public PictureBox AppSize { get; set; }
+		public Image FullSize { get; set; }
+		public Image Cropped { get; set; }
+		public Image BadgeSize { get; set; }
+		public int CenterX { get; set; } = -1000;
+		public int CenterY { get; set; }
 	}
 }
