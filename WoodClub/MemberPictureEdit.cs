@@ -4,6 +4,7 @@ namespace WoodClub
 {
 	internal class MemberPictureEdit
 	{
+		public string SaveText { get; set; } = "Save Row";
 		public string OriginalPath { get; set; }
 		public string SavePath { get; set; }
 		public string Badge { get; set; }

@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>52</ApplicationRevision>
+    <ApplicationRevision>53</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -186,6 +186,12 @@
     </Compile>
     <Compile Include="Forms\AddPermissions.Designer.cs">
       <DependentUpon>AddPermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DisplayPictureBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DisplayPictureBox.Designer.cs">
+      <DependentUpon>DisplayPictureBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\EditMachinePermissions.cs">
       <SubType>Form</SubType>
@@ -396,6 +402,9 @@
     <Compile Include="UnpaidMember.cs" />
     <EmbeddedResource Include="Forms\AddPermissions.resx">
       <DependentUpon>AddPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DisplayPictureBox.resx">
+      <DependentUpon>DisplayPictureBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditMachinePermissions.resx">
       <DependentUpon>EditMachinePermissions.cs</DependentUpon>

@@ -31,6 +31,7 @@
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.loadImagesButton = new System.Windows.Forms.Button();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.newImagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -41,6 +42,7 @@
 			this.FullSize = new System.Windows.Forms.DataGridViewImageColumn();
 			this.Cropped = new System.Windows.Forms.DataGridViewImageColumn();
 			this.BadgeSize = new System.Windows.Forms.DataGridViewImageColumn();
+			this.FrontDoor = new System.Windows.Forms.DataGridViewButtonColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.newImagesBindingSource)).BeginInit();
 			this.SuspendLayout();
@@ -69,7 +71,8 @@
             this.Badge,
             this.FullSize,
             this.Cropped,
-            this.BadgeSize});
+            this.BadgeSize,
+            this.FrontDoor});
 			this.dataGridView1.DataSource = this.newImagesBindingSource;
 			this.dataGridView1.Location = new System.Drawing.Point(0, 0);
 			this.dataGridView1.Name = "dataGridView1";
@@ -98,20 +101,28 @@
 			// 
 			// SaveRow
 			// 
+			this.SaveRow.DataPropertyName = "SaveText";
 			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
 			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+			dataGridViewCellStyle1.NullValue = null;
+			dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(0, 210, 0, 210);
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.SaveRow.DefaultCellStyle = dataGridViewCellStyle1;
-			this.SaveRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.SaveRow.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.SaveRow.HeaderText = "Save";
 			this.SaveRow.Name = "SaveRow";
 			this.SaveRow.ReadOnly = true;
-			this.SaveRow.Text = "Save Row";
-			this.SaveRow.ToolTipText = "Save Row";
+			this.SaveRow.Text = "";
 			// 
 			// Badge
 			// 
 			this.Badge.DataPropertyName = "Badge";
 			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 220, 0, 220);
 			this.Badge.DefaultCellStyle = dataGridViewCellStyle2;
 			this.Badge.HeaderText = "Badge";
 			this.Badge.Name = "Badge";
@@ -139,6 +150,16 @@
 			this.BadgeSize.HeaderText = "Badge Size";
 			this.BadgeSize.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
 			this.BadgeSize.Name = "BadgeSize";
+			// 
+			// FrontDoor
+			// 
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 120, 0, 120);
+			this.FrontDoor.DefaultCellStyle = dataGridViewCellStyle3;
+			this.FrontDoor.HeaderText = "Front Door";
+			this.FrontDoor.Name = "FrontDoor";
+			this.FrontDoor.Text = "Front Door";
+			this.FrontDoor.UseColumnTextForButtonValue = true;
 			// 
 			// PhotoImport
 			// 
@@ -170,5 +191,6 @@
 		private System.Windows.Forms.DataGridViewImageColumn FullSize;
 		private System.Windows.Forms.DataGridViewImageColumn Cropped;
 		private System.Windows.Forms.DataGridViewImageColumn BadgeSize;
+		private System.Windows.Forms.DataGridViewButtonColumn FrontDoor;
 	}
 }
