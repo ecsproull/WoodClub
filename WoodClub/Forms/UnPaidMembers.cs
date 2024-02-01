@@ -64,11 +64,14 @@ namespace WoodClub
 								{
 									string line = sr.ReadLine();
 									string[] parts = line.Split(',');
-									paidList.Add(new BadgeDate
+									if (!string.IsNullOrEmpty(parts[0]) && !string.IsNullOrEmpty(parts[1]))
 									{
-										PaidDate = parts[0],
-										Badge = parts[1]
-									});
+										paidList.Add(new BadgeDate
+										{
+											PaidDate = parts[0],
+											Badge = parts[1]
+										});
+									}
 								}
 							}
 
@@ -84,7 +87,7 @@ namespace WoodClub
 					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
 				}
 
-				Reconcile();
+				//Reconcile();
 				unpaidMemberBindingSource.DataSource = ds_Unpaid;
 				dataGridView1.DataSource = unpaidMemberBindingSource.DataSource;
 				dataGridView1.Invalidate();
