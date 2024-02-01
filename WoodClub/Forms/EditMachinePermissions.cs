@@ -78,5 +78,16 @@ namespace WoodClub.Forms
 
 			bindingSource1.DataSource = new SortableBindingList<MemberPermissionsItem>(data);
 		}
+
+		private void addPermButton_Click(object sender, EventArgs e)
+		{
+			if (string.IsNullOrEmpty(currentBadge))
+			{
+				MessageBox.Show("Edit Member to add permissions");
+				return;
+			}
+			AddPermissions ap = new AddPermissions(currentBadge);
+			ap.ShowDialog();
+		}
 	}
 }

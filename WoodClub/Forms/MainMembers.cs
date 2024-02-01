@@ -270,17 +270,6 @@ namespace WoodClub
 			mf.ShowDialog();
 		}
 
-		private void sCWPaidListToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			scwForm scwf = new scwForm();
-			scwf.ShowDialog();
-			DialogResult result = scwf.DialogResult;
-			if (result == DialogResult.OK)
-			{
-				LoadMembers();
-			}
-		}
-
 		private void monthlyClubUsageToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			ShopUsage uf = new ShopUsage();
@@ -476,6 +465,17 @@ namespace WoodClub
 		{
 			PhotoImport photoImport = new PhotoImport();
 			photoImport.ShowDialog();
+		}
+
+		private void updateDuesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			UpdateDuesPaid scwf = new UpdateDuesPaid();
+			scwf.ShowDialog();
+			DialogResult result = scwf.DialogResult;
+			if (result == DialogResult.OK)
+			{
+				LoadMembers();
+			}
 		}
 	}
 }

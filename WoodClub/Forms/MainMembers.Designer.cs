@@ -69,7 +69,6 @@
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.ReportsDownButton = new System.Windows.Forms.ToolStripDropDownButton();
 			this.monitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.sCWPaidToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.monthlyClubUsageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.lockerSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.dailySummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,15 +88,16 @@
 			this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
 			this.toolStripImportNewMembers = new System.Windows.Forms.ToolStripMenuItem();
+			this.importPhotosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.restoreOldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.clubTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.updateDuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
 			this.machinePermissions = new System.Windows.Forms.ToolStripDropDownButton();
 			this.editPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.importPhotosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -472,7 +472,6 @@
 			this.ReportsDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.ReportsDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.monitorToolStripMenuItem,
-            this.sCWPaidToolStripMenuItem,
             this.monthlyClubUsageToolStripMenuItem,
             this.lockerSummaryToolStripMenuItem,
             this.dailySummaryToolStripMenuItem,
@@ -489,13 +488,6 @@
 			this.monitorToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
 			this.monitorToolStripMenuItem.Text = "Monitor";
 			this.monitorToolStripMenuItem.Click += new System.EventHandler(this.monitorsToolStripMenuItem_Click);
-			// 
-			// sCWPaidToolStripMenuItem
-			// 
-			this.sCWPaidToolStripMenuItem.Name = "sCWPaidToolStripMenuItem";
-			this.sCWPaidToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-			this.sCWPaidToolStripMenuItem.Text = "SCW Paid";
-			this.sCWPaidToolStripMenuItem.Click += new System.EventHandler(this.sCWPaidListToolStripMenuItem_Click);
 			// 
 			// monthlyClubUsageToolStripMenuItem
 			// 
@@ -622,7 +614,8 @@
             this.toolStripImportNewMembers,
             this.importPhotosToolStripMenuItem,
             this.restoreOldToolStripMenuItem,
-            this.clubTracksToolStripMenuItem});
+            this.clubTracksToolStripMenuItem,
+            this.updateDuesToolStripMenuItem});
 			this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
 			this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
@@ -633,22 +626,36 @@
 			// toolStripImportNewMembers
 			// 
 			this.toolStripImportNewMembers.Name = "toolStripImportNewMembers";
-			this.toolStripImportNewMembers.Size = new System.Drawing.Size(180, 22);
+			this.toolStripImportNewMembers.Size = new System.Drawing.Size(173, 22);
 			this.toolStripImportNewMembers.Text = "Import Orientation";
+			// 
+			// importPhotosToolStripMenuItem
+			// 
+			this.importPhotosToolStripMenuItem.Name = "importPhotosToolStripMenuItem";
+			this.importPhotosToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+			this.importPhotosToolStripMenuItem.Text = "Import Photos";
+			this.importPhotosToolStripMenuItem.Click += new System.EventHandler(this.importPhotosToolStripMenuItem_Click);
 			// 
 			// restoreOldToolStripMenuItem
 			// 
 			this.restoreOldToolStripMenuItem.Name = "restoreOldToolStripMenuItem";
-			this.restoreOldToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.restoreOldToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
 			this.restoreOldToolStripMenuItem.Text = "Restore Old";
 			this.restoreOldToolStripMenuItem.Click += new System.EventHandler(this.restoreOldToolStripMenuItem_Click);
 			// 
 			// clubTracksToolStripMenuItem
 			// 
 			this.clubTracksToolStripMenuItem.Name = "clubTracksToolStripMenuItem";
-			this.clubTracksToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.clubTracksToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
 			this.clubTracksToolStripMenuItem.Text = "Club Tracks";
 			this.clubTracksToolStripMenuItem.Click += new System.EventHandler(this.clubTracksToolStripMenuItem_Click_1);
+			// 
+			// updateDuesToolStripMenuItem
+			// 
+			this.updateDuesToolStripMenuItem.Name = "updateDuesToolStripMenuItem";
+			this.updateDuesToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+			this.updateDuesToolStripMenuItem.Text = "Update Dues";
+			this.updateDuesToolStripMenuItem.Click += new System.EventHandler(this.updateDuesToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator6
 			// 
@@ -694,13 +701,6 @@
 			this.reportToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.reportToolStripMenuItem.Text = "Report";
 			// 
-			// importPhotosToolStripMenuItem
-			// 
-			this.importPhotosToolStripMenuItem.Name = "importPhotosToolStripMenuItem";
-			this.importPhotosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.importPhotosToolStripMenuItem.Text = "Import Photos";
-			this.importPhotosToolStripMenuItem.Click += new System.EventHandler(this.importPhotosToolStripMenuItem_Click);
-			// 
 			// MainMembers
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -740,7 +740,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripDropDownButton ReportsDownButton;
         private System.Windows.Forms.ToolStripMenuItem monitorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sCWPaidToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem monthlyClubUsageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lockerSummaryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dailySummaryToolStripMenuItem;
@@ -793,6 +792,7 @@
 		private System.Windows.Forms.ToolStripMenuItem editPermissionsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem importPhotosToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem updateDuesToolStripMenuItem;
 	}
 }
 

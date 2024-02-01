@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace WoodClub
 {
-	public partial class scwForm : Form
+	public partial class UpdateDuesPaid : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
 				  (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -20,13 +21,29 @@ namespace WoodClub
 			public string Badge { get; set; }
 		}
 
-
-		public scwForm()
+		public UpdateDuesPaid()
 		{
 			InitializeComponent();
+			dataGridView1.RowPostPaint += DataGridView1_RowPostPaint;
 		}
 
-		private void scwForm_Load(object sender, EventArgs e)
+		private void DataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+		{
+			var grid = sender as DataGridView;
+			var rowIdx = (e.RowIndex + 1).ToString();
+
+			var centerFormat = new StringFormat()
+			{
+				// right alignment might actually make more sense for numbers
+				Alignment = StringAlignment.Center,
+				LineAlignment = StringAlignment.Center
+			};
+
+			var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+			e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
+		}
+
+		private void UpdateDuesPaid_Load(object sender, EventArgs e)
 		{
 			Stream flStream = null;
 			OpenFileDialog theDialog = new OpenFileDialog();
@@ -54,6 +71,11 @@ namespace WoodClub
 									});
 								}
 							}
+
+							if (paidList.Count > 0)
+							{
+								updatePaidButton.Enabled = true;
+							}
 						}
 					}
 				}
@@ -62,7 +84,6 @@ namespace WoodClub
 					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
 				}
 
-				//ScanSCW();
 				Reconcile();
 				unpaidMemberBindingSource.DataSource = ds_Unpaid;
 				dataGridView1.DataSource = unpaidMemberBindingSource.DataSource;
@@ -71,10 +92,15 @@ namespace WoodClub
 			}
 			else
 			{
-				MessageBox.Show("Select Rec Paid File...");
+				FindUnPaid();
+				unpaidMemberBindingSource.DataSource = ds_Unpaid;
+				dataGridView1.DataSource = unpaidMemberBindingSource.DataSource;
+				dataGridView1.Invalidate();
+				log.Info("Scan complete"); ;
 			}
 		}
-		private void ScanSCW()
+		
+		private void UpdatePaidDataBase()
 		{
 			ds_Unpaid = new SortableBindingList<UnpaidMember>();
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -83,6 +109,11 @@ namespace WoodClub
 											  select m).OrderBy(mem => mem.Badge).ToList();
 				foreach (MemberRoster member in members)
 				{
+					if (member.Badge == "20001")
+					{
+						continue;
+					}
+
 					BadgeDate mrFound = paidList.Find(item => item.Badge == member.Badge);
 
 					if (mrFound != null)        // found item
@@ -97,6 +128,21 @@ namespace WoodClub
 					}
 				}
 				context.SaveChanges();
+			}
+		}
+
+		private void FindUnPaid()
+		{
+			ds_Unpaid = new SortableBindingList<UnpaidMember>();
+			using (WoodClubEntities context = new WoodClubEntities())
+			{
+				List<MemberRoster> members = (from m in context.MemberRosters
+											  where m.ClubDuesPaid == false
+											  select m).OrderBy(mem => mem.Badge).ToList();
+				foreach (MemberRoster member in members)
+				{
+					AddToList(member, true);
+				}
 			}
 		}
 
@@ -177,26 +223,26 @@ namespace WoodClub
 				{
 					if (unpaid.Delete == true)
 					{
-						var query = from rn in context.MemberRosters
-									where rn.Badge == unpaid.Badge && rn.RecCard != null && rn.RecCard != ""
-									select rn;
+						var member = (from rn in context.MemberRosters
+									where rn.Badge == unpaid.Badge && rn.RecCard != "20001"
+									select rn).FirstOrDefault();
 						// query.Single().NewBadge = false;
-						if (query.Any())
+						if (member != null)
 						{
-							int id = query.Single().id;
-
-							var entity = context.MemberRosters.Find(id);
-							if (id != 0 && entity != null)
-							{
-								context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
-							}
+							context.MemberRosters.Remove(member);
 						}
 					}
 				}
-				//context.SaveChanges();
+
+				context.SaveChanges();
 			}
 			this.DialogResult = DialogResult.OK;
 			this.Close();
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			UpdatePaidDataBase();
 		}
 	}
 }

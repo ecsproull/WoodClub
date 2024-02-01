@@ -399,7 +399,7 @@
       <DependentUpon>UnPaidMembers.cs</DependentUpon>
     </Compile>
     <Compile Include="SortableBindingList.cs" />
-    <Compile Include="UnpaidMember.cs" />
+    <Compile Include="Forms\UnpaidMember.cs" />
     <EmbeddedResource Include="Forms\AddPermissions.resx">
       <DependentUpon>AddPermissions.cs</DependentUpon>
     </EmbeddedResource>

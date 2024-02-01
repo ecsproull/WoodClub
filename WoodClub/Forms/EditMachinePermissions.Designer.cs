@@ -125,6 +125,7 @@
 			this.addPermButton.TabIndex = 1;
 			this.addPermButton.Text = "Add Perm";
 			this.addPermButton.UseVisualStyleBackColor = true;
+			this.addPermButton.Click += new System.EventHandler(this.addPermButton_Click);
 			// 
 			// saveButton
 			// 
