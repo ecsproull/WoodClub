@@ -98,6 +98,7 @@
 			this.machinePermissions = new System.Windows.Forms.ToolStripDropDownButton();
 			this.editPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -680,6 +681,7 @@
 			// 
 			this.machinePermissions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.machinePermissions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addPermissionsToolStripMenuItem,
             this.editPermissionsToolStripMenuItem,
             this.reportToolStripMenuItem});
 			this.machinePermissions.Image = ((System.Drawing.Image)(resources.GetObject("machinePermissions.Image")));
@@ -691,15 +693,22 @@
 			// editPermissionsToolStripMenuItem
 			// 
 			this.editPermissionsToolStripMenuItem.Name = "editPermissionsToolStripMenuItem";
-			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.editPermissionsToolStripMenuItem.Text = "Edit Permissions";
 			this.editPermissionsToolStripMenuItem.Click += new System.EventHandler(this.editMachinePermissions_Click);
 			// 
 			// reportToolStripMenuItem
 			// 
 			this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-			this.reportToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.reportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.reportToolStripMenuItem.Text = "Report";
+			// 
+			// addPermissionsToolStripMenuItem
+			// 
+			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
+			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.addPermissionsToolStripMenuItem.Text = "Add Permissions";
+			this.addPermissionsToolStripMenuItem.Click += new System.EventHandler(this.addPermissionsToolStripMenuItem_Click);
 			// 
 			// MainMembers
 			// 
@@ -793,6 +802,7 @@
 		private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem importPhotosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem updateDuesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem addPermissionsToolStripMenuItem;
 	}
 }
 

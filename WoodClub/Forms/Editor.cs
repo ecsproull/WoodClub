@@ -820,8 +820,8 @@ namespace WoodClub
 
 		private void permissions_Click(object sender, EventArgs e)
 		{
-			EditMachinePermissions ep = new EditMachinePermissions(this.badge);
-			ep.ShowDialog();
+			AddPermissions ap = new AddPermissions(this.badge);
+			ap.ShowDialog();
 		}
 	}
 }

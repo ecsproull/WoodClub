@@ -181,12 +181,6 @@
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />
     <Compile Include="DirtyTracker\FormDirtyTracker.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Forms\AddPermissions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\AddPermissions.Designer.cs">
-      <DependentUpon>AddPermissions.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\DisplayPictureBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,6 +204,12 @@
     </Compile>
     <Compile Include="Forms\FreeDayOnlyUsers.Designer.cs">
       <DependentUpon>FreeDayOnlyUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddPermissions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddPermissions.Designer.cs">
+      <DependentUpon>AddPermissions.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MultipleEditor.cs">
       <SubType>Form</SubType>
@@ -308,7 +308,7 @@
     </Compile>
     <Compile Include="Lockers.cs" />
     <Compile Include="LogErrors.cs" />
-    <Compile Include="MachineId.cs">
+    <Compile Include="MachineApprover.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
     <Compile Include="MachinePerm.cs">
@@ -318,9 +318,6 @@
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
     <Compile Include="MemberPermissionsItem.cs" />
-    <Compile Include="MemberPhoto.cs">
-      <DependentUpon>ModelWC.tt</DependentUpon>
-    </Compile>
     <Compile Include="MemberPictureEdit.cs" />
     <Compile Include="MemberRFcard.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
@@ -400,9 +397,6 @@
     </Compile>
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="Forms\UnpaidMember.cs" />
-    <EmbeddedResource Include="Forms\AddPermissions.resx">
-      <DependentUpon>AddPermissions.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DisplayPictureBox.resx">
       <DependentUpon>DisplayPictureBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -414,6 +408,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FreeDayOnlyUsers.resx">
       <DependentUpon>FreeDayOnlyUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddPermissions.resx">
+      <DependentUpon>AddPermissions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MultipleEditor.resx">
       <DependentUpon>MultipleEditor.cs</DependentUpon>

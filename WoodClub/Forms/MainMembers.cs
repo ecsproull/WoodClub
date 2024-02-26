@@ -477,5 +477,11 @@ namespace WoodClub
 				LoadMembers();
 			}
 		}
+
+		private void addPermissionsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			AddPermissions ap = new AddPermissions();
+			ap.ShowDialog();
+		}
 	}
 }

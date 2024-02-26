@@ -35,10 +35,9 @@ namespace WoodClub
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<BadgeCode> BadgeCodes { get; set; }
-        public virtual DbSet<MemberPhoto> MemberPhotos { get; set; }
         public virtual DbSet<Time_zones> Time_zones { get; set; }
         public virtual DbSet<MemberBackup> MemberBackups { get; set; }
-        public virtual DbSet<MachineId> MachineIds { get; set; }
+        public virtual DbSet<MachineApprover> MachineApprovers { get; set; }
         public virtual DbSet<MachinePerm> MachinePerms { get; set; }
     }
 }

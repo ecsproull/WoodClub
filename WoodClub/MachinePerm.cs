@@ -16,7 +16,7 @@ namespace WoodClub
     {
         public int id { get; set; }
         public string Badge { get; set; }
-        public int MachineId { get; set; }
+        public string MachineName { get; set; }
         public string ApprovedBy { get; set; }
         public System.DateTime ApprovedDate { get; set; }
         public bool Blocked { get; set; }

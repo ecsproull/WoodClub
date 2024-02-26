@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WoodClub.Forms
@@ -32,20 +27,15 @@ namespace WoodClub.Forms
 						context.MemberRosters,
 						machper => machper.Badge,
 						member => member.Badge,
-						(machper, member) => new { machper, member })
-					.Join(
-						context.MachineIds,
-						idname => idname.machper.MachineId,
-						machid => machid.id,
-						(idname, machid) => new MemberPermissionsItem
+						(machper, member) =>  new MemberPermissionsItem
 						{
-							PermissionName = machid.MachineTypeName,
-							Badge = idname.member.Badge,
-							FirstName = idname.member.FirstName,
-							LastName = idname.member.LastName,
-							ApprovedBy = idname.machper.ApprovedBy,
-							ApprovedDate = idname.machper.ApprovedDate,
-							Blocked = idname.machper.Blocked
+							PermissionName =machper.MachineName,
+							Badge = member.Badge,
+							FirstName = member.FirstName,
+							LastName = member.LastName,
+							ApprovedBy = machper.ApprovedBy,
+							ApprovedDate = machper.ApprovedDate,
+							Blocked = machper.Blocked
 						})
 					.OrderBy(x => x.Badge).ToList();
 				}
@@ -56,20 +46,15 @@ namespace WoodClub.Forms
 						context.MemberRosters,
 						machper => machper.Badge,
 						member => member.Badge,
-						(machper, member) => new { machper, member })
-					.Join(
-						context.MachineIds,
-						idname => idname.machper.MachineId,
-						machid => machid.id,
-						(idname, machid) => new MemberPermissionsItem
+						(machper, member) => new MemberPermissionsItem
 						{
-							PermissionName = machid.MachineTypeName,
-							Badge = idname.member.Badge,
-							FirstName = idname.member.FirstName,
-							LastName = idname.member.LastName,
-							ApprovedBy = idname.machper.ApprovedBy,
-							ApprovedDate = idname.machper.ApprovedDate,
-							Blocked = idname.machper.Blocked
+							PermissionName = machper.MachineName,
+							Badge = member.Badge,
+							FirstName = member.FirstName,
+							LastName = member.LastName,
+							ApprovedBy = machper.ApprovedBy,
+							ApprovedDate = machper.ApprovedDate,
+							Blocked = machper.Blocked
 						})
 					.Where(b => b.Badge == currentBadge)
 					.OrderBy(x => x.Badge).ToList();
@@ -81,12 +66,7 @@ namespace WoodClub.Forms
 
 		private void addPermButton_Click(object sender, EventArgs e)
 		{
-			if (string.IsNullOrEmpty(currentBadge))
-			{
-				MessageBox.Show("Edit Member to add permissions");
-				return;
-			}
-			AddPermissions ap = new AddPermissions(currentBadge);
+			AddPermissions ap = new AddPermissions();
 			ap.ShowDialog();
 		}
 	}

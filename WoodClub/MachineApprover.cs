@@ -12,9 +12,10 @@ namespace WoodClub
     using System;
     using System.Collections.Generic;
     
-    public partial class MachineId
+    public partial class MachineApprover
     {
         public int id { get; set; }
-        public string MachineTypeName { get; set; }
+        public int MachineId { get; set; }
+        public string ApproversBadge { get; set; }
     }
 }
