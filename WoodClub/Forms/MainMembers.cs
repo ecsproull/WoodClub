@@ -477,5 +477,23 @@ namespace WoodClub
 				LoadMembers();
 			}
 		}
+
+		private void toolStripButton4_Click(object sender, EventArgs e)
+		{
+			string recipientEmail = string.Empty;
+			foreach (DataGridViewRow r in dataGridView1.SelectedRows)
+			{
+				recipientEmail += r.Cells[5].Value.ToString() + ";";
+			}
+
+			string subject = " ";
+			string body = " ";
+
+			//// Construct the mailto URI
+			string mailtoUri = $"mailto:{recipientEmail}?subject={subject}&body={body}";
+
+			//// Launch the default mail app
+			Process.Start(mailtoUri);
+		}
 	}
 }
