@@ -99,6 +99,7 @@
 			this.editPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -321,7 +322,8 @@
             this.toolStripSeparator6,
             this.MultipleMembersButton,
             this.toolStripSeparator8,
-            this.machinePermissions});
+            this.machinePermissions,
+            this.toolStripButton4});
 			this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
 			this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
 			this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -681,7 +683,6 @@
 			// 
 			this.machinePermissions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.machinePermissions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addPermissionsToolStripMenuItem,
             this.editPermissionsToolStripMenuItem,
             this.reportToolStripMenuItem});
 			this.machinePermissions.Image = ((System.Drawing.Image)(resources.GetObject("machinePermissions.Image")));
@@ -693,22 +694,26 @@
 			// editPermissionsToolStripMenuItem
 			// 
 			this.editPermissionsToolStripMenuItem.Name = "editPermissionsToolStripMenuItem";
-			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.editPermissionsToolStripMenuItem.Text = "Edit Permissions";
 			this.editPermissionsToolStripMenuItem.Click += new System.EventHandler(this.editMachinePermissions_Click);
 			// 
 			// reportToolStripMenuItem
 			// 
 			this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-			this.reportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.reportToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.reportToolStripMenuItem.Text = "Report";
+
 			// 
-			// addPermissionsToolStripMenuItem
+			// toolStripButton4
 			// 
-			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
-			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.addPermissionsToolStripMenuItem.Text = "Add Permissions";
-			this.addPermissionsToolStripMenuItem.Click += new System.EventHandler(this.addPermissionsToolStripMenuItem_Click);
+			this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+			this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton4.Name = "toolStripButton4";
+			this.toolStripButton4.Size = new System.Drawing.Size(49, 22);
+			this.toolStripButton4.Text = "Mail To";
+			this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
 			// 
 			// MainMembers
 			// 
@@ -803,6 +808,7 @@
 		private System.Windows.Forms.ToolStripMenuItem importPhotosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem updateDuesToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addPermissionsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripButton toolStripButton4;
 	}
 }
 
