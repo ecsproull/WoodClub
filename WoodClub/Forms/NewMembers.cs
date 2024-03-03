@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -20,11 +21,19 @@ namespace WoodClub
 			dataGridView1.CellClick += DataGridView1_CellClick;
 			dataGridView1.MouseClick += DataGridView1_MouseClick;
 			dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+			printDocument1.PrintPage += PrintDocument1_PrintPage;
 
 			if (System.Environment.MachineName != "TREASURERS_PC")
 			{
 				quickBooksButton.Enabled = false;
 			}
+		}
+
+		private void PrintDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+		{
+			Bitmap bm = new Bitmap(this.dataGridView1.Width, this.dataGridView1.Height);
+			this.dataGridView1.DrawToBitmap(bm, new Rectangle(0, 0, this.dataGridView1.Width, this.dataGridView1.Height));
+			e.Graphics.DrawImage(bm, 0, 0);
 		}
 
 		private void DataGridView1_MouseClick(object sender, MouseEventArgs e)
@@ -124,7 +133,7 @@ namespace WoodClub
 					{
 						string number = Regex.Replace(sl.phone, "[^a-zA-Z0-9]", String.Empty);
 						string phone = string.Empty;
-						if (!string.IsNullOrEmpty(number))
+						if (!string.IsNullOrEmpty(number) && number.Length == 10)
 						{
 							phone = number.Substring(0, 3) + "-" +
 									 number.Substring(3, 3) + "-" +
@@ -469,5 +478,14 @@ namespace WoodClub
                 return null;
             }
         }
-    }
+
+		private void printNewMembersButton_Click(object sender, EventArgs e)
+		{
+			printDocument1.DefaultPageSettings.Landscape = true;
+			PrintPreviewDialog ppvd = new PrintPreviewDialog();
+			ppvd.Document = printDocument1;
+			ppvd.ShowDialog();
+			//printDocument1.Print();
+		}
+	}
 }
