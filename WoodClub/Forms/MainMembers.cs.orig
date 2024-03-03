@@ -165,8 +165,7 @@ namespace WoodClub
 				filteredBindingList = new SortableBindingList<MembersExtended>(blMembers.Where(
 					x => x.FirstName.ToUpper().Contains(filter.ToUpper()) ||
 					x.LastName.ToUpper().Contains(filter.ToUpper()) ||
-					x.Badge.Contains(filter) ||
-					x.Email.ToLower().Contains(filter.ToLower())).ToList());
+					x.Badge.Contains(filter)).ToList());
 				bsMembers.DataSource = filteredBindingList;
 				dataGridView1.Refresh();
 			}
@@ -479,12 +478,12 @@ namespace WoodClub
 			}
 		}
 
+<<<<<<< HEAD
 		private void addPermissionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			AddPermissions ap = new AddPermissions();
 			ap.ShowDialog();
-		}
-
+=======
 		private void toolStripButton4_Click(object sender, EventArgs e)
 		{
 			string recipientEmail = string.Empty;
@@ -501,12 +500,7 @@ namespace WoodClub
 
 			//// Launch the default mail app
 			Process.Start(mailtoUri);
-		}
-
-		private void updateWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			PostToGoDaddy postToGoDaddy = new PostToGoDaddy();
-			postToGoDaddy.PostMembersToGoDaddy();
+>>>>>>> 19645ae8c5fa331920329b9f3f8a3d0b0e1cb02a
 		}
 	}
 }

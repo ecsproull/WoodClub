@@ -31,6 +31,11 @@
 			this.components = new System.ComponentModel.Container();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.dataGridMultiMember = new System.Windows.Forms.DataGridView();
+			this.Delete = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.MachineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.BadgeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.memberBadgesTextBox = new System.Windows.Forms.TextBox();
 			this.labelMultiBadges = new System.Windows.Forms.Label();
 			this.permissionComboBox = new System.Windows.Forms.ComboBox();
@@ -42,11 +47,6 @@
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.permissionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.approverBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.Delete = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.MachineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.BadgeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridMultiMember)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.permissionsBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.approverBindingSource)).BeginInit();
@@ -71,10 +71,48 @@
             this.LastName});
 			this.dataGridMultiMember.Location = new System.Drawing.Point(12, 85);
 			this.dataGridMultiMember.Name = "dataGridMultiMember";
-			this.dataGridMultiMember.ReadOnly = true;
 			this.dataGridMultiMember.RowHeadersVisible = false;
 			this.dataGridMultiMember.Size = new System.Drawing.Size(442, 370);
 			this.dataGridMultiMember.TabIndex = 42;
+			// 
+			// Delete
+			// 
+			this.Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Delete.DataPropertyName = "Delete";
+			this.Delete.HeaderText = "Delete";
+			this.Delete.Name = "Delete";
+			this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.Delete.Width = 50;
+			// 
+			// MachineName
+			// 
+			this.MachineName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.MachineName.DataPropertyName = "PermissionName";
+			this.MachineName.HeaderText = "Machine";
+			this.MachineName.Name = "MachineName";
+			this.MachineName.Width = 60;
+			// 
+			// BadgeNumber
+			// 
+			this.BadgeNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.BadgeNumber.DataPropertyName = "Badge";
+			this.BadgeNumber.HeaderText = "Badge";
+			this.BadgeNumber.Name = "BadgeNumber";
+			this.BadgeNumber.Width = 50;
+			// 
+			// FirstName
+			// 
+			this.FirstName.DataPropertyName = "FirstName";
+			this.FirstName.HeaderText = "First Name";
+			this.FirstName.Name = "FirstName";
+			// 
+			// LastName
+			// 
+			this.LastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.LastName.DataPropertyName = "LastName";
+			this.LastName.HeaderText = "Last Name";
+			this.LastName.Name = "LastName";
 			// 
 			// memberBadgesTextBox
 			// 
@@ -163,49 +201,6 @@
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-			// 
-			// Delete
-			// 
-			this.Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Delete.HeaderText = "Delete";
-			this.Delete.Name = "Delete";
-			this.Delete.ReadOnly = true;
-			this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.Delete.Width = 50;
-			// 
-			// MachineName
-			// 
-			this.MachineName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.MachineName.DataPropertyName = "PermissionName";
-			this.MachineName.HeaderText = "Machine";
-			this.MachineName.Name = "MachineName";
-			this.MachineName.ReadOnly = true;
-			this.MachineName.Width = 60;
-			// 
-			// BadgeNumber
-			// 
-			this.BadgeNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.BadgeNumber.DataPropertyName = "Badge";
-			this.BadgeNumber.HeaderText = "Badge";
-			this.BadgeNumber.Name = "BadgeNumber";
-			this.BadgeNumber.ReadOnly = true;
-			this.BadgeNumber.Width = 50;
-			// 
-			// FirstName
-			// 
-			this.FirstName.DataPropertyName = "FirstName";
-			this.FirstName.HeaderText = "First Name";
-			this.FirstName.Name = "FirstName";
-			this.FirstName.ReadOnly = true;
-			// 
-			// LastName
-			// 
-			this.LastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.LastName.DataPropertyName = "LastName";
-			this.LastName.HeaderText = "Last Name";
-			this.LastName.Name = "LastName";
-			this.LastName.ReadOnly = true;
 			// 
 			// AddPermissions
 			// 

@@ -12,25 +12,25 @@ namespace WoodClub
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
 				  (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-		private Dictionary<string, TransactionAddition> creditTransactions;
-		private List<BadgeCode> DataSource;
-		private BindingSource bsBadges;
+
 		private Dictionary<string, string> permissionNames = new Dictionary<string, string>();
 		private Dictionary<string, string> approversNames = new Dictionary<string, string>();
+		private string singleBadge = string.Empty;
 
 		public AddPermissions(string badge = null)
 		{
 			InitializeComponent();
-			this.bsBadges = new BindingSource();
 			dataGridMultiMember.AutoGenerateColumns = false;
 
 			if (badge != null)
 			{
+				singleBadge = badge;
 				memberBadgesTextBox.Text = badge;
 				memberBadgesTextBox.ReadOnly = true;
 			}
 
-			permissionNames.Add("cmc", "Cnc");
+			permissionNames.Add("none", "Select");
+			permissionNames.Add("cnc", "Cnc");
 			permissionNames.Add("laser", "Laser");
 			permissionNames.Add("logsaw", "Log Saw");
 			permissionsBindingSource = new BindingSource();
@@ -39,6 +39,7 @@ namespace WoodClub
 			permissionComboBox.DisplayMember = "Value";
 			permissionComboBox.ValueMember = "Key";
 
+			approversNames.Add("none", "Select");
 			approversNames.Add("3103", "Gary Roberts");
 			approversNames.Add("4982", "Brian Potts");
 			approversNames.Add("5329", "Art Lincoln");
@@ -139,9 +140,6 @@ namespace WoodClub
 			dataGridMultiMember.DataSource = new SortableBindingList<MemberPermissionsItem>(memberPermissionsItems);
         }
 
-
-		private bool changesApplied = false;
-
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.Cancel;
@@ -154,30 +152,63 @@ namespace WoodClub
 				foreach (MemberPermissionsItem pi in
 					(SortableBindingList<MemberPermissionsItem>)dataGridMultiMember.DataSource)
 				{
-					string machine = ((KeyValuePair<string, string>)permissionComboBox.SelectedItem).Key;
-					string approver = ((KeyValuePair<string, string>)approverComboBox.SelectedItem).Key;
-
-					MachinePerm mpi = (from pmi in context.MachinePerms
-									   where pmi.Badge == pi.Badge && pmi.MachineName == machine
-									   select pmi).FirstOrDefault();
-					if (mpi == null)
+					if (pi.Delete)
 					{
-						context.MachinePerms.Add(new MachinePerm
+						var perm = (from mp in context.MachinePerms
+									where mp.Badge == pi.Badge && mp.MachineName == pi.PermissionName
+									select mp).FirstOrDefault();
+						if (perm != null)
 						{
-							Badge = pi.Badge,
-							ApprovedDate = DateTime.Now.Date,
-							ApprovedBy = approver,
-							MachineName = machine,
-						});
+							context.MachinePerms.Remove(perm);
+							context.SaveChanges();
+						}
+						continue;
 					}
 				}
-				context.SaveChanges();
+
+				if (!string.IsNullOrEmpty(singleBadge))
+				{
+					string machine = ((KeyValuePair<string, string>)permissionComboBox.SelectedItem).Key;
+					if (machine != "none")
+					{
+						string approver = ((KeyValuePair<string, string>)approverComboBox.SelectedItem).Key;
+						if (approver == "none")
+						{
+							MessageBox.Show("Please select Approver");
+						}
+						else
+						{
+							MachinePerm mpi = (from pmi in context.MachinePerms
+											   where pmi.Badge == singleBadge && pmi.MachineName == machine
+											   select pmi).FirstOrDefault();
+							if (mpi == null)
+							{
+								context.MachinePerms.Add(new MachinePerm
+								{
+									Badge = singleBadge,
+									ApprovedDate = DateTime.Now.Date,
+									ApprovedBy = approver,
+									MachineName = machine,
+								});
+							}
+						}
+
+						context.SaveChanges();
+					}
+				}
+				else
+				{
+					//check for multiple badges.
+				}
 			}
+
+			LoadMembers();
 		}
 
 		private void btnSave_Click(object sender, EventArgs e)
 		{
-
+			applyButton_Click(null, null);
+			DialogResult = DialogResult.OK;
 		}
 	}
 }
