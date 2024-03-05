@@ -17,7 +17,6 @@ namespace WoodClub
 		public NewMembers()
 		{
 			InitializeComponent();
-			dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
 			dataGridView1.CellClick += DataGridView1_CellClick;
 			dataGridView1.MouseClick += DataGridView1_MouseClick;
 			dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
@@ -63,14 +62,6 @@ namespace WoodClub
 			}
 		}
 
-		private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-		{
-			if (e.ColumnIndex == 12)
-			{
-				dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value =
-					dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().TrimStart('0');
-			}
-		}
 
 		private int GetStartingBadgeNumber()
 		{
@@ -407,7 +398,7 @@ namespace WoodClub
 			InvoiceAdd.AppendChild(invoiceLineAdd);
 			XmlElement itemRef = xmlDoc.CreateElement("ItemRef");
 			invoiceLineAdd.AppendChild(itemRef);
-			itemRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "X065";
+			itemRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "X06";
 			invoiceLineAdd.AppendChild(xmlDoc.CreateElement("Quantity")).InnerText = "1";
 			invoiceLineAdd.AppendChild(xmlDoc.CreateElement("Amount")).InnerText = "50.00";
 
@@ -415,7 +406,7 @@ namespace WoodClub
 			InvoiceAdd.AppendChild(invoiceLineAdd2);
 			XmlElement itemRef2 = xmlDoc.CreateElement("ItemRef");
 			invoiceLineAdd2.AppendChild(itemRef2);
-			itemRef2.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "X02";
+			itemRef2.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "X08";
 			invoiceLineAdd2.AppendChild(xmlDoc.CreateElement("Quantity")).InnerText = "1";
 			invoiceLineAdd2.AppendChild(xmlDoc.CreateElement("Amount")).InnerText = "35.00";
 
