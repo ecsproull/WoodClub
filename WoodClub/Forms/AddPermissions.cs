@@ -43,6 +43,8 @@ namespace WoodClub
 			approversNames.Add("3103", "Gary Roberts");
 			approversNames.Add("4982", "Brian Potts");
 			approversNames.Add("5329", "Art Lincoln");
+			approversNames.Add("4286", "Daryl Coulthart");
+			approversNames.Add("4775", "Bill Gentry");
 			approverBindingSource = new BindingSource();
 			approverBindingSource.DataSource = approversNames;
 			approverComboBox.DataSource = approverBindingSource;

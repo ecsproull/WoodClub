@@ -12,10 +12,12 @@ namespace WoodClub
 	{
 		public async void PostMembersToGoDaddy()
 		{
+			//https://edstestsite.site/wp-json/scwmembers/v1/members
 			using (HttpClient client = new HttpClient())
 			{
 				var contentType = new MediaTypeWithQualityHeaderValue("application/json");
 				var baseAddress = "https://scwwoodshop.com";
+				//var baseAddress = "https://woodclubtest.site";
 				var api = "/wp-json/scwmembers/v1/members";
 				client.BaseAddress = new Uri(baseAddress);
 				client.DefaultRequestHeaders.Accept.Add(contentType);
@@ -31,6 +33,10 @@ namespace WoodClub
 					pd.members = new Member[length];
 					for (int i = 0; i < length; i++)
 					{
+						string badgeNumber = members[i].Badge;
+						var monitorParams = (from m in context.MonitorParams
+											 where m.Monitor_Badge == badgeNumber
+											 select m).FirstOrDefault();
 						pd.members[i] = new Member
 						{
 							badge = members[i].Badge,
@@ -38,7 +44,8 @@ namespace WoodClub
 							last = members[i].LastName,
 							phone = members[i].Phone,
 							email = members[i].Email,
-							secret = Guid.NewGuid().ToString("N")
+							secret = Guid.NewGuid().ToString("N"),
+							email_secret = monitorParams.Monitor_Secret
 						};
 					}
 
@@ -75,30 +82,30 @@ namespace WoodClub
 				}
 			}
 		}
+	}
 
-		public class PermsData
-		{
-			public string key = "8c62a157-7ee8-4104-9f91-930eac39fe2f";
-			public bool clean_permissions { get; set; }
-			public string action { get; set; }
-			public Member[] members { get; set; }
-			public Permission[] permissions { get; set; }
-		}
-		public class Member
-		{
-			public string badge { get; set; }
-			public string first { get; set; }
-			public string last { get; set; }
-			public string phone { get; set; }
-			public string email { get; set; }
-			public string secret { get; set; }
-		}
+	public class PermsData
+	{
+		public string key = "8c62a157-7ee8-4104-9f91-930eac39fe2f";
+		public bool clean_permissions { get; set; }
+		public string action { get; set; }
+		public Member[] members { get; set; }
+		public Permission[] permissions { get; set; }
+	}
+	public class Member
+	{
+		public string badge { get; set; }
+		public string first { get; set; }
+		public string last { get; set; }
+		public string phone { get; set; }
+		public string email { get; set; }
+		public string secret { get; set; }
+		public string email_secret { get; set; }
+	}
 
-		public class Permission
-		{
-			public string badge { get; set; }
-			public string machine_name { get; set; }
-		}
+	public class Permission
+	{
+		public string badge { get; set; }
+		public string machine_name { get; set; }
 	}
 }
-
