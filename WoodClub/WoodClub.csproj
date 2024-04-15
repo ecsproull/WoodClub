@@ -372,6 +372,7 @@
     </Compile>
     <Compile Include="MultipleEditMember.cs" />
     <Compile Include="NewMember.cs" />
+    <Compile Include="OrientationGet.cs" />
     <Compile Include="PostToGoDaddy.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>

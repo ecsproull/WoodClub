@@ -1,10 +1,17 @@
 ﻿using Interop.QBXMLRP2;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using WoodClub.Forms;
@@ -70,90 +77,86 @@ namespace WoodClub
 			return fbn.BadgeNumber;	
 		}
 
-		private async void FormNewMembers_Load(object sender, EventArgs e)
+		private async Task<List<NewMemberRaw>> GetOrientation()
 		{
-			int firstBadgeNumber = GetStartingBadgeNumber();
-			SignUpGenisus sug = new SignUpGenisus();
-			Rootobject ro = await sug.GetSignup(DateTime.Now.AddDays(-10));
-
-			if (ro == null)
+			List<NewMemberRaw> newMembers = new List<NewMemberRaw>();
+			const string key = "8c62a157-7ee8-5401-9f91-930eac39fe2f";
+			var dtStart = DateTime.Now;
+			var dtEnd = DateTime.Now;
+			if (dtStart.Day > 13)
 			{
-				for (int i = 0; i < 10; i++)
-				{
-					System.Threading.Thread.Sleep(5000);
-					ro = await sug.GetSignup(DateTime.Now);
+				dtStart = new DateTime(dtStart.Year, dtStart.Month, 15);
+				dtEnd = dtStart.AddMonths(1);
+			}
+			else
+			{
+				dtEnd = new DateTime(dtStart.Year, dtStart.Month, 15);
+				dtStart = dtEnd.AddMonths(-1);
+			}
 
-					if (ro != null)
-					{
-						break;
-					}
-				}
+			var og = new OrientationGet
+			{
+				key = key,
+				start_date = (int)dtStart.Subtract(new DateTime(1970, 1, 1)).TotalSeconds,
+				end_date = (int)dtEnd.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
+			};
 
-				if (ro == null)
+			var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+			var baseAddress = "https://scwwoodshop.com";
+			//var baseAddress = "https://woodclubtest.site";
+			var api = "/wp-json/scwmembers/v1/orientation";
+
+			using (HttpClient client = new HttpClient())
+			{
+				client.BaseAddress = new Uri(baseAddress);
+				client.DefaultRequestHeaders.Accept.Add(contentType);
+				var jsonData = JsonConvert.SerializeObject(og);
+				var contentData = new StringContent(jsonData, Encoding.UTF8, "application/json");
+				var response = await client.PostAsync(api, contentData);
+				if (response.IsSuccessStatusCode)
 				{
-					MessageBox.Show("SignupGenisus is on vacation, Try again in a few minutes");
-					return;
+					var stringData = await response.Content.ReadAsStringAsync();
+					var result = JsonConvert.DeserializeObject<List<NewMemberRaw>>(stringData);
+					newMembers = result;
 				}
 			}
 
-			List<SignupSlot> slots = new List<SignupSlot>();
+			return newMembers;
+		}
+
+		private async void FormNewMembers_Load(object sender, EventArgs e)
+		{
+			CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
+			List<NewMemberRaw> newMembers = await GetOrientation();
+			int firstBadgeNumber = GetStartingBadgeNumber();
+
 			string startDate = string.Empty;
 			DateTime startScanDate = DateTime.Now.AddDays(-10);
 			DateTime endScanDate = DateTime.Now.AddDays(+23);
 			using (WoodClubEntities context = new WoodClubEntities())
 			{
-				foreach (SignupSlot sl in ro.data.signup)
+				foreach (NewMemberRaw newMember in newMembers)
 				{
-					string recNo = sl.customfields[1].value;
 					var member = (from m in context.MemberRosters
-								  where m.RecCard == recNo
+								  where m.RecCard == newMember.new_member_rec_card
 								  select m).FirstOrDefault();
-
-					if (DateTime.Parse(sl.startdatestring) < startScanDate ||
-						DateTime.Parse(sl.startdatestring) > endScanDate)
-                    {
-						continue;
-                    }
-
-					if (startDate == string.Empty)
+					DateTime memberStartDate = DateTime.Parse(newMember.session_start_formatted).Date;
+					members.Add(new NewMember
 					{
-						startDate = sl.startdatestring;
-					}
-
-					if (startDate == sl.startdatestring)
-					{
-						string number = Regex.Replace(sl.phone, "[^a-zA-Z0-9]", String.Empty);
-						string phone = string.Empty;
-						if (!string.IsNullOrEmpty(number) && number.Length == 10)
-						{
-							phone = number.Substring(0, 3) + "-" +
-									 number.Substring(3, 3) + "-" +
-									 number.Substring(6, 4);
-						}
-
-						if (!string.IsNullOrEmpty(sl.firstname))
-						{
-							for (int i = 0; i < sl.myqty; i++)
-							{
-								members.Add(new NewMember
-								{
-									Add = member == null,
-									FirstName = this.FormatProperName(sl.firstname),
-									LastName = this.FormatProperName(sl.lastname),
-									Email = sl.email,
-									Phone = phone,
-									Address = this.FormatAddress(sl.address1),
-									City = this.FormatCity(sl.city),
-									State = sl.state,
-									ZipCode = sl.zipcode,
-									RecNo = sl.customfields[1].value,
-									MemberDate = DateTimeOffset.FromUnixTimeSeconds((long)sl.startdate).Date,
-									Badge = member != null ? member.Badge : string.Empty,
-									CardNo = member != null ? member.CardNo : string.Empty,
-								});
-							}
-						}
-					}
+						Add = member == null,
+						FirstName = this.FormatProperName(newMember.new_member_first),
+						LastName = this.FormatProperName(newMember.new_member_last),
+						Email = newMember.new_member_email,
+						Phone = newMember.new_member_phone,
+						Address = this.FormatAddress(newMember.new_member_street),
+						City = "Sun City West",
+						State = "AZ",
+						ZipCode = "85375",
+						RecNo = newMember.new_member_rec_card,
+						MemberDate = memberStartDate,
+						Badge = member != null ? member.Badge : string.Empty,
+						CardNo = member != null ? member.CardNo : string.Empty,
+					}); ;
 				}
 			}
 

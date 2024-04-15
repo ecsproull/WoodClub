@@ -21,4 +21,19 @@ namespace WoodClub
 
 
 	}
+
+	internal class NewMemberRaw
+	{
+		public string new_member_rec_card { get; set; }
+		public string new_member_first { get; set; }
+		public string new_member_last { get; set; }
+			
+		public string new_member_phone { get; set; }
+			
+		public string new_member_email { get; set; }
+		public string new_member_street { get; set; }
+
+		public string session_start_formatted { get; set; }
+	}
 }
+
