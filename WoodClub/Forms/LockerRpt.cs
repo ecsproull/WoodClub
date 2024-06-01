@@ -220,6 +220,8 @@ namespace WoodClub
 							writer.WriteLine(string.Join(delimter, csv));
 						}
 					}
+
+					System.Diagnostics.Process.Start(filePath);
 				}
 				catch (Exception ex)
 				{
@@ -241,6 +243,12 @@ namespace WoodClub
 
 		private void buttonPrint_Click(object sender, EventArgs e)
 		{
+			dataGridViewLockers.Columns[1].Visible = false;
+			dataGridViewLockers.Columns[6].Visible = false;
+			dataGridViewLockers.Columns[7].Visible = false;
+			dataGridViewLockers.Columns[8].Visible = false;
+			dataGridViewLockers.Columns[11].Visible = false;
+			
 			printDialogLockers.AllowSomePages = true;
 			PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
 			printPrvDlg.ClientSize = new System.Drawing.Size(1200, 800);
@@ -257,10 +265,11 @@ namespace WoodClub
 		{
 			try
 			{
-				columnSkip.Add(3);
-				columnSkip.Add(4);
-				columnSkip.Add(5);
-				columnSkip.Add(10);
+				//columnSkip.Add(1);
+				//columnSkip.Add(6);
+				//columnSkip.Add(7);
+				//columnSkip.Add(8);
+				//columnSkip.Add(11);
 
 				printLockerReport = new PrintDocument();
 				strFormat = new StringFormat
