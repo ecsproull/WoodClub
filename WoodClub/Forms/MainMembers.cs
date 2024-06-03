@@ -245,6 +245,7 @@ namespace WoodClub
 		{
 			MemberRoster roster = blMembers.FirstOrDefault(mem => mem.id == bsMembers.MemberIdentifier());
 			Editor frm = new Editor(roster.Badge);
+			frm.StartPosition = FormStartPosition.CenterScreen;
 			try
 			{
 				if (frm.ShowDialog() == DialogResult.OK)        // Changes made - need to refresh from SQL

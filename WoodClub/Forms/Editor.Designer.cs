@@ -31,7 +31,6 @@
 			this.components = new System.ComponentModel.Container();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.cbAdminBlock = new System.Windows.Forms.CheckBox();
-			this.memberBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.cbRecDuesPaid = new System.Windows.Forms.CheckBox();
 			this.checkBoxFreeDay = new System.Windows.Forms.CheckBox();
 			this.buttonApply = new System.Windows.Forms.Button();
@@ -50,11 +49,6 @@
 			this.TransDataGridView = new System.Windows.Forms.DataGridView();
 			this.cbExtendHr = new System.Windows.Forms.CheckBox();
 			this.dataGridViewCodes = new System.Windows.Forms.DataGridView();
-			this.badgeCode1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.badgeCodeDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codeValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.badgeCodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.txtRFcard = new System.Windows.Forms.TextBox();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.label5 = new System.Windows.Forms.Label();
@@ -101,20 +95,30 @@
 			this.editLocker = new System.Windows.Forms.Button();
 			this.cbUpdateControllers = new System.Windows.Forms.CheckBox();
 			this.button1 = new System.Windows.Forms.Button();
+			this.privateCheckBox = new System.Windows.Forms.CheckBox();
+			this.ercFirstName = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.ercPhone = new System.Windows.Forms.TextBox();
+			this.memberBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.badgeCode1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.badgeCodeDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.codeValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.badgeCodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.memberBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.GridViewNewCredits)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.TransDataGridView)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewCodes)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.memberBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
 			this.groupBox1.Controls.Add(this.cbAdminBlock);
@@ -145,9 +149,9 @@
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.txtJoinDate);
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Location = new System.Drawing.Point(38, 220);
+			this.groupBox1.Location = new System.Drawing.Point(38, 247);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(652, 590);
+			this.groupBox1.Size = new System.Drawing.Size(656, 637);
 			this.groupBox1.TabIndex = 41;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Club Information";
@@ -162,10 +166,6 @@
 			this.cbAdminBlock.TabIndex = 61;
 			this.cbAdminBlock.Text = "Blocked";
 			this.cbAdminBlock.UseVisualStyleBackColor = true;
-			// 
-			// memberBindingSource
-			// 
-			this.memberBindingSource.DataSource = typeof(WoodClub.MemberRoster);
 			// 
 			// cbRecDuesPaid
 			// 
@@ -193,7 +193,7 @@
 			// buttonApply
 			// 
 			this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonApply.Location = new System.Drawing.Point(567, 549);
+			this.buttonApply.Location = new System.Drawing.Point(572, 595);
 			this.buttonApply.Name = "buttonApply";
 			this.buttonApply.Size = new System.Drawing.Size(75, 23);
 			this.buttonApply.TabIndex = 57;
@@ -214,7 +214,7 @@
 			// buttonCancel
 			// 
 			this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonCancel.Location = new System.Drawing.Point(486, 550);
+			this.buttonCancel.Location = new System.Drawing.Point(491, 596);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
 			this.buttonCancel.TabIndex = 55;
@@ -339,7 +339,7 @@
 			this.TransDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.TransDataGridView.Location = new System.Drawing.Point(13, 419);
 			this.TransDataGridView.Name = "TransDataGridView";
-			this.TransDataGridView.Size = new System.Drawing.Size(627, 125);
+			this.TransDataGridView.Size = new System.Drawing.Size(632, 163);
 			this.TransDataGridView.TabIndex = 47;
 			// 
 			// cbExtendHr
@@ -380,47 +380,6 @@
 			this.dataGridViewCodes.TabIndex = 20;
 			this.dataGridViewCodes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DataGridViewCodes_MouseDoubleClick);
 			// 
-			// badgeCode1DataGridViewTextBoxColumn
-			// 
-			this.badgeCode1DataGridViewTextBoxColumn.DataPropertyName = "BadgeCode1";
-			this.badgeCode1DataGridViewTextBoxColumn.HeaderText = "Codes";
-			this.badgeCode1DataGridViewTextBoxColumn.MaxInputLength = 15;
-			this.badgeCode1DataGridViewTextBoxColumn.Name = "badgeCode1DataGridViewTextBoxColumn";
-			this.badgeCode1DataGridViewTextBoxColumn.ReadOnly = true;
-			this.badgeCode1DataGridViewTextBoxColumn.Width = 62;
-			// 
-			// badgeCodeDescDataGridViewTextBoxColumn
-			// 
-			this.badgeCodeDescDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.badgeCodeDescDataGridViewTextBoxColumn.DataPropertyName = "BadgeCodeDesc";
-			this.badgeCodeDescDataGridViewTextBoxColumn.HeaderText = "Description";
-			this.badgeCodeDescDataGridViewTextBoxColumn.MaxInputLength = 25;
-			this.badgeCodeDescDataGridViewTextBoxColumn.Name = "badgeCodeDescDataGridViewTextBoxColumn";
-			this.badgeCodeDescDataGridViewTextBoxColumn.ReadOnly = true;
-			this.badgeCodeDescDataGridViewTextBoxColumn.Width = 180;
-			// 
-			// codeValueDataGridViewTextBoxColumn
-			// 
-			this.codeValueDataGridViewTextBoxColumn.DataPropertyName = "CodeValue";
-			this.codeValueDataGridViewTextBoxColumn.HeaderText = "Value";
-			this.codeValueDataGridViewTextBoxColumn.MaxInputLength = 10;
-			this.codeValueDataGridViewTextBoxColumn.Name = "codeValueDataGridViewTextBoxColumn";
-			this.codeValueDataGridViewTextBoxColumn.ReadOnly = true;
-			this.codeValueDataGridViewTextBoxColumn.Width = 59;
-			// 
-			// idDataGridViewTextBoxColumn
-			// 
-			this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
-			this.idDataGridViewTextBoxColumn.HeaderText = "id";
-			this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-			this.idDataGridViewTextBoxColumn.ReadOnly = true;
-			this.idDataGridViewTextBoxColumn.Visible = false;
-			this.idDataGridViewTextBoxColumn.Width = 40;
-			// 
-			// badgeCodeBindingSource
-			// 
-			this.badgeCodeBindingSource.DataSource = typeof(WoodClub.BadgeCode);
-			// 
 			// txtRFcard
 			// 
 			this.txtRFcard.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.memberBindingSource, "CardNo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, ""));
@@ -434,7 +393,7 @@
 			// 
 			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnSave.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-			this.btnSave.Location = new System.Drawing.Point(405, 550);
+			this.btnSave.Location = new System.Drawing.Point(410, 596);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(75, 23);
 			this.btnSave.TabIndex = 42;
@@ -846,11 +805,114 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.permissions_Click);
 			// 
+			// privateCheckBox
+			// 
+			this.privateCheckBox.AutoSize = true;
+			this.privateCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.memberBindingSource, "Private", true));
+			this.privateCheckBox.Location = new System.Drawing.Point(397, 15);
+			this.privateCheckBox.Name = "privateCheckBox";
+			this.privateCheckBox.Size = new System.Drawing.Size(59, 17);
+			this.privateCheckBox.TabIndex = 52;
+			this.privateCheckBox.Text = "Private";
+			this.privateCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// ercFirstName
+			// 
+			this.ercFirstName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.memberBindingSource, "ERContactFirstName", true));
+			this.ercFirstName.Location = new System.Drawing.Point(230, 220);
+			this.ercFirstName.Margin = new System.Windows.Forms.Padding(2);
+			this.ercFirstName.Name = "ercFirstName";
+			this.ercFirstName.Size = new System.Drawing.Size(83, 20);
+			this.ercFirstName.TabIndex = 53;
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(55, 222);
+			this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(153, 13);
+			this.label6.TabIndex = 54;
+			this.label6.Text = "Emergency Contact First Name";
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(328, 222);
+			this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(56, 13);
+			this.label7.TabIndex = 55;
+			this.label7.Text = "ER Phone";
+			// 
+			// ercPhone
+			// 
+			this.ercPhone.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.memberBindingSource, "ERContactPhone", true));
+			this.ercPhone.Location = new System.Drawing.Point(396, 220);
+			this.ercPhone.Margin = new System.Windows.Forms.Padding(2);
+			this.ercPhone.Name = "ercPhone";
+			this.ercPhone.Size = new System.Drawing.Size(88, 20);
+			this.ercPhone.TabIndex = 56;
+			// 
+			// memberBindingSource
+			// 
+			this.memberBindingSource.DataSource = typeof(WoodClub.MemberRoster);
+			// 
+			// badgeCode1DataGridViewTextBoxColumn
+			// 
+			this.badgeCode1DataGridViewTextBoxColumn.DataPropertyName = "BadgeCode1";
+			this.badgeCode1DataGridViewTextBoxColumn.HeaderText = "Codes";
+			this.badgeCode1DataGridViewTextBoxColumn.MaxInputLength = 15;
+			this.badgeCode1DataGridViewTextBoxColumn.MinimumWidth = 8;
+			this.badgeCode1DataGridViewTextBoxColumn.Name = "badgeCode1DataGridViewTextBoxColumn";
+			this.badgeCode1DataGridViewTextBoxColumn.ReadOnly = true;
+			this.badgeCode1DataGridViewTextBoxColumn.Width = 62;
+			// 
+			// badgeCodeDescDataGridViewTextBoxColumn
+			// 
+			this.badgeCodeDescDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.badgeCodeDescDataGridViewTextBoxColumn.DataPropertyName = "BadgeCodeDesc";
+			this.badgeCodeDescDataGridViewTextBoxColumn.HeaderText = "Description";
+			this.badgeCodeDescDataGridViewTextBoxColumn.MaxInputLength = 25;
+			this.badgeCodeDescDataGridViewTextBoxColumn.MinimumWidth = 8;
+			this.badgeCodeDescDataGridViewTextBoxColumn.Name = "badgeCodeDescDataGridViewTextBoxColumn";
+			this.badgeCodeDescDataGridViewTextBoxColumn.ReadOnly = true;
+			this.badgeCodeDescDataGridViewTextBoxColumn.Width = 180;
+			// 
+			// codeValueDataGridViewTextBoxColumn
+			// 
+			this.codeValueDataGridViewTextBoxColumn.DataPropertyName = "CodeValue";
+			this.codeValueDataGridViewTextBoxColumn.HeaderText = "Value";
+			this.codeValueDataGridViewTextBoxColumn.MaxInputLength = 10;
+			this.codeValueDataGridViewTextBoxColumn.MinimumWidth = 8;
+			this.codeValueDataGridViewTextBoxColumn.Name = "codeValueDataGridViewTextBoxColumn";
+			this.codeValueDataGridViewTextBoxColumn.ReadOnly = true;
+			this.codeValueDataGridViewTextBoxColumn.Width = 59;
+			// 
+			// idDataGridViewTextBoxColumn
+			// 
+			this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
+			this.idDataGridViewTextBoxColumn.HeaderText = "id";
+			this.idDataGridViewTextBoxColumn.MinimumWidth = 8;
+			this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+			this.idDataGridViewTextBoxColumn.ReadOnly = true;
+			this.idDataGridViewTextBoxColumn.Visible = false;
+			this.idDataGridViewTextBoxColumn.Width = 40;
+			// 
+			// badgeCodeBindingSource
+			// 
+			this.badgeCodeBindingSource.DataSource = typeof(WoodClub.BadgeCode);
+			// 
 			// Editor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(720, 836);
+			this.ClientSize = new System.Drawing.Size(724, 891);
+			this.Controls.Add(this.ercPhone);
+			this.Controls.Add(this.label7);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.ercFirstName);
+			this.Controls.Add(this.privateCheckBox);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.cbUpdateControllers);
 			this.Controls.Add(this.editLocker);
@@ -886,14 +948,14 @@
 			this.Load += new System.EventHandler(this.Editor_Load);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.memberBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.GridViewNewCredits)).EndInit();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.TransDataGridView)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewCodes)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.memberBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.badgeCodeBindingSource)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -973,5 +1035,10 @@
         private System.Windows.Forms.CheckBox cbRecDuesPaid;
         private System.Windows.Forms.CheckBox cbAdminBlock;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.CheckBox privateCheckBox;
+		private System.Windows.Forms.TextBox ercFirstName;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.TextBox ercPhone;
 	}
 }

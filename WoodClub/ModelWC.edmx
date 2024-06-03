@@ -180,6 +180,9 @@ warning 6002: The table/view 'WoodClub.dbo.BadgeCodes' does not have a primary k
           <Property Name="Photo" Type="image" />
           <Property Name="GroupTime" Type="nvarchar" MaxLength="20" />
           <Property Name="AdminBlock" Type="bit" />
+          <Property Name="Private" Type="bit" />
+          <Property Name="ERContactFirstName" Type="nvarchar" MaxLength="20" />
+          <Property Name="ERContactPhone" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="MonitorParams">
           <Key>
@@ -441,6 +444,9 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="GroupTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="AdminBlock" Type="Boolean" />
           <Property Name="QBmodified" Type="DateTime" Precision="0" />
+          <Property Name="Private" Type="Boolean" />
+          <Property Name="ERContactFirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ERContactPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MonitorParam">
           <Key>
@@ -684,6 +690,9 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySetMapping Name="MemberRosters">
             <EntityTypeMapping TypeName="WoodClubModel.MemberRoster">
               <MappingFragment StoreEntitySet="MemberRoster">
+                <ScalarProperty Name="ERContactPhone" ColumnName="ERContactPhone" />
+                <ScalarProperty Name="ERContactFirstName" ColumnName="ERContactFirstName" />
+                <ScalarProperty Name="Private" ColumnName="Private" />
                 <ScalarProperty Name="QBmodified" ColumnName="QBmodified" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
