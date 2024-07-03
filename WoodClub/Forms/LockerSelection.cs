@@ -51,28 +51,22 @@ namespace WoodClub.Forms
 				{
 					if (senderName == "dataGridViewAllLockers")
 					{
-						JoinedListItem jli = this.sblLockersAll[e.RowIndex];
-						//                  JoinedListItem jli = new JoinedListItem
-						//                  {
-						//                      Selected = "Remove",
-						//                      BadgeOriginal = jli.
-						//	Badge = this.member.Badge,
-						//	FirstName = this.member.FirstName,
-						//	LastName = this.member.LastName,
-						//	Locker = row.Cells["LockerAll"].Value.ToString(),
-						//	Location = row.Cells["WhereAll"].Value.ToString()
-						//};
-
-						jli.Badge = this.member.Badge;
-						jli.LastName = this.member.LastName;
-						jli.FirstName = this.member.FirstName;
-						jli.Selected = "Remove";
+						JoinedListItem jli = new JoinedListItem
+						{
+							Selected = "Remove",
+							BadgeOriginal = this.sblLockersAll[e.RowIndex].BadgeOriginal,
+							Badge = this.member.Badge,
+							FirstName = this.member.FirstName,
+							LastName = this.member.LastName,
+							Locker = this.sblLockersAll[e.RowIndex].Locker,
+							Location = this.sblLockersAll[e.RowIndex].Location,
+							FirstNameOriginal = this.sblLockersAll[e.RowIndex].FirstNameOriginal,
+							LastNameOriginal = this.sblLockersAll[e.RowIndex].LastNameOriginal
+						};
 
 						sblLockersCurrent.Add(jli);
 						sblLockersAll.Remove(sblLockersAll[e.RowIndex]);
-						this.dataGridViewAllLockers.EndEdit();
-						this.dataGridViewAllLockers.Refresh();
-
+						bs_AllLockers.DataSource = sblLockersAll;
 					}
 					else
 					{
@@ -107,8 +101,7 @@ namespace WoodClub.Forms
 							jli.Selected = "Add";
 							sblLockersAll.Add(jli);
 							sblLockersCurrent.Remove(sblLockersCurrent[e.RowIndex]);
-							this.dataGridViewAllLockers.EndEdit();
-							this.dataGridViewAllLockers.Refresh();
+							bs_SelectedLockers.DataSource = sblLockersCurrent;
 						}
 					}
 					else
