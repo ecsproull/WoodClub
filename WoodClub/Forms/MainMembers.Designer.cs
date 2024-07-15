@@ -34,23 +34,6 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMembers));
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.RecCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Locker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.CardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.EntryCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Visits = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Credits = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.OneTime = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.LastDayValid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Exempt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.ClubDuesPaid = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -104,6 +87,23 @@
 			this.updateWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
 			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.RecCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Locker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.CardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.EntryCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Visits = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Credits = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.OneTime = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.LastDayValid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Exempt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.ClubDuesPaid = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -154,8 +154,7 @@
 			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-			this.dataGridView1.Location = new System.Drawing.Point(0, 43);
-			this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.dataGridView1.Location = new System.Drawing.Point(0, 28);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
 			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -168,11 +167,450 @@
 			this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.dataGridView1.RowHeadersWidth = 62;
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dataGridView1.Size = new System.Drawing.Size(2252, 923);
+			this.dataGridView1.Size = new System.Drawing.Size(1501, 600);
 			this.dataGridView1.TabIndex = 0;
 			this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
 			this.dataGridView1.SelectionChanged += new System.EventHandler(this.bsMembers_PositionChanged);
 			this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
+			// 
+			// bindingNavigator1
+			// 
+			this.bindingNavigator1.AddNewItem = null;
+			this.bindingNavigator1.BindingSource = this.memberRosterBindingSource;
+			this.bindingNavigator1.CountItem = this.bindingNavigatorCountItem;
+			this.bindingNavigator1.DeleteItem = null;
+			this.bindingNavigator1.ImageScalingSize = new System.Drawing.Size(24, 24);
+			this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton3,
+            this.bindingNavigatorMoveFirstItem,
+            this.bindingNavigatorMovePreviousItem,
+            this.bindingNavigatorSeparator,
+            this.bindingNavigatorPositionItem,
+            this.bindingNavigatorSeparator1,
+            this.bindingNavigatorMoveNextItem,
+            this.bindingNavigatorMoveLastItem,
+            this.bindingNavigatorCountItem,
+            this.bindingNavigatorSeparator2,
+            this.toolStripButton2,
+            this.toolStripButton1,
+            this.toolStripSeparator7,
+            this.badgesDropDownButton,
+            this.toolStripSeparator1,
+            this.ReportsDownButton,
+            this.toolStripSeparator3,
+            this.toolStripDropDownButton2,
+            this.toolStripSeparator2,
+            this.toolStripLabel2,
+            this.toolStripTextBox1,
+            this.toolStripSeparator4,
+            this.toolStripLabel3,
+            this.toolStripTextBoxFilter,
+            this.toolStripSeparator5,
+            this.toolStripDropDownButton3,
+            this.toolStripSeparator6,
+            this.MultipleMembersButton,
+            this.toolStripSeparator8,
+            this.machinePermissions,
+            this.toolStripButton4});
+			this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
+			this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
+			this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
+			this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
+			this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
+			this.bindingNavigator1.Name = "bindingNavigator1";
+			this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
+			this.bindingNavigator1.Size = new System.Drawing.Size(1513, 34);
+			this.bindingNavigator1.TabIndex = 1;
+			this.bindingNavigator1.Text = "bindingNavigator1";
+			// 
+			// bindingNavigatorCountItem
+			// 
+			this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+			this.bindingNavigatorCountItem.Size = new System.Drawing.Size(54, 29);
+			this.bindingNavigatorCountItem.Text = "of {0}";
+			this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+			// 
+			// toolStripButton3
+			// 
+			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton3.Name = "toolStripButton3";
+			this.toolStripButton3.Size = new System.Drawing.Size(74, 29);
+			this.toolStripButton3.Text = "Refresh";
+			this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+			// 
+			// bindingNavigatorMoveFirstItem
+			// 
+			this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
+			this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+			this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+			this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(34, 29);
+			this.bindingNavigatorMoveFirstItem.Text = "Move first";
+			// 
+			// bindingNavigatorMovePreviousItem
+			// 
+			this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
+			this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+			this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+			this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(34, 29);
+			this.bindingNavigatorMovePreviousItem.Text = "Move previous";
+			// 
+			// bindingNavigatorSeparator
+			// 
+			this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+			this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 34);
+			// 
+			// bindingNavigatorPositionItem
+			// 
+			this.bindingNavigatorPositionItem.AccessibleName = "Position";
+			this.bindingNavigatorPositionItem.AutoSize = false;
+			this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+			this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 31);
+			this.bindingNavigatorPositionItem.Text = "0";
+			this.bindingNavigatorPositionItem.ToolTipText = "Current position";
+			// 
+			// bindingNavigatorSeparator1
+			// 
+			this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+			this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 34);
+			// 
+			// bindingNavigatorMoveNextItem
+			// 
+			this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
+			this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+			this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+			this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(34, 29);
+			this.bindingNavigatorMoveNextItem.Text = "Move next";
+			// 
+			// bindingNavigatorMoveLastItem
+			// 
+			this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
+			this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+			this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+			this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(34, 29);
+			this.bindingNavigatorMoveLastItem.Text = "Move last";
+			// 
+			// bindingNavigatorSeparator2
+			// 
+			this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 34);
+			// 
+			// toolStripButton2
+			// 
+			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton2.Name = "toolStripButton2";
+			this.toolStripButton2.Size = new System.Drawing.Size(34, 29);
+			this.toolStripButton2.Text = "toolStripButton2";
+			this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+			// 
+			// toolStripButton1
+			// 
+			this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton1.Name = "toolStripButton1";
+			this.toolStripButton1.Size = new System.Drawing.Size(34, 29);
+			this.toolStripButton1.Text = "toolStripButton1";
+			this.toolStripButton1.Click += new System.EventHandler(this.DeleteItemClick);
+			// 
+			// toolStripSeparator7
+			// 
+			this.toolStripSeparator7.Name = "toolStripSeparator7";
+			this.toolStripSeparator7.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+			this.toolStripSeparator7.Size = new System.Drawing.Size(6, 34);
+			// 
+			// badgesDropDownButton
+			// 
+			this.badgesDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.badgesDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectedToolStripMenuItem,
+            this.selectAllToolStripMenuItem});
+			this.badgesDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("badgesDropDownButton.Image")));
+			this.badgesDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.badgesDropDownButton.Name = "badgesDropDownButton";
+			this.badgesDropDownButton.Size = new System.Drawing.Size(88, 29);
+			this.badgesDropDownButton.Text = "Badges";
+			// 
+			// selectedToolStripMenuItem
+			// 
+			this.selectedToolStripMenuItem.Name = "selectedToolStripMenuItem";
+			this.selectedToolStripMenuItem.Size = new System.Drawing.Size(185, 34);
+			this.selectedToolStripMenuItem.Text = "Selected";
+			this.selectedToolStripMenuItem.Click += new System.EventHandler(this.selectedToolStripMenuItem_Click);
+			// 
+			// selectAllToolStripMenuItem
+			// 
+			this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+			this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(185, 34);
+			this.selectAllToolStripMenuItem.Text = "ExportAll";
+			this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.exportAllToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 34);
+			// 
+			// ReportsDownButton
+			// 
+			this.ReportsDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.ReportsDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.monitorToolStripMenuItem,
+            this.monthlyClubUsageToolStripMenuItem,
+            this.lockerSummaryToolStripMenuItem,
+            this.dailySummaryToolStripMenuItem,
+            this.menuItemFreeDayOnly});
+			this.ReportsDownButton.Image = ((System.Drawing.Image)(resources.GetObject("ReportsDownButton.Image")));
+			this.ReportsDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.ReportsDownButton.Name = "ReportsDownButton";
+			this.ReportsDownButton.Size = new System.Drawing.Size(91, 29);
+			this.ReportsDownButton.Text = "Reports";
+			// 
+			// monitorToolStripMenuItem
+			// 
+			this.monitorToolStripMenuItem.Name = "monitorToolStripMenuItem";
+			this.monitorToolStripMenuItem.Size = new System.Drawing.Size(275, 34);
+			this.monitorToolStripMenuItem.Text = "Monitor";
+			this.monitorToolStripMenuItem.Click += new System.EventHandler(this.monitorsToolStripMenuItem_Click);
+			// 
+			// monthlyClubUsageToolStripMenuItem
+			// 
+			this.monthlyClubUsageToolStripMenuItem.Name = "monthlyClubUsageToolStripMenuItem";
+			this.monthlyClubUsageToolStripMenuItem.Size = new System.Drawing.Size(275, 34);
+			this.monthlyClubUsageToolStripMenuItem.Text = "Monthly Club Usage";
+			this.monthlyClubUsageToolStripMenuItem.Click += new System.EventHandler(this.monthlyClubUsageToolStripMenuItem_Click);
+			// 
+			// lockerSummaryToolStripMenuItem
+			// 
+			this.lockerSummaryToolStripMenuItem.Name = "lockerSummaryToolStripMenuItem";
+			this.lockerSummaryToolStripMenuItem.Size = new System.Drawing.Size(275, 34);
+			this.lockerSummaryToolStripMenuItem.Text = "Locker Summary";
+			this.lockerSummaryToolStripMenuItem.Click += new System.EventHandler(this.lockerSummaryToolStripMenuItem_Click);
+			// 
+			// dailySummaryToolStripMenuItem
+			// 
+			this.dailySummaryToolStripMenuItem.Name = "dailySummaryToolStripMenuItem";
+			this.dailySummaryToolStripMenuItem.Size = new System.Drawing.Size(275, 34);
+			this.dailySummaryToolStripMenuItem.Text = "Daily Summary";
+			this.dailySummaryToolStripMenuItem.Click += new System.EventHandler(this.dailySummaryToolStripMenuItem_Click);
+			// 
+			// menuItemFreeDayOnly
+			// 
+			this.menuItemFreeDayOnly.Name = "menuItemFreeDayOnly";
+			this.menuItemFreeDayOnly.Size = new System.Drawing.Size(275, 34);
+			this.menuItemFreeDayOnly.Text = "Free Day Only";
+			// 
+			// toolStripSeparator3
+			// 
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 34);
+			// 
+			// toolStripDropDownButton2
+			// 
+			this.toolStripDropDownButton2.AutoSize = false;
+			this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lockersToolStripMenuItem,
+            this.locationsToolStripMenuItem,
+            this.costsToolStripMenuItem,
+            this.summaryReportToolStripMenuItem});
+			this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+			this.toolStripDropDownButton2.Size = new System.Drawing.Size(63, 22);
+			this.toolStripDropDownButton2.Text = "Lockers";
+			// 
+			// lockersToolStripMenuItem
+			// 
+			this.lockersToolStripMenuItem.Name = "lockersToolStripMenuItem";
+			this.lockersToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
+			this.lockersToolStripMenuItem.Text = "Edit Lockers";
+			this.lockersToolStripMenuItem.Click += new System.EventHandler(this.lockersToolStripMenuItem_Click);
+			// 
+			// locationsToolStripMenuItem
+			// 
+			this.locationsToolStripMenuItem.Name = "locationsToolStripMenuItem";
+			this.locationsToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
+			this.locationsToolStripMenuItem.Text = "Edit Locations";
+			this.locationsToolStripMenuItem.Click += new System.EventHandler(this.locationsToolStripMenuItem_Click);
+			// 
+			// costsToolStripMenuItem
+			// 
+			this.costsToolStripMenuItem.Name = "costsToolStripMenuItem";
+			this.costsToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
+			this.costsToolStripMenuItem.Text = "Edit Prices";
+			this.costsToolStripMenuItem.Click += new System.EventHandler(this.costsToolStripMenuItem_Click);
+			// 
+			// summaryReportToolStripMenuItem
+			// 
+			this.summaryReportToolStripMenuItem.Name = "summaryReportToolStripMenuItem";
+			this.summaryReportToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
+			this.summaryReportToolStripMenuItem.Text = "Summary Report";
+			this.summaryReportToolStripMenuItem.Click += new System.EventHandler(this.summaryReportToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 34);
+			// 
+			// toolStripLabel2
+			// 
+			this.toolStripLabel2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel2.Image")));
+			this.toolStripLabel2.Name = "toolStripLabel2";
+			this.toolStripLabel2.Size = new System.Drawing.Size(103, 29);
+			this.toolStripLabel2.Text = "Badge =";
+			// 
+			// toolStripTextBox1
+			// 
+			this.toolStripTextBox1.Name = "toolStripTextBox1";
+			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 34);
+			this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
+			this.toolStripTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
+			// 
+			// toolStripSeparator4
+			// 
+			this.toolStripSeparator4.Name = "toolStripSeparator4";
+			this.toolStripSeparator4.Size = new System.Drawing.Size(6, 34);
+			// 
+			// toolStripLabel3
+			// 
+			this.toolStripLabel3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel3.Image")));
+			this.toolStripLabel3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.toolStripLabel3.Name = "toolStripLabel3";
+			this.toolStripLabel3.Size = new System.Drawing.Size(162, 29);
+			this.toolStripLabel3.Text = "Name/Badge = ";
+			// 
+			// toolStripTextBoxFilter
+			// 
+			this.toolStripTextBoxFilter.Name = "toolStripTextBoxFilter";
+			this.toolStripTextBoxFilter.Size = new System.Drawing.Size(100, 34);
+			// 
+			// toolStripSeparator5
+			// 
+			this.toolStripSeparator5.Name = "toolStripSeparator5";
+			this.toolStripSeparator5.Size = new System.Drawing.Size(6, 34);
+			// 
+			// toolStripDropDownButton3
+			// 
+			this.toolStripDropDownButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripImportNewMembers,
+            this.importPhotosToolStripMenuItem,
+            this.restoreOldToolStripMenuItem,
+            this.clubTracksToolStripMenuItem,
+            this.updateDuesToolStripMenuItem});
+			this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
+			this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
+			this.toolStripDropDownButton3.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+			this.toolStripDropDownButton3.Size = new System.Drawing.Size(105, 29);
+			this.toolStripDropDownButton3.Text = "Members";
+			// 
+			// toolStripImportNewMembers
+			// 
+			this.toolStripImportNewMembers.Name = "toolStripImportNewMembers";
+			this.toolStripImportNewMembers.Size = new System.Drawing.Size(263, 34);
+			this.toolStripImportNewMembers.Text = "Import Orientation";
+			// 
+			// importPhotosToolStripMenuItem
+			// 
+			this.importPhotosToolStripMenuItem.Name = "importPhotosToolStripMenuItem";
+			this.importPhotosToolStripMenuItem.Size = new System.Drawing.Size(263, 34);
+			this.importPhotosToolStripMenuItem.Text = "Import Photos";
+			this.importPhotosToolStripMenuItem.Click += new System.EventHandler(this.importPhotosToolStripMenuItem_Click);
+			// 
+			// restoreOldToolStripMenuItem
+			// 
+			this.restoreOldToolStripMenuItem.Name = "restoreOldToolStripMenuItem";
+			this.restoreOldToolStripMenuItem.Size = new System.Drawing.Size(263, 34);
+			this.restoreOldToolStripMenuItem.Text = "Restore Old";
+			this.restoreOldToolStripMenuItem.Click += new System.EventHandler(this.restoreOldToolStripMenuItem_Click);
+			// 
+			// clubTracksToolStripMenuItem
+			// 
+			this.clubTracksToolStripMenuItem.Name = "clubTracksToolStripMenuItem";
+			this.clubTracksToolStripMenuItem.Size = new System.Drawing.Size(263, 34);
+			this.clubTracksToolStripMenuItem.Text = "Club Tracks";
+			this.clubTracksToolStripMenuItem.Click += new System.EventHandler(this.clubTracksToolStripMenuItem_Click_1);
+			// 
+			// updateDuesToolStripMenuItem
+			// 
+			this.updateDuesToolStripMenuItem.Name = "updateDuesToolStripMenuItem";
+			this.updateDuesToolStripMenuItem.Size = new System.Drawing.Size(263, 34);
+			this.updateDuesToolStripMenuItem.Text = "Update Dues";
+			this.updateDuesToolStripMenuItem.Click += new System.EventHandler(this.updateDuesToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator6
+			// 
+			this.toolStripSeparator6.Name = "toolStripSeparator6";
+			this.toolStripSeparator6.Size = new System.Drawing.Size(6, 34);
+			// 
+			// MultipleMembersButton
+			// 
+			this.MultipleMembersButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.MultipleMembersButton.Image = ((System.Drawing.Image)(resources.GetObject("MultipleMembersButton.Image")));
+			this.MultipleMembersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.MultipleMembersButton.Name = "MultipleMembersButton";
+			this.MultipleMembersButton.Size = new System.Drawing.Size(116, 29);
+			this.MultipleMembersButton.Text = "Multi Credits";
+			// 
+			// toolStripSeparator8
+			// 
+			this.toolStripSeparator8.Name = "toolStripSeparator8";
+			this.toolStripSeparator8.Size = new System.Drawing.Size(6, 34);
+			// 
+			// machinePermissions
+			// 
+			this.machinePermissions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.machinePermissions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editPermissionsToolStripMenuItem,
+            this.reportToolStripMenuItem,
+            this.updateWebsiteToolStripMenuItem});
+			this.machinePermissions.Image = ((System.Drawing.Image)(resources.GetObject("machinePermissions.Image")));
+			this.machinePermissions.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.machinePermissions.Name = "machinePermissions";
+			this.machinePermissions.Size = new System.Drawing.Size(102, 33);
+			this.machinePermissions.Text = "MC Perm";
+			// 
+			// editPermissionsToolStripMenuItem
+			// 
+			this.editPermissionsToolStripMenuItem.Name = "editPermissionsToolStripMenuItem";
+			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(242, 34);
+			this.editPermissionsToolStripMenuItem.Text = "Edit Permissions";
+			this.editPermissionsToolStripMenuItem.Click += new System.EventHandler(this.editMachinePermissions_Click);
+			// 
+			// reportToolStripMenuItem
+			// 
+			this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
+			this.reportToolStripMenuItem.Size = new System.Drawing.Size(242, 34);
+			this.reportToolStripMenuItem.Text = "Report";
+			// 
+			// updateWebsiteToolStripMenuItem
+			// 
+			this.updateWebsiteToolStripMenuItem.Name = "updateWebsiteToolStripMenuItem";
+			this.updateWebsiteToolStripMenuItem.Size = new System.Drawing.Size(242, 34);
+			this.updateWebsiteToolStripMenuItem.Text = "Update Website";
+			this.updateWebsiteToolStripMenuItem.Click += new System.EventHandler(this.updateWebsiteToolStripMenuItem_Click);
+			// 
+			// toolStripButton4
+			// 
+			this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+			this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton4.Name = "toolStripButton4";
+			this.toolStripButton4.Size = new System.Drawing.Size(72, 33);
+			this.toolStripButton4.Text = "Mail To";
+			this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+			// 
+			// addPermissionsToolStripMenuItem
+			// 
+			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
+			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
 			// 
 			// Badge
 			// 
@@ -191,7 +629,7 @@
 			this.FirstName.MinimumWidth = 8;
 			this.FirstName.Name = "FirstName";
 			this.FirstName.ReadOnly = true;
-			this.FirstName.Width = 150;
+			this.FirstName.Width = 125;
 			// 
 			// LastName
 			// 
@@ -200,14 +638,14 @@
 			this.LastName.MinimumWidth = 8;
 			this.LastName.Name = "LastName";
 			this.LastName.ReadOnly = true;
-			this.LastName.Width = 150;
+			this.LastName.Width = 125;
 			// 
 			// Address
 			// 
 			this.Address.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.Address.DataPropertyName = "Address";
 			this.Address.HeaderText = "Address";
-			this.Address.MinimumWidth = 8;
+			this.Address.MinimumWidth = 200;
 			this.Address.Name = "Address";
 			this.Address.ReadOnly = true;
 			// 
@@ -225,7 +663,7 @@
 			this.Email.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.Email.DataPropertyName = "Email";
 			this.Email.HeaderText = "Email";
-			this.Email.MinimumWidth = 8;
+			this.Email.MinimumWidth = 175;
 			this.Email.Name = "Email";
 			this.Email.ReadOnly = true;
 			// 
@@ -340,458 +778,14 @@
 			this.ClubDuesPaid.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			this.ClubDuesPaid.Width = 80;
 			// 
-			// bindingNavigator1
-			// 
-			this.bindingNavigator1.AddNewItem = null;
-			this.bindingNavigator1.BindingSource = this.memberRosterBindingSource;
-			this.bindingNavigator1.CountItem = this.bindingNavigatorCountItem;
-			this.bindingNavigator1.DeleteItem = null;
-			this.bindingNavigator1.ImageScalingSize = new System.Drawing.Size(24, 24);
-			this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton3,
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator2,
-            this.toolStripButton2,
-            this.toolStripButton1,
-            this.toolStripSeparator7,
-            this.badgesDropDownButton,
-            this.toolStripSeparator1,
-            this.ReportsDownButton,
-            this.toolStripSeparator3,
-            this.toolStripDropDownButton2,
-            this.toolStripSeparator2,
-            this.toolStripLabel2,
-            this.toolStripTextBox1,
-            this.toolStripSeparator4,
-            this.toolStripLabel3,
-            this.toolStripTextBoxFilter,
-            this.toolStripSeparator5,
-            this.toolStripDropDownButton3,
-            this.toolStripSeparator6,
-            this.MultipleMembersButton,
-            this.toolStripSeparator8,
-            this.machinePermissions,
-            this.toolStripButton4});
-			this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
-			this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-			this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
-			this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
-			this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-			this.bindingNavigator1.Name = "bindingNavigator1";
-			this.bindingNavigator1.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-			this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-			this.bindingNavigator1.Size = new System.Drawing.Size(2270, 38);
-			this.bindingNavigator1.TabIndex = 1;
-			this.bindingNavigator1.Text = "bindingNavigator1";
-			// 
-			// bindingNavigatorCountItem
-			// 
-			this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-			this.bindingNavigatorCountItem.Size = new System.Drawing.Size(54, 33);
-			this.bindingNavigatorCountItem.Text = "of {0}";
-			this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
-			// 
-			// toolStripButton3
-			// 
-			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton3.Name = "toolStripButton3";
-			this.toolStripButton3.Size = new System.Drawing.Size(74, 33);
-			this.toolStripButton3.Text = "Refresh";
-			this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
-			// 
-			// bindingNavigatorMoveFirstItem
-			// 
-			this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
-			this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-			this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(34, 33);
-			this.bindingNavigatorMoveFirstItem.Text = "Move first";
-			// 
-			// bindingNavigatorMovePreviousItem
-			// 
-			this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-			this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-			this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(34, 33);
-			this.bindingNavigatorMovePreviousItem.Text = "Move previous";
-			// 
-			// bindingNavigatorSeparator
-			// 
-			this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-			this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 38);
-			// 
-			// bindingNavigatorPositionItem
-			// 
-			this.bindingNavigatorPositionItem.AccessibleName = "Position";
-			this.bindingNavigatorPositionItem.AutoSize = false;
-			this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-			this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(73, 31);
-			this.bindingNavigatorPositionItem.Text = "0";
-			this.bindingNavigatorPositionItem.ToolTipText = "Current position";
-			// 
-			// bindingNavigatorSeparator1
-			// 
-			this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-			this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 38);
-			// 
-			// bindingNavigatorMoveNextItem
-			// 
-			this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-			this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-			this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(34, 33);
-			this.bindingNavigatorMoveNextItem.Text = "Move next";
-			// 
-			// bindingNavigatorMoveLastItem
-			// 
-			this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
-			this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-			this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(34, 33);
-			this.bindingNavigatorMoveLastItem.Text = "Move last";
-			// 
-			// bindingNavigatorSeparator2
-			// 
-			this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 38);
-			// 
-			// toolStripButton2
-			// 
-			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton2.Name = "toolStripButton2";
-			this.toolStripButton2.Size = new System.Drawing.Size(34, 33);
-			this.toolStripButton2.Text = "toolStripButton2";
-			this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-			// 
-			// toolStripButton1
-			// 
-			this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(34, 33);
-			this.toolStripButton1.Text = "toolStripButton1";
-			this.toolStripButton1.Click += new System.EventHandler(this.DeleteItemClick);
-			// 
-			// toolStripSeparator7
-			// 
-			this.toolStripSeparator7.Name = "toolStripSeparator7";
-			this.toolStripSeparator7.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-			this.toolStripSeparator7.Size = new System.Drawing.Size(6, 38);
-			// 
-			// badgesDropDownButton
-			// 
-			this.badgesDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.badgesDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.selectedToolStripMenuItem,
-            this.selectAllToolStripMenuItem});
-			this.badgesDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("badgesDropDownButton.Image")));
-			this.badgesDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.badgesDropDownButton.Name = "badgesDropDownButton";
-			this.badgesDropDownButton.Size = new System.Drawing.Size(88, 33);
-			this.badgesDropDownButton.Text = "Badges";
-			// 
-			// selectedToolStripMenuItem
-			// 
-			this.selectedToolStripMenuItem.Name = "selectedToolStripMenuItem";
-			this.selectedToolStripMenuItem.Size = new System.Drawing.Size(185, 34);
-			this.selectedToolStripMenuItem.Text = "Selected";
-			this.selectedToolStripMenuItem.Click += new System.EventHandler(this.selectedToolStripMenuItem_Click);
-			// 
-			// selectAllToolStripMenuItem
-			// 
-			this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-			this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(185, 34);
-			this.selectAllToolStripMenuItem.Text = "ExportAll";
-			this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.exportAllToolStripMenuItem_Click);
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 38);
-			// 
-			// ReportsDownButton
-			// 
-			this.ReportsDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.ReportsDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.monitorToolStripMenuItem,
-            this.monthlyClubUsageToolStripMenuItem,
-            this.lockerSummaryToolStripMenuItem,
-            this.dailySummaryToolStripMenuItem,
-            this.menuItemFreeDayOnly});
-			this.ReportsDownButton.Image = ((System.Drawing.Image)(resources.GetObject("ReportsDownButton.Image")));
-			this.ReportsDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.ReportsDownButton.Name = "ReportsDownButton";
-			this.ReportsDownButton.Size = new System.Drawing.Size(91, 33);
-			this.ReportsDownButton.Text = "Reports";
-			// 
-			// monitorToolStripMenuItem
-			// 
-			this.monitorToolStripMenuItem.Name = "monitorToolStripMenuItem";
-			this.monitorToolStripMenuItem.Size = new System.Drawing.Size(275, 34);
-			this.monitorToolStripMenuItem.Text = "Monitor";
-			this.monitorToolStripMenuItem.Click += new System.EventHandler(this.monitorsToolStripMenuItem_Click);
-			// 
-			// monthlyClubUsageToolStripMenuItem
-			// 
-			this.monthlyClubUsageToolStripMenuItem.Name = "monthlyClubUsageToolStripMenuItem";
-			this.monthlyClubUsageToolStripMenuItem.Size = new System.Drawing.Size(275, 34);
-			this.monthlyClubUsageToolStripMenuItem.Text = "Monthly Club Usage";
-			this.monthlyClubUsageToolStripMenuItem.Click += new System.EventHandler(this.monthlyClubUsageToolStripMenuItem_Click);
-			// 
-			// lockerSummaryToolStripMenuItem
-			// 
-			this.lockerSummaryToolStripMenuItem.Name = "lockerSummaryToolStripMenuItem";
-			this.lockerSummaryToolStripMenuItem.Size = new System.Drawing.Size(275, 34);
-			this.lockerSummaryToolStripMenuItem.Text = "Locker Summary";
-			this.lockerSummaryToolStripMenuItem.Click += new System.EventHandler(this.lockerSummaryToolStripMenuItem_Click);
-			// 
-			// dailySummaryToolStripMenuItem
-			// 
-			this.dailySummaryToolStripMenuItem.Name = "dailySummaryToolStripMenuItem";
-			this.dailySummaryToolStripMenuItem.Size = new System.Drawing.Size(275, 34);
-			this.dailySummaryToolStripMenuItem.Text = "Daily Summary";
-			this.dailySummaryToolStripMenuItem.Click += new System.EventHandler(this.dailySummaryToolStripMenuItem_Click);
-			// 
-			// menuItemFreeDayOnly
-			// 
-			this.menuItemFreeDayOnly.Name = "menuItemFreeDayOnly";
-			this.menuItemFreeDayOnly.Size = new System.Drawing.Size(275, 34);
-			this.menuItemFreeDayOnly.Text = "Free Day Only";
-			// 
-			// toolStripSeparator3
-			// 
-			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 38);
-			// 
-			// toolStripDropDownButton2
-			// 
-			this.toolStripDropDownButton2.AutoSize = false;
-			this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lockersToolStripMenuItem,
-            this.locationsToolStripMenuItem,
-            this.costsToolStripMenuItem,
-            this.summaryReportToolStripMenuItem});
-			this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-			this.toolStripDropDownButton2.Size = new System.Drawing.Size(63, 22);
-			this.toolStripDropDownButton2.Text = "Lockers";
-			// 
-			// lockersToolStripMenuItem
-			// 
-			this.lockersToolStripMenuItem.Name = "lockersToolStripMenuItem";
-			this.lockersToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
-			this.lockersToolStripMenuItem.Text = "Edit Lockers";
-			this.lockersToolStripMenuItem.Click += new System.EventHandler(this.lockersToolStripMenuItem_Click);
-			// 
-			// locationsToolStripMenuItem
-			// 
-			this.locationsToolStripMenuItem.Name = "locationsToolStripMenuItem";
-			this.locationsToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
-			this.locationsToolStripMenuItem.Text = "Edit Locations";
-			this.locationsToolStripMenuItem.Click += new System.EventHandler(this.locationsToolStripMenuItem_Click);
-			// 
-			// costsToolStripMenuItem
-			// 
-			this.costsToolStripMenuItem.Name = "costsToolStripMenuItem";
-			this.costsToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
-			this.costsToolStripMenuItem.Text = "Edit Prices";
-			this.costsToolStripMenuItem.Click += new System.EventHandler(this.costsToolStripMenuItem_Click);
-			// 
-			// summaryReportToolStripMenuItem
-			// 
-			this.summaryReportToolStripMenuItem.Name = "summaryReportToolStripMenuItem";
-			this.summaryReportToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
-			this.summaryReportToolStripMenuItem.Text = "Summary Report";
-			this.summaryReportToolStripMenuItem.Click += new System.EventHandler(this.summaryReportToolStripMenuItem_Click);
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 38);
-			// 
-			// toolStripLabel2
-			// 
-			this.toolStripLabel2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel2.Image")));
-			this.toolStripLabel2.Name = "toolStripLabel2";
-			this.toolStripLabel2.Size = new System.Drawing.Size(103, 33);
-			this.toolStripLabel2.Text = "Badge =";
-			// 
-			// toolStripTextBox1
-			// 
-			this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.toolStripTextBox1.Name = "toolStripTextBox1";
-			this.toolStripTextBox1.Size = new System.Drawing.Size(148, 38);
-			this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
-			this.toolStripTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
-			// 
-			// toolStripSeparator4
-			// 
-			this.toolStripSeparator4.Name = "toolStripSeparator4";
-			this.toolStripSeparator4.Size = new System.Drawing.Size(6, 38);
-			// 
-			// toolStripLabel3
-			// 
-			this.toolStripLabel3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel3.Image")));
-			this.toolStripLabel3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.toolStripLabel3.Name = "toolStripLabel3";
-			this.toolStripLabel3.Size = new System.Drawing.Size(162, 33);
-			this.toolStripLabel3.Text = "Name/Badge = ";
-			// 
-			// toolStripTextBoxFilter
-			// 
-			this.toolStripTextBoxFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.toolStripTextBoxFilter.Name = "toolStripTextBoxFilter";
-			this.toolStripTextBoxFilter.Size = new System.Drawing.Size(148, 38);
-			// 
-			// toolStripSeparator5
-			// 
-			this.toolStripSeparator5.Name = "toolStripSeparator5";
-			this.toolStripSeparator5.Size = new System.Drawing.Size(6, 38);
-			// 
-			// toolStripDropDownButton3
-			// 
-			this.toolStripDropDownButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripImportNewMembers,
-            this.importPhotosToolStripMenuItem,
-            this.restoreOldToolStripMenuItem,
-            this.clubTracksToolStripMenuItem,
-            this.updateDuesToolStripMenuItem});
-			this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
-			this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
-			this.toolStripDropDownButton3.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-			this.toolStripDropDownButton3.Size = new System.Drawing.Size(105, 33);
-			this.toolStripDropDownButton3.Text = "Members";
-			// 
-			// toolStripImportNewMembers
-			// 
-			this.toolStripImportNewMembers.Name = "toolStripImportNewMembers";
-			this.toolStripImportNewMembers.Size = new System.Drawing.Size(263, 34);
-			this.toolStripImportNewMembers.Text = "Import Orientation";
-			// 
-			// importPhotosToolStripMenuItem
-			// 
-			this.importPhotosToolStripMenuItem.Name = "importPhotosToolStripMenuItem";
-			this.importPhotosToolStripMenuItem.Size = new System.Drawing.Size(263, 34);
-			this.importPhotosToolStripMenuItem.Text = "Import Photos";
-			this.importPhotosToolStripMenuItem.Click += new System.EventHandler(this.importPhotosToolStripMenuItem_Click);
-			// 
-			// restoreOldToolStripMenuItem
-			// 
-			this.restoreOldToolStripMenuItem.Name = "restoreOldToolStripMenuItem";
-			this.restoreOldToolStripMenuItem.Size = new System.Drawing.Size(263, 34);
-			this.restoreOldToolStripMenuItem.Text = "Restore Old";
-			this.restoreOldToolStripMenuItem.Click += new System.EventHandler(this.restoreOldToolStripMenuItem_Click);
-			// 
-			// clubTracksToolStripMenuItem
-			// 
-			this.clubTracksToolStripMenuItem.Name = "clubTracksToolStripMenuItem";
-			this.clubTracksToolStripMenuItem.Size = new System.Drawing.Size(263, 34);
-			this.clubTracksToolStripMenuItem.Text = "Club Tracks";
-			this.clubTracksToolStripMenuItem.Click += new System.EventHandler(this.clubTracksToolStripMenuItem_Click_1);
-			// 
-			// updateDuesToolStripMenuItem
-			// 
-			this.updateDuesToolStripMenuItem.Name = "updateDuesToolStripMenuItem";
-			this.updateDuesToolStripMenuItem.Size = new System.Drawing.Size(263, 34);
-			this.updateDuesToolStripMenuItem.Text = "Update Dues";
-			this.updateDuesToolStripMenuItem.Click += new System.EventHandler(this.updateDuesToolStripMenuItem_Click);
-			// 
-			// toolStripSeparator6
-			// 
-			this.toolStripSeparator6.Name = "toolStripSeparator6";
-			this.toolStripSeparator6.Size = new System.Drawing.Size(6, 38);
-			// 
-			// MultipleMembersButton
-			// 
-			this.MultipleMembersButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.MultipleMembersButton.Image = ((System.Drawing.Image)(resources.GetObject("MultipleMembersButton.Image")));
-			this.MultipleMembersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.MultipleMembersButton.Name = "MultipleMembersButton";
-			this.MultipleMembersButton.Size = new System.Drawing.Size(116, 33);
-			this.MultipleMembersButton.Text = "Multi Credits";
-			// 
-			// toolStripSeparator8
-			// 
-			this.toolStripSeparator8.Name = "toolStripSeparator8";
-			this.toolStripSeparator8.Size = new System.Drawing.Size(6, 38);
-			// 
-			// machinePermissions
-			// 
-			this.machinePermissions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.machinePermissions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editPermissionsToolStripMenuItem,
-            this.reportToolStripMenuItem,
-            this.updateWebsiteToolStripMenuItem});
-			this.machinePermissions.Image = ((System.Drawing.Image)(resources.GetObject("machinePermissions.Image")));
-			this.machinePermissions.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.machinePermissions.Name = "machinePermissions";
-			this.machinePermissions.Size = new System.Drawing.Size(102, 33);
-			this.machinePermissions.Text = "MC Perm";
-			// 
-			// editPermissionsToolStripMenuItem
-			// 
-			this.editPermissionsToolStripMenuItem.Name = "editPermissionsToolStripMenuItem";
-			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(242, 34);
-			this.editPermissionsToolStripMenuItem.Text = "Edit Permissions";
-			this.editPermissionsToolStripMenuItem.Click += new System.EventHandler(this.editMachinePermissions_Click);
-			// 
-			// reportToolStripMenuItem
-			// 
-			this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-			this.reportToolStripMenuItem.Size = new System.Drawing.Size(242, 34);
-			this.reportToolStripMenuItem.Text = "Report";
-			// 
-			// updateWebsiteToolStripMenuItem
-			// 
-			this.updateWebsiteToolStripMenuItem.Name = "updateWebsiteToolStripMenuItem";
-			this.updateWebsiteToolStripMenuItem.Size = new System.Drawing.Size(242, 34);
-			this.updateWebsiteToolStripMenuItem.Text = "Update Website";
-			this.updateWebsiteToolStripMenuItem.Click += new System.EventHandler(this.updateWebsiteToolStripMenuItem_Click);
-			// 
-			// toolStripButton4
-			// 
-			this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-			this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton4.Name = "toolStripButton4";
-			this.toolStripButton4.Size = new System.Drawing.Size(72, 33);
-			this.toolStripButton4.Text = "Mail To";
-			this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
-			// 
-			// addPermissionsToolStripMenuItem
-			// 
-			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
-			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-			// 
 			// MainMembers
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(2270, 1017);
+			this.ClientSize = new System.Drawing.Size(1513, 661);
 			this.Controls.Add(this.bindingNavigator1);
 			this.Controls.Add(this.dataGridView1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.Name = "MainMembers";
 			this.Text = "Woodclub Members";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -846,6 +840,22 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem menuItemFreeDayOnly;
 		private System.Windows.Forms.ToolStripButton toolStripButton2;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+		private System.Windows.Forms.ToolStripMenuItem restoreOldToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem clubTracksToolStripMenuItem;
+		private System.Windows.Forms.ToolStripButton toolStripButton3;
+		private System.Windows.Forms.ToolStripDropDownButton badgesDropDownButton;
+		private System.Windows.Forms.ToolStripMenuItem selectedToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+		private System.Windows.Forms.ToolStripDropDownButton machinePermissions;
+		private System.Windows.Forms.ToolStripMenuItem editPermissionsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem importPhotosToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem updateDuesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem addPermissionsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripButton toolStripButton4;
+		private System.Windows.Forms.ToolStripMenuItem updateWebsiteToolStripMenuItem;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Badge;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn LastName;
@@ -863,22 +873,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn LastDayValid;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn Exempt;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn ClubDuesPaid;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-		private System.Windows.Forms.ToolStripMenuItem restoreOldToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem clubTracksToolStripMenuItem;
-		private System.Windows.Forms.ToolStripButton toolStripButton3;
-		private System.Windows.Forms.ToolStripDropDownButton badgesDropDownButton;
-		private System.Windows.Forms.ToolStripMenuItem selectedToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-		private System.Windows.Forms.ToolStripDropDownButton machinePermissions;
-		private System.Windows.Forms.ToolStripMenuItem editPermissionsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem importPhotosToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem updateDuesToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem addPermissionsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripButton toolStripButton4;
-		private System.Windows.Forms.ToolStripMenuItem updateWebsiteToolStripMenuItem;
 	}
 }
 
