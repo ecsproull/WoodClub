@@ -9,16 +9,29 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Form to print the contact list for the entire shop.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class PrintContacts : Form
 	{
 		private List<MemberRoster> contactList;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="PrintContacts"/> class.
+		/// </summary>
 		public PrintContacts()
 		{
 			InitializeComponent();
 		}
 
-
-		private void openPrint_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the Click event for the Excel button.
+		/// Export a CSV file and then opens it in Excel.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void openExcel_Click(object sender, EventArgs e)
 		{
 			string delimter = ",";
 			SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -58,6 +71,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Load event of the PrintContacts control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void PrintContacts_Load(object sender, EventArgs e)
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -79,30 +97,35 @@ namespace WoodClub
 		private int totalWidth;
 		private int headerHeight = 0;
 		private List<int> columnSkip = new List<int>();
+
+		/// <summary>
+		/// Handles the Click event of the Print button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonPrint_Click(object sender, EventArgs e)
 		{
 			printContactsDialog.AllowSomePages = true;
 			PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
 			printPrvDlg.ClientSize = new System.Drawing.Size(800, 1200);
 
-			printDocumentContacts.BeginPrint += PrintLockerReport_BeginPrint;
-			printDocumentContacts.PrintPage += PrintLockerReport_PrintPage;
+			printDocumentContacts.BeginPrint += PrintRoster_BeginPrint;
+			printDocumentContacts.PrintPage += PrintRoster_PrintPage;
 			printDocumentContacts.DefaultPageSettings.Landscape = false;
 
 			printPrvDlg.Document = printDocumentContacts;
 			printPrvDlg.ShowDialog();
 		}
 
-		private void PrintLockerReport_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+		/// <summary>
+		/// Handles the BeginPrint event.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Drawing.Printing.PrintEventArgs"/> instance containing the event data.</param>
+		private void PrintRoster_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
 		{
 			try
 			{
-				//columnSkip.Add(1);
-				//columnSkip.Add(6);
-				//columnSkip.Add(7);
-				//columnSkip.Add(8);
-				//columnSkip.Add(11);
-
 				printDocumentContacts = new PrintDocument
 				{
 					PrinterSettings =
@@ -143,8 +166,15 @@ namespace WoodClub
 				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
+
 		int pageCount = 0;
-		private void PrintLockerReport_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+
+		/// <summary>
+		/// Handles the PrintPage event.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Drawing.Printing.PrintPageEventArgs"/> instance containing the event data.</param>
+		private void PrintRoster_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
 		{
 			try
 			{
@@ -299,6 +329,12 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the event of the Print button.
+		/// TODO: figure out why we have a extra call here?
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonPrint_Click_1(object sender, EventArgs e)
 		{
 			buttonPrint_Click(null, null);

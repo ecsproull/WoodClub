@@ -13,7 +13,7 @@ namespace WoodClub
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
 				  (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 		private readonly List<BadgeDate> paidList = new List<BadgeDate>();
-		private SortableBindingList<UnpaidMember> ds_Unpaid;
+		private SortableBindingList<UnpaidMemberData> ds_Unpaid;
 
 		private class BadgeDate
 		{
@@ -105,7 +105,7 @@ namespace WoodClub
 		
 		private void UpdatePaidDataBase()
 		{
-			ds_Unpaid = new SortableBindingList<UnpaidMember>();
+			ds_Unpaid = new SortableBindingList<UnpaidMemberData>();
 			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				List<MemberRoster> members = (from m in context.MemberRosters
@@ -136,7 +136,7 @@ namespace WoodClub
 
 		private void FindUnPaid()
 		{
-			ds_Unpaid = new SortableBindingList<UnpaidMember>();
+			ds_Unpaid = new SortableBindingList<UnpaidMemberData>();
 			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				List<MemberRoster> members = (from m in context.MemberRosters
@@ -151,7 +151,7 @@ namespace WoodClub
 
 		private void Reconcile()
 		{
-			ds_Unpaid = new SortableBindingList<UnpaidMember>();
+			ds_Unpaid = new SortableBindingList<UnpaidMemberData>();
 			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				List<MemberRoster> members = (from m in context.MemberRosters
@@ -199,7 +199,7 @@ namespace WoodClub
 
 		private void AddToList(MemberRoster member, bool delete = false)
 		{
-			UnpaidMember upm = new UnpaidMember
+			UnpaidMemberData upm = new UnpaidMemberData
 			{
 				Badge = member.Badge,
 				FirstName = member.FirstName,
@@ -222,7 +222,7 @@ namespace WoodClub
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
 			{
-				foreach (UnpaidMember unpaid in ds_Unpaid)
+				foreach (UnpaidMemberData unpaid in ds_Unpaid)
 				{
 					if (unpaid.Delete == true)
 					{

@@ -8,6 +8,10 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Form to display the monitor report.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class MonitorForm : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
@@ -25,6 +29,9 @@ namespace WoodClub
 		private MemberRoster member = null;
 		private int year;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MonitorForm"/> class.
+		/// </summary>
 		public MonitorForm()
 		{
 			InitializeComponent();
@@ -32,6 +39,11 @@ namespace WoodClub
 			bsMonitors.PositionChanged += BsMonitors_PositionChanged;
 		}
 
+		/// <summary>
+		/// Handles the PositionChanged event of the BindingSource control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void BsMonitors_PositionChanged(object sender, EventArgs e)
 		{
 			if (bsMonitors.CurrentRowIsValid())
@@ -44,12 +56,21 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Load event of the MonitorForm control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void MonitorForm_Load(object sender, EventArgs e)
 		{
 			year = DateTime.Now.Year;
 			LoadYear(year);
 		}
 
+		/// <summary>
+		/// Loads the year when the year changes.
+		/// </summary>
+		/// <param name="yr">The yr.</param>
 		private void LoadYear(int yr)
 		{
 			//
@@ -72,6 +93,10 @@ namespace WoodClub
 				log.Info("LoadYear: Monitor Load completed.");
 			}
 		}
+
+		/// <summary>
+		/// Called when [show monitor].
+		/// </summary>
 		public void OnShowMonitor()
 		{
 			blMonitors = new SortableBindingList<Monitors>(DSmonitor);
@@ -84,6 +109,9 @@ namespace WoodClub
 			this.btnRefresh.Enabled = true;
 		}
 
+		/// <summary>
+		/// Loads the monitor.
+		/// </summary>
 		private void loadMonitor()
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -164,6 +192,12 @@ namespace WoodClub
 			OnShowMonitor();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Save button.
+		/// Saves the data as a CSV file.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void btnSave_Click(object sender, EventArgs e)
 		{
 			string pathDesktop = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%") + "\\Documents";
@@ -209,6 +243,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Refresh button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void btnRefresh_Click(object sender, EventArgs e)
 		{
 			int todayYear = DateTime.Now.Year;
@@ -222,6 +261,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the ValueChanged event of the dateTimePicker1 control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
 		{
 			year = dateTimePicker1.Value.Year;

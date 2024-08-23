@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
-	public partial class Editor : Form
+	public partial class MemberEditor : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
 				  (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -30,7 +30,7 @@ namespace WoodClub
 		private MemberRoster member;
 		private bool adding;
 
-		public Editor(string badge)
+		public MemberEditor(string badge)
 		{
 			InitializeComponent();
 			this.badge = badge;

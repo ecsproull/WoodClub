@@ -102,6 +102,9 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">WoodClub.MainMembers Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>The home screen view. Displays a list of all member and allows the user to pick a member to view and edit their data. Also includes the main ToolBar to facilitate many other functions including reports, permissions, lockers, adding credits to multiple members, filtering the view and sending a member an email.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for WoodClub.MainMembers:</div>
 <div class="dyncontent">
@@ -112,6 +115,7 @@ Inheritance diagram for WoodClub.MainMembers:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afe845f7e0d9229aa8497158ec7253039" id="r_afe845f7e0d9229aa8497158ec7253039"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe845f7e0d9229aa8497158ec7253039">MainMembers</a> ()</td></tr>
+<tr class="memdesc:afe845f7e0d9229aa8497158ec7253039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_wood_club_1_1_main_members.html" title="The home screen view. Displays a list of all member and allows the user to pick a member to view and ...">MainMembers</a> class.  <br /></td></tr>
 <tr class="separator:afe845f7e0d9229aa8497158ec7253039"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -135,24 +139,34 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a38248a67fefb79254821ed4f57f6cfe9" id="r_a38248a67fefb79254821ed4f57f6cfe9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38248a67fefb79254821ed4f57f6cfe9">MessageIn</a> ()</td></tr>
+<tr class="memdesc:a38248a67fefb79254821ed4f57f6cfe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives messages via UDP. When an update in made in the <a class="el" href="namespace_wood_club.html" title="Application for viewing and managing member data in the club database. Each member has a lot of assoc...">WoodClub</a> application that requires an update to the card controllers a message is sent to the ZkAccessIO application to update the controllers. After the update is done ZkAccessIO sends a message back saying it is done. That message is received here.  <br /></td></tr>
 <tr class="separator:a38248a67fefb79254821ed4f57f6cfe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1097e27b3124720524dca09a761a2f03" id="r_a1097e27b3124720524dca09a761a2f03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1097e27b3124720524dca09a761a2f03">Form1_Load</a> (object sender, EventArgs e)</td></tr>
-<tr class="separator:a1097e27b3124720524dca09a761a2f03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f0138892718a964e453640ed3dae710" id="r_a8f0138892718a964e453640ed3dae710"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f0138892718a964e453640ed3dae710">ToolStripTextBox1_KeyUp</a> (object sender, KeyEventArgs e)</td></tr>
-<tr class="separator:a8f0138892718a964e453640ed3dae710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa06cfc8365b8545f466a269a31fa3ba8" id="r_aa06cfc8365b8545f466a269a31fa3ba8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa06cfc8365b8545f466a269a31fa3ba8">MainMembers_Load</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:aa06cfc8365b8545f466a269a31fa3ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Load event of the <a class="el" href="class_wood_club_1_1_main_members.html" title="The home screen view. Displays a list of all member and allows the user to pick a member to view and ...">MainMembers</a> control. Several event handlers are assigned here.  <br /></td></tr>
+<tr class="separator:aa06cfc8365b8545f466a269a31fa3ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f2c1b69630c1389a0976a0ab7370872" id="r_a7f2c1b69630c1389a0976a0ab7370872"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f2c1b69630c1389a0976a0ab7370872">BadgeEntryTextbox_KeyUp</a> (object sender, KeyEventArgs e)</td></tr>
+<tr class="memdesc:a7f2c1b69630c1389a0976a0ab7370872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the KeyUp event of the BadgeEntryTextbox control. When a user starts to enter a badge number the filtered TextBox is ignored.  <br /></td></tr>
+<tr class="separator:a7f2c1b69630c1389a0976a0ab7370872"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a351743f140cbe6679d3087b9b4c194f9" id="r_a351743f140cbe6679d3087b9b4c194f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a351743f140cbe6679d3087b9b4c194f9">MenuItemFreeDayOnly_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a351743f140cbe6679d3087b9b4c194f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the MenuItemFreeDayOnly control. This button is located under the Reports ToolBar item and filters member that have a Free Day available.  <br /></td></tr>
 <tr class="separator:a351743f140cbe6679d3087b9b4c194f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa702baba79d3c994478da76f0155f581" id="r_aa702baba79d3c994478da76f0155f581"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa702baba79d3c994478da76f0155f581">MultipleMembersButton_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:aa702baba79d3c994478da76f0155f581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the MultipleMembersButton located on the ToolBar. This form allow the user to enter the same credit to several members at one time.  <br /></td></tr>
 <tr class="separator:aa702baba79d3c994478da76f0155f581"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb1cd70cc852269071889a80beb84d52" id="r_afb1cd70cc852269071889a80beb84d52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb1cd70cc852269071889a80beb84d52">LoadMembers</a> ()</td></tr>
+<tr class="memdesc:afb1cd70cc852269071889a80beb84d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the members. Also useful to reload the list after making changes.  <br /></td></tr>
 <tr class="separator:afb1cd70cc852269071889a80beb84d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94baf11e11d8484353a4790152e4ee7c" id="r_a94baf11e11d8484353a4790152e4ee7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94baf11e11d8484353a4790152e4ee7c">ToolStripImportNewMembers_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a94baf11e11d8484353a4790152e4ee7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the ToolStripImportNewMembers control. Under the <a class="el" href="class_wood_club_1_1_members.html">Members</a> ToolBar item the Import Orientation item invokes this event.  <br /></td></tr>
 <tr class="separator:a94baf11e11d8484353a4790152e4ee7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c1db7874ce8f5fdb3d140a2a9c45ed6" id="r_a0c1db7874ce8f5fdb3d140a2a9c45ed6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c1db7874ce8f5fdb3d140a2a9c45ed6">TextBoxName_KeyUp</a> (object sender, KeyEventArgs e)</td></tr>
+<tr class="memdesc:a0c1db7874ce8f5fdb3d140a2a9c45ed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the KeyUp event of the TextBoxName control. This is the filter control handler.  <br /></td></tr>
 <tr class="separator:a0c1db7874ce8f5fdb3d140a2a9c45ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f985f41693b1d499b42fa47356c13e7" id="r_a3f985f41693b1d499b42fa47356c13e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f985f41693b1d499b42fa47356c13e7">setTextBoxFocus</a> ()</td></tr>
+<tr class="memdesc:a3f985f41693b1d499b42fa47356c13e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the filtered text box focus.  <br /></td></tr>
 <tr class="separator:a3f985f41693b1d499b42fa47356c13e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a2e98c2dc133c60857e8456ac6c3d9e" id="r_a9a2e98c2dc133c60857e8456ac6c3d9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a2e98c2dc133c60857e8456ac6c3d9e">setBsMembersDataSource</a> ()</td></tr>
+<tr class="memdesc:a9a2e98c2dc133c60857e8456ac6c3d9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets or clears the binding source members data source. When entering text into the filter box, this is where the updating of the member list takes place.  <br /></td></tr>
 <tr class="separator:a9a2e98c2dc133c60857e8456ac6c3d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62af66358067318d7630026c6b973d41" id="r_a62af66358067318d7630026c6b973d41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62af66358067318d7630026c6b973d41">dataGridView1_Sorted</a> (object sender, EventArgs e)</td></tr>
 <tr class="memdesc:a62af66358067318d7630026c6b973d41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use the form level variable currentCustomer set in the BindingSource PositionChanged event to keep the item current when sorting via the DataGridView column headers.  <br /></td></tr>
@@ -161,58 +175,82 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a47045cb3999a675bf434a51596b9d842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current member displayed in the DataGridView and assign it to a private variable for use in the Sorted event of the DataGridView.  <br /></td></tr>
 <tr class="separator:a47045cb3999a675bf434a51596b9d842"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7f8c2f56104a0a8d541191f63dd3c8c" id="r_aa7f8c2f56104a0a8d541191f63dd3c8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa7f8c2f56104a0a8d541191f63dd3c8c">dataGridView1_CellMouseDoubleClick</a> (object sender, DataGridViewCellMouseEventArgs e)</td></tr>
+<tr class="memdesc:aa7f8c2f56104a0a8d541191f63dd3c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the CellMouseDoubleClick event of the dataGridView1 control. This opens the member that has been double clicked.  <br /></td></tr>
 <tr class="separator:aa7f8c2f56104a0a8d541191f63dd3c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea6bece4eab896799db82f9aacf75377" id="r_aea6bece4eab896799db82f9aacf75377"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea6bece4eab896799db82f9aacf75377">DeleteItemClick</a> (object sender, EventArgs e)</td></tr>
-<tr class="separator:aea6bece4eab896799db82f9aacf75377"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f0becc410017cac27a9c585831a8379" id="r_a0f0becc410017cac27a9c585831a8379"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f0becc410017cac27a9c585831a8379">DeleteMemberItemClick</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a0f0becc410017cac27a9c585831a8379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the selected item. The click is from the garbage can in the tool bar.  <br /></td></tr>
+<tr class="separator:a0f0becc410017cac27a9c585831a8379"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64c1dfc2c77a5b29dbb708bcc10523c0" id="r_a64c1dfc2c77a5b29dbb708bcc10523c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64c1dfc2c77a5b29dbb708bcc10523c0">EditCurrentRow</a> ()</td></tr>
+<tr class="memdesc:a64c1dfc2c77a5b29dbb708bcc10523c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edits the current row which represents a member. Opens the member editor.  <br /></td></tr>
 <tr class="separator:a64c1dfc2c77a5b29dbb708bcc10523c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad23a703ec665a8024569739647e0a959" id="r_ad23a703ec665a8024569739647e0a959"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad23a703ec665a8024569739647e0a959">Form1_FormClosed</a> (object sender, FormClosedEventArgs e)</td></tr>
-<tr class="separator:ad23a703ec665a8024569739647e0a959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b316c3624627a4f3e08a7a992fcd323" id="r_a3b316c3624627a4f3e08a7a992fcd323"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b316c3624627a4f3e08a7a992fcd323">MainMembers_FormClosed</a> (object sender, FormClosedEventArgs e)</td></tr>
+<tr class="memdesc:a3b316c3624627a4f3e08a7a992fcd323"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the FormClosed event of the <a class="el" href="class_wood_club_1_1_main_members.html" title="The home screen view. Displays a list of all member and allows the user to pick a member to view and ...">MainMembers</a> form.  <br /></td></tr>
+<tr class="separator:a3b316c3624627a4f3e08a7a992fcd323"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d560673b896ed34ada4747aa2233e36" id="r_a0d560673b896ed34ada4747aa2233e36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d560673b896ed34ada4747aa2233e36">monitorsToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a0d560673b896ed34ada4747aa2233e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the monitorsToolStripMenuItem control. This the <a class="el" href="class_wood_club_1_1_monitors.html">Monitors</a> item under the Reports ToolBar item.  <br /></td></tr>
 <tr class="separator:a0d560673b896ed34ada4747aa2233e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a756afd3262f6f66f05b813143989efdb" id="r_a756afd3262f6f66f05b813143989efdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a756afd3262f6f66f05b813143989efdb">monthlyClubUsageToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a756afd3262f6f66f05b813143989efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the monthlyClubUsageToolStripMenuItem control. Monthly club usage is under the Reports ToolBar item.  <br /></td></tr>
 <tr class="separator:a756afd3262f6f66f05b813143989efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdaff2c35dd6291d5e812f7ad20c721f" id="r_afdaff2c35dd6291d5e812f7ad20c721f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdaff2c35dd6291d5e812f7ad20c721f">summaryReportToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:afdaff2c35dd6291d5e812f7ad20c721f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the summaryReportToolStripMenuItem control. This is the Summary item under the <a class="el" href="class_wood_club_1_1_lockers.html">Lockers</a> ToolBar item.  <br /></td></tr>
 <tr class="separator:afdaff2c35dd6291d5e812f7ad20c721f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a791a2f333b5c402a373ec6598ade025b" id="r_a791a2f333b5c402a373ec6598ade025b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a791a2f333b5c402a373ec6598ade025b">lockerSummaryToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a791a2f333b5c402a373ec6598ade025b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the lockerSummaryToolStripMenuItem control. Opens the locker summary from the Reports ToolBar item.  <br /></td></tr>
 <tr class="separator:a791a2f333b5c402a373ec6598ade025b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac822644b036d568322a6a39244ebd6d" id="r_aac822644b036d568322a6a39244ebd6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac822644b036d568322a6a39244ebd6d">dailySummaryToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:aac822644b036d568322a6a39244ebd6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the dailySummaryToolStripMenuItem control. This shows the daily summary of shop usage.  <br /></td></tr>
 <tr class="separator:aac822644b036d568322a6a39244ebd6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa924e0aaa208af70fb8d462f83b2d85" id="r_afa924e0aaa208af70fb8d462f83b2d85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa924e0aaa208af70fb8d462f83b2d85">tb_KeyDown</a> (object sender, KeyEventArgs e)</td></tr>
-<tr class="separator:afa924e0aaa208af70fb8d462f83b2d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a031a6e5b8abfa4cdd37cec108514cd28" id="r_a031a6e5b8abfa4cdd37cec108514cd28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a031a6e5b8abfa4cdd37cec108514cd28">badgeEntryTextBox_KeyDown</a> (object sender, KeyEventArgs e)</td></tr>
+<tr class="memdesc:a031a6e5b8abfa4cdd37cec108514cd28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the KeyDown event of the badge entry TextBox control. TODO: look at removing the keyup handler.  <br /></td></tr>
+<tr class="separator:a031a6e5b8abfa4cdd37cec108514cd28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ba184b6ca8bd54442a7e9089bae5644" id="r_a2ba184b6ca8bd54442a7e9089bae5644"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ba184b6ca8bd54442a7e9089bae5644">Find_Badge</a> ()</td></tr>
+<tr class="memdesc:a2ba184b6ca8bd54442a7e9089bae5644"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the badge in the member list and opens the <a class="el" href="class_wood_club_1_1_member_editor.html">MemberEditor</a> form for this badge.  <br /></td></tr>
 <tr class="separator:a2ba184b6ca8bd54442a7e9089bae5644"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6371254eab41c4acc263f2b7c6dc8e7" id="r_ac6371254eab41c4acc263f2b7c6dc8e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6371254eab41c4acc263f2b7c6dc8e7">locationsToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
-<tr class="separator:ac6371254eab41c4acc263f2b7c6dc8e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20c1af7c16d72065eed61c4b38efc709" id="r_a20c1af7c16d72065eed61c4b38efc709"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20c1af7c16d72065eed61c4b38efc709">lockersToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
-<tr class="separator:a20c1af7c16d72065eed61c4b38efc709"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1241d5b21c6eae6c41424f00558639cc" id="r_a1241d5b21c6eae6c41424f00558639cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1241d5b21c6eae6c41424f00558639cc">costsToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
-<tr class="separator:a1241d5b21c6eae6c41424f00558639cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c5fe596c88844f2e8b6676d38cfd974" id="r_a1c5fe596c88844f2e8b6676d38cfd974"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c5fe596c88844f2e8b6676d38cfd974">toolStripButton2_Click</a> (object sender, EventArgs e)</td></tr>
-<tr class="separator:a1c5fe596c88844f2e8b6676d38cfd974"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c2a3586f6d7dc3ed052e4da485cddc4" id="r_a4c2a3586f6d7dc3ed052e4da485cddc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c2a3586f6d7dc3ed052e4da485cddc4">lockerLocationsToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a4c2a3586f6d7dc3ed052e4da485cddc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the lockerLocationsToolStripMenuItem control.  <br /></td></tr>
+<tr class="separator:a4c2a3586f6d7dc3ed052e4da485cddc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec403373f09ba7351b92bf4cc78ae8a9" id="r_aec403373f09ba7351b92bf4cc78ae8a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec403373f09ba7351b92bf4cc78ae8a9">editLockersToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:aec403373f09ba7351b92bf4cc78ae8a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the editLockersToolStripMenuItem control.  <br /></td></tr>
+<tr class="separator:aec403373f09ba7351b92bf4cc78ae8a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27dda8fe89c1df2b910adbc65184fc30" id="r_a27dda8fe89c1df2b910adbc65184fc30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27dda8fe89c1df2b910adbc65184fc30">lockerCostsToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a27dda8fe89c1df2b910adbc65184fc30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the lockerCostsToolStripMenuItem control.  <br /></td></tr>
+<tr class="separator:a27dda8fe89c1df2b910adbc65184fc30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e32e90ba6739bb670e3b7fcfe5684e3" id="r_a3e32e90ba6739bb670e3b7fcfe5684e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e32e90ba6739bb670e3b7fcfe5684e3">addMemberToolStripButton_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a3e32e90ba6739bb670e3b7fcfe5684e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the addMemberToolStripButton control.  <br /></td></tr>
+<tr class="separator:a3e32e90ba6739bb670e3b7fcfe5684e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1a1211a62ae2218b062a0e08ace1551" id="r_ab1a1211a62ae2218b062a0e08ace1551"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1a1211a62ae2218b062a0e08ace1551">clubTracksToolStripMenuItem_Click_1</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:ab1a1211a62ae2218b062a0e08ace1551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the event of the clubTracksToolStripMenuItem_Click control. Creates a HeadTracks report in CSV form that is compatible with the recreation center's upload tool.  <br /></td></tr>
 <tr class="separator:ab1a1211a62ae2218b062a0e08ace1551"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a2b94ce4dd462cae6cdfd8ff73fecd5" id="r_a0a2b94ce4dd462cae6cdfd8ff73fecd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a2b94ce4dd462cae6cdfd8ff73fecd5">restoreOldToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a0a2b94ce4dd462cae6cdfd8ff73fecd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the restoreOldToolStripMenuItem control. Restores a member from the backup database table.  <br /></td></tr>
 <tr class="separator:a0a2b94ce4dd462cae6cdfd8ff73fecd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1204df1b9bea212a9520f45d9ec2b494" id="r_a1204df1b9bea212a9520f45d9ec2b494"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1204df1b9bea212a9520f45d9ec2b494">toolStripButton3_Click</a> (object sender, EventArgs e)</td></tr>
-<tr class="separator:a1204df1b9bea212a9520f45d9ec2b494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fb2cbf0ea12ddf2fc96fd3cdf5a72de" id="r_a2fb2cbf0ea12ddf2fc96fd3cdf5a72de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fb2cbf0ea12ddf2fc96fd3cdf5a72de">refreshToolStripButton_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a2fb2cbf0ea12ddf2fc96fd3cdf5a72de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the refreshToolStripButton control.  <br /></td></tr>
+<tr class="separator:a2fb2cbf0ea12ddf2fc96fd3cdf5a72de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47a676a008ca4753cbb5f66112d32e3b" id="r_a47a676a008ca4753cbb5f66112d32e3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47a676a008ca4753cbb5f66112d32e3b">exportAllToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a47a676a008ca4753cbb5f66112d32e3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the exportAllToolStripMenuItem control. Export All is under the Badges ToolBar menu item.  <br /></td></tr>
 <tr class="separator:a47a676a008ca4753cbb5f66112d32e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba98c50931bcdd68711d40317612101e" id="r_aba98c50931bcdd68711d40317612101e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba98c50931bcdd68711d40317612101e">selectedToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:aba98c50931bcdd68711d40317612101e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the selectedToolStripMenuItem control. Selected is under the Badges ToolBar menu item.  <br /></td></tr>
 <tr class="separator:aba98c50931bcdd68711d40317612101e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a21ddfdb90cb870803e1fdee0738281" id="r_a3a21ddfdb90cb870803e1fdee0738281"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a21ddfdb90cb870803e1fdee0738281">editMachinePermissions_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a3a21ddfdb90cb870803e1fdee0738281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the editMachinePermissions control.  <br /></td></tr>
 <tr class="separator:a3a21ddfdb90cb870803e1fdee0738281"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6ae9f3498f8e0e229286e186ae1469b" id="r_ad6ae9f3498f8e0e229286e186ae1469b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6ae9f3498f8e0e229286e186ae1469b">importPhotosToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:ad6ae9f3498f8e0e229286e186ae1469b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the importPhotosToolStripMenuItem control.  <br /></td></tr>
 <tr class="separator:ad6ae9f3498f8e0e229286e186ae1469b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64c99fd94894e5bc3bcc45c22c1a3aa3" id="r_a64c99fd94894e5bc3bcc45c22c1a3aa3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64c99fd94894e5bc3bcc45c22c1a3aa3">updateDuesToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a64c99fd94894e5bc3bcc45c22c1a3aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the updateDuesToolStripMenuItem control.  <br /></td></tr>
 <tr class="separator:a64c99fd94894e5bc3bcc45c22c1a3aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac81140a22187dc1b24467a88092e0fac" id="r_ac81140a22187dc1b24467a88092e0fac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac81140a22187dc1b24467a88092e0fac">addPermissionsToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
-<tr class="separator:ac81140a22187dc1b24467a88092e0fac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab078b92990b3c83dfc9fabdf4755f3a1" id="r_ab078b92990b3c83dfc9fabdf4755f3a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab078b92990b3c83dfc9fabdf4755f3a1">toolStripButton4_Click</a> (object sender, EventArgs e)</td></tr>
-<tr class="separator:ab078b92990b3c83dfc9fabdf4755f3a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a478f163dba82b1bf0ccc67114dd2ffb0" id="r_a478f163dba82b1bf0ccc67114dd2ffb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a478f163dba82b1bf0ccc67114dd2ffb0">mailToToollStripButton_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a478f163dba82b1bf0ccc67114dd2ffb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the mailToToollStripButton control.  <br /></td></tr>
+<tr class="separator:a478f163dba82b1bf0ccc67114dd2ffb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1decc50ad609d574dc15885609a2964" id="r_aa1decc50ad609d574dc15885609a2964"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1decc50ad609d574dc15885609a2964">updateWebsiteToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:aa1decc50ad609d574dc15885609a2964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the updateWebsiteToolStripMenuItem control.  <br /></td></tr>
 <tr class="separator:aa1decc50ad609d574dc15885609a2964"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af13a2f98b38c3807610c71d8c2b2f293" id="r_af13a2f98b38c3807610c71d8c2b2f293"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af13a2f98b38c3807610c71d8c2b2f293">printRosterToolStripMenuItem_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:af13a2f98b38c3807610c71d8c2b2f293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the printRosterToolStripMenuItem control.  <br /></td></tr>
 <tr class="separator:af13a2f98b38c3807610c71d8c2b2f293"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02183212ef360aa6083604edf684276e" id="r_a02183212ef360aa6083604edf684276e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02183212ef360aa6083604edf684276e">InitializeComponent</a> ()</td></tr>
 <tr class="memdesc:a02183212ef360aa6083604edf684276e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required method for Designer support - do not modify the contents of this method with the code editor.  <br /></td></tr>
@@ -279,20 +317,20 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ae645b78c0abf55e53ae0709210c79093"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdf0440901f127b3bc0ede039cdb2ca5" id="r_abdf0440901f127b3bc0ede039cdb2ca5"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripLabel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abdf0440901f127b3bc0ede039cdb2ca5">toolStripLabel2</a></td></tr>
 <tr class="separator:abdf0440901f127b3bc0ede039cdb2ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af327bc0b4c9fc98d5ccf2749046df4fc" id="r_af327bc0b4c9fc98d5ccf2749046df4fc"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripTextBox&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af327bc0b4c9fc98d5ccf2749046df4fc">toolStripTextBox1</a></td></tr>
-<tr class="separator:af327bc0b4c9fc98d5ccf2749046df4fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb3b98d2a3fca67987f741e10ff9e1ae" id="r_afb3b98d2a3fca67987f741e10ff9e1ae"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripButton&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb3b98d2a3fca67987f741e10ff9e1ae">toolStripButton1</a></td></tr>
-<tr class="separator:afb3b98d2a3fca67987f741e10ff9e1ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d71622cc9e429ee85595ca61a23910a" id="r_a5d71622cc9e429ee85595ca61a23910a"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripTextBox&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d71622cc9e429ee85595ca61a23910a">badgeEntryTextBox</a></td></tr>
+<tr class="separator:a5d71622cc9e429ee85595ca61a23910a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af566145767e47e8752a182dafd2d6b2c" id="r_af566145767e47e8752a182dafd2d6b2c"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripButton&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af566145767e47e8752a182dafd2d6b2c">deleteMemberToolStripButton</a></td></tr>
+<tr class="separator:af566145767e47e8752a182dafd2d6b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3f732bef7c64459fe297af6dae350ab" id="r_ae3f732bef7c64459fe297af6dae350ab"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripSeparator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f732bef7c64459fe297af6dae350ab">toolStripSeparator3</a></td></tr>
 <tr class="separator:ae3f732bef7c64459fe297af6dae350ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5334a7b59d71098517dc6e251245867" id="r_ac5334a7b59d71098517dc6e251245867"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripDropDownButton&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5334a7b59d71098517dc6e251245867">toolStripDropDownButton2</a></td></tr>
 <tr class="separator:ac5334a7b59d71098517dc6e251245867"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98d8c7ab1e7d88169be896e2f1c1977e" id="r_a98d8c7ab1e7d88169be896e2f1c1977e"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98d8c7ab1e7d88169be896e2f1c1977e">lockersToolStripMenuItem</a></td></tr>
-<tr class="separator:a98d8c7ab1e7d88169be896e2f1c1977e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b147e33ef3dd0877a655ef23c4888ba" id="r_a3b147e33ef3dd0877a655ef23c4888ba"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b147e33ef3dd0877a655ef23c4888ba">locationsToolStripMenuItem</a></td></tr>
-<tr class="separator:a3b147e33ef3dd0877a655ef23c4888ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4dd129e2ebba117c754d2593085f9522" id="r_a4dd129e2ebba117c754d2593085f9522"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4dd129e2ebba117c754d2593085f9522">costsToolStripMenuItem</a></td></tr>
-<tr class="separator:a4dd129e2ebba117c754d2593085f9522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a927f3798f5bf665389140c7acfe260fa" id="r_a927f3798f5bf665389140c7acfe260fa"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a927f3798f5bf665389140c7acfe260fa">editLockersToolStripMenuItem</a></td></tr>
+<tr class="separator:a927f3798f5bf665389140c7acfe260fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56c774c75d6e61cb90e0ee803838a1f4" id="r_a56c774c75d6e61cb90e0ee803838a1f4"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56c774c75d6e61cb90e0ee803838a1f4">lockerLocationsToolStripMenuItem</a></td></tr>
+<tr class="separator:a56c774c75d6e61cb90e0ee803838a1f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4d481e31d037bf51118dba8b199cb51" id="r_aa4d481e31d037bf51118dba8b199cb51"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4d481e31d037bf51118dba8b199cb51">lockerCostsToolStripMenuItem</a></td></tr>
+<tr class="separator:aa4d481e31d037bf51118dba8b199cb51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c26146b3b6632451dbaa52431a0d498" id="r_a9c26146b3b6632451dbaa52431a0d498"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripSeparator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c26146b3b6632451dbaa52431a0d498">toolStripSeparator4</a></td></tr>
 <tr class="separator:a9c26146b3b6632451dbaa52431a0d498"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49242e6654e7ffc8186093dd76db8d88" id="r_a49242e6654e7ffc8186093dd76db8d88"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripLabel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49242e6654e7ffc8186093dd76db8d88">toolStripLabel3</a></td></tr>
@@ -313,16 +351,16 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a725246ab1d834c77c054a35dd1b63a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61de91d5a66f542b8cff6fad5a2716fd" id="r_a61de91d5a66f542b8cff6fad5a2716fd"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61de91d5a66f542b8cff6fad5a2716fd">menuItemFreeDayOnly</a></td></tr>
 <tr class="separator:a61de91d5a66f542b8cff6fad5a2716fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab11967f392262e293330b391e1798650" id="r_ab11967f392262e293330b391e1798650"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripButton&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab11967f392262e293330b391e1798650">toolStripButton2</a></td></tr>
-<tr class="separator:ab11967f392262e293330b391e1798650"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2df5cea9abbacd7ad0b00293ead7c7d2" id="r_a2df5cea9abbacd7ad0b00293ead7c7d2"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripButton&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2df5cea9abbacd7ad0b00293ead7c7d2">addMemberToolStripButton</a></td></tr>
+<tr class="separator:a2df5cea9abbacd7ad0b00293ead7c7d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1914b993a5fdbc366fc9cda3dc7e0ca2" id="r_a1914b993a5fdbc366fc9cda3dc7e0ca2"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripSeparator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1914b993a5fdbc366fc9cda3dc7e0ca2">toolStripSeparator7</a></td></tr>
 <tr class="separator:a1914b993a5fdbc366fc9cda3dc7e0ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad69e359751d9cd2175899783e386166f" id="r_ad69e359751d9cd2175899783e386166f"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad69e359751d9cd2175899783e386166f">restoreOldToolStripMenuItem</a></td></tr>
 <tr class="separator:ad69e359751d9cd2175899783e386166f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adac441e4350a7cd3a3be0cea4c163ddd" id="r_adac441e4350a7cd3a3be0cea4c163ddd"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adac441e4350a7cd3a3be0cea4c163ddd">clubTracksToolStripMenuItem</a></td></tr>
 <tr class="separator:adac441e4350a7cd3a3be0cea4c163ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30799f8d26676cdc8e9698afc0ae64b7" id="r_a30799f8d26676cdc8e9698afc0ae64b7"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripButton&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30799f8d26676cdc8e9698afc0ae64b7">toolStripButton3</a></td></tr>
-<tr class="separator:a30799f8d26676cdc8e9698afc0ae64b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3f06ab8f4f3f75169fb374eccf661a8" id="r_ad3f06ab8f4f3f75169fb374eccf661a8"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripButton&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3f06ab8f4f3f75169fb374eccf661a8">refreshToolStripButton</a></td></tr>
+<tr class="separator:ad3f06ab8f4f3f75169fb374eccf661a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a530fdcf6f1490b439f75b9d3ca14a5f7" id="r_a530fdcf6f1490b439f75b9d3ca14a5f7"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripDropDownButton&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a530fdcf6f1490b439f75b9d3ca14a5f7">badgesDropDownButton</a></td></tr>
 <tr class="separator:a530fdcf6f1490b439f75b9d3ca14a5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bf6754fb0dafea38a60433eb4e028ac" id="r_a9bf6754fb0dafea38a60433eb4e028ac"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9bf6754fb0dafea38a60433eb4e028ac">selectedToolStripMenuItem</a></td></tr>
@@ -343,8 +381,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ad8c77f9e3f40037bd2a129be4c4641de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a573f844dc4d2a0498bc8d7090b9ed17e" id="r_a573f844dc4d2a0498bc8d7090b9ed17e"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a573f844dc4d2a0498bc8d7090b9ed17e">addPermissionsToolStripMenuItem</a></td></tr>
 <tr class="separator:a573f844dc4d2a0498bc8d7090b9ed17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a3f1aa069790c0e6f0400b5ad2a7060" id="r_a9a3f1aa069790c0e6f0400b5ad2a7060"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripButton&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a3f1aa069790c0e6f0400b5ad2a7060">toolStripButton4</a></td></tr>
-<tr class="separator:a9a3f1aa069790c0e6f0400b5ad2a7060"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac045623d210c8cf523f8f7e639f84b45" id="r_ac045623d210c8cf523f8f7e639f84b45"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripButton&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac045623d210c8cf523f8f7e639f84b45">mailToToolStripButton</a></td></tr>
+<tr class="separator:ac045623d210c8cf523f8f7e639f84b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab10f0feccf4134558c7732bae5e54b91" id="r_ab10f0feccf4134558c7732bae5e54b91"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.ToolStripMenuItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab10f0feccf4134558c7732bae5e54b91">updateWebsiteToolStripMenuItem</a></td></tr>
 <tr class="separator:ab10f0feccf4134558c7732bae5e54b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd354268154a933fb9051e6c5c864709" id="r_afd354268154a933fb9051e6c5c864709"><td class="memItemLeft" align="right" valign="top">System.Windows.Forms.DataGridViewTextBoxColumn&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd354268154a933fb9051e6c5c864709">Badge</a></td></tr>
@@ -389,7 +427,10 @@ Static Private Attributes</h2></td></tr>
 <tr class="memitem:a1eae2013f6af24921d9be98e633edb6b" id="r_a1eae2013f6af24921d9be98e633edb6b"><td class="memItemLeft" align="right" valign="top">static readonly log4net.ILog&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1eae2013f6af24921d9be98e633edb6b">log</a></td></tr>
 <tr class="separator:a1eae2013f6af24921d9be98e633edb6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The home screen view. Displays a list of all member and allows the user to pick a member to view and edit their data. Also includes the main ToolBar to facilitate many other functions including reports, permissions, lockers, adding credits to multiple members, filtering the view and sending a member an email. </p>
+<dl class="section see"><dt>See also</dt><dd>System.Windows.Forms.Form</dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afe845f7e0d9229aa8497158ec7253039" name="afe845f7e0d9229aa8497158ec7253039"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe845f7e0d9229aa8497158ec7253039">&#9670;&#160;</a></span>MainMembers()</h2>
 
@@ -405,11 +446,13 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Initializes a new instance of the <a class="el" href="class_wood_club_1_1_main_members.html" title="The home screen view. Displays a list of all member and allows the user to pick a member to view and ...">MainMembers</a> class. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac81140a22187dc1b24467a88092e0fac" name="ac81140a22187dc1b24467a88092e0fac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac81140a22187dc1b24467a88092e0fac">&#9670;&#160;</a></span>addPermissionsToolStripMenuItem_Click()</h2>
+<a id="a3e32e90ba6739bb670e3b7fcfe5684e3" name="a3e32e90ba6739bb670e3b7fcfe5684e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e32e90ba6739bb670e3b7fcfe5684e3">&#9670;&#160;</a></span>addMemberToolStripButton_Click()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -418,7 +461,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WoodClub.MainMembers.addPermissionsToolStripMenuItem_Click </td>
+          <td class="memname">void WoodClub.MainMembers.addMemberToolStripButton_Click </td>
           <td>(</td>
           <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
         </tr>
@@ -434,6 +477,91 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Handles the Click event of the addMemberToolStripButton control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a031a6e5b8abfa4cdd37cec108514cd28" name="a031a6e5b8abfa4cdd37cec108514cd28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a031a6e5b8abfa4cdd37cec108514cd28">&#9670;&#160;</a></span>badgeEntryTextBox_KeyDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WoodClub.MainMembers.badgeEntryTextBox_KeyDown </td>
+          <td>(</td>
+          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">KeyEventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles the KeyDown event of the badge entry TextBox control. TODO: look at removing the keyup handler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The KeyEventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7f2c1b69630c1389a0976a0ab7370872" name="a7f2c1b69630c1389a0976a0ab7370872"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f2c1b69630c1389a0976a0ab7370872">&#9670;&#160;</a></span>BadgeEntryTextbox_KeyUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WoodClub.MainMembers.BadgeEntryTextbox_KeyUp </td>
+          <td>(</td>
+          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">KeyEventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles the KeyUp event of the BadgeEntryTextbox control. When a user starts to enter a badge number the filtered TextBox is ignored. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The KeyEventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -502,34 +630,14 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a1241d5b21c6eae6c41424f00558639cc" name="a1241d5b21c6eae6c41424f00558639cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1241d5b21c6eae6c41424f00558639cc">&#9670;&#160;</a></span>costsToolStripMenuItem_Click()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void WoodClub.MainMembers.costsToolStripMenuItem_Click </td>
-          <td>(</td>
-          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Handles the event of the clubTracksToolStripMenuItem_Click control. Creates a HeadTracks report in CSV form that is compatible with the recreation center's upload tool. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -560,6 +668,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the dailySummaryToolStripMenuItem control. This shows the daily summary of shop usage. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="aa7f8c2f56104a0a8d541191f63dd3c8c" name="aa7f8c2f56104a0a8d541191f63dd3c8c"></a>
@@ -588,6 +705,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Handles the CellMouseDoubleClick event of the dataGridView1 control. This opens the member that has been double clicked. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The DataGridViewCellMouseEventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -629,8 +755,8 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aea6bece4eab896799db82f9aacf75377" name="aea6bece4eab896799db82f9aacf75377"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea6bece4eab896799db82f9aacf75377">&#9670;&#160;</a></span>DeleteItemClick()</h2>
+<a id="a0f0becc410017cac27a9c585831a8379" name="a0f0becc410017cac27a9c585831a8379"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f0becc410017cac27a9c585831a8379">&#9670;&#160;</a></span>DeleteMemberItemClick()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -639,7 +765,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WoodClub.MainMembers.DeleteItemClick </td>
+          <td class="memname">void WoodClub.MainMembers.DeleteMemberItemClick </td>
           <td>(</td>
           <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
         </tr>
@@ -655,6 +781,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Deletes the selected item. The click is from the garbage can in the tool bar. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The sender.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -714,6 +849,46 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Edits the current row which represents a member. Opens the member editor. </p>
+
+</div>
+</div>
+<a id="aec403373f09ba7351b92bf4cc78ae8a9" name="aec403373f09ba7351b92bf4cc78ae8a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec403373f09ba7351b92bf4cc78ae8a9">&#9670;&#160;</a></span>editLockersToolStripMenuItem_Click()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WoodClub.MainMembers.editLockersToolStripMenuItem_Click </td>
+          <td>(</td>
+          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles the Click event of the editLockersToolStripMenuItem control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a3a21ddfdb90cb870803e1fdee0738281" name="a3a21ddfdb90cb870803e1fdee0738281"></a>
@@ -742,6 +917,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Handles the Click event of the editMachinePermissions control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -772,6 +956,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the exportAllToolStripMenuItem control. Export All is under the Badges ToolBar menu item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a2ba184b6ca8bd54442a7e9089bae5644" name="a2ba184b6ca8bd54442a7e9089bae5644"></a>
@@ -797,63 +990,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="ad23a703ec665a8024569739647e0a959" name="ad23a703ec665a8024569739647e0a959"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad23a703ec665a8024569739647e0a959">&#9670;&#160;</a></span>Form1_FormClosed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void WoodClub.MainMembers.Form1_FormClosed </td>
-          <td>(</td>
-          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FormClosedEventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1097e27b3124720524dca09a761a2f03" name="a1097e27b3124720524dca09a761a2f03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1097e27b3124720524dca09a761a2f03">&#9670;&#160;</a></span>Form1_Load()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void WoodClub.MainMembers.Form1_Load </td>
-          <td>(</td>
-          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Finds the badge in the member list and opens the <a class="el" href="class_wood_club_1_1_member_editor.html">MemberEditor</a> form for this badge. </p>
 
 </div>
 </div>
@@ -883,6 +1020,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Handles the Click event of the importPhotosToolStripMenuItem control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -936,10 +1082,12 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Loads the members. Also useful to reload the list after making changes. </p>
+
 </div>
 </div>
-<a id="ac6371254eab41c4acc263f2b7c6dc8e7" name="ac6371254eab41c4acc263f2b7c6dc8e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6371254eab41c4acc263f2b7c6dc8e7">&#9670;&#160;</a></span>locationsToolStripMenuItem_Click()</h2>
+<a id="a27dda8fe89c1df2b910adbc65184fc30" name="a27dda8fe89c1df2b910adbc65184fc30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27dda8fe89c1df2b910adbc65184fc30">&#9670;&#160;</a></span>lockerCostsToolStripMenuItem_Click()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -948,7 +1096,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WoodClub.MainMembers.locationsToolStripMenuItem_Click </td>
+          <td class="memname">void WoodClub.MainMembers.lockerCostsToolStripMenuItem_Click </td>
           <td>(</td>
           <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
         </tr>
@@ -965,10 +1113,19 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the lockerCostsToolStripMenuItem control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a20c1af7c16d72065eed61c4b38efc709" name="a20c1af7c16d72065eed61c4b38efc709"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20c1af7c16d72065eed61c4b38efc709">&#9670;&#160;</a></span>lockersToolStripMenuItem_Click()</h2>
+<a id="a4c2a3586f6d7dc3ed052e4da485cddc4" name="a4c2a3586f6d7dc3ed052e4da485cddc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c2a3586f6d7dc3ed052e4da485cddc4">&#9670;&#160;</a></span>lockerLocationsToolStripMenuItem_Click()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -977,7 +1134,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WoodClub.MainMembers.lockersToolStripMenuItem_Click </td>
+          <td class="memname">void WoodClub.MainMembers.lockerLocationsToolStripMenuItem_Click </td>
           <td>(</td>
           <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
         </tr>
@@ -993,6 +1150,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Handles the Click event of the lockerLocationsToolStripMenuItem control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1023,6 +1189,129 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the lockerSummaryToolStripMenuItem control. Opens the locker summary from the Reports ToolBar item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a478f163dba82b1bf0ccc67114dd2ffb0" name="a478f163dba82b1bf0ccc67114dd2ffb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a478f163dba82b1bf0ccc67114dd2ffb0">&#9670;&#160;</a></span>mailToToollStripButton_Click()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WoodClub.MainMembers.mailToToollStripButton_Click </td>
+          <td>(</td>
+          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles the Click event of the mailToToollStripButton control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3b316c3624627a4f3e08a7a992fcd323" name="a3b316c3624627a4f3e08a7a992fcd323"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b316c3624627a4f3e08a7a992fcd323">&#9670;&#160;</a></span>MainMembers_FormClosed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WoodClub.MainMembers.MainMembers_FormClosed </td>
+          <td>(</td>
+          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FormClosedEventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles the FormClosed event of the <a class="el" href="class_wood_club_1_1_main_members.html" title="The home screen view. Displays a list of all member and allows the user to pick a member to view and ...">MainMembers</a> form. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The FormClosedEventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa06cfc8365b8545f466a269a31fa3ba8" name="aa06cfc8365b8545f466a269a31fa3ba8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa06cfc8365b8545f466a269a31fa3ba8">&#9670;&#160;</a></span>MainMembers_Load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WoodClub.MainMembers.MainMembers_Load </td>
+          <td>(</td>
+          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles the Load event of the <a class="el" href="class_wood_club_1_1_main_members.html" title="The home screen view. Displays a list of all member and allows the user to pick a member to view and ...">MainMembers</a> control. Several event handlers are assigned here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a351743f140cbe6679d3087b9b4c194f9" name="a351743f140cbe6679d3087b9b4c194f9"></a>
@@ -1052,6 +1341,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the MenuItemFreeDayOnly control. This button is located under the Reports ToolBar item and filters member that have a Free Day available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a38248a67fefb79254821ed4f57f6cfe9" name="a38248a67fefb79254821ed4f57f6cfe9"></a>
@@ -1076,6 +1374,8 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Receives messages via UDP. When an update in made in the <a class="el" href="namespace_wood_club.html" title="Application for viewing and managing member data in the club database. Each member has a lot of assoc...">WoodClub</a> application that requires an update to the card controllers a message is sent to the ZkAccessIO application to update the controllers. After the update is done ZkAccessIO sends a message back saying it is done. That message is received here. </p>
 
 </div>
 </div>
@@ -1106,6 +1406,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the monitorsToolStripMenuItem control. This the <a class="el" href="class_wood_club_1_1_monitors.html">Monitors</a> item under the Reports ToolBar item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a756afd3262f6f66f05b813143989efdb" name="a756afd3262f6f66f05b813143989efdb"></a>
@@ -1134,6 +1443,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Handles the Click event of the monthlyClubUsageToolStripMenuItem control. Monthly club usage is under the Reports ToolBar item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1164,6 +1482,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the MultipleMembersButton located on the ToolBar. This form allow the user to enter the same credit to several members at one time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="af13a2f98b38c3807610c71d8c2b2f293" name="af13a2f98b38c3807610c71d8c2b2f293"></a>
@@ -1192,6 +1519,53 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Handles the Click event of the printRosterToolStripMenuItem control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2fb2cbf0ea12ddf2fc96fd3cdf5a72de" name="a2fb2cbf0ea12ddf2fc96fd3cdf5a72de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fb2cbf0ea12ddf2fc96fd3cdf5a72de">&#9670;&#160;</a></span>refreshToolStripButton_Click()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WoodClub.MainMembers.refreshToolStripButton_Click </td>
+          <td>(</td>
+          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles the Click event of the refreshToolStripButton control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1222,6 +1596,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the restoreOldToolStripMenuItem control. Restores a member from the backup database table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="aba98c50931bcdd68711d40317612101e" name="aba98c50931bcdd68711d40317612101e"></a>
@@ -1251,6 +1634,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the selectedToolStripMenuItem control. Selected is under the Badges ToolBar menu item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a9a2e98c2dc133c60857e8456ac6c3d9e" name="a9a2e98c2dc133c60857e8456ac6c3d9e"></a>
@@ -1276,6 +1668,8 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Sets or clears the binding source members data source. When entering text into the filter box, this is where the updating of the member list takes place. </p>
+
 </div>
 </div>
 <a id="a3f985f41693b1d499b42fa47356c13e7" name="a3f985f41693b1d499b42fa47356c13e7"></a>
@@ -1300,6 +1694,8 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Sets the filtered text box focus. </p>
 
 </div>
 </div>
@@ -1330,34 +1726,14 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="afa924e0aaa208af70fb8d462f83b2d85" name="afa924e0aaa208af70fb8d462f83b2d85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa924e0aaa208af70fb8d462f83b2d85">&#9670;&#160;</a></span>tb_KeyDown()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void WoodClub.MainMembers.tb_KeyDown </td>
-          <td>(</td>
-          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">KeyEventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Handles the Click event of the summaryReportToolStripMenuItem control. This is the Summary item under the <a class="el" href="class_wood_club_1_1_lockers.html">Lockers</a> ToolBar item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1388,92 +1764,14 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a1c5fe596c88844f2e8b6676d38cfd974" name="a1c5fe596c88844f2e8b6676d38cfd974"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c5fe596c88844f2e8b6676d38cfd974">&#9670;&#160;</a></span>toolStripButton2_Click()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void WoodClub.MainMembers.toolStripButton2_Click </td>
-          <td>(</td>
-          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1204df1b9bea212a9520f45d9ec2b494" name="a1204df1b9bea212a9520f45d9ec2b494"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1204df1b9bea212a9520f45d9ec2b494">&#9670;&#160;</a></span>toolStripButton3_Click()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void WoodClub.MainMembers.toolStripButton3_Click </td>
-          <td>(</td>
-          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab078b92990b3c83dfc9fabdf4755f3a1" name="ab078b92990b3c83dfc9fabdf4755f3a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab078b92990b3c83dfc9fabdf4755f3a1">&#9670;&#160;</a></span>toolStripButton4_Click()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void WoodClub.MainMembers.toolStripButton4_Click </td>
-          <td>(</td>
-          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Handles the KeyUp event of the TextBoxName control. This is the filter control handler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The KeyEventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1504,34 +1802,14 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a8f0138892718a964e453640ed3dae710" name="a8f0138892718a964e453640ed3dae710"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f0138892718a964e453640ed3dae710">&#9670;&#160;</a></span>ToolStripTextBox1_KeyUp()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void WoodClub.MainMembers.ToolStripTextBox1_KeyUp </td>
-          <td>(</td>
-          <td class="paramtype">object</td>          <td class="paramname"><span class="paramname"><em>sender</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">KeyEventArgs</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Handles the Click event of the ToolStripImportNewMembers control. Under the <a class="el" href="class_wood_club_1_1_members.html">Members</a> ToolBar item the Import Orientation item invokes this event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1562,6 +1840,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the updateDuesToolStripMenuItem control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="aa1decc50ad609d574dc15885609a2964" name="aa1decc50ad609d574dc15885609a2964"></a>
@@ -1591,6 +1878,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the updateWebsiteToolStripMenuItem control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -1604,6 +1900,28 @@ Static Private Attributes</h2></td></tr>
           <td class="memname">bool WoodClub.MainMembers.added</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2df5cea9abbacd7ad0b00293ead7c7d2" name="a2df5cea9abbacd7ad0b00293ead7c7d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2df5cea9abbacd7ad0b00293ead7c7d2">&#9670;&#160;</a></span>addMemberToolStripButton</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">System.Windows.Forms.ToolStripButton WoodClub.MainMembers.addMemberToolStripButton</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1663,6 +1981,28 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">System.Windows.Forms.DataGridViewTextBoxColumn WoodClub.MainMembers.Badge</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d71622cc9e429ee85595ca61a23910a" name="a5d71622cc9e429ee85595ca61a23910a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d71622cc9e429ee85595ca61a23910a">&#9670;&#160;</a></span>badgeEntryTextBox</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">System.Windows.Forms.ToolStripTextBox WoodClub.MainMembers.badgeEntryTextBox</td>
         </tr>
       </table>
   </td>
@@ -2050,28 +2390,6 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4dd129e2ebba117c754d2593085f9522" name="a4dd129e2ebba117c754d2593085f9522"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4dd129e2ebba117c754d2593085f9522">&#9670;&#160;</a></span>costsToolStripMenuItem</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">System.Windows.Forms.ToolStripMenuItem WoodClub.MainMembers.costsToolStripMenuItem</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a9fa7f89bffb177285668654e4b0df01c" name="a9fa7f89bffb177285668654e4b0df01c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9fa7f89bffb177285668654e4b0df01c">&#9670;&#160;</a></span>Credits</h2>
 
@@ -2149,6 +2467,50 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">System.Windows.Forms.DataGridView WoodClub.MainMembers.dataGridView1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af566145767e47e8752a182dafd2d6b2c" name="af566145767e47e8752a182dafd2d6b2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af566145767e47e8752a182dafd2d6b2c">&#9670;&#160;</a></span>deleteMemberToolStripButton</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">System.Windows.Forms.ToolStripButton WoodClub.MainMembers.deleteMemberToolStripButton</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a927f3798f5bf665389140c7acfe260fa" name="a927f3798f5bf665389140c7acfe260fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a927f3798f5bf665389140c7acfe260fa">&#9670;&#160;</a></span>editLockersToolStripMenuItem</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">System.Windows.Forms.ToolStripMenuItem WoodClub.MainMembers.editLockersToolStripMenuItem</td>
         </tr>
       </table>
   </td>
@@ -2402,28 +2764,6 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3b147e33ef3dd0877a655ef23c4888ba" name="a3b147e33ef3dd0877a655ef23c4888ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b147e33ef3dd0877a655ef23c4888ba">&#9670;&#160;</a></span>locationsToolStripMenuItem</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">System.Windows.Forms.ToolStripMenuItem WoodClub.MainMembers.locationsToolStripMenuItem</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a9acccb9370c3ae042956c8417e81488e" name="a9acccb9370c3ae042956c8417e81488e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9acccb9370c3ae042956c8417e81488e">&#9670;&#160;</a></span>Locker</h2>
 
@@ -2446,8 +2786,8 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a98d8c7ab1e7d88169be896e2f1c1977e" name="a98d8c7ab1e7d88169be896e2f1c1977e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98d8c7ab1e7d88169be896e2f1c1977e">&#9670;&#160;</a></span>lockersToolStripMenuItem</h2>
+<a id="aa4d481e31d037bf51118dba8b199cb51" name="aa4d481e31d037bf51118dba8b199cb51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4d481e31d037bf51118dba8b199cb51">&#9670;&#160;</a></span>lockerCostsToolStripMenuItem</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2456,7 +2796,29 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">System.Windows.Forms.ToolStripMenuItem WoodClub.MainMembers.lockersToolStripMenuItem</td>
+          <td class="memname">System.Windows.Forms.ToolStripMenuItem WoodClub.MainMembers.lockerCostsToolStripMenuItem</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a56c774c75d6e61cb90e0ee803838a1f4" name="a56c774c75d6e61cb90e0ee803838a1f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56c774c75d6e61cb90e0ee803838a1f4">&#9670;&#160;</a></span>lockerLocationsToolStripMenuItem</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">System.Windows.Forms.ToolStripMenuItem WoodClub.MainMembers.lockerLocationsToolStripMenuItem</td>
         </tr>
       </table>
   </td>
@@ -2547,6 +2909,28 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">System.Windows.Forms.ToolStripDropDownButton WoodClub.MainMembers.machinePermissions</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac045623d210c8cf523f8f7e639f84b45" name="ac045623d210c8cf523f8f7e639f84b45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac045623d210c8cf523f8f7e639f84b45">&#9670;&#160;</a></span>mailToToolStripButton</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">System.Windows.Forms.ToolStripButton WoodClub.MainMembers.mailToToolStripButton</td>
         </tr>
       </table>
   </td>
@@ -2778,6 +3162,28 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ad3f06ab8f4f3f75169fb374eccf661a8" name="ad3f06ab8f4f3f75169fb374eccf661a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3f06ab8f4f3f75169fb374eccf661a8">&#9670;&#160;</a></span>refreshToolStripButton</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">System.Windows.Forms.ToolStripButton WoodClub.MainMembers.refreshToolStripButton</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6cfc79b20e3282799b79990b324aff94" name="a6cfc79b20e3282799b79990b324aff94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6cfc79b20e3282799b79990b324aff94">&#9670;&#160;</a></span>ReportsDownButton</h2>
 
@@ -2921,94 +3327,6 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">System.Windows.Forms.DataGridViewTextBoxColumn WoodClub.MainMembers.Title</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afb3b98d2a3fca67987f741e10ff9e1ae" name="afb3b98d2a3fca67987f741e10ff9e1ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb3b98d2a3fca67987f741e10ff9e1ae">&#9670;&#160;</a></span>toolStripButton1</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">System.Windows.Forms.ToolStripButton WoodClub.MainMembers.toolStripButton1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab11967f392262e293330b391e1798650" name="ab11967f392262e293330b391e1798650"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab11967f392262e293330b391e1798650">&#9670;&#160;</a></span>toolStripButton2</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">System.Windows.Forms.ToolStripButton WoodClub.MainMembers.toolStripButton2</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a30799f8d26676cdc8e9698afc0ae64b7" name="a30799f8d26676cdc8e9698afc0ae64b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30799f8d26676cdc8e9698afc0ae64b7">&#9670;&#160;</a></span>toolStripButton3</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">System.Windows.Forms.ToolStripButton WoodClub.MainMembers.toolStripButton3</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9a3f1aa069790c0e6f0400b5ad2a7060" name="a9a3f1aa069790c0e6f0400b5ad2a7060"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a3f1aa069790c0e6f0400b5ad2a7060">&#9670;&#160;</a></span>toolStripButton4</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">System.Windows.Forms.ToolStripButton WoodClub.MainMembers.toolStripButton4</td>
         </tr>
       </table>
   </td>
@@ -3295,28 +3613,6 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">System.Windows.Forms.ToolStripSeparator WoodClub.MainMembers.toolStripSeparator8</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af327bc0b4c9fc98d5ccf2749046df4fc" name="af327bc0b4c9fc98d5ccf2749046df4fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af327bc0b4c9fc98d5ccf2749046df4fc">&#9670;&#160;</a></span>toolStripTextBox1</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">System.Windows.Forms.ToolStripTextBox WoodClub.MainMembers.toolStripTextBox1</td>
         </tr>
       </table>
   </td>

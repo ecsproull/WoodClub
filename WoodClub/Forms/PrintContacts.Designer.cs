@@ -113,7 +113,7 @@
 			this.openPrint.TabIndex = 1;
 			this.openPrint.Text = "Excel";
 			this.openPrint.UseVisualStyleBackColor = true;
-			this.openPrint.Click += new System.EventHandler(this.openPrint_Click);
+			this.openPrint.Click += new System.EventHandler(this.openExcel_Click);
 			// 
 			// buttonPrint
 			// 

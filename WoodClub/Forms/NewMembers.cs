@@ -14,9 +14,18 @@ using System.Xml;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Form to display new members when imported from the Orientation signup.
+	/// This form can import the new members into the shop database and into QuickBooks.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class NewMembers : Form
 	{
 		private List<NewMember> members = new List<NewMember>();
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="NewMembers"/> class.
+		/// </summary>
 		public NewMembers()
 		{
 			InitializeComponent();
@@ -31,6 +40,12 @@ namespace WoodClub
 			}
 		}
 
+
+		/// <summary>
+		/// Handles the PrintPage event of the Print button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Drawing.Printing.PrintPageEventArgs"/> instance containing the event data.</param>
 		private void PrintDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
 		{
 			Bitmap bm = new Bitmap(this.dataGridView1.Width, this.dataGridView1.Height);
@@ -38,6 +53,12 @@ namespace WoodClub
 			e.Graphics.DrawImage(bm, 0, 0);
 		}
 
+		/// <summary>
+		/// Handles the MouseClick event of the DataGridView1 control.
+		/// Adds a Copy item to the context menu.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
 		private void DataGridView1_MouseClick(object sender, MouseEventArgs e)
 		{
 			MenuItem copyItem = new MenuItem("Copy");
@@ -51,12 +72,23 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Copy menu item.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void Copy_Click(object sender, EventArgs e)
 		{
 			DataObject dataObj = dataGridView1.GetClipboardContent();
 			Clipboard.SetDataObject(dataObj, true);
 		}
 
+		/// <summary>
+		/// Handles the CellClick event of the DataGridView1 control. 
+		/// Prevents selecting a row that is already in the database.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
 		private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.ColumnIndex == 0 && dataGridView1.Rows[e.RowIndex].Cells[0].ReadOnly)
@@ -65,7 +97,10 @@ namespace WoodClub
 			}
 		}
 
-
+		/// <summary>
+		/// Gets the starting badge number.
+		/// </summary>
+		/// <returns></returns>
 		private int GetStartingBadgeNumber()
 		{
 			FirstBadgeNumber fbn = new FirstBadgeNumber();
@@ -73,6 +108,11 @@ namespace WoodClub
 			return fbn.BadgeNumber;	
 		}
 
+
+		/// <summary>
+		/// Gets the orientation list from the club website.
+		/// </summary>
+		/// <returns></returns>
 		private async Task<List<NewMemberRaw>> GetOrientation()
 		{
 			List<NewMemberRaw> newMembers = new List<NewMemberRaw>();
@@ -120,6 +160,11 @@ namespace WoodClub
 			return newMembers;
 		}
 
+		/// <summary>
+		/// Handles the Load event of the FormNewMembers control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private async void FormNewMembers_Load(object sender, EventArgs e)
 		{
 			CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
@@ -183,8 +228,13 @@ namespace WoodClub
 			dataGridView1.Columns["FirstName"].DisplayIndex = 4;
 			dataGridView1.Columns["LastName"].DisplayIndex = 5;
 			dataGridView1.Columns["BillTo"].DisplayIndex = 6;
-	}
+		}
 
+		/// <summary>
+		/// Formats the name of the proper.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns></returns>
 		private string FormatProperName(string name)
 		{
 			if (string.IsNullOrEmpty(name))
@@ -199,6 +249,11 @@ namespace WoodClub
 			return ret;
 		}
 
+		/// <summary>
+		/// Formats the address.
+		/// </summary>
+		/// <param name="addr"></param>
+		/// <returns></returns>
 		private string FormatAddress(string addr)
 		{
 			if (string.IsNullOrEmpty(addr))
@@ -218,30 +273,11 @@ namespace WoodClub
 			return ret;
 		}
 
-		private string FormatCity(string city)
-		{
-			if (string.IsNullOrEmpty(city))
-			{
-				return city;
-			}
-
-			city = city.Replace(".", "");
-
-			if (city.ToLower() == "scw")
-			{
-				return "Sun City West";
-			}
-
-			var parts = city.Split(' ');
-			string ret = FormatProperName(parts[0]);
-			for (int i = 1; i < parts.Length; i++)
-			{
-				ret += " " + FormatProperName(parts[i]);
-			}
-
-			return ret;
-		}
-
+		/// <summary>
+		/// Adds the new members to the shop database.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void buttonAddToDb_Click(object sender, EventArgs e)
 		{
 			bs_newmember.EndEdit();
@@ -310,6 +346,12 @@ namespace WoodClub
         private QBFileMode qbFileMode = QBFileMode.qbFileOpenDoNotCare;
         private static string appID = "IDN12345";
         private static string appName = "WoodClub";
+		
+		/// <summary>
+		/// Adds the new members to QuickBooks.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void quickBooksButton_Click(object sender, EventArgs e)
 		{
             connectToQB();
@@ -332,6 +374,11 @@ namespace WoodClub
 			finally { disconnectFromQB(); }
         }
 
+		/// <summary>
+		/// Builds the query to add a new member to QuickBooks.
+		/// </summary>
+		/// <param name="newMember"></param>
+		/// <returns></returns>
         private string buildAddCustomersQueryRqXML(NewMember newMember)
         {
             string xml = "";
@@ -371,6 +418,11 @@ namespace WoodClub
             return xml;
         }
 
+		/// <summary>
+		/// Builds the query to add an invoice to QuickBooks.
+		/// </summary>
+		/// <param name="customer"></param>
+		/// <returns></returns>
 		private string buildInvoiceAddRqXML(string customer)
 		{
 			string requestXML = "";
@@ -415,6 +467,12 @@ namespace WoodClub
 			return requestXML;
 		}
 
+		/// <summary>
+		/// Helper function to build the envelope around an QBXml query.
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="maxVer"></param>
+		/// <returns></returns>
 		private XmlElement buildRqEnvelope(XmlDocument doc, string maxVer)
         {
             doc.AppendChild(doc.CreateXmlDeclaration("1.0", null, null));
@@ -427,6 +485,9 @@ namespace WoodClub
             return qbXMLMsgsRq;
         }
 
+		/// <summary>
+		/// Connects to QuickBooks.
+		/// </summary>
         private void connectToQB()
         {
             if (string.IsNullOrEmpty(sessionTicket))
@@ -439,6 +500,9 @@ namespace WoodClub
             }
         }
 
+		/// <summary>
+		/// Disconnect from QuickBooks.
+		/// </summary>
         private void disconnectFromQB()
         {
             if (sessionTicket != null)
@@ -456,6 +520,11 @@ namespace WoodClub
             }
         }
 
+		/// <summary>
+		/// Helper function to process a request from QuickBooks.
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
         private string processRequestFromQB(string request)
         {
             try
@@ -469,6 +538,11 @@ namespace WoodClub
             }
         }
 
+		/// <summary>
+		/// Prints the new member list.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void printNewMembersButton_Click(object sender, EventArgs e)
 		{
 			printDocument1.DefaultPageSettings.Landscape = true;

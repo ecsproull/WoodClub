@@ -1,9 +1,9 @@
 var searchData=
 [
   ['savechanges_0',['SaveChanges',['../class_wood_club_1_1_locker_selection.html#a07e40d2333a52670fff409ee3bb82865',1,'WoodClub::LockerSelection']]],
-  ['scaleimage_1',['ScaleImage',['../class_wood_club_1_1_editor.html#a9df31ad0c7863a4ef6e377aec8748b43',1,'WoodClub::Editor']]],
+  ['scaleimage_1',['ScaleImage',['../class_wood_club_1_1_member_editor.html#a947c585cbeab4a2f373295bf9d69b6a5',1,'WoodClub::MemberEditor']]],
   ['selectedtoolstripmenuitem_5fclick_2',['selectedToolStripMenuItem_Click',['../class_wood_club_1_1_main_members.html#aba98c50931bcdd68711d40317612101e',1,'WoodClub::MainMembers']]],
-  ['setbackgroundcolor_3',['SetBackgroundColor',['../class_wood_club_1_1_editor.html#a1e5496aecd1ab6cdb7b1275baa794a85',1,'WoodClub::Editor']]],
+  ['setbackgroundcolor_3',['SetBackgroundColor',['../class_wood_club_1_1_member_editor.html#a25e0bc04d4c51caf9b37ea621ddd1369',1,'WoodClub::MemberEditor']]],
   ['setbsmembersdatasource_4',['setBsMembersDataSource',['../class_wood_club_1_1_main_members.html#a9a2e98c2dc133c60857e8456ac6c3d9e',1,'WoodClub::MainMembers']]],
   ['setsavebuttonstate_5',['SetSaveButtonState',['../class_wood_club_1_1_photo_import.html#acaf033781eed48433e90cfeaf0e4679b',1,'WoodClub::PhotoImport']]],
   ['settextboxfocus_6',['setTextBoxFocus',['../class_wood_club_1_1_main_members.html#a3f985f41693b1d499b42fa47356c13e7',1,'WoodClub::MainMembers']]],

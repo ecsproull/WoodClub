@@ -1,17 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Used as a simple popup for the user to accept the starting 
+	/// badge number when importing members from the list of this registered
+	/// to take Orientation Calss.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class FirstBadgeNumber : Form
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FirstBadgeNumber"/> class.
+		/// </summary>
 		public FirstBadgeNumber()
 		{
 			InitializeComponent();
@@ -25,11 +29,21 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the ValueChanged event of the StartingBadgeNumber control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void StartingBadgeNumber_ValueChanged(object sender, EventArgs e)
 		{
 			this.BadgeNumber = (int)((NumericUpDown)sender).Value;
 		}
 
+		/// <summary>
+		/// Handles the Click event of the OK button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void id_ok_Click(object sender, EventArgs e)
 		{
 			this.DialogResult = DialogResult.OK;
@@ -37,6 +51,11 @@ namespace WoodClub
 		
 		public int BadgeNumber {get;set;}
 
+		/// <summary>
+		/// Handles the Click event of the Skip button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void id_skip_Click(object sender, EventArgs e)
 		{
 			this.BadgeNumber = -1;

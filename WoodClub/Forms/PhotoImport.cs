@@ -5,12 +5,16 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// From used to import multiple photos. Developed to be used
+	/// when importing new members for orientation.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class PhotoImport : Form
 	{
 		private static double multiplier = 0.0;
@@ -20,6 +24,10 @@ namespace WoodClub
 		private static List<MemberPictureEdit> photos = new List<MemberPictureEdit>();
 		private static PhotoImport staticThis;
 		private static BindingSource staticBS;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="PhotoImport"/> class.
+		/// </summary>
 		public PhotoImport()
 		{
 			InitializeComponent();
@@ -31,6 +39,12 @@ namespace WoodClub
 			LoadImages();
 		}
 
+		/// <summary>
+		/// Handles the CellValueChanged event of the DataGridView1 control.
+		/// The name of the photo has changed. Generally this is to the members badge number.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
 		private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.ColumnIndex == 1)
@@ -44,6 +58,15 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the CellMouseClick event of the DataGridView1 control.
+		/// A click in the first cell saves the photo.
+		/// A click on the photo, the second cell, centers the photo at the mouse position.
+		/// The next cell slightly zooms.
+		/// The last cell opens an editor to manually crop the photo.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="DataGridViewCellMouseEventArgs"/> instance containing the event data.</param>
 		private void DataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
 			switch (e.ColumnIndex)
@@ -89,7 +112,7 @@ namespace WoodClub
 
 							using(var myStream = new MemoryStream())
 							{
-								Image cropped = Editor.ScaleImage(photo.Cropped, 800, 420);
+								Image cropped = MemberEditor.ScaleImage(photo.Cropped, 800, 420);
 								cropped.Save(myStream, System.Drawing.Imaging.ImageFormat.Jpeg);
 								member.Photo = myStream.ToArray();
 								context.SaveChanges();
@@ -132,6 +155,13 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Resizes the row image.
+		/// </summary>
+		/// <param name="e">The <see cref="DataGridViewCellMouseEventArgs"/> instance containing the event data.</param>
+		/// <param name="multiplier">The multiplier.</param>
+		/// <param name="centerX">The center x.</param>
+		/// <param name="centerY">The center y.</param>
 		private void ResizeRowImage(DataGridViewCellMouseEventArgs e, 
 			double multiplier, 
 			int centerX, 
@@ -170,11 +200,19 @@ namespace WoodClub
 			newImagesBindingSource.ResetBindings(false);
 		}
 
+		/// <summary>
+		/// Handles the Click event of the load images button control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void loadImagesButton_Click(object sender, EventArgs e)
 		{
 			LoadImages();
 		}
 
+		/// <summary>
+		/// Loads the images. Uses the OpenFileDialog to open one or more images.
+		/// </summary>
 		private void LoadImages()
 		{
 			bool photosCleared = false;
@@ -229,6 +267,10 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Opens the individual image editor.
+		/// </summary>
+		/// <param name="imagePath">The image path.</param>
 		private void OpenEditor(string imagePath)
 		{
 			CreateFileWatcher(imagePath);
@@ -236,6 +278,11 @@ namespace WoodClub
 			var process = Process.Start(startInfo);
 		}
 
+		/// <summary>
+		/// Sets the state of the save button.
+		/// </summary>
+		/// <param name="row">The row.</param>
+		/// <param name="saved">if set to <c>true</c> [saved].</param>
 		private void SetSaveButtonState(int row, bool saved)
 		{
 			dataGridView1.Rows[row].Cells[0].Value = saved ? "Saved" : "Save Row" ;
@@ -246,6 +293,12 @@ namespace WoodClub
 			dataGridView1.Rows[row].Cells[0].Style = style;
 		}
 
+		/// <summary>
+		/// Creates the file watcher. Fires an event when a file changes.
+		/// After an individual image is edited and saved that notification
+		/// causes the application to reopen the image.
+		/// </summary>
+		/// <param name="path">The path.</param>
 		public void CreateFileWatcher(string path)
 		{
 			// Create a new FileSystemWatcher and set its properties.
@@ -262,7 +315,11 @@ namespace WoodClub
 			watcher.EnableRaisingEvents = true;
 		}
 
-		// Define the event handlers.
+		/// <summary>
+		/// Called when the image [changed].
+		/// </summary>
+		/// <param name="source">The source.</param>
+		/// <param name="e">The <see cref="FileSystemEventArgs"/> instance containing the event data.</param>
 		private static void OnChanged(object source, FileSystemEventArgs e)
 		{
 			foreach (MemberPictureEdit mpe in photos)
@@ -275,6 +332,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Waits for file to be ready to be reloaded.
+		/// </summary>
+		/// <param name="file">The file.</param>
+		/// <param name="mpe">The mpe.</param>
 		private static void WaitForFile(FileInfo file, MemberPictureEdit mpe)
 		{
 			bool FileReady = false;

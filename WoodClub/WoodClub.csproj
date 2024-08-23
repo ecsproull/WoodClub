@@ -407,7 +407,7 @@
       <DependentUpon>UnPaidMembers.cs</DependentUpon>
     </Compile>
     <Compile Include="SortableBindingList.cs" />
-    <Compile Include="Forms\UnpaidMember.cs" />
+    <Compile Include="UnpaidMemberData.cs" />
     <EmbeddedResource Include="Forms\DisplayPictureBox.resx">
       <DependentUpon>DisplayPictureBox.cs</DependentUpon>
     </EmbeddedResource>

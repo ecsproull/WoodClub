@@ -100,6 +100,9 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">WoodClub.NewMembers Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Form to display new members when imported from the Orientation signup. This form can import the new members into the shop database and into QuickBooks.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for WoodClub.NewMembers:</div>
 <div class="dyncontent">
@@ -110,6 +113,7 @@ Inheritance diagram for WoodClub.NewMembers:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1babf8cb63caa4c804040b10a87f6d9f" id="r_a1babf8cb63caa4c804040b10a87f6d9f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1babf8cb63caa4c804040b10a87f6d9f">NewMembers</a> ()</td></tr>
+<tr class="memdesc:a1babf8cb63caa4c804040b10a87f6d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_wood_club_1_1_new_members.html" title="Form to display new members when imported from the Orientation signup. This form can import the new m...">NewMembers</a> class.  <br /></td></tr>
 <tr class="separator:a1babf8cb63caa4c804040b10a87f6d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -121,42 +125,58 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:aa504b7a49416ca41b494756e964ff13c" id="r_aa504b7a49416ca41b494756e964ff13c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa504b7a49416ca41b494756e964ff13c">PrintDocument1_PrintPage</a> (object sender, System.Drawing.Printing.PrintPageEventArgs e)</td></tr>
+<tr class="memdesc:aa504b7a49416ca41b494756e964ff13c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the PrintPage event of the Print button.  <br /></td></tr>
 <tr class="separator:aa504b7a49416ca41b494756e964ff13c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba85e0cd609d7f53311f85696dfbdd9c" id="r_aba85e0cd609d7f53311f85696dfbdd9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba85e0cd609d7f53311f85696dfbdd9c">DataGridView1_MouseClick</a> (object sender, MouseEventArgs e)</td></tr>
+<tr class="memdesc:aba85e0cd609d7f53311f85696dfbdd9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the MouseClick event of the DataGridView1 control. Adds a Copy item to the context menu.  <br /></td></tr>
 <tr class="separator:aba85e0cd609d7f53311f85696dfbdd9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15f077b397825449a0aa493bda23308b" id="r_a15f077b397825449a0aa493bda23308b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15f077b397825449a0aa493bda23308b">Copy_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a15f077b397825449a0aa493bda23308b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Click event of the Copy menu item.  <br /></td></tr>
 <tr class="separator:a15f077b397825449a0aa493bda23308b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fd4d269fd0cabc9f30cd1950f0dbae8" id="r_a5fd4d269fd0cabc9f30cd1950f0dbae8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5fd4d269fd0cabc9f30cd1950f0dbae8">DataGridView1_CellClick</a> (object sender, DataGridViewCellEventArgs e)</td></tr>
+<tr class="memdesc:a5fd4d269fd0cabc9f30cd1950f0dbae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the CellClick event of the DataGridView1 control. Prevents selecting a row that is already in the database.  <br /></td></tr>
 <tr class="separator:a5fd4d269fd0cabc9f30cd1950f0dbae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f96b5b87f3c18da9362146330376d4a" id="r_a0f96b5b87f3c18da9362146330376d4a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f96b5b87f3c18da9362146330376d4a">GetStartingBadgeNumber</a> ()</td></tr>
+<tr class="memdesc:a0f96b5b87f3c18da9362146330376d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the starting badge number.  <br /></td></tr>
 <tr class="separator:a0f96b5b87f3c18da9362146330376d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48f061af0daca2a5377f9c975d703d2c" id="r_a48f061af0daca2a5377f9c975d703d2c"><td class="memItemLeft" align="right" valign="top">async Task&lt; List&lt; <a class="el" href="class_wood_club_1_1_new_member_raw.html">NewMemberRaw</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48f061af0daca2a5377f9c975d703d2c">GetOrientation</a> ()</td></tr>
+<tr class="memdesc:a48f061af0daca2a5377f9c975d703d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the orientation list from the club website.  <br /></td></tr>
 <tr class="separator:a48f061af0daca2a5377f9c975d703d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a207ae790198925b5a93ef5210bfbf1a7" id="r_a207ae790198925b5a93ef5210bfbf1a7"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a207ae790198925b5a93ef5210bfbf1a7">FormNewMembers_Load</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a207ae790198925b5a93ef5210bfbf1a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the Load event of the FormNewMembers control.  <br /></td></tr>
 <tr class="separator:a207ae790198925b5a93ef5210bfbf1a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2ffc506eb6f93b6c0b3cea0dbab0e61" id="r_aa2ffc506eb6f93b6c0b3cea0dbab0e61"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2ffc506eb6f93b6c0b3cea0dbab0e61">FormatProperName</a> (string name)</td></tr>
+<tr class="memdesc:aa2ffc506eb6f93b6c0b3cea0dbab0e61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats the name of the proper.  <br /></td></tr>
 <tr class="separator:aa2ffc506eb6f93b6c0b3cea0dbab0e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25097ee65cce35d7e13b12658c0cdfd6" id="r_a25097ee65cce35d7e13b12658c0cdfd6"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25097ee65cce35d7e13b12658c0cdfd6">FormatAddress</a> (string addr)</td></tr>
+<tr class="memdesc:a25097ee65cce35d7e13b12658c0cdfd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats the address.  <br /></td></tr>
 <tr class="separator:a25097ee65cce35d7e13b12658c0cdfd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d64df97dac4d44d6be3c17e544fdc6e" id="r_a8d64df97dac4d44d6be3c17e544fdc6e"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d64df97dac4d44d6be3c17e544fdc6e">FormatCity</a> (string city)</td></tr>
-<tr class="separator:a8d64df97dac4d44d6be3c17e544fdc6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b21e44cdd3ec9181b5e2ee8d74861e5" id="r_a5b21e44cdd3ec9181b5e2ee8d74861e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b21e44cdd3ec9181b5e2ee8d74861e5">buttonAddToDb_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a5b21e44cdd3ec9181b5e2ee8d74861e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the new members to the shop database.  <br /></td></tr>
 <tr class="separator:a5b21e44cdd3ec9181b5e2ee8d74861e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d3c901e59b1901f79df2394ad4776eb" id="r_a3d3c901e59b1901f79df2394ad4776eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d3c901e59b1901f79df2394ad4776eb">quickBooksButton_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:a3d3c901e59b1901f79df2394ad4776eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the new members to QuickBooks.  <br /></td></tr>
 <tr class="separator:a3d3c901e59b1901f79df2394ad4776eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f09141d034f57cf31673129482cd9c0" id="r_a2f09141d034f57cf31673129482cd9c0"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f09141d034f57cf31673129482cd9c0">buildAddCustomersQueryRqXML</a> (<a class="el" href="class_wood_club_1_1_new_member.html">NewMember</a> newMember)</td></tr>
+<tr class="memdesc:a2f09141d034f57cf31673129482cd9c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the query to add a new member to QuickBooks.  <br /></td></tr>
 <tr class="separator:a2f09141d034f57cf31673129482cd9c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53ee70d916dd0eb78300d1c8c7d38d67" id="r_a53ee70d916dd0eb78300d1c8c7d38d67"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53ee70d916dd0eb78300d1c8c7d38d67">buildInvoiceAddRqXML</a> (string customer)</td></tr>
+<tr class="memdesc:a53ee70d916dd0eb78300d1c8c7d38d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the query to add an invoice to QuickBooks.  <br /></td></tr>
 <tr class="separator:a53ee70d916dd0eb78300d1c8c7d38d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab52f99467a580cbd55f5844cb1e96bf3" id="r_ab52f99467a580cbd55f5844cb1e96bf3"><td class="memItemLeft" align="right" valign="top">XmlElement&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab52f99467a580cbd55f5844cb1e96bf3">buildRqEnvelope</a> (XmlDocument doc, string maxVer)</td></tr>
+<tr class="memdesc:ab52f99467a580cbd55f5844cb1e96bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to build the envelope around an QBXml query.  <br /></td></tr>
 <tr class="separator:ab52f99467a580cbd55f5844cb1e96bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae96caadda7a9edfcb1bcf8daaa23d40b" id="r_ae96caadda7a9edfcb1bcf8daaa23d40b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae96caadda7a9edfcb1bcf8daaa23d40b">connectToQB</a> ()</td></tr>
+<tr class="memdesc:ae96caadda7a9edfcb1bcf8daaa23d40b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects to QuickBooks.  <br /></td></tr>
 <tr class="separator:ae96caadda7a9edfcb1bcf8daaa23d40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac12d63d4f7176d83ac30a637d69eab3d" id="r_ac12d63d4f7176d83ac30a637d69eab3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac12d63d4f7176d83ac30a637d69eab3d">disconnectFromQB</a> ()</td></tr>
+<tr class="memdesc:ac12d63d4f7176d83ac30a637d69eab3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnect from QuickBooks.  <br /></td></tr>
 <tr class="separator:ac12d63d4f7176d83ac30a637d69eab3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a132b1c7ceb89a50412d5ee09e1e3f409" id="r_a132b1c7ceb89a50412d5ee09e1e3f409"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a132b1c7ceb89a50412d5ee09e1e3f409">processRequestFromQB</a> (string request)</td></tr>
+<tr class="memdesc:a132b1c7ceb89a50412d5ee09e1e3f409"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to process a request from QuickBooks.  <br /></td></tr>
 <tr class="separator:a132b1c7ceb89a50412d5ee09e1e3f409"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd156e05904ee197f619d8499780c8d2" id="r_afd156e05904ee197f619d8499780c8d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd156e05904ee197f619d8499780c8d2">printNewMembersButton_Click</a> (object sender, EventArgs e)</td></tr>
+<tr class="memdesc:afd156e05904ee197f619d8499780c8d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the new member list.  <br /></td></tr>
 <tr class="separator:afd156e05904ee197f619d8499780c8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11235cf9cf433f5e865380a4c507e669" id="r_a11235cf9cf433f5e865380a4c507e669"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11235cf9cf433f5e865380a4c507e669">InitializeComponent</a> ()</td></tr>
 <tr class="memdesc:a11235cf9cf433f5e865380a4c507e669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required method for Designer support - do not modify the contents of this method with the code editor.  <br /></td></tr>
@@ -229,7 +249,10 @@ Static Private Attributes</h2></td></tr>
 <tr class="memitem:a0c6ec07e8bf27ff2295b4158c8cd6aa7" id="r_a0c6ec07e8bf27ff2295b4158c8cd6aa7"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c6ec07e8bf27ff2295b4158c8cd6aa7">appName</a> = &quot;WoodClub&quot;</td></tr>
 <tr class="separator:a0c6ec07e8bf27ff2295b4158c8cd6aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Form to display new members when imported from the Orientation signup. This form can import the new members into the shop database and into QuickBooks. </p>
+<dl class="section see"><dt>See also</dt><dd>System.Windows.Forms.Form</dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1babf8cb63caa4c804040b10a87f6d9f" name="a1babf8cb63caa4c804040b10a87f6d9f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1babf8cb63caa4c804040b10a87f6d9f">&#9670;&#160;</a></span>NewMembers()</h2>
 
@@ -244,6 +267,8 @@ Static Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initializes a new instance of the <a class="el" href="class_wood_club_1_1_new_members.html" title="Form to display new members when imported from the Orientation signup. This form can import the new m...">NewMembers</a> class. </p>
 
 </div>
 </div>
@@ -271,6 +296,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Builds the query to add a new member to QuickBooks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newMember</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
 </div>
 </div>
 <a id="a53ee70d916dd0eb78300d1c8c7d38d67" name="a53ee70d916dd0eb78300d1c8c7d38d67"></a>
@@ -295,6 +329,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Builds the query to add an invoice to QuickBooks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">customer</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -325,6 +368,16 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Helper function to build the envelope around an QBXml query. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">doc</td><td></td></tr>
+    <tr><td class="paramname">maxVer</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
 </div>
 </div>
 <a id="a5b21e44cdd3ec9181b5e2ee8d74861e5" name="a5b21e44cdd3ec9181b5e2ee8d74861e5"></a>
@@ -354,6 +407,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Adds the new members to the shop database. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td></td></tr>
+    <tr><td class="paramname">e</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ae96caadda7a9edfcb1bcf8daaa23d40b" name="ae96caadda7a9edfcb1bcf8daaa23d40b"></a>
@@ -378,6 +440,8 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Connects to QuickBooks. </p>
 
 </div>
 </div>
@@ -408,6 +472,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Click event of the Copy menu item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a5fd4d269fd0cabc9f30cd1950f0dbae8" name="a5fd4d269fd0cabc9f30cd1950f0dbae8"></a>
@@ -436,6 +509,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Handles the CellClick event of the DataGridView1 control. Prevents selecting a row that is already in the database. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The DataGridViewCellEventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -466,6 +548,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the MouseClick event of the DataGridView1 control. Adds a Copy item to the context menu. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The MouseEventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ac12d63d4f7176d83ac30a637d69eab3d" name="ac12d63d4f7176d83ac30a637d69eab3d"></a>
@@ -490,6 +581,8 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Disconnect from QuickBooks. </p>
 
 </div>
 </div>
@@ -549,30 +642,14 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a8d64df97dac4d44d6be3c17e544fdc6e" name="a8d64df97dac4d44d6be3c17e544fdc6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d64df97dac4d44d6be3c17e544fdc6e">&#9670;&#160;</a></span>FormatCity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">string WoodClub.NewMembers.FormatCity </td>
-          <td>(</td>
-          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>city</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Formats the address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -598,6 +675,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Formats the name of the proper. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -628,6 +714,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the Load event of the FormNewMembers control. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The EventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a48f061af0daca2a5377f9c975d703d2c" name="a48f061af0daca2a5377f9c975d703d2c"></a>
@@ -653,6 +748,9 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Gets the orientation list from the club website. </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
 </div>
 </div>
 <a id="a0f96b5b87f3c18da9362146330376d4a" name="a0f96b5b87f3c18da9362146330376d4a"></a>
@@ -677,6 +775,9 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Gets the starting badge number. </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -734,6 +835,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handles the PrintPage event of the Print button. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The source of the event.</td></tr>
+    <tr><td class="paramname">e</td><td>The System.Drawing.Printing.PrintPageEventArgs instance containing the event data.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="afd156e05904ee197f619d8499780c8d2" name="afd156e05904ee197f619d8499780c8d2"></a>
@@ -763,6 +873,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Prints the new member list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td></td></tr>
+    <tr><td class="paramname">e</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a132b1c7ceb89a50412d5ee09e1e3f409" name="a132b1c7ceb89a50412d5ee09e1e3f409"></a>
@@ -787,6 +906,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Helper function to process a request from QuickBooks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">request</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -816,6 +944,15 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Adds the new members to QuickBooks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td></td></tr>
+    <tr><td class="paramname">e</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

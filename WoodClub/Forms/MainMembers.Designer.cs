@@ -54,7 +54,7 @@
 			this.memberRosterBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-			this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+			this.refreshToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -63,8 +63,8 @@
 			this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+			this.addMemberToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this.deleteMemberToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
 			this.badgesDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
 			this.selectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,13 +78,13 @@
 			this.menuItemFreeDayOnly = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
-			this.lockersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.locationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.costsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.editLockersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.lockerLocationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.lockerCostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.summaryReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-			this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+			this.badgeEntryTextBox = new System.Windows.Forms.ToolStripTextBox();
 			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
 			this.toolStripTextBoxFilter = new System.Windows.Forms.ToolStripTextBox();
@@ -102,7 +102,7 @@
 			this.editPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+			this.mailToToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printRosterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -348,7 +348,7 @@
 			this.bindingNavigator1.DeleteItem = null;
 			this.bindingNavigator1.ImageScalingSize = new System.Drawing.Size(24, 24);
 			this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton3,
+            this.refreshToolStripButton,
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
             this.bindingNavigatorSeparator,
@@ -358,8 +358,8 @@
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorCountItem,
             this.bindingNavigatorSeparator2,
-            this.toolStripButton2,
-            this.toolStripButton1,
+            this.addMemberToolStripButton,
+            this.deleteMemberToolStripButton,
             this.toolStripSeparator7,
             this.badgesDropDownButton,
             this.toolStripSeparator1,
@@ -368,7 +368,7 @@
             this.toolStripDropDownButton2,
             this.toolStripSeparator2,
             this.toolStripLabel2,
-            this.toolStripTextBox1,
+            this.badgeEntryTextBox,
             this.toolStripSeparator4,
             this.toolStripLabel3,
             this.toolStripTextBoxFilter,
@@ -378,7 +378,7 @@
             this.MultipleMembersButton,
             this.toolStripSeparator8,
             this.machinePermissions,
-            this.toolStripButton4});
+            this.mailToToolStripButton});
 			this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
 			this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
 			this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -399,13 +399,13 @@
 			// 
 			// toolStripButton3
 			// 
-			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton3.Name = "toolStripButton3";
-			this.toolStripButton3.Size = new System.Drawing.Size(74, 29);
-			this.toolStripButton3.Text = "Refresh";
-			this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+			this.refreshToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.refreshToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+			this.refreshToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.refreshToolStripButton.Name = "toolStripButton3";
+			this.refreshToolStripButton.Size = new System.Drawing.Size(74, 29);
+			this.refreshToolStripButton.Text = "Refresh";
+			this.refreshToolStripButton.Click += new System.EventHandler(this.refreshToolStripButton_Click);
 			// 
 			// bindingNavigatorMoveFirstItem
 			// 
@@ -468,25 +468,25 @@
 			this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
 			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 38);
 			// 
-			// toolStripButton2
+			// addMemberToolStripButton
 			// 
-			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton2.Name = "toolStripButton2";
-			this.toolStripButton2.Size = new System.Drawing.Size(34, 33);
-			this.toolStripButton2.Text = "toolStripButton2";
-			this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+			this.addMemberToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.addMemberToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+			this.addMemberToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.addMemberToolStripButton.Name = "toolStripButton2";
+			this.addMemberToolStripButton.Size = new System.Drawing.Size(34, 33);
+			this.addMemberToolStripButton.Text = "toolStripButton2";
+			this.addMemberToolStripButton.Click += new System.EventHandler(this.addMemberToolStripButton_Click);
 			// 
 			// toolStripButton1
 			// 
-			this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(34, 33);
-			this.toolStripButton1.Text = "toolStripButton1";
-			this.toolStripButton1.Click += new System.EventHandler(this.DeleteItemClick);
+			this.deleteMemberToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.deleteMemberToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+			this.deleteMemberToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.deleteMemberToolStripButton.Name = "toolStripButton1";
+			this.deleteMemberToolStripButton.Size = new System.Drawing.Size(34, 33);
+			this.deleteMemberToolStripButton.Text = "toolStripButton1";
+			this.deleteMemberToolStripButton.Click += new System.EventHandler(this.DeleteMemberItemClick);
 			// 
 			// toolStripSeparator7
 			// 
@@ -584,9 +584,9 @@
 			this.toolStripDropDownButton2.AutoSize = false;
 			this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lockersToolStripMenuItem,
-            this.locationsToolStripMenuItem,
-            this.costsToolStripMenuItem,
+            this.editLockersToolStripMenuItem,
+            this.lockerLocationsToolStripMenuItem,
+            this.lockerCostsToolStripMenuItem,
             this.summaryReportToolStripMenuItem});
 			this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
@@ -595,24 +595,24 @@
 			// 
 			// lockersToolStripMenuItem
 			// 
-			this.lockersToolStripMenuItem.Name = "lockersToolStripMenuItem";
-			this.lockersToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
-			this.lockersToolStripMenuItem.Text = "Edit Lockers";
-			this.lockersToolStripMenuItem.Click += new System.EventHandler(this.lockersToolStripMenuItem_Click);
+			this.editLockersToolStripMenuItem.Name = "lockersToolStripMenuItem";
+			this.editLockersToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
+			this.editLockersToolStripMenuItem.Text = "Edit Lockers";
+			this.editLockersToolStripMenuItem.Click += new System.EventHandler(this.editLockersToolStripMenuItem_Click);
 			// 
 			// locationsToolStripMenuItem
 			// 
-			this.locationsToolStripMenuItem.Name = "locationsToolStripMenuItem";
-			this.locationsToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
-			this.locationsToolStripMenuItem.Text = "Edit Locations";
-			this.locationsToolStripMenuItem.Click += new System.EventHandler(this.locationsToolStripMenuItem_Click);
+			this.lockerLocationsToolStripMenuItem.Name = "locationsToolStripMenuItem";
+			this.lockerLocationsToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
+			this.lockerLocationsToolStripMenuItem.Text = "Edit Locations";
+			this.lockerLocationsToolStripMenuItem.Click += new System.EventHandler(this.lockerLocationsToolStripMenuItem_Click);
 			// 
 			// costsToolStripMenuItem
 			// 
-			this.costsToolStripMenuItem.Name = "costsToolStripMenuItem";
-			this.costsToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
-			this.costsToolStripMenuItem.Text = "Edit Prices";
-			this.costsToolStripMenuItem.Click += new System.EventHandler(this.costsToolStripMenuItem_Click);
+			this.lockerCostsToolStripMenuItem.Name = "costsToolStripMenuItem";
+			this.lockerCostsToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
+			this.lockerCostsToolStripMenuItem.Text = "Edit Prices";
+			this.lockerCostsToolStripMenuItem.Click += new System.EventHandler(this.lockerCostsToolStripMenuItem_Click);
 			// 
 			// summaryReportToolStripMenuItem
 			// 
@@ -635,11 +635,11 @@
 			// 
 			// toolStripTextBox1
 			// 
-			this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.toolStripTextBox1.Name = "toolStripTextBox1";
-			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 38);
-			this.toolStripTextBox1.ToolTipText = "Enter badge number to find, then enter key...";
-			this.toolStripTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
+			this.badgeEntryTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+			this.badgeEntryTextBox.Name = "toolStripTextBox1";
+			this.badgeEntryTextBox.Size = new System.Drawing.Size(100, 38);
+			this.badgeEntryTextBox.ToolTipText = "Enter badge number to find, then enter key...";
+			this.badgeEntryTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.badgeEntryTextBox_KeyDown);
 			// 
 			// toolStripSeparator4
 			// 
@@ -770,13 +770,13 @@
 			// 
 			// toolStripButton4
 			// 
-			this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-			this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton4.Name = "toolStripButton4";
-			this.toolStripButton4.Size = new System.Drawing.Size(72, 29);
-			this.toolStripButton4.Text = "Mail To";
-			this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+			this.mailToToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.mailToToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+			this.mailToToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.mailToToolStripButton.Name = "toolStripButton4";
+			this.mailToToolStripButton.Size = new System.Drawing.Size(72, 29);
+			this.mailToToolStripButton.Text = "Mail To";
+			this.mailToToolStripButton.Click += new System.EventHandler(this.mailToToollStripButton_Click);
 			// 
 			// addPermissionsToolStripMenuItem
 			// 
@@ -800,8 +800,8 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainMembers";
 			this.Text = "Woodclub Members";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-			this.Load += new System.EventHandler(this.Form1_Load);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainMembers_FormClosed);
+			this.Load += new System.EventHandler(this.MainMembers_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
@@ -834,13 +834,13 @@
         private System.Windows.Forms.ToolStripMenuItem dailySummaryToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripTextBox badgeEntryTextBox;
+        private System.Windows.Forms.ToolStripButton deleteMemberToolStripButton;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
-		private System.Windows.Forms.ToolStripMenuItem lockersToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem locationsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem costsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem editLockersToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem lockerLocationsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem lockerCostsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxFilter;
@@ -851,11 +851,11 @@
 		private System.Windows.Forms.ToolStripButton MultipleMembersButton;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem menuItemFreeDayOnly;
-		private System.Windows.Forms.ToolStripButton toolStripButton2;
+		private System.Windows.Forms.ToolStripButton addMemberToolStripButton;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
 		private System.Windows.Forms.ToolStripMenuItem restoreOldToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem clubTracksToolStripMenuItem;
-		private System.Windows.Forms.ToolStripButton toolStripButton3;
+		private System.Windows.Forms.ToolStripButton refreshToolStripButton;
 		private System.Windows.Forms.ToolStripDropDownButton badgesDropDownButton;
 		private System.Windows.Forms.ToolStripMenuItem selectedToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
@@ -866,7 +866,7 @@
 		private System.Windows.Forms.ToolStripMenuItem importPhotosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem updateDuesToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addPermissionsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripButton toolStripButton4;
+		private System.Windows.Forms.ToolStripButton mailToToolStripButton;
 		private System.Windows.Forms.ToolStripMenuItem updateWebsiteToolStripMenuItem;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Badge;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;

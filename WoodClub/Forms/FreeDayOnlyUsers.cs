@@ -87,7 +87,7 @@ namespace WoodClub
                 string badge = dataGridViewFreeDay.Rows[e.RowIndex].Cells[0].Value.ToString();
                 if (!string.IsNullOrEmpty(badge))
                 {
-                    Editor ed = new Editor(badge);
+                    MemberEditor ed = new MemberEditor(badge);
                     if (ed.ShowDialog() == DialogResult.OK)
                     {
                         MainMembers.lockersUpdated = true;

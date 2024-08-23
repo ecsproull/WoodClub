@@ -6,16 +6,29 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Form used to edit the list of locker locations.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class LockerLocations : Form
 	{
 		List<LockerLocation> mLockerLocations;
 		private int originalCount = -1;
 		private WoodClubEntities context = new WoodClubEntities();
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LockerLocations"/> class.
+		/// </summary>
 		public LockerLocations()
 		{
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Handles the Load event of the LockerLocations control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void LockerLocations_Load(object sender, EventArgs e)
 		{
 			this.mLockerLocations = (from ll in context.LockerLocations
@@ -28,6 +41,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Save button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonSave_Click(object sender, EventArgs e)
 		{
 			for (int i = originalCount; i < mLockerLocations.Count; i++)
@@ -39,15 +57,14 @@ namespace WoodClub
 			DialogResult = DialogResult.OK;
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Cancel button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonCancel_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.Cancel;
 		}
-	}
-
-	public partial class LockerLocationBind
-	{
-		public string LocationKey { get; set; }
-		public string Description { get; set; }
 	}
 }

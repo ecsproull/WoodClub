@@ -9,7 +9,7 @@ var searchData=
   ['new_5fmember_5frec_5fcard_6',['new_member_rec_card',['../class_wood_club_1_1_new_member_raw.html#a9d4fc518e3f567946a570c2efac51653',1,'WoodClub::NewMemberRaw']]],
   ['new_5fmember_5fstreet_7',['new_member_street',['../class_wood_club_1_1_new_member_raw.html#a2bf9c813562201706bd19cec792920e9',1,'WoodClub::NewMemberRaw']]],
   ['newbadge_8',['NewBadge',['../class_wood_club_1_1_member_backup.html#a05811a8d27d418107573af6adeb62a05',1,'WoodClub.MemberBackup.NewBadge'],['../class_wood_club_1_1_member_roster.html#a0dbdd0b0ec6a4454f14bf1878c9bac46',1,'WoodClub.MemberRoster.NewBadge']]],
-  ['newcredit_9',['newCredit',['../class_wood_club_1_1_editor.html#a38c0d0dacad667b072f520a0c00383dd',1,'WoodClub.Editor.newCredit'],['../class_wood_club_1_1_multiple_editor.html#a6eeac89918ecfdd89be5d0caef1836dd',1,'WoodClub.MultipleEditor.newCredit']]],
+  ['newcredit_9',['newCredit',['../class_wood_club_1_1_member_editor.html#a6dc5e71c30d146d141890b4af5004e7c',1,'WoodClub.MemberEditor.newCredit'],['../class_wood_club_1_1_multiple_editor.html#a6eeac89918ecfdd89be5d0caef1836dd',1,'WoodClub.MultipleEditor.newCredit']]],
   ['newidentifier_10',['NewIdentifier',['../class_wood_club_1_1_members.html#a0a9aeb8d9ffeb3a59cded5e8585be487',1,'WoodClub::Members']]],
   ['newimagesbindingsource_11',['newImagesBindingSource',['../class_wood_club_1_1_photo_import.html#ac1158cb1da7fb5cecb2f32e7d8d4332f',1,'WoodClub::PhotoImport']]],
   ['newmember_12',['NewMember',['../class_wood_club_1_1_new_member.html',1,'WoodClub']]],

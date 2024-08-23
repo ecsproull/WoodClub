@@ -7,16 +7,29 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// From to edit locker data. Add, Delete and update are supported.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class LockerData : Form
 	{
 		List<Locker> mLockers;
 		private int originalCount = -1;
 		private WoodClubEntities context = new WoodClubEntities();
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LockerData"/> class.
+		/// </summary>
 		public LockerData()
 		{
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Handles the Load event of the LockerData control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void LockerData_Load(object sender, EventArgs e)
 		{
 			LoadLockers();
@@ -24,6 +37,9 @@ namespace WoodClub
 			dataGridLockerData.CellValidating += dataGridView_CellValidating;
 		}
 
+		/// <summary>
+		/// Loads the locker data from the database.
+		/// </summary>
 		private void LoadLockers()
 		{
 			this.mLockers = (from l in context.Lockers
@@ -43,6 +59,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the CellValidating event of the dataGridView control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="DataGridViewCellValidatingEventArgs"/> instance containing the event data.</param>
 		private void dataGridView_CellValidating(object sender,
 			DataGridViewCellValidatingEventArgs e)
 		{
@@ -86,6 +107,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the CellEndEdit event of the dataGridView control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
 		private void dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex >= this.originalCount &&
@@ -112,6 +138,9 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Applies the changes.
+		/// </summary>
 		private void ApplyChanges()
 		{
 			List<string> toDelete = new List<string>();
@@ -138,17 +167,32 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Save button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonSave_Click(object sender, EventArgs e)
 		{
 			ApplyChanges();
 			DialogResult = DialogResult.OK;
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Cancel button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonCancel_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.Cancel;
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Apply button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonApply_Click(object sender, EventArgs e)
 		{
 			ApplyChanges();

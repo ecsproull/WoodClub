@@ -208,7 +208,7 @@
 			// 
 			// unpaidMemberBindingSource
 			// 
-			this.unpaidMemberBindingSource.DataSource = typeof(WoodClub.UnpaidMember);
+			this.unpaidMemberBindingSource.DataSource = typeof(WoodClub.UnpaidMemberData);
 			// 
 			// UpdateDuesPaid
 			// 

@@ -6,6 +6,10 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Form used for adding member permissions.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class AddPermissions : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
@@ -15,6 +19,10 @@ namespace WoodClub
 		private Dictionary<string, string> approversNames = new Dictionary<string, string>();
 		private string singleBadge = string.Empty;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AddPermissions"/> class.
+		/// </summary>
+		/// <param name="badge">The badge.</param>
 		public AddPermissions(string badge = null)
 		{
 			InitializeComponent();
@@ -54,12 +62,22 @@ namespace WoodClub
 			LoadMembers();
 		}
 
+		/// <summary>
+		/// Handles the Load event of the MultipleEditor control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void MultipleEditor_Load(object sender, EventArgs e)
 		{
 			memberBadgesTextBox.Leave += MemberBadgesTextBox_Leave;
 			memberBadgesTextBox.KeyUp += MemberBadgesTextBox_KeyDown;
 		}
 
+		/// <summary>
+		/// Handles the KeyDown event of the MemberBadgesTextBox control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
 		private void MemberBadgesTextBox_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
@@ -68,12 +86,22 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Leave event of the MemberBadgesTextBox control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void MemberBadgesTextBox_Leave(object sender, EventArgs e)
 		{
 			System.Windows.Forms.TextBox textBox = sender as System.Windows.Forms.TextBox;
 			LoadMembers();
 		}
 
+		/// <summary>
+		/// Loads the member.
+		/// </summary>
+		/// <param name="badge">The members badge.</param>
+		/// <returns></returns>
 		private List<MemberPermissionsItem> LoadMember(string badge)
 		{
 			List<string> badges = new List<string>(this.memberBadgesTextBox.Text.Split('.'));
@@ -124,7 +152,11 @@ namespace WoodClub
 				
 			}
 		}
-		
+
+		/// <summary>
+		/// Loads a list of members. Uses the badge numbers entered into
+		/// the MemberBadgesTextBox.
+		/// </summary>
 		private void LoadMembers()
 		{
 			List<string> badges = new List<string>(this.memberBadgesTextBox.Text.Split('.'));
@@ -142,11 +174,22 @@ namespace WoodClub
 			dataGridMultiMember.DataSource = new SortableBindingList<MemberPermissionsItem>(memberPermissionsItems);
         }
 
+		/// <summary>
+		/// Handles the Click event of the cancelButton control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.Cancel;
 		}
 
+		/// <summary>
+		/// Handles the Click event of the applyButton control.
+		/// Saves the entered data.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void applyButton_Click(object sender, EventArgs e)
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -207,6 +250,11 @@ namespace WoodClub
 			LoadMembers();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the btnSave control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void btnSave_Click(object sender, EventArgs e)
 		{
 			applyButton_Click(null, null);

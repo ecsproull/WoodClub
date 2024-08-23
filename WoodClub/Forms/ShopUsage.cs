@@ -8,6 +8,10 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Form to display monthly shop usage.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class ShopUsage : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
@@ -24,13 +28,23 @@ namespace WoodClub
 		private int visitsCnt;          // Number of member visits
 		private int monthCnt = 0;
 		private MemberRoster member = null;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ShopUsage"/> class.
+		/// </summary>
 		public ShopUsage()
 		{
 			InitializeComponent();
 			bsUsage.DataSource = blUsage;
-			bsUsage.PositionChanged += BsUsage_PositionChanged;
+			bsUsage.PositionChanged += BindingSourceUsage_PositionChanged;
 		}
-		private void BsUsage_PositionChanged(object sender, EventArgs e)
+
+		/// <summary>
+		/// Handles the PositionChanged event of the BindingSourceUsage control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void BindingSourceUsage_PositionChanged(object sender, EventArgs e)
 		{
 			if (bsUsage.CurrentRowIsValid())
 			{
@@ -41,12 +55,24 @@ namespace WoodClub
 				currentUsage = null;
 			}
 		}
+
+		/// <summary>
+		/// Handles the Load event of the FormUsage control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void FormUsage_Load(object sender, EventArgs e)
 		{
 			year = DateTime.Now.Year;
 			month = DateTime.Now.Month;
 			LoadYear(year, month);
 		}
+
+		/// <summary>
+		/// Loads the year.
+		/// </summary>
+		/// <param name="yr">The yr.</param>
+		/// <param name="month">The month.</param>
 		private void LoadYear(int yr, int month)
 		{
 			//
@@ -70,6 +96,10 @@ namespace WoodClub
 				log.Info("LoadYear: Usage Load completed.");
 			}
 		}
+
+		/// <summary>
+		/// Loads the usage.
+		/// </summary>
 		private void loadUsage()
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -119,6 +149,10 @@ namespace WoodClub
 			log.Info("Scan complete");
 			this.Invoke(new Action(() => OnShowUsage()));
 		}
+
+		/// <summary>
+		/// Called when [show usage].
+		/// </summary>
 		public void OnShowUsage()
 		{
 			txtTotal.Text = monthCnt.ToString();
@@ -131,9 +165,13 @@ namespace WoodClub
 			UseWaitCursor = false;
 			this.btnRefresh.Enabled = true;
 		}
-		//
-		//  Save data as CSV file
-		//
+
+		/// <summary>
+		/// Handles the Click event of the Save button.
+		/// Saves the data as CSV.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void btnSave_Click(object sender, EventArgs e)
 		{
 			string pathDesktop = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%") + "\\Documents";
@@ -175,6 +213,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Refresh button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void btnRefresh_Click(object sender, EventArgs e)
 		{
 			int todayYear = DateTime.Now.Year;
@@ -190,6 +233,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the ValueChanged event of the dateTimePicker1 control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
 		{
 			year = dateTimePicker1.Value.Year;

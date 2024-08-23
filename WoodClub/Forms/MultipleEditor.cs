@@ -9,6 +9,10 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Form for adding the same credit to several members.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class MultipleEditor : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
@@ -20,6 +24,9 @@ namespace WoodClub
 		private WoodClubEntities context;
 		private SortableBindingList<MultipleEditMember> members;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MultipleEditor"/> class.
+		/// </summary>
 		public MultipleEditor()
 		{
 			InitializeComponent();
@@ -28,6 +35,11 @@ namespace WoodClub
 			this.creditTransactions = new Dictionary<string, TransactionAddition>();
 		}
 
+		/// <summary>
+		/// Handles the Load event of the MultipleEditor control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void MultipleEditor_Load(object sender, EventArgs e)
 		{
 			this.dataGridMultiMember.AutoGenerateColumns = false;
@@ -50,6 +62,12 @@ namespace WoodClub
 			memberBadgesTextBox.KeyUp += MemberBadgesTextBox_KeyDown;
 		}
 
+		/// <summary>
+		/// Handles the KeyDown event of the MemberBadgesTextBox control.
+		/// Looks for the ENTER key press and then loads the members listed.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
 		private void MemberBadgesTextBox_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
@@ -58,12 +76,21 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Leave event of the MemberBadgesTextBox control.
+		/// Same as the enter key, this triggers a load of the mambers listed.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void MemberBadgesTextBox_Leave(object sender, EventArgs e)
 		{
 			TextBox textBox = sender as TextBox;
 			LoadMembers();
 		}
 
+		/// <summary>
+		/// Loads the members.
+		/// </summary>
 		private void LoadMembers()
 		{
 			List<string> badges = new List<string>(this.memberBadgesTextBox.Text.Split('.'));
@@ -94,7 +121,12 @@ namespace WoodClub
             }
         }
 
-        private static int GetAccessTime(string groupTime)
+		/// <summary>
+		/// Gets the access time.
+		/// </summary>
+		/// <param name="groupTime">The group time.</param>
+		/// <returns></returns>
+		private static int GetAccessTime(string groupTime)
         {
             int TzAccess = 0;
             using (ZKAccessEntities zkcontext = new ZKAccessEntities())
@@ -112,7 +144,10 @@ namespace WoodClub
             return TzAccess;
         }
 
-        private void ApplyChanges()
+		/// <summary>
+		/// Applies the changes.
+		/// </summary>
+		private void ApplyChanges()
 		{
 			if (newCredit)
 			{
@@ -173,6 +208,12 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the MouseDoubleClick event of the DataGridViewCodes control.
+		/// Selects the credit type to be added.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
 		private void DataGridViewCodes_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			DataGridView dgv = sender as DataGridView;
@@ -195,6 +236,9 @@ namespace WoodClub
 			populateNewCredits();
 		}
 
+		/// <summary>
+		/// Populates the new credits in the credit add view.
+		/// </summary>
 		private void populateNewCredits()
 		{
 			GridViewNewCredits.Rows.Clear();
@@ -211,6 +255,10 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// If the added credits require the controller to be updated, this is the function that sends the event.
+		/// </summary>
+		/// <param name="member">The member.</param>
 		private void DoorUpdate(MemberRoster member)
 		{
 			int zkAccessTime = GetAccessTime(member.GroupTime);
@@ -223,6 +271,11 @@ namespace WoodClub
 			udpClient.Send(bytesOut1, bytesOut1.Length, "255.255.255.255", PORT);
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Clear Button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void ButtonClear_Click(object sender, EventArgs e)
 		{
 			creditTransactions = new Dictionary<string, TransactionAddition>();
@@ -230,6 +283,11 @@ namespace WoodClub
 			populateNewCredits();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Save button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
 			ApplyChanges();
@@ -238,6 +296,12 @@ namespace WoodClub
 		}
 
 		private bool changesApplied = false;
+
+		/// <summary>
+		/// Handles the Click event of the Cancel Button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
 			if (changesApplied)
@@ -250,6 +314,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Apply Button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void ButtonApply_Click(object sender, EventArgs e)
 		{
 			ApplyChanges();

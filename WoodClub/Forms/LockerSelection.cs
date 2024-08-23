@@ -7,6 +7,10 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Form for editing a member's lockers.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class LockerSelection : Form
 	{
 		private MemberRoster member;
@@ -14,6 +18,11 @@ namespace WoodClub
 		private SortableBindingList<JoinedListItem> sblLockersCurrent;
 		private SortableBindingList<JoinedListItem> sblLockersAll;
 		private WoodClubEntities context;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LockerSelection"/> class.
+		/// </summary>
+		/// <param name="badge">The member's badge.</param>
 		public LockerSelection(string badge)
 		{
 			this.badge = badge;
@@ -31,6 +40,11 @@ namespace WoodClub
 					  select m).FirstOrDefault();
 		}
 
+		/// <summary>
+		/// Handles the CellContentClick event of the dataGridViewSelectedLockers control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
 		private void dataGridViewSelectedLockers_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
 			DataGridView dataGridView = (DataGridView)sender;
@@ -112,11 +126,19 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Load event of the LockerSelection control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void LockerSelection_Load(object sender, EventArgs e)
 		{
 			LoadLockers();
 		}
 
+		/// <summary>
+		/// Loads the lockers for a members badge.
+		/// </summary>
 		private void LoadLockers()
 		{
 			var currentLockers = context.Lockers
@@ -225,6 +247,9 @@ namespace WoodClub
 			bs_AllLockers.DataSource = new SortableBindingList<JoinedListItem>(joinedListAll);
 		}
 
+		/// <summary>
+		/// Saves the changes.
+		/// </summary>
 		private void SaveChanges()
 		{
 			foreach (JoinedListItem item in sblLockersCurrent)
@@ -269,35 +294,115 @@ namespace WoodClub
 			context.SaveChanges();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Save button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonSave_Click(object sender, EventArgs e)
 		{
 			SaveChanges();
 			DialogResult = DialogResult.OK;
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Cancel button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonCancel_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.Cancel;
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Apply button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonApply_Click(object sender, EventArgs e)
 		{
 			SaveChanges();
 			LoadLockers();
 		}
-	}
 
-	public partial class JoinedListItem
-	{
-		public string Selected { get; set; }
-		public string Badge { get; set; }
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-		public string Locker { get; set; }
-		public string Location { get; set; }
+		/// <summary>
+		/// Private class used to hold the data returned by a
+		/// LEFT JOIN on the database.
+		/// </summary>
+		private partial class JoinedListItem
+		{
+			/// <summary>
+			/// Gets or sets the selected.
+			/// </summary>
+			/// <value>
+			/// The selected.
+			/// </value>
+			public string Selected { get; set; }
 
-		public string BadgeOriginal { get; set; }
-		public string FirstNameOriginal { get; set; }
-		public string LastNameOriginal { get; set; }
+			/// <summary>
+			/// Gets or sets the badge.
+			/// </summary>
+			/// <value>
+			/// The badge.
+			/// </value>
+			public string Badge { get; set; }
+
+			/// <summary>
+			/// Gets or sets the first name.
+			/// </summary>
+			/// <value>
+			/// The first name.
+			/// </value>
+			public string FirstName { get; set; }
+
+			/// <summary>
+			/// Gets or sets the last name.
+			/// </summary>
+			/// <value>
+			/// The last name.
+			/// </value>
+			public string LastName { get; set; }
+
+			/// <summary>
+			/// Gets or sets the locker.
+			/// </summary>
+			/// <value>
+			/// The locker.
+			/// </value>
+			public string Locker { get; set; }
+
+			/// <summary>
+			/// Gets or sets the location.
+			/// </summary>
+			/// <value>
+			/// The location.
+			/// </value>
+			public string Location { get; set; }
+
+			/// <summary>
+			/// Gets or sets the badge original.
+			/// </summary>
+			/// <value>
+			/// The badge original.
+			/// </value>
+			public string BadgeOriginal { get; set; }
+
+			/// <summary>
+			/// Gets or sets the first name original.
+			/// </summary>
+			/// <value>
+			/// The first name original.
+			/// </value>
+			public string FirstNameOriginal { get; set; }
+
+			/// <summary>
+			/// Gets or sets the last name original.
+			/// </summary>
+			/// <value>
+			/// The last name original.
+			/// </value>
+			public string LastNameOriginal { get; set; }
+		}
 	}
 }

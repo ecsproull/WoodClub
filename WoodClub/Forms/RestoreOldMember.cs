@@ -6,11 +6,20 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// The WoodClub application keeps a backup table of all members dating 
+	/// back a few years. This form is used to find and restore a member
+	/// from the backup table to the current table.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class RestoreOldMember : Form
 	{
 		private SortableBindingList<MembersShort> blMembers;
 		private readonly BindingSource bsMembers;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RestoreOldMember"/> class.
+		/// </summary>
 		public RestoreOldMember()
 		{
 			this.blMembers = new SortableBindingList<MembersShort>();
@@ -22,6 +31,12 @@ namespace WoodClub
 
 		}
 
+		/// <summary>
+		/// Handles the KeyUp event of the TextBoxSearch control.
+		/// This filters the list as the search string is typed.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
 		private void TextBoxSearch_KeyUp(object sender, KeyEventArgs e)
 		{
 			string filter = toolStripSearchBox.Text;
@@ -42,6 +57,9 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Loads the backup members.
+		/// </summary>
 		private void LoadBackupMembers()
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -77,6 +95,10 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Transfers the member.
+		/// </summary>
+		/// <param name="badge">The badge.</param>
 		private void TransferMember(string badge)
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -120,11 +142,21 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Cancel button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonCancel_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.Cancel;
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Restore button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void buttonRestore_Click(object sender, EventArgs e)
 		{
 			DataGridViewRow memRow = dataGridView2.SelectedRows[0];

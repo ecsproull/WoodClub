@@ -7,6 +7,10 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Used to display the daily member usage of the shop.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class FormDaily : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
@@ -23,6 +27,10 @@ namespace WoodClub
 		private int month;              // Month to search
 		private int dayMonth;           // Day in month
 		private int[] hourTotal;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FormDaily"/> class.
+		/// </summary>
 		public FormDaily()
 		{
 			InitializeComponent();
@@ -30,6 +38,11 @@ namespace WoodClub
 			bsDaily.PositionChanged += BsDaily_PositionChanged;
 		}
 
+		/// <summary>
+		/// Handles the PositionChanged event of the binding source control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void BsDaily_PositionChanged(object sender, EventArgs e)
 		{
 
@@ -43,6 +56,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Load event of the FormDaily control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void FormDaily_Load(object sender, EventArgs e)
 		{
 			year = DateTime.Now.Year;
@@ -54,6 +72,12 @@ namespace WoodClub
 			}
 			LoadYear(year, month);
 		}
+
+		/// <summary>
+		/// Loads the year.
+		/// </summary>
+		/// <param name="yr">The yr.</param>
+		/// <param name="month">The month.</param>
 		private void LoadYear(int yr, int month)
 		{
 			//
@@ -119,6 +143,10 @@ namespace WoodClub
 			}
 			this.Invoke(new Action(() => OnShowDaily()));
 		}
+
+		/// <summary>
+		/// Called when [show daily].
+		/// </summary>
 		public void OnShowDaily()
 		{
 			blDaily = new SortableBindingList<Daily>(DSdaily);
@@ -130,16 +158,23 @@ namespace WoodClub
 			UseWaitCursor = false;
 			this.btnDailyRefresh.Enabled = true;
 		}
+
+		/// <summary>
+		/// Handles the ValueChanged event of the DailydateTimePicker control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void DailydateTimePicker_ValueChanged(object sender, EventArgs e)
 		{
 			year = DailydateTimePicker.Value.Year;
 			month = DailydateTimePicker.Value.Month;
 		}
-		private void dailyBindingSource_CurrentChanged(object sender, EventArgs e)
-		{
 
-		}
-
+		/// <summary>
+		/// Handles the Click event of the Refresh button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void btnDailyRefresh_Click(object sender, EventArgs e)
 		{
 			int todayYear = DateTime.Now.Year;
@@ -155,9 +190,13 @@ namespace WoodClub
 				MessageBox.Show("Error: Please Enter a Valid Date!");
 			}
 		}
-		//
-		//  Save data as CSV file
-		//
+
+		/// <summary>
+		/// Handles the Click event of the Save button.
+		/// Saves the data in CSV form.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void btnSave_Click(object sender, EventArgs e)
 		{
 			string pathDesktop = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%") + "\\Documents";

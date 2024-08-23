@@ -1,6 +1,6 @@
 ﻿namespace WoodClub
 {
-    partial class Editor
+    partial class MemberEditor
     {
         /// <summary>
         /// Required designer variable.

@@ -12,6 +12,14 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// The home screen view. Displays a list of all member and allows
+	/// the user to pick a member to view and edit their data.
+	/// Also includes the main ToolBar to facilitate many other functions
+	/// including reports, permissions, lockers, adding credits to multiple
+	/// members, filtering the view and sending a member an email.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class MainMembers : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
@@ -30,6 +38,9 @@ namespace WoodClub
 		public bool added;
 		private bool filteredBoxEdit = false;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MainMembers"/> class.
+		/// </summary>
 		public MainMembers()
 		{
 			this.blMembers = new SortableBindingList<MembersExtended>();
@@ -40,6 +51,12 @@ namespace WoodClub
 			MessageIn();
 		}
 
+		/// <summary>
+		/// Receives messages via UDP. When an update in made in the WoodClub application
+		/// that requires an update to the card controllers a message is sent to the 
+		/// ZkAccessIO application to update the controllers. After the update is done
+		/// ZkAccessIO sends a message back saying it is done. That message is received here.
+		/// </summary>
 		private void MessageIn()
 		{
 			udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, listenPort));
@@ -58,7 +75,13 @@ namespace WoodClub
 			});
 		}
 
-		private void Form1_Load(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the Load event of the MainMembers control.
+		/// Several event handlers are assigned here.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void MainMembers_Load(object sender, EventArgs e)
 		{
 			log.Info("Starting application");
 			try
@@ -76,24 +99,43 @@ namespace WoodClub
 			bsMembers.Position = 0;
 			bindingNavigator1.BindingSource = bsMembers;
 			toolStripTextBoxFilter.KeyUp += TextBoxName_KeyUp;
-			toolStripTextBox1.KeyUp += ToolStripTextBox1_KeyUp; ;
+			badgeEntryTextBox.KeyUp += BadgeEntryTextbox_KeyUp; ;
 			toolStripImportNewMembers.Click += ToolStripImportNewMembers_Click;
 			MultipleMembersButton.Click += MultipleMembersButton_Click;
             menuItemFreeDayOnly.Click += MenuItemFreeDayOnly_Click;
 		}
 
-		private void ToolStripTextBox1_KeyUp(object sender, KeyEventArgs e)
+
+		/// <summary>
+		/// Handles the KeyUp event of the BadgeEntryTextbox control. When a user
+		/// starts to enter a badge number the filtered TextBox is ignored.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+		private void BadgeEntryTextbox_KeyUp(object sender, KeyEventArgs e)
 		{
 			filteredBoxEdit = false;
 		}
 
+		/// <summary>
+		/// Handles the Click event of the MenuItemFreeDayOnly control. This button is located
+		/// under the Reports ToolBar item and filters member that have a Free Day available.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void MenuItemFreeDayOnly_Click(object sender, EventArgs e)
         {
 			FreeDayOnlyUsers fdo = new FreeDayOnlyUsers();
 			fdo.Show();
         }
 
-        private void MultipleMembersButton_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the Click event of the MultipleMembersButton located on the ToolBar.
+		/// This form allow the user to enter the same credit to several members at one time.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void MultipleMembersButton_Click(object sender, EventArgs e)
 		{
 			MultipleEditor me = new MultipleEditor();
 			me.ShowDialog();
@@ -101,6 +143,9 @@ namespace WoodClub
 			LoadMembers();
 		}
 
+		/// <summary>
+		/// Loads the members. Also useful to reload the list after making changes.
+		/// </summary>
 		private void LoadMembers()
 		{
 			members = new Members(true);
@@ -109,6 +154,12 @@ namespace WoodClub
 			dataGridView1.DataSource = bsMembers;
 		}
 
+		/// <summary>
+		/// Handles the Click event of the ToolStripImportNewMembers control. Under the Members ToolBar item
+		/// the Import Orientation item invokes this event.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void ToolStripImportNewMembers_Click(object sender, EventArgs e)
 		{
 			NewMembers fnm = new NewMembers();
@@ -116,6 +167,11 @@ namespace WoodClub
 			LoadMembers();
 		}
 
+		/// <summary>
+		/// Handles the KeyUp event of the TextBoxName control. This is the filter control handler.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
 		private void TextBoxName_KeyUp(object sender, KeyEventArgs e)
 		{
 			filteredBoxEdit = true;
@@ -123,13 +179,16 @@ namespace WoodClub
 
 			if (e.KeyData == Keys.Enter && filteredBindingList.Count == 1)
 			{
-				Editor editor = new Editor(filteredBindingList[0].Badge);
+				MemberEditor editor = new MemberEditor(filteredBindingList[0].Badge);
 				editor.ShowDialog();
 
 				setTextBoxFocus();
 			}
 		}
 
+		/// <summary>
+		/// Sets the filtered text box focus.
+		/// </summary>
 		private void setTextBoxFocus()
 		{
 			if (filteredBoxEdit)
@@ -143,15 +202,19 @@ namespace WoodClub
 			}
 			else
 			{
-				if (toolStripTextBox1.Control.Text.Length > 0)
+				if (badgeEntryTextBox.Control.Text.Length > 0)
 				{
-					ActiveControl = toolStripTextBox1.Control;
-					toolStripTextBox1.SelectionStart = 0;
-					toolStripTextBox1.SelectionLength = toolStripTextBox1.Control.Text.Length;
+					ActiveControl = badgeEntryTextBox.Control;
+					badgeEntryTextBox.SelectionStart = 0;
+					badgeEntryTextBox.SelectionLength = badgeEntryTextBox.Control.Text.Length;
 				}
 			}
 		}
 
+		/// <summary>
+		/// Sets or clears the binding source members data source. When entering text
+		/// into the filter box, this is where the updating of the member list takes place.
+		/// </summary>
 		private void setBsMembersDataSource()
 		{
 			string filter = toolStripTextBoxFilter.Text;
@@ -205,12 +268,23 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the CellMouseDoubleClick event of the dataGridView1 control. This opens
+		/// the member that has been double clicked.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="DataGridViewCellMouseEventArgs"/> instance containing the event data.</param>
 		private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
 			EditCurrentRow();
 		}
 
-		private void DeleteItemClick(object sender, EventArgs e)
+		/// <summary>
+		/// Deletes the selected item. The click is from the garbage can in the tool bar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void DeleteMemberItemClick(object sender, EventArgs e)
 		{
 			int id;
 			DialogResult dialogResult = MessageBox.Show("Confirm Delete?", "Item", MessageBoxButtons.YesNo);
@@ -240,10 +314,13 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Edits the current row which represents a member. Opens the member editor.
+		/// </summary>
 		private void EditCurrentRow()
 		{
 			MemberRoster roster = blMembers.FirstOrDefault(mem => mem.id == bsMembers.MemberIdentifier());
-			Editor frm = new Editor(roster.Badge);
+			MemberEditor frm = new MemberEditor(roster.Badge);
 			frm.StartPosition = FormStartPosition.CenterScreen;
 			try
 			{
@@ -261,27 +338,57 @@ namespace WoodClub
 			setTextBoxFocus();
 		}
 
-		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+		/// <summary>
+		/// Handles the FormClosed event of the MainMembers form.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance containing the event data.</param>
+		private void MainMembers_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			Application.Exit();
 		}
+
+		/// <summary>
+		/// Handles the Click event of the monitorsToolStripMenuItem control. This the Monitors item
+		/// under the Reports ToolBar item.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void monitorsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			MonitorForm mf = new MonitorForm();
 			mf.ShowDialog();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the monthlyClubUsageToolStripMenuItem control.
+		/// Monthly club usage is under the Reports ToolBar item.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void monthlyClubUsageToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			ShopUsage uf = new ShopUsage();
 			uf.ShowDialog();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the summaryReportToolStripMenuItem control.
+		/// This is the Summary item under the Lockers ToolBar item.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void summaryReportToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			lockerSummaryToolStripMenuItem_Click(sender, e);
 		}
 
+		/// <summary>
+		/// Handles the Click event of the lockerSummaryToolStripMenuItem control.
+		/// Opens the locker summary from the Reports ToolBar item.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void lockerSummaryToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			LockerRpt lr = new LockerRpt();
@@ -293,13 +400,25 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the dailySummaryToolStripMenuItem control.
+		/// This shows the daily summary of shop usage.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void dailySummaryToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			FormDaily fd = new FormDaily();
 			fd.ShowDialog();
 		}
 
-		private void tb_KeyDown(object sender, KeyEventArgs e)
+		/// <summary>
+		/// Handles the KeyDown event of the badge entry TextBox control. 
+		/// TODO: look at removing the keyup handler.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+		private void badgeEntryTextBox_KeyDown(object sender, KeyEventArgs e)
 		{
 			filteredBoxEdit = false;
 			if (e.KeyCode == Keys.Enter)
@@ -308,9 +427,12 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Finds the badge in the member list and opens the MemberEditor form for this badge.
+		/// </summary>
 		private void Find_Badge()
 		{
-			string badge = toolStripTextBox1.Text;
+			string badge = badgeEntryTextBox.Text;
 			var result = blMembers.SingleOrDefault(b => b.Badge == badge);
 			if (result != null)
 			{
@@ -340,27 +462,47 @@ namespace WoodClub
 
 		}
 
-		private void locationsToolStripMenuItem_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the Click event of the lockerLocationsToolStripMenuItem control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void lockerLocationsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			LockerLocations lockerLocations = new LockerLocations();
 			lockerLocations.ShowDialog();
 		}
 
-		private void lockersToolStripMenuItem_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the Click event of the editLockersToolStripMenuItem control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void editLockersToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			LockerData ld = new LockerData();
 			ld.ShowDialog();
 		}
 
-		private void costsToolStripMenuItem_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the Click event of the lockerCostsToolStripMenuItem control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void lockerCostsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			LockerPrices lockerPrices = new LockerPrices();
 			lockerPrices.ShowDialog();
 		}
 
-		private void toolStripButton2_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the Click event of the addMemberToolStripButton control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void addMemberToolStripButton_Click(object sender, EventArgs e)
 		{
-			Editor frm = new Editor(string.Empty);
+			MemberEditor frm = new MemberEditor(string.Empty);
 			try
 			{
 				if (frm.ShowDialog() == DialogResult.OK)        // Changes made - need to refresh from SQL
@@ -375,6 +517,13 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the event of the clubTracksToolStripMenuItem_Click control.
+		/// Creates a HeadTracks report in CSV form that is compatible with the 
+		/// recreation center's upload tool.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void clubTracksToolStripMenuItem_Click_1(object sender, EventArgs e)
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -409,21 +558,38 @@ namespace WoodClub
 
 		}
 
+		/// <summary>
+		/// Handles the Click event of the restoreOldToolStripMenuItem control.
+		/// Restores a member from the backup database table.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void restoreOldToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			RestoreOldMember rso = new RestoreOldMember();
 			var x = rso.ShowDialog();
 			if (x == DialogResult.OK)
 			{
-				Form1_Load(null, null);
+				MainMembers_Load(null, null);
 			}
 		}
 
-		private void toolStripButton3_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the Click event of the refreshToolStripButton control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void refreshToolStripButton_Click(object sender, EventArgs e)
 		{
-			Form1_Load(null, null);
+			MainMembers_Load(null, null);
 		}
 
+		/// <summary>
+		/// Handles the Click event of the exportAllToolStripMenuItem control.
+		/// Export All is under the Badges ToolBar menu item.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void exportAllToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -449,6 +615,12 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the selectedToolStripMenuItem control.
+		/// Selected is under the Badges ToolBar menu item.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void selectedToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			RFBadge frfb = new RFBadge();
@@ -456,18 +628,33 @@ namespace WoodClub
 			LoadMembers();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the editMachinePermissions control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void editMachinePermissions_Click(object sender, EventArgs e)
 		{
 			var perms = new EditMachinePermissions();
 			perms.ShowDialog();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the importPhotosToolStripMenuItem control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void importPhotosToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			PhotoImport photoImport = new PhotoImport();
 			photoImport.ShowDialog();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the updateDuesToolStripMenuItem control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void updateDuesToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			UpdateDuesPaid scwf = new UpdateDuesPaid();
@@ -479,13 +666,12 @@ namespace WoodClub
 			}
 		}
 
-		private void addPermissionsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			AddPermissions ap = new AddPermissions();
-			ap.ShowDialog();
-		}
-
-		private void toolStripButton4_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the Click event of the mailToToollStripButton control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void mailToToollStripButton_Click(object sender, EventArgs e)
 		{
 			string recipientEmail = string.Empty;
 			foreach (DataGridViewRow r in dataGridView1.SelectedRows)
@@ -503,12 +689,22 @@ namespace WoodClub
 			Process.Start(mailtoUri);
 		}
 
+		/// <summary>
+		/// Handles the Click event of the updateWebsiteToolStripMenuItem control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void updateWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			PostToGoDaddy postToGoDaddy = new PostToGoDaddy();
 			postToGoDaddy.PostMembersToGoDaddy();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the printRosterToolStripMenuItem control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void printRosterToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			PrintContacts pc = new PrintContacts();

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,24 +6,38 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Unused Form! This was used to list all of the member that 
+	/// were selected to have a new badge printed. Will keep the code in
+	/// case we ever print directly from our database again.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class RFBadge : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
 				  (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 		private List<MemberRFcard> DataSource;
 		private BindingSource bsRFcards = new BindingSource();
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RFBadge"/> class.
+		/// </summary>
 		public RFBadge()
 		{
 			InitializeComponent();
 			dataGridView1.CellEndEdit += DataGridView1_CellEndEdit;
 		}
 
+		/// <summary>
+		/// Handles the CellEndEdit event of the DataGridView1 control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
 		private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			MemberRFcard rfnc = DataSource[e.RowIndex];
@@ -38,6 +51,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Load event of the formRFbadge control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void formRFbadge_Load(object sender, EventArgs e)
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -59,9 +77,12 @@ namespace WoodClub
 		}
 
 
-		//
-		//  Here for new RF card - delete record
-		//
+		/// <summary>
+		/// Handles the Click event of the toolStripButton2 control.
+		/// In case we want to add a new card.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void toolStripButton2_Click(object sender, EventArgs e)
 		{
 			int id;
@@ -90,6 +111,11 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the Export button.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void exportButton_Click(object sender, EventArgs e)
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
@@ -100,6 +126,10 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Exports the specified members.
+		/// </summary>
+		/// <param name="members">The members.</param>
 		public static void Export(List<MemberRFcard> members)
 		{
 			StringBuilder stringBuilder = new StringBuilder();

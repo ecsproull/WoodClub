@@ -7,8 +7,14 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Used by the PhotoImport form to display a photo.
 	public partial class DisplayPictureBox : Form
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DisplayPictureBox"/> class.
+		/// </summary>
+		/// <param name="badge">The badge.</param>
 		public DisplayPictureBox(string badge)
 		{
 			InitializeComponent();
