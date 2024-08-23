@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-/// <summary>
-/// Original source
-/// http://www.martinwilley.com/net/code/forms/sortablebindinglist.html
-/// </summary>
 namespace WoodClub
 {
 	/// <summary>

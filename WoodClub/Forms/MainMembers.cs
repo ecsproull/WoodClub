@@ -509,5 +509,11 @@ namespace WoodClub
 			PostToGoDaddy postToGoDaddy = new PostToGoDaddy();
 			postToGoDaddy.PostMembersToGoDaddy();
 		}
+
+		private void printRosterToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			PrintContacts pc = new PrintContacts();
+			pc.ShowDialog();
+		}
 	}
 }

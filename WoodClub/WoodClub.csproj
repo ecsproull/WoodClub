@@ -250,6 +250,12 @@
     <Compile Include="Forms\PhotoImport.Designer.cs">
       <DependentUpon>PhotoImport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PrintContacts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PrintContacts.Designer.cs">
+      <DependentUpon>PrintContacts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RestoreOldMember.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -435,6 +441,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PhotoImport.resx">
       <DependentUpon>PhotoImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PrintContacts.resx">
+      <DependentUpon>PrintContacts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RestoreOldMember.resx">
       <DependentUpon>RestoreOldMember.cs</DependentUpon>
