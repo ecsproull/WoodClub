@@ -385,10 +385,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
-    <Compile Include="SignUpGenius\Signup.cs" />
-    <Compile Include="SignUpGenius\SignupGenisus.cs" />
-    <Compile Include="SignUpGenius\SignupList.cs" />
-    <Compile Include="SignUpGenius\SignupSlots.cs" />
     <Compile Include="Time_zones.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
