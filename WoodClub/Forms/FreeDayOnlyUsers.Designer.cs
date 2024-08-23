@@ -1,5 +1,5 @@
 ﻿
-namespace WoodClub.Forms
+namespace WoodClub
 {
     partial class FreeDayOnlyUsers
     {

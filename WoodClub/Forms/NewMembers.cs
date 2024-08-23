@@ -2,23 +2,19 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Printing;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using WoodClub.Forms;
 
 namespace WoodClub
 {
-    public partial class NewMembers : Form
+	public partial class NewMembers : Form
 	{
 		private List<NewMember> members = new List<NewMember>();
 		public NewMembers()

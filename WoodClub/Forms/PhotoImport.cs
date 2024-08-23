@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace WoodClub.Forms
+namespace WoodClub
 {
 	public partial class PhotoImport : Form
 	{

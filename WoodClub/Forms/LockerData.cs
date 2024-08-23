@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace WoodClub.Forms
+namespace WoodClub
 {
 	public partial class LockerData : Form
 	{

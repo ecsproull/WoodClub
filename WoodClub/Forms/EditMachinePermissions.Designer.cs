@@ -1,4 +1,4 @@
-﻿namespace WoodClub.Forms
+﻿namespace WoodClub
 {
 	partial class EditMachinePermissions
 	{

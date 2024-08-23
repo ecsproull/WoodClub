@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace WoodClub.Forms
+namespace WoodClub
 {
 	public partial class DisplayPictureBox : Form
 	{

@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace WoodClub.Forms
+namespace WoodClub
 {
 	public partial class LockerSelection : Form
 	{
