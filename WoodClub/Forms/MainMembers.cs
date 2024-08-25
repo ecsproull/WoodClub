@@ -29,11 +29,10 @@ namespace WoodClub
 		private readonly int listenPort = 5725;
 		private readonly UdpClient udpClient = new UdpClient();
 
-		private SortableBindingList<MembersExtended> blMembers;
-		private SortableBindingList<MembersExtended> filteredBindingList = new SortableBindingList<MembersExtended>();
+		private SortableBindingList<MemberRoster> blMembers;
+		private SortableBindingList<MemberRoster> filteredBindingList = new SortableBindingList<MemberRoster>();
 		private readonly BindingSource bsMembers;
 		private MemberRoster currentMember;
-		private Members members;
 		public bool update;
 		public bool added;
 		private bool filteredBoxEdit = false;
@@ -43,7 +42,7 @@ namespace WoodClub
 		/// </summary>
 		public MainMembers()
 		{
-			this.blMembers = new SortableBindingList<MembersExtended>();
+			this.blMembers = new SortableBindingList<MemberRoster>();
 			this.bsMembers = new BindingSource();
 			this.update = false;
 			this.added = false;
@@ -147,11 +146,16 @@ namespace WoodClub
 		/// Loads the members. Also useful to reload the list after making changes.
 		/// </summary>
 		private void LoadMembers()
-		{
-			members = new Members(true);
-			blMembers = new SortableBindingList<MembersExtended>(members.DataSource);  // blMembers list of members
-			setBsMembersDataSource();
-			dataGridView1.DataSource = bsMembers;
+		{	
+			using (WoodClubEntities context = new WoodClubEntities())
+			{
+				var members = (from m in context.MemberRosters
+							  select m).ToList();
+
+				blMembers = new SortableBindingList<MemberRoster>(members);  // blMembers list of members
+				setBsMembersDataSource();
+				dataGridView1.DataSource = bsMembers;
+			}			
 		}
 
 		/// <summary>
@@ -224,7 +228,7 @@ namespace WoodClub
 			}
 			else
 			{
-				filteredBindingList = new SortableBindingList<MembersExtended>(blMembers.Where(
+				filteredBindingList = new SortableBindingList<MemberRoster>(blMembers.Where(
 					x => x.FirstName.ToUpper().Contains(filter.ToUpper()) ||
 					x.LastName.ToUpper().Contains(filter.ToUpper()) ||
 					x.Badge.Contains(filter) ||

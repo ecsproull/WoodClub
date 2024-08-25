@@ -299,7 +299,6 @@
       <DependentUpon>ShopUsage.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="IRepository.cs" />
     <Compile Include="Forms\LockerRpt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -316,7 +315,6 @@
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
     <Compile Include="Lockers.cs" />
-    <Compile Include="LogErrors.cs" />
     <Compile Include="MachineApprover.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
@@ -334,14 +332,12 @@
     <Compile Include="MemberRoster.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Members.cs" />
     <Compile Include="Forms\MonitorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MonitorForm.Designer.cs">
       <DependentUpon>MonitorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MembersExtended.cs" />
     <Compile Include="MembersShort.cs" />
     <Compile Include="ModelTK.Context.cs">
       <AutoGen>True</AutoGen>

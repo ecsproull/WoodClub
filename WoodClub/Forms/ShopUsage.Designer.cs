@@ -62,6 +62,7 @@
 			this.dataGridViewUsage.DataSource = this.usageBindingSource;
 			this.dataGridViewUsage.Location = new System.Drawing.Point(0, 68);
 			this.dataGridViewUsage.Name = "dataGridViewUsage";
+			this.dataGridViewUsage.RowHeadersWidth = 62;
 			this.dataGridViewUsage.Size = new System.Drawing.Size(648, 482);
 			this.dataGridViewUsage.TabIndex = 0;
 			// 
@@ -69,13 +70,17 @@
 			// 
 			this.ShopVisits.DataPropertyName = "ShopVisits";
 			this.ShopVisits.HeaderText = "ShopVisits";
+			this.ShopVisits.MinimumWidth = 8;
 			this.ShopVisits.Name = "ShopVisits";
+			this.ShopVisits.Width = 150;
 			// 
 			// CreditBank
 			// 
 			this.CreditBank.DataPropertyName = "CreditBank";
 			this.CreditBank.HeaderText = "CreditBank";
+			this.CreditBank.MinimumWidth = 8;
 			this.CreditBank.Name = "CreditBank";
+			this.CreditBank.Width = 150;
 			// 
 			// btnRefresh
 			// 
@@ -128,25 +133,33 @@
 			// 
 			this.badgeDataGridViewTextBoxColumn.DataPropertyName = "Badge";
 			this.badgeDataGridViewTextBoxColumn.HeaderText = "Badge";
+			this.badgeDataGridViewTextBoxColumn.MinimumWidth = 8;
 			this.badgeDataGridViewTextBoxColumn.Name = "badgeDataGridViewTextBoxColumn";
+			this.badgeDataGridViewTextBoxColumn.Width = 150;
 			// 
 			// firstNameDataGridViewTextBoxColumn
 			// 
 			this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
 			this.firstNameDataGridViewTextBoxColumn.HeaderText = "FirstName";
+			this.firstNameDataGridViewTextBoxColumn.MinimumWidth = 8;
 			this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
+			this.firstNameDataGridViewTextBoxColumn.Width = 150;
 			// 
 			// lastNameDataGridViewTextBoxColumn
 			// 
 			this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
 			this.lastNameDataGridViewTextBoxColumn.HeaderText = "LastName";
+			this.lastNameDataGridViewTextBoxColumn.MinimumWidth = 8;
 			this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
+			this.lastNameDataGridViewTextBoxColumn.Width = 150;
 			// 
 			// lastDayValidDataGridViewTextBoxColumn
 			// 
 			this.lastDayValidDataGridViewTextBoxColumn.DataPropertyName = "LastDayValid";
 			this.lastDayValidDataGridViewTextBoxColumn.HeaderText = "LastDayValid";
+			this.lastDayValidDataGridViewTextBoxColumn.MinimumWidth = 8;
 			this.lastDayValidDataGridViewTextBoxColumn.Name = "lastDayValidDataGridViewTextBoxColumn";
+			this.lastDayValidDataGridViewTextBoxColumn.Width = 150;
 			// 
 			// usageBindingSource
 			// 

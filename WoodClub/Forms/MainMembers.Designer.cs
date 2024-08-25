@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMembers));
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -95,6 +95,7 @@
 			this.restoreOldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.clubTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateDuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.printRosterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -104,7 +105,6 @@
 			this.updateWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mailToToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.printRosterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -119,14 +119,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridView1.AutoGenerateColumns = false;
-			dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Badge,
@@ -147,25 +147,25 @@
             this.Exempt,
             this.ClubDuesPaid});
 			this.dataGridView1.DataSource = this.memberRosterBindingSource;
-			dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
 			this.dataGridView1.Location = new System.Drawing.Point(0, 28);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
-			dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.dataGridView1.RowHeadersWidth = 62;
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dataGridView1.Size = new System.Drawing.Size(1501, 600);
@@ -386,7 +386,7 @@
 			this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
 			this.bindingNavigator1.Name = "bindingNavigator1";
 			this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-			this.bindingNavigator1.Size = new System.Drawing.Size(1513, 34);
+			this.bindingNavigator1.Size = new System.Drawing.Size(1513, 38);
 			this.bindingNavigator1.TabIndex = 1;
 			this.bindingNavigator1.Text = "bindingNavigator1";
 			// 
@@ -397,13 +397,13 @@
 			this.bindingNavigatorCountItem.Text = "of {0}";
 			this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
 			// 
-			// toolStripButton3
+			// refreshToolStripButton
 			// 
 			this.refreshToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.refreshToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+			this.refreshToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("refreshToolStripButton.Image")));
 			this.refreshToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.refreshToolStripButton.Name = "toolStripButton3";
-			this.refreshToolStripButton.Size = new System.Drawing.Size(74, 29);
+			this.refreshToolStripButton.Name = "refreshToolStripButton";
+			this.refreshToolStripButton.Size = new System.Drawing.Size(74, 33);
 			this.refreshToolStripButton.Text = "Refresh";
 			this.refreshToolStripButton.Click += new System.EventHandler(this.refreshToolStripButton_Click);
 			// 
@@ -471,19 +471,19 @@
 			// addMemberToolStripButton
 			// 
 			this.addMemberToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.addMemberToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+			this.addMemberToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("addMemberToolStripButton.Image")));
 			this.addMemberToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.addMemberToolStripButton.Name = "toolStripButton2";
+			this.addMemberToolStripButton.Name = "addMemberToolStripButton";
 			this.addMemberToolStripButton.Size = new System.Drawing.Size(34, 33);
 			this.addMemberToolStripButton.Text = "toolStripButton2";
 			this.addMemberToolStripButton.Click += new System.EventHandler(this.addMemberToolStripButton_Click);
 			// 
-			// toolStripButton1
+			// deleteMemberToolStripButton
 			// 
 			this.deleteMemberToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.deleteMemberToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+			this.deleteMemberToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("deleteMemberToolStripButton.Image")));
 			this.deleteMemberToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.deleteMemberToolStripButton.Name = "toolStripButton1";
+			this.deleteMemberToolStripButton.Name = "deleteMemberToolStripButton";
 			this.deleteMemberToolStripButton.Size = new System.Drawing.Size(34, 33);
 			this.deleteMemberToolStripButton.Text = "toolStripButton1";
 			this.deleteMemberToolStripButton.Click += new System.EventHandler(this.DeleteMemberItemClick);
@@ -593,23 +593,23 @@
 			this.toolStripDropDownButton2.Size = new System.Drawing.Size(63, 22);
 			this.toolStripDropDownButton2.Text = "Lockers";
 			// 
-			// lockersToolStripMenuItem
+			// editLockersToolStripMenuItem
 			// 
-			this.editLockersToolStripMenuItem.Name = "lockersToolStripMenuItem";
+			this.editLockersToolStripMenuItem.Name = "editLockersToolStripMenuItem";
 			this.editLockersToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
 			this.editLockersToolStripMenuItem.Text = "Edit Lockers";
 			this.editLockersToolStripMenuItem.Click += new System.EventHandler(this.editLockersToolStripMenuItem_Click);
 			// 
-			// locationsToolStripMenuItem
+			// lockerLocationsToolStripMenuItem
 			// 
-			this.lockerLocationsToolStripMenuItem.Name = "locationsToolStripMenuItem";
+			this.lockerLocationsToolStripMenuItem.Name = "lockerLocationsToolStripMenuItem";
 			this.lockerLocationsToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
 			this.lockerLocationsToolStripMenuItem.Text = "Edit Locations";
 			this.lockerLocationsToolStripMenuItem.Click += new System.EventHandler(this.lockerLocationsToolStripMenuItem_Click);
 			// 
-			// costsToolStripMenuItem
+			// lockerCostsToolStripMenuItem
 			// 
-			this.lockerCostsToolStripMenuItem.Name = "costsToolStripMenuItem";
+			this.lockerCostsToolStripMenuItem.Name = "lockerCostsToolStripMenuItem";
 			this.lockerCostsToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
 			this.lockerCostsToolStripMenuItem.Text = "Edit Prices";
 			this.lockerCostsToolStripMenuItem.Click += new System.EventHandler(this.lockerCostsToolStripMenuItem_Click);
@@ -633,10 +633,10 @@
 			this.toolStripLabel2.Size = new System.Drawing.Size(103, 33);
 			this.toolStripLabel2.Text = "Badge =";
 			// 
-			// toolStripTextBox1
+			// badgeEntryTextBox
 			// 
 			this.badgeEntryTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.badgeEntryTextBox.Name = "toolStripTextBox1";
+			this.badgeEntryTextBox.Name = "badgeEntryTextBox";
 			this.badgeEntryTextBox.Size = new System.Drawing.Size(100, 38);
 			this.badgeEntryTextBox.ToolTipText = "Enter badge number to find, then enter key...";
 			this.badgeEntryTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.badgeEntryTextBox_KeyDown);
@@ -679,7 +679,7 @@
 			this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
 			this.toolStripDropDownButton3.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-			this.toolStripDropDownButton3.Size = new System.Drawing.Size(105, 29);
+			this.toolStripDropDownButton3.Size = new System.Drawing.Size(105, 33);
 			this.toolStripDropDownButton3.Text = "Members";
 			// 
 			// toolStripImportNewMembers
@@ -715,6 +715,13 @@
 			this.updateDuesToolStripMenuItem.Size = new System.Drawing.Size(263, 34);
 			this.updateDuesToolStripMenuItem.Text = "Update Dues";
 			this.updateDuesToolStripMenuItem.Click += new System.EventHandler(this.updateDuesToolStripMenuItem_Click);
+			// 
+			// printRosterToolStripMenuItem
+			// 
+			this.printRosterToolStripMenuItem.Name = "printRosterToolStripMenuItem";
+			this.printRosterToolStripMenuItem.Size = new System.Drawing.Size(263, 34);
+			this.printRosterToolStripMenuItem.Text = "Print Roster";
+			this.printRosterToolStripMenuItem.Click += new System.EventHandler(this.printRosterToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator6
 			// 
@@ -768,12 +775,12 @@
 			this.updateWebsiteToolStripMenuItem.Text = "Update Website";
 			this.updateWebsiteToolStripMenuItem.Click += new System.EventHandler(this.updateWebsiteToolStripMenuItem_Click);
 			// 
-			// toolStripButton4
+			// mailToToolStripButton
 			// 
 			this.mailToToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.mailToToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+			this.mailToToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("mailToToolStripButton.Image")));
 			this.mailToToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.mailToToolStripButton.Name = "toolStripButton4";
+			this.mailToToolStripButton.Name = "mailToToolStripButton";
 			this.mailToToolStripButton.Size = new System.Drawing.Size(72, 29);
 			this.mailToToolStripButton.Text = "Mail To";
 			this.mailToToolStripButton.Click += new System.EventHandler(this.mailToToollStripButton_Click);
@@ -782,13 +789,6 @@
 			// 
 			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
 			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-			// 
-			// printRosterToolStripMenuItem
-			// 
-			this.printRosterToolStripMenuItem.Name = "printRosterToolStripMenuItem";
-			this.printRosterToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-			this.printRosterToolStripMenuItem.Text = "Print Roster";
-			this.printRosterToolStripMenuItem.Click += new System.EventHandler(this.printRosterToolStripMenuItem_Click);
 			// 
 			// MainMembers
 			// 

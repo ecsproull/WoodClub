@@ -5,32 +5,52 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Borrowed code that tracks dirty controls on a form.
+	/// </summary>
 	public class ControlDirtyTracker
 	{
 		private Control _control;
 		private string _cleanValue;
 		private Color _backColor;
 
-		// read only properties
+		/// <summary>
+		/// Gets the control.
+		/// </summary>
+		/// <value>
+		/// The control.
+		/// </value>
 		public Control Control { get { return _control; } }
+
+		/// <summary>
+		/// Gets the clean value.
+		/// </summary>
+		/// <value>
+		/// The clean value.
+		/// </value>
 		public string CleanValue { get { return _cleanValue; } }
 
-		// constructor establishes the control and uses its current value as "clean"
-		public ControlDirtyTracker(Control ctl)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ControlDirtyTracker"/> class.
+		/// </summary>
+		/// <param name="control">The control.</param>
+		/// <exception cref="System.NotSupportedException"></exception>
+		public ControlDirtyTracker(Control control)
 		{
 			// if the control type is not one that is supported, throw an exception
-			if (ControlDirtyTracker.IsControlTypeSupported(ctl))
-				_control = ctl;
+			if (ControlDirtyTracker.IsControlTypeSupported(control))
+				_control = control;
 			else
 				throw new NotSupportedException(
 					string.Format("The control type for '{0}' is not supported by the ControlDirtyTracker class."
-					  , ctl.Name)
+					  , control.Name)
 					);
 
 		}
 
-
-		// method to establish the the current control value as "clean"
+		/// <summary>
+		/// Establishes the value as clean.
+		/// </summary>
 		public void EstablishValueAsClean()
 		{
 			_cleanValue = GetControlCurrentValue();
@@ -38,9 +58,12 @@ namespace WoodClub
 		}
 
 
-		// determine if the current control value is considered "dirty"; 
-		// i.e. if the current control value is different than the one
-		// remembered as "clean"
+		/// <summary>
+		/// Determine if the current control value is considered "dirty". 
+		/// i.e. if the current control value is different than the one
+		/// remembered as "clean"
+		/// /// </summary>
+		/// <returns>true if dirty, else false.</returns>
 		public bool DetermineIfDirty()
 		{
 			// compare the remembered "clean value" to the current value;

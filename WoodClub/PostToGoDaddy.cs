@@ -8,8 +8,15 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Used when updating the member data on the club website that
+	/// is hosted on GoDaddy. <see cref="MainMembers"/>
+	/// </summary>
 	internal class PostToGoDaddy
 	{
+		/// <summary>
+		/// Posts the members to go daddy.
+		/// </summary>
 		public async void PostMembersToGoDaddy()
 		{
 			//https://edstestsite.site/wp-json/scwmembers/v1/members
@@ -82,30 +89,135 @@ namespace WoodClub
 				}
 			}
 		}
-	}
 
-	public class PermsData
-	{
-		public string key = "8c62a157-7ee8-4104-9f91-930eac39fe2f";
-		public bool clean_permissions { get; set; }
-		public string action { get; set; }
-		public Member[] members { get; set; }
-		public Permission[] permissions { get; set; }
-	}
-	public class Member
-	{
-		public string badge { get; set; }
-		public string first { get; set; }
-		public string last { get; set; }
-		public string phone { get; set; }
-		public string email { get; set; }
-		public string secret { get; set; }
-		public string email_secret { get; set; }
-	}
+		/// <summary>
+		/// Data structure used to pass data to GoDaddy.
+		/// These data structures have to match what is expected on the server.
+		/// Don't fuck with this unless you really know what you are doing!
+		/// </summary>
+		private class PermsData
+		{
+			/// <summary>
+			/// The key
+			/// </summary>
+			public string key = "8c62a157-7ee8-4104-9f91-930eac39fe2f";
 
-	public class Permission
-	{
-		public string badge { get; set; }
-		public string machine_name { get; set; }
+			/// <summary>
+			/// Gets or sets a value indicating whether [clean permissions].
+			/// </summary>
+			/// <value>
+			///   <c>true</c> if [clean permissions]; otherwise, <c>false</c>.
+			/// </value>
+			public bool clean_permissions { get; set; }
+
+			/// <summary>
+			/// Gets or sets the action.
+			/// </summary>
+			/// <value>
+			/// The action.
+			/// </value>
+			public string action { get; set; }
+
+			/// <summary>
+			/// Gets or sets the members.
+			/// </summary>
+			/// <value>
+			/// The members.
+			/// </value>
+			public Member[] members { get; set; }
+
+			/// <summary>
+			/// Gets or sets the permissions.
+			/// </summary>
+			/// <value>
+			/// The permissions.
+			/// </value>
+			public Permission[] permissions { get; set; }
+		}
+
+		/// <summary>
+		/// Data structure used to pass data to GoDaddy.
+		/// </summary>
+		private class Member
+		{
+			/// <summary>
+			/// Gets or sets the badge.
+			/// </summary>
+			/// <value>
+			/// The badge.
+			/// </value>
+			public string badge { get; set; }
+
+			/// <summary>
+			/// Gets or sets the first.
+			/// </summary>
+			/// <value>
+			/// The first.
+			/// </value>
+			public string first { get; set; }
+
+			/// <summary>
+			/// Gets or sets the last.
+			/// </summary>
+			/// <value>
+			/// The last.
+			/// </value>
+			public string last { get; set; }
+
+			/// <summary>
+			/// Gets or sets the phone.
+			/// </summary>
+			/// <value>
+			/// The phone.
+			/// </value>
+			public string phone { get; set; }
+
+			/// <summary>
+			/// Gets or sets the email.
+			/// </summary>
+			/// <value>
+			/// The email.
+			/// </value>
+			public string email { get; set; }
+
+			/// <summary>
+			/// Gets or sets the secret.
+			/// </summary>
+			/// <value>
+			/// The secret.
+			/// </value>
+			public string secret { get; set; }
+
+
+			/// <summary>
+			/// Gets or sets the email secret.
+			/// </summary>
+			/// <value>
+			/// The email secret.
+			/// </value>
+			public string email_secret { get; set; }
+		}
+
+		/// <summary>
+		/// Data structure used to pass data to GoDaddy.
+		/// </summary>
+		private class Permission
+		{
+			/// <summary>
+			/// Gets or sets the badge.
+			/// </summary>
+			/// <value>
+			/// The badge.
+			/// </value>
+			public string badge { get; set; }
+
+			/// <summary>
+			/// Gets or sets the name of the machine.
+			/// </summary>
+			/// <value>
+			/// The name of the machine.
+			/// </value>
+			public string machine_name { get; set; }
+		}
 	}
 }

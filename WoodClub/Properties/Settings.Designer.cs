@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WoodClub.Properties {
+namespace WoodClub {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -4,7 +4,7 @@ var searchData=
   ['dailydatetimepicker_1',['DailydateTimePicker',['../class_wood_club_1_1_form_daily.html#ab032f999915c440ad81efc9181f6faad',1,'WoodClub::FormDaily']]],
   ['dailysave_2',['DailySave',['../class_wood_club_1_1_form_daily.html#a717f4b6018ae2a4aa5df6429282030ff',1,'WoodClub::FormDaily']]],
   ['dailysummarytoolstripmenuitem_3',['dailySummaryToolStripMenuItem',['../class_wood_club_1_1_main_members.html#aba4f87791a35c35425a4e2d5ef79da71',1,'WoodClub::MainMembers']]],
-  ['data_4',['data',['../class_wood_club_1_1_edit_machine_permissions.html#a4db988127b9e6012567ba59cb989b5c3',1,'WoodClub.EditMachinePermissions.data'],['../class_wood_club_1_1_members.html#a4a753860915de3c8226837fa3f619c36',1,'WoodClub.Members.data']]],
+  ['data_4',['data',['../class_wood_club_1_1_edit_machine_permissions.html#a4db988127b9e6012567ba59cb989b5c3',1,'WoodClub::EditMachinePermissions']]],
   ['datagridlockerdata_5',['dataGridLockerData',['../class_wood_club_1_1_locker_data.html#a22caedd1db3206c884469f9403b620b7',1,'WoodClub::LockerData']]],
   ['datagridlockerlocationedit_6',['dataGridLockerLocationEdit',['../class_wood_club_1_1_locker_locations.html#a40bb9e83e6a397bb4f4e5fe2d88eac6a',1,'WoodClub::LockerLocations']]],
   ['datagridmultimember_7',['dataGridMultiMember',['../class_wood_club_1_1_add_permissions.html#aa84b17a738dac0a18cac36b3a8d05828',1,'WoodClub.AddPermissions.dataGridMultiMember'],['../class_wood_club_1_1_multiple_editor.html#a726e089898cfe179b63466c434e46f10',1,'WoodClub.MultipleEditor.dataGridMultiMember']]],

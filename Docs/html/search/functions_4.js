@@ -8,10 +8,8 @@ var searchData=
   ['editmachinepermissions_5fload_5',['EditMachinePermissions_Load',['../class_wood_club_1_1_edit_machine_permissions.html#a986ca359b0e882cbfd0010252576c057',1,'WoodClub::EditMachinePermissions']]],
   ['editor_5fload_6',['Editor_Load',['../class_wood_club_1_1_member_editor.html#ae72d9646ab575f277790bd04e8e827cb',1,'WoodClub::MemberEditor']]],
   ['entrycodes_7',['EntryCodes',['../class_wood_club_1_1_member_editor.html#a4cfdab3f68363874cee20de7162ef0ed',1,'WoodClub::MemberEditor']]],
-  ['errorhandler_8',['ErrorHandler',['../class_wood_club_1_1_log_error.html#af7e8999cf874cf51d278ac3494762f13',1,'WoodClub::LogError']]],
-  ['establishvalueasclean_9',['EstablishValueAsClean',['../class_wood_club_1_1_control_dirty_tracker.html#a06a5f232a570c142bc27bcc01ccd0c1c',1,'WoodClub::ControlDirtyTracker']]],
-  ['expandcolumns_10',['ExpandColumns',['../class_wood_club_1_1_extensions.html#a22230da55c653ea8c7ed10ba619b37db',1,'WoodClub::Extensions']]],
-  ['export_11',['Export',['../class_wood_club_1_1_r_f_badge.html#a99655e011eda062640ad6f6f3364527f',1,'WoodClub::RFBadge']]],
-  ['exportalltoolstripmenuitem_5fclick_12',['exportAllToolStripMenuItem_Click',['../class_wood_club_1_1_main_members.html#a47a676a008ca4753cbb5f66112d32e3b',1,'WoodClub::MainMembers']]],
-  ['exportbutton_5fclick_13',['exportButton_Click',['../class_wood_club_1_1_r_f_badge.html#ab1c2d0c8d3b5d3d2d41d61cab712d7b2',1,'WoodClub::RFBadge']]]
+  ['establishvalueasclean_8',['EstablishValueAsClean',['../class_wood_club_1_1_control_dirty_tracker.html#a06a5f232a570c142bc27bcc01ccd0c1c',1,'WoodClub::ControlDirtyTracker']]],
+  ['export_9',['Export',['../class_wood_club_1_1_r_f_badge.html#a99655e011eda062640ad6f6f3364527f',1,'WoodClub::RFBadge']]],
+  ['exportalltoolstripmenuitem_5fclick_10',['exportAllToolStripMenuItem_Click',['../class_wood_club_1_1_main_members.html#a47a676a008ca4753cbb5f66112d32e3b',1,'WoodClub::MainMembers']]],
+  ['exportbutton_5fclick_11',['exportButton_Click',['../class_wood_club_1_1_r_f_badge.html#ab1c2d0c8d3b5d3d2d41d61cab712d7b2',1,'WoodClub::RFBadge']]]
 ];

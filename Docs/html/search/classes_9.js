@@ -1,21 +1,6 @@
 var searchData=
 [
-  ['machineapprover_0',['MachineApprover',['../class_wood_club_1_1_machine_approver.html',1,'WoodClub']]],
-  ['machineperm_1',['MachinePerm',['../class_wood_club_1_1_machine_perm.html',1,'WoodClub']]],
-  ['mainmembers_2',['MainMembers',['../class_wood_club_1_1_main_members.html',1,'WoodClub']]],
-  ['member_3',['Member',['../class_wood_club_1_1_member.html',1,'WoodClub']]],
-  ['memberbackup_4',['MemberBackup',['../class_wood_club_1_1_member_backup.html',1,'WoodClub']]],
-  ['membereditor_5',['MemberEditor',['../class_wood_club_1_1_member_editor.html',1,'WoodClub']]],
-  ['memberpermissionsitem_6',['MemberPermissionsItem',['../class_wood_club_1_1_member_permissions_item.html',1,'WoodClub']]],
-  ['memberpictureedit_7',['MemberPictureEdit',['../class_wood_club_1_1_member_picture_edit.html',1,'WoodClub']]],
-  ['memberrfcard_8',['MemberRFcard',['../class_wood_club_1_1_member_r_fcard.html',1,'WoodClub']]],
-  ['memberroster_9',['MemberRoster',['../class_wood_club_1_1_member_roster.html',1,'WoodClub']]],
-  ['members_10',['Members',['../class_wood_club_1_1_members.html',1,'WoodClub']]],
-  ['membersextended_11',['MembersExtended',['../class_wood_club_1_1_members_extended.html',1,'WoodClub']]],
-  ['membersshort_12',['MembersShort',['../class_wood_club_1_1_members_short.html',1,'WoodClub']]],
-  ['monitorform_13',['MonitorForm',['../class_wood_club_1_1_monitor_form.html',1,'WoodClub']]],
-  ['monitorparam_14',['MonitorParam',['../class_wood_club_1_1_monitor_param.html',1,'WoodClub']]],
-  ['monitors_15',['Monitors',['../class_wood_club_1_1_monitors.html',1,'WoodClub']]],
-  ['multipleeditmember_16',['MultipleEditMember',['../class_wood_club_1_1_multiple_edit_member.html',1,'WoodClub']]],
-  ['multipleeditor_17',['MultipleEditor',['../class_wood_club_1_1_multiple_editor.html',1,'WoodClub']]]
+  ['newmember_0',['NewMember',['../class_wood_club_1_1_new_member.html',1,'WoodClub']]],
+  ['newmemberraw_1',['NewMemberRaw',['../class_wood_club_1_1_new_member_raw.html',1,'WoodClub']]],
+  ['newmembers_2',['NewMembers',['../class_wood_club_1_1_new_members.html',1,'WoodClub']]]
 ];

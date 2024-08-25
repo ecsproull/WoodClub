@@ -5,17 +5,11 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Linq extensions. I'm not sure of what magic these work but they work.
+	/// </summary>
 	public static class Extensions
 	{
-		/// <summary>
-		/// Determines if the current item is not null
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <returns></returns>
-		public static bool IsValid(this Members sender)
-		{
-			return (sender != null);
-		}
 		/// <summary>
 		/// Check if BindingSource.Current has data
 		/// </summary>
@@ -25,62 +19,7 @@ namespace WoodClub
 		{
 			return (sender.Current != null);
 		}
-		/// <summary>
-		/// Returns Customer for the current property
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <returns></returns>
-		public static Members members(this BindingSource sender)
-		{
-			return ((Members)sender.Current);
-		}
-		/// <summary>
-		/// Get names of an Enum
-		/// </summary>
-		/// <param name="sender">Type of Enum (see example)</param>
-		/// <returns>Names of members in Enum</returns>
-		public static string[] Names(this Type sender)
-		{
-			return Enum.GetNames(sender);
-		}
 
-		/// <summary>
-		/// Converts string value to a member of an Enum
-		/// </summary>
-		/// <typeparam name="T">Valid Enum structure</typeparam>
-		/// <param name="sender">String to convert</param>
-		/// <returns>A member of the enum</returns>
-		/// <example>
-		/// <code source="CodeExamples\EnumExamples.vb" language="vbnet" title="VB.NET Examples"/>
-		/// </example>
-		public static T ToEnum<T>(this string sender)
-		{
-			Type senderType = typeof(T);
-
-			if (Enum.IsDefined(typeof(T), sender))
-			{
-				return (T)Enum.Parse(senderType, sender, true);
-			}
-			else
-			{
-				string baseType = senderType.ToString();
-				int position = baseType.IndexOf('+');
-				string errorMessage = "";
-
-				if (position > -1)
-				{
-					string EnumName = baseType.Substring(position + 1);
-					errorMessage = string.Format("'{0}' not a member of '{1}'", sender, EnumName);
-				}
-				else
-				{
-					errorMessage = string.Format("{0} not a member of {1}", sender, senderType);
-				}
-
-				throw new Exception(errorMessage);
-
-			}
-		}
 		/// <summary>
 		/// Used to filter data via a generic object using lambda
 		/// </summary>
@@ -92,21 +31,7 @@ namespace WoodClub
 		{
 			return list.Where(filterParam);
 		}
-		/// <summary>
-		/// Expand all columns excluding in this case Orders column
-		/// </summary>
-		/// <param name="sender"></param>
-		public static void ExpandColumns(this DataGridView sender)
-		{
-			foreach (DataGridViewColumn col in sender.Columns)
-			{
-				// ensure we are not attempting to do this on a Entity
-				if (col.ValueType.Name != "ICollection`1")
-				{
-					col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-				}
-			}
-		}
+
 		/// <summary>
 		/// Provides functionality to get a distinct list of items used in a lambda Distint call.
 		/// </summary>

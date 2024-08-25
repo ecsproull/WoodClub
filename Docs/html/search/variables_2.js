@@ -34,7 +34,7 @@ var searchData=
   ['bindingsourcerestoremembers_31',['bindingSourceRestoreMembers',['../class_wood_club_1_1_restore_old_member.html#ac5affebdaef4f7aaad6c4f061363e9af',1,'WoodClub::RestoreOldMember']]],
   ['bldaily_32',['blDaily',['../class_wood_club_1_1_form_daily.html#a0b14716bb0b7d0a8c196ca7869a621cb',1,'WoodClub::FormDaily']]],
   ['bllockers_33',['blLockers',['../class_wood_club_1_1_locker_rpt.html#a2c9e3edb2c2ee6a7965cabb69e5a28e2',1,'WoodClub::LockerRpt']]],
-  ['blmembers_34',['blMembers',['../class_wood_club_1_1_main_members.html#adca0a22fbc8020d17403401585f672f4',1,'WoodClub.MainMembers.blMembers'],['../class_wood_club_1_1_restore_old_member.html#a9efb18fbb6acec7d492258c16dfb7c18',1,'WoodClub.RestoreOldMember.blMembers']]],
+  ['blmembers_34',['blMembers',['../class_wood_club_1_1_main_members.html#a966a5ded73071204359ad9636cd8c91d',1,'WoodClub.MainMembers.blMembers'],['../class_wood_club_1_1_restore_old_member.html#a9efb18fbb6acec7d492258c16dfb7c18',1,'WoodClub.RestoreOldMember.blMembers']]],
   ['blmonitors_35',['blMonitors',['../class_wood_club_1_1_monitor_form.html#a4c19691cfe9b7007667533d416952057',1,'WoodClub::MonitorForm']]],
   ['blocked_36',['Blocked',['../class_wood_club_1_1_edit_machine_permissions.html#ad373b7835a5f4b29fd5510fa9d52ef12',1,'WoodClub::EditMachinePermissions']]],
   ['blusage_37',['blUsage',['../class_wood_club_1_1_shop_usage.html#a1802b9fcea082b496e7ccb5349002fc8',1,'WoodClub::ShopUsage']]],

@@ -3,13 +3,21 @@ using System.Windows.Forms;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Borrowed code that tracks dirty controls on a form.
+	/// Used by member <see cref="Editor"/>
+	/// </summary>
 	public class FormDirtyTracker
 	{
 		private Form _frmTracked;
 		private ControlDirtyTrackerCollection _controlsTracked;
-
-		// property denoting whether the tracked form is clean or dirty;
-		// used if the full list of dirty controls isn't necessary
+	
+		/// <summary>
+		/// Gets a value indicating whether this instance is dirty.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if this instance is dirty; otherwise, <c>false</c>.
+		/// </value>
 		public bool IsDirty
 		{
 			get
@@ -21,28 +29,40 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Resets the color of the control back. When a data item
+		/// on the form has been changed it changes the background color.
+		/// This set it back to the original color.
+		/// </summary>
+		/// <param name="c">The c.</param>
 		public void resetControlBackColor(Control c)
 		{
 			_controlsTracked.ResetBackColor(c);
 		}
 
-		// public method for accessing the list of currently
-		// "dirty" controls
+		/// <summary>
+		/// Gets the list of dirty controls.
+		/// </summary>
+		/// <returns></returns>
 		public List<Control> GetListOfDirtyControls()
 		{
 			return _controlsTracked.GetListOfDirtyControls();
 		}
 
 
-		// establish the form as "clean" with whatever current
-		// control values exist
+		/// <summary>
+		/// Marks as clean.
+		/// </summary>
 		public void MarkAsClean()
 		{
 			_controlsTracked.MarkAllControlsAsClean();
 		}
 
 
-		// initialize in the constructor by assigning controls to track
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FormDirtyTracker"/> class.
+		/// </summary>
+		/// <param name="frm">The FRM.</param>
 		public FormDirtyTracker(Form frm)
 		{
 			_frmTracked = frm;
