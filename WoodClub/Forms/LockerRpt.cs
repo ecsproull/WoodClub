@@ -1,15 +1,28 @@
-﻿using System;
+﻿using SendGrid;
+using SendGrid.Helpers.Mail;
+using System;
+using System.Activities.Expressions;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
+using System.Security.Policy;
+using System.Text;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace WoodClub
 {
+	/// <summary>
+	/// Class for creating a report of all of the lockers, in use and open.
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
 	public partial class LockerRpt : Form
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger
@@ -20,6 +33,10 @@ namespace WoodClub
 		private static Lockers currentLocker = null;
 		private int year;
 		private int visitsCnt;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LockerRpt"/> class.
+		/// </summary>
 		public LockerRpt()
 		{
 			InitializeComponent();
@@ -29,6 +46,11 @@ namespace WoodClub
 			year = DateTime.Now.Year;
 		}
 
+		/// <summary>
+		/// Handles the PositionChanged event of the BsLockers control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void BsLockers_PositionChanged(object sender, EventArgs e)
 		{
 			if (bsLockers.CurrentRowIsValid())
@@ -41,6 +63,12 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Load event of the LockerForm control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
 		private void LockerForm_Load(object sender, EventArgs e)
 		{
 			textBoxLockerFilter.KeyUp += TextBoxLockerFilter_KeyUp;
@@ -107,36 +135,48 @@ namespace WoodClub
 						Project = member.Project
 					};
 
-					blLockers.Add(locker);
+					if (numericUpDownMinVisits.Value != 0 && 
+						visitsCnt <= numericUpDownMinVisits.Value)
+					{
+						blLockers.Add(locker);
+					}
+					else if (numericUpDownMinVisits.Value == 0)
+					{
+						blLockers.Add(locker);
+					}
+
 					totalRevenue += member.Cost.Value;
 
 				}
 
-				List<Locker> emptyLockers = (from l in context.Lockers
-											 where l.Badge == string.Empty
-											 select l).ToList();
-
-				foreach (var el in emptyLockers)
+				if (numericUpDownMinVisits.Value == 0)
 				{
-					//member = context.MemberRosters.Find(_id);
-					Lockers locker = new Lockers
-					{
-						Badge = el.Badge,
-						FirstName = string.Empty,
-						LastName = string.Empty,
-						Email = string.Empty,
-						Phone = string.Empty,
-						ClubDuesPaid = false,
-						CreditBank = string.Empty,
-						LastDayValid = string.Empty,
-						HasLocker = el.LockerTitle,
-						ShopVisits = string.Empty,
-						Cost = 0,
-						Location = el.LocationCode,
-						Project = el.Project
-					};
+					List<Locker> emptyLockers = (from l in context.Lockers
+												 where l.Badge == string.Empty
+												 select l).ToList();
 
-					blLockers.Add(locker);
+					foreach (var el in emptyLockers)
+					{
+						//member = context.MemberRosters.Find(_id);
+						Lockers locker = new Lockers
+						{
+							Badge = el.Badge,
+							FirstName = string.Empty,
+							LastName = string.Empty,
+							Email = string.Empty,
+							Phone = string.Empty,
+							ClubDuesPaid = false,
+							CreditBank = string.Empty,
+							LastDayValid = string.Empty,
+							HasLocker = el.LockerTitle,
+							ShopVisits = string.Empty,
+							Cost = 0,
+							Location = el.LocationCode,
+							Project = el.Project
+						};
+
+						blLockers.Add(locker);
+					}
 				}
 			}
 
@@ -148,7 +188,12 @@ namespace WoodClub
 			textBoxTotalRevenue.Text = String.Format("${0}", totalRevenue.ToString("N0"));
 			dataGridViewLockers.CellContentClick += DataGridViewLockers_CellContentClick;
 		}
-
+		/// <summary>
+		/// Handles the CellContentClick event of the DataGridViewLockers control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Windows.Forms.DataGridViewCellEventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
 		private void DataGridViewLockers_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.ColumnIndex == 0 && e.RowIndex >= 0)
@@ -166,6 +211,12 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the KeyUp event of the TextBoxLockerFilter control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Windows.Forms.KeyEventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
 		private void TextBoxLockerFilter_KeyUp(object sender, KeyEventArgs e)
 		{
 			string filter = textBoxLockerFilter.Text;
@@ -184,6 +235,12 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the btnSave control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
 		private void btnSave_Click(object sender, EventArgs e)
 		{
 			string pathDesktop = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%") + "\\Documents";
@@ -241,6 +298,12 @@ namespace WoodClub
 		private int headerHeight = 0;
 		private List<int> columnSkip = new List<int>();
 
+		/// <summary>
+		/// Handles the Click event of the buttonPrint control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
 		private void buttonPrint_Click(object sender, EventArgs e)
 		{
 			dataGridViewLockers.Columns[1].Visible = false;
@@ -261,6 +324,12 @@ namespace WoodClub
 			printPrvDlg.ShowDialog();
 		}
 
+		/// <summary>
+		/// Handles the BeginPrint event of the PrintLockerReport control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Drawing.Printing.PrintEventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
 		private void PrintLockerReport_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
 		{
 			try
@@ -304,6 +373,12 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Handles the PrintPage event of the PrintLockerReport control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Drawing.Printing.PrintPageEventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
 		private void PrintLockerReport_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
 		{
 			try
@@ -458,7 +533,13 @@ namespace WoodClub
 			}
 		}
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the SelectedIndexChanged event of the comboBox1 control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
+		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 			ComboBox cb = sender as ComboBox;
 			SortableBindingList<Lockers> filteredBindingList = blLockers;
@@ -486,6 +567,12 @@ namespace WoodClub
 			dataGridViewLockers.Refresh();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the button2 control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
 		private void button2_Click(object sender, EventArgs e)
 		{
 			var tagsToPrint = blLockers.Filter(l => l.PrintTag == true);
@@ -508,6 +595,12 @@ namespace WoodClub
 			//MessageBox.Show(message);
 		}
 
+		/// <summary>
+		/// Prints the tags.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.Drawing.Printing.PrintPageEventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
 		private void printTags(object sender, PrintPageEventArgs e)
 		{
 			var tagsToPrint = blLockers.Filter(l => l.PrintTag == true);
@@ -569,6 +662,79 @@ namespace WoodClub
 					g.DrawString(name, fontName, brush, rectName, format);
 
 				i++;
+			}
+		}
+
+		/// <summary>
+		/// Handles the ValueChanged event of the min visits control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		/// <returns></returns>
+		private void numericUpDownMinVisits_ValueChanged(object sender, EventArgs e)
+		{
+			if (numericUpDownMinVisits.Value == 0)
+			{
+				buttonEmailSlackers.Enabled = false;
+			}
+			else
+			{
+				buttonEmailSlackers.Enabled = true;
+			}
+			LockerForm_Load(null, null);
+		}
+
+		private async void buttonEmailSlackers_Click(object sender, EventArgs e)
+		{
+			SendMail sm = new SendMail();
+			foreach (Lockers locker in bsLockers)
+			{
+				if (locker.PrintTag)
+				{
+					StringBuilder sb = new StringBuilder("<p>Greetings <firstname> <lastname>, I hope all is well with you. The WoodShop policy is that you must use the shop a minimum of 24 times a year to keep your locker. ");
+					sb.AppendLine("Our records indicate that you have been in <visits> <times> since Jan 1st 2024. Please let us know if you are planning on visiting the shop regularly or are planning on giving up your locker.</p>");
+					sb.AppendLine();
+					sb.AppendLine("<p><b>If on Dec 15 2024 you have not notified us of your circumstances OR visited the shop an appropriate number of times to meet this commitment by the end of the year, you will be asked to vacate your locker.</b></p>");
+					sb.Replace("<firstname>", locker.FirstName);
+					sb.Replace("<lastname>", locker.LastName);
+					sb.Replace("<visits>", locker.ShopVisits);
+					if (locker.ShopVisits == "1")
+					{
+						sb.Replace("<times>", "time");
+					}
+					else
+					{
+						sb.Replace("<times>", "times");
+					}
+
+					List<EmailAddress> recpts = new List<EmailAddress>();
+					recpts.Add(new EmailAddress(locker.Email, locker.FirstName + " " + locker.LastName));
+					await sm.SendMailAsync("Woodclub Usage and Lockers", sb.ToString(), recpts);
+
+					//MessageBox.Show(sb.ToString());
+				}
+			}
+		}
+
+		private void dataGridViewLockers_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			bool setState = true;
+			bool check = true;
+			if (e.ColumnIndex == 1)
+			{
+				foreach (Lockers locker in bsLockers)
+				{
+					if (setState)
+					{
+						setState = false;
+						check = !locker.PrintTag;
+					}
+
+					locker.PrintTag = check;
+				}
+
+				dataGridViewLockers.DataSource = bsLockers;
+				dataGridViewLockers.Refresh();
 			}
 		}
 	}

@@ -55,8 +55,12 @@
 			this.printDialogLockers = new System.Windows.Forms.PrintDialog();
 			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			this.button2 = new System.Windows.Forms.Button();
+			this.label2 = new System.Windows.Forms.Label();
+			this.numericUpDownMinVisits = new System.Windows.Forms.NumericUpDown();
+			this.buttonEmailSlackers = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewLockers)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingSourceLocker)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinVisits)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// dataGridViewLockers
@@ -83,13 +87,13 @@
             this.Locate,
             this.Project});
 			this.dataGridViewLockers.DataSource = this.bindingSourceLocker;
-			this.dataGridViewLockers.Location = new System.Drawing.Point(18, 78);
-			this.dataGridViewLockers.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.dataGridViewLockers.Location = new System.Drawing.Point(12, 51);
 			this.dataGridViewLockers.Name = "dataGridViewLockers";
 			this.dataGridViewLockers.RowHeadersVisible = false;
 			this.dataGridViewLockers.RowHeadersWidth = 62;
-			this.dataGridViewLockers.Size = new System.Drawing.Size(2097, 868);
+			this.dataGridViewLockers.Size = new System.Drawing.Size(1398, 564);
 			this.dataGridViewLockers.TabIndex = 1;
+			this.dataGridViewLockers.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLockers_CellContentDoubleClick);
 			// 
 			// dataGridViewTextBoxColumn1
 			// 
@@ -231,10 +235,9 @@
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(18, 5);
-			this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.button1.Location = new System.Drawing.Point(12, 3);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(112, 35);
+			this.button1.Size = new System.Drawing.Size(75, 23);
 			this.button1.TabIndex = 2;
 			this.button1.Text = "Open Excel";
 			this.button1.UseVisualStyleBackColor = true;
@@ -244,46 +247,41 @@
 			// 
 			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(1766, 20);
-			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label1.Location = new System.Drawing.Point(1177, 13);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(164, 20);
+			this.label1.Size = new System.Drawing.Size(114, 13);
 			this.label1.TabIndex = 3;
 			this.label1.Text = "Total Locker Revenue";
 			// 
 			// textBoxTotalRevenue
 			// 
 			this.textBoxTotalRevenue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBoxTotalRevenue.Location = new System.Drawing.Point(1947, 15);
-			this.textBoxTotalRevenue.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.textBoxTotalRevenue.Location = new System.Drawing.Point(1298, 10);
 			this.textBoxTotalRevenue.Name = "textBoxTotalRevenue";
-			this.textBoxTotalRevenue.Size = new System.Drawing.Size(106, 26);
+			this.textBoxTotalRevenue.Size = new System.Drawing.Size(72, 20);
 			this.textBoxTotalRevenue.TabIndex = 4;
 			// 
 			// labelLockerFilter
 			// 
 			this.labelLockerFilter.AutoSize = true;
-			this.labelLockerFilter.Location = new System.Drawing.Point(688, 14);
-			this.labelLockerFilter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.labelLockerFilter.Location = new System.Drawing.Point(459, 9);
 			this.labelLockerFilter.Name = "labelLockerFilter";
-			this.labelLockerFilter.Size = new System.Drawing.Size(193, 20);
+			this.labelLockerFilter.Size = new System.Drawing.Size(134, 13);
 			this.labelLockerFilter.TabIndex = 5;
 			this.labelLockerFilter.Text = "Filter Badge/Name/Locker";
 			// 
 			// textBoxLockerFilter
 			// 
-			this.textBoxLockerFilter.Location = new System.Drawing.Point(910, 9);
-			this.textBoxLockerFilter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.textBoxLockerFilter.Location = new System.Drawing.Point(607, 6);
 			this.textBoxLockerFilter.Name = "textBoxLockerFilter";
-			this.textBoxLockerFilter.Size = new System.Drawing.Size(166, 26);
+			this.textBoxLockerFilter.Size = new System.Drawing.Size(112, 20);
 			this.textBoxLockerFilter.TabIndex = 6;
 			// 
 			// buttonPrint
 			// 
-			this.buttonPrint.Location = new System.Drawing.Point(165, 5);
-			this.buttonPrint.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.buttonPrint.Location = new System.Drawing.Point(110, 3);
 			this.buttonPrint.Name = "buttonPrint";
-			this.buttonPrint.Size = new System.Drawing.Size(112, 35);
+			this.buttonPrint.Size = new System.Drawing.Size(75, 23);
 			this.buttonPrint.TabIndex = 7;
 			this.buttonPrint.Text = "Print";
 			this.buttonPrint.UseVisualStyleBackColor = true;
@@ -302,30 +300,64 @@
             "Open",
             "Training",
             "Special Project"});
-			this.comboBox1.Location = new System.Drawing.Point(459, 6);
-			this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.comboBox1.Location = new System.Drawing.Point(306, 4);
 			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(180, 28);
+			this.comboBox1.Size = new System.Drawing.Size(121, 21);
 			this.comboBox1.TabIndex = 8;
 			this.comboBox1.Text = "All";
 			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(312, 3);
-			this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.button2.Location = new System.Drawing.Point(208, 2);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(112, 35);
+			this.button2.Size = new System.Drawing.Size(75, 23);
 			this.button2.TabIndex = 9;
 			this.button2.Text = "Print Tags";
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(752, 8);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(51, 13);
+			this.label2.TabIndex = 10;
+			this.label2.Text = "Min Visits";
+			// 
+			// numericUpDownMinVisits
+			// 
+			this.numericUpDownMinVisits.Location = new System.Drawing.Point(810, 5);
+			this.numericUpDownMinVisits.Maximum = new decimal(new int[] {
+            365,
+            0,
+            0,
+            0});
+			this.numericUpDownMinVisits.Name = "numericUpDownMinVisits";
+			this.numericUpDownMinVisits.Size = new System.Drawing.Size(47, 20);
+			this.numericUpDownMinVisits.TabIndex = 11;
+			this.numericUpDownMinVisits.ValueChanged += new System.EventHandler(this.numericUpDownMinVisits_ValueChanged);
+			// 
+			// buttonEmailSlackers
+			// 
+			this.buttonEmailSlackers.Enabled = false;
+			this.buttonEmailSlackers.Location = new System.Drawing.Point(877, 6);
+			this.buttonEmailSlackers.Name = "buttonEmailSlackers";
+			this.buttonEmailSlackers.Size = new System.Drawing.Size(88, 23);
+			this.buttonEmailSlackers.TabIndex = 12;
+			this.buttonEmailSlackers.Text = "Email Slackers";
+			this.buttonEmailSlackers.UseVisualStyleBackColor = true;
+			this.buttonEmailSlackers.Click += new System.EventHandler(this.buttonEmailSlackers_Click);
+			// 
 			// LockerRpt
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(2133, 952);
+			this.ClientSize = new System.Drawing.Size(1422, 619);
+			this.Controls.Add(this.buttonEmailSlackers);
+			this.Controls.Add(this.numericUpDownMinVisits);
+			this.Controls.Add(this.label2);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.comboBox1);
 			this.Controls.Add(this.buttonPrint);
@@ -335,12 +367,12 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.dataGridViewLockers);
-			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.Name = "LockerRpt";
 			this.Text = "LockerRpt";
 			this.Load += new System.EventHandler(this.LockerForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewLockers)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingSourceLocker)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinVisits)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -373,5 +405,8 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Locate;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Project;
 		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.NumericUpDown numericUpDownMinVisits;
+		private System.Windows.Forms.Button buttonEmailSlackers;
 	}
 }

@@ -451,7 +451,7 @@ namespace WoodClub
 			invoiceLineAdd.AppendChild(itemRef);
 			itemRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "X06";
 			invoiceLineAdd.AppendChild(xmlDoc.CreateElement("Quantity")).InnerText = "1";
-			invoiceLineAdd.AppendChild(xmlDoc.CreateElement("Amount")).InnerText = "50.00";
+			invoiceLineAdd.AppendChild(xmlDoc.CreateElement("Amount")).InnerText = "25.00";
 
 			XmlElement invoiceLineAdd2 = xmlDoc.CreateElement("InvoiceLineAdd");
 			InvoiceAdd.AppendChild(invoiceLineAdd2);
