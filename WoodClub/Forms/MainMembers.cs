@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WoodClub.Forms;
 
 namespace WoodClub
 {
@@ -713,6 +714,12 @@ namespace WoodClub
 		{
 			PrintContacts pc = new PrintContacts();
 			pc.ShowDialog();
+		}
+
+		private void syncToQBToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SyncToQB syncToQB = new SyncToQB();
+			syncToQB.ShowDialog();
 		}
 	}
 }

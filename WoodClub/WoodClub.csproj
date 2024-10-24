@@ -185,6 +185,7 @@
     <Compile Include="CreditTotal.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomerIdData.cs" />
     <Compile Include="Daily.cs" />
     <Compile Include="DirtyTracker\ControlDirtyTracker.cs" />
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />
@@ -304,6 +305,12 @@
     <Compile Include="Forms\ShopUsage.Designer.cs">
       <DependentUpon>ShopUsage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SyncToQB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SyncToQB.Designer.cs">
+      <DependentUpon>SyncToQB.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Forms\LockerRpt.cs">
       <SubType>Form</SubType>
@@ -382,6 +389,7 @@
     <Compile Include="NewMember.cs" />
     <Compile Include="OrientationGet.cs" />
     <Compile Include="PostToGoDaddy.cs" />
+    <Compile Include="QBFunctions.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -470,6 +478,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LockerRpt.resx">
       <DependentUpon>LockerRpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SyncToQB.resx">
+      <DependentUpon>SyncToQB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
