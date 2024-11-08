@@ -31,6 +31,12 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.dataGridViewSelectedLockers = new System.Windows.Forms.DataGridView();
+			this.Selected = new System.Windows.Forms.DataGridViewButtonColumn();
+			this.LockerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Where = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Badge1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.bs_SelectedLockers = new System.Windows.Forms.BindingSource(this.components);
 			this.dataGridViewAllLockers = new System.Windows.Forms.DataGridView();
 			this.bs_AllLockers = new System.Windows.Forms.BindingSource(this.components);
@@ -43,12 +49,7 @@
 			this.BadgeAll = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.FirstNameAll = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.LastNameAll = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Selected = new System.Windows.Forms.DataGridViewButtonColumn();
-			this.LockerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Where = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Badge1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Project = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewSelectedLockers)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bs_SelectedLockers)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllLockers)).BeginInit();
@@ -77,6 +78,59 @@
 			this.dataGridViewSelectedLockers.Size = new System.Drawing.Size(778, 109);
 			this.dataGridViewSelectedLockers.TabIndex = 0;
 			// 
+			// Selected
+			// 
+			this.Selected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Selected.DataPropertyName = "Selected";
+			this.Selected.FillWeight = 25F;
+			this.Selected.HeaderText = "";
+			this.Selected.Name = "Selected";
+			this.Selected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.Selected.Width = 50;
+			// 
+			// LockerName
+			// 
+			this.LockerName.DataPropertyName = "Locker";
+			this.LockerName.FillWeight = 4.59863F;
+			this.LockerName.HeaderText = "Locker";
+			this.LockerName.Name = "LockerName";
+			this.LockerName.ReadOnly = true;
+			// 
+			// Where
+			// 
+			this.Where.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Where.DataPropertyName = "Location";
+			this.Where.FillWeight = 124.8584F;
+			this.Where.HeaderText = "Location";
+			this.Where.Name = "Where";
+			this.Where.ReadOnly = true;
+			this.Where.Width = 180;
+			// 
+			// Badge1
+			// 
+			this.Badge1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.Badge1.DataPropertyName = "Badge";
+			this.Badge1.FillWeight = 5.866851F;
+			this.Badge1.HeaderText = "Badge";
+			this.Badge1.Name = "Badge1";
+			this.Badge1.ReadOnly = true;
+			// 
+			// FirstName
+			// 
+			this.FirstName.DataPropertyName = "FirstName";
+			this.FirstName.FillWeight = 4.59863F;
+			this.FirstName.HeaderText = "First Name";
+			this.FirstName.Name = "FirstName";
+			this.FirstName.ReadOnly = true;
+			// 
+			// LastName
+			// 
+			this.LastName.DataPropertyName = "LastName";
+			this.LastName.FillWeight = 4.59863F;
+			this.LastName.HeaderText = "Last Name";
+			this.LastName.Name = "LastName";
+			this.LastName.ReadOnly = true;
+			// 
 			// dataGridViewAllLockers
 			// 
 			this.dataGridViewAllLockers.AllowUserToAddRows = false;
@@ -92,7 +146,8 @@
             this.WhereAll,
             this.BadgeAll,
             this.FirstNameAll,
-            this.LastNameAll});
+            this.LastNameAll,
+            this.Project});
 			this.dataGridViewAllLockers.DataSource = this.bs_AllLockers;
 			this.dataGridViewAllLockers.Location = new System.Drawing.Point(12, 162);
 			this.dataGridViewAllLockers.Name = "dataGridViewAllLockers";
@@ -177,58 +232,11 @@
 			this.LastNameAll.Name = "LastNameAll";
 			this.LastNameAll.ReadOnly = true;
 			// 
-			// Selected
+			// Project
 			// 
-			this.Selected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Selected.DataPropertyName = "Selected";
-			this.Selected.FillWeight = 25F;
-			this.Selected.HeaderText = "";
-			this.Selected.Name = "Selected";
-			this.Selected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.Selected.Width = 50;
-			// 
-			// LockerName
-			// 
-			this.LockerName.DataPropertyName = "Locker";
-			this.LockerName.FillWeight = 4.59863F;
-			this.LockerName.HeaderText = "Locker";
-			this.LockerName.Name = "LockerName";
-			this.LockerName.ReadOnly = true;
-			// 
-			// Where
-			// 
-			this.Where.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Where.DataPropertyName = "Location";
-			this.Where.FillWeight = 124.8584F;
-			this.Where.HeaderText = "Location";
-			this.Where.Name = "Where";
-			this.Where.ReadOnly = true;
-			this.Where.Width = 180;
-			// 
-			// Badge1
-			// 
-			this.Badge1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.Badge1.DataPropertyName = "Badge";
-			this.Badge1.FillWeight = 5.866851F;
-			this.Badge1.HeaderText = "Badge";
-			this.Badge1.Name = "Badge1";
-			this.Badge1.ReadOnly = true;
-			// 
-			// FirstName
-			// 
-			this.FirstName.DataPropertyName = "FirstName";
-			this.FirstName.FillWeight = 4.59863F;
-			this.FirstName.HeaderText = "First Name";
-			this.FirstName.Name = "FirstName";
-			this.FirstName.ReadOnly = true;
-			// 
-			// LastName
-			// 
-			this.LastName.DataPropertyName = "LastName";
-			this.LastName.FillWeight = 4.59863F;
-			this.LastName.HeaderText = "Last Name";
-			this.LastName.Name = "LastName";
-			this.LastName.ReadOnly = true;
+			this.Project.DataPropertyName = "Project";
+			this.Project.HeaderText = "Project";
+			this.Project.Name = "Project";
 			// 
 			// LockerSelection
 			// 
@@ -272,5 +280,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn BadgeAll;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FirstNameAll;
 		private System.Windows.Forms.DataGridViewTextBoxColumn LastNameAll;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Project;
 	}
 }

@@ -687,6 +687,7 @@ namespace WoodClub
 		private async void buttonEmailSlackers_Click(object sender, EventArgs e)
 		{
 			SendMail sm = new SendMail();
+			int count = 0;
 			foreach (Lockers locker in bsLockers)
 			{
 				if (locker.PrintTag)
@@ -710,10 +711,11 @@ namespace WoodClub
 					List<EmailAddress> recpts = new List<EmailAddress>();
 					recpts.Add(new EmailAddress(locker.Email, locker.FirstName + " " + locker.LastName));
 					await sm.SendMailAsync("Woodclub Usage and Lockers", sb.ToString(), recpts);
-
-					//MessageBox.Show(sb.ToString());
+					count++;
 				}
 			}
+
+			MessageBox.Show(count.ToString() + " Emails Sent");
 		}
 
 		private void dataGridViewLockers_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)

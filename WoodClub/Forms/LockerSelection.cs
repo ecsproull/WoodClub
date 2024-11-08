@@ -61,6 +61,11 @@ namespace WoodClub
 
 			if (isCheckBoxCell)
 			{
+				if (buttonText == "Taken")
+				{
+					return;
+				}
+
 				if (buttonText == "Add")
 				{
 					if (senderName == "dataGridViewAllLockers")
@@ -157,7 +162,7 @@ namespace WoodClub
 									FirstName = lockerMember.member.FirstName,
 									LastName = lockerMember.member.LastName,
 									Locker = lockerMember.locker.LockerTitle,
-									Location = lockerLocation.Description
+									Location = lockerLocation.Description,
 								})
 							.Where(m => m.Badge == badge)
 							.OrderBy(l => l.Locker).ToList();
@@ -197,7 +202,8 @@ namespace WoodClub
 						FirstName = lockerMember.member.FirstName,
 						LastName = lockerMember.member.LastName,
 						Locker = lockerMember.locker.LockerTitle,
-						Location = lockerLocation.Description
+						Location = lockerLocation.Description,
+						Project = lockerMember.locker.Project
 					})
 				.Where(m => m.Badge != badge)
 				.OrderBy(l => l.Locker).ToList();
@@ -207,7 +213,7 @@ namespace WoodClub
 			{
 				joinedListAll.Add(new JoinedListItem
 				{
-					Selected = "Add",
+					Selected = string.IsNullOrEmpty(locker.Project) ? "Add" : "Taken",
 					Badge = locker.Badge,
 					BadgeOriginal = locker.Badge,
 					FirstName = locker.FirstName,
@@ -215,8 +221,9 @@ namespace WoodClub
 					LastName = locker.LastName,
 					LastNameOriginal = locker.LastName,
 					Locker = locker.Locker,
-					Location = locker.Location
-				});
+					Location = locker.Location,
+					Project = locker.Project
+				}) ;
 			}
 
 			var vacantLockers = (from ll in context.Lockers
@@ -238,7 +245,8 @@ namespace WoodClub
 					LastName = String.Empty,
 					LastNameOriginal = String.Empty,
 					Locker = lockerVacant.LockerTitle,
-					Location = location.Description
+					Location = location.Description,
+					Project = String.Empty
 				});
 			}
 
@@ -379,6 +387,14 @@ namespace WoodClub
 			/// The location.
 			/// </value>
 			public string Location { get; set; }
+
+			/// <summary>
+			/// Gets or sets the locker project.
+			/// </summary>
+			/// <value>
+			/// The project or none.
+			/// </value>
+			public string Project { get; set; }
 
 			/// <summary>
 			/// Gets or sets the badge original.
