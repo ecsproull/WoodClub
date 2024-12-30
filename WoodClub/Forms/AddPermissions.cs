@@ -40,6 +40,7 @@ namespace WoodClub
 			permissionNames.Add("laser", "Laser");
 			permissionNames.Add("logsaw", "Log Saw");
 			permissionNames.Add("lbc", "Lathe Boot Camp");
+			permissionNames.Add("p2s_laser", "P2S Laser");
 			permissionsBindingSource = new BindingSource();
 			permissionsBindingSource.DataSource = permissionNames;
 			permissionComboBox.DataSource = permissionsBindingSource;
@@ -192,6 +193,7 @@ namespace WoodClub
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void applyButton_Click(object sender, EventArgs e)
 		{
+			List<string> badges = new List<string>();
 			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				foreach (MemberPermissionsItem pi in
@@ -209,45 +211,60 @@ namespace WoodClub
 						}
 						continue;
 					}
+					else
+					{
+						if (!badges.Contains(pi.Badge))
+						{
+							badges.Add(pi.Badge);
+						}
+					}
 				}
 
 				if (!string.IsNullOrEmpty(singleBadge))
 				{
-					string machine = ((KeyValuePair<string, string>)permissionComboBox.SelectedItem).Key;
-					if (machine != "none")
-					{
-						string approver = ((KeyValuePair<string, string>)approverComboBox.SelectedItem).Key;
-						if (approver == "none")
-						{
-							MessageBox.Show("Please select Approver");
-						}
-						else
-						{
-							MachinePerm mpi = (from pmi in context.MachinePerms
-											   where pmi.Badge == singleBadge && pmi.MachineName == machine
-											   select pmi).FirstOrDefault();
-							if (mpi == null)
-							{
-								context.MachinePerms.Add(new MachinePerm
-								{
-									Badge = singleBadge,
-									ApprovedDate = DateTime.Now.Date,
-									ApprovedBy = approver,
-									MachineName = machine,
-								});
-							}
-						}
-
-						context.SaveChanges();
-					}
+					AddBadgePermission(context, singleBadge);
 				}
 				else
 				{
-					//check for multiple badges.
+					foreach (string badge in badges)
+					{
+						AddBadgePermission(context, badge);
+					}
 				}
 			}
 
 			LoadMembers();
+		}
+
+		private void AddBadgePermission(WoodClubEntities context, string badge)
+		{
+			string machine = ((KeyValuePair<string, string>)permissionComboBox.SelectedItem).Key;
+			if (machine != "none")
+			{
+				string approver = ((KeyValuePair<string, string>)approverComboBox.SelectedItem).Key;
+				if (approver == "none")
+				{
+					MessageBox.Show("Please select Approver");
+				}
+				else
+				{
+					MachinePerm mpi = (from pmi in context.MachinePerms
+									   where pmi.Badge == badge && pmi.MachineName == machine
+									   select pmi).FirstOrDefault();
+					if (mpi == null)
+					{
+						context.MachinePerms.Add(new MachinePerm
+						{
+							Badge = badge,
+							ApprovedDate = DateTime.Now.Date,
+							ApprovedBy = approver,
+							MachineName = machine,
+						});
+					}
+				}
+
+				context.SaveChanges();
+			}
 		}
 
 		/// <summary>

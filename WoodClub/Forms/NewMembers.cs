@@ -185,6 +185,7 @@ namespace WoodClub
 					members.Add(new NewMember
 					{
 						Add = member == null,
+						CreateInvoice = member == null,
 						FirstName = this.FormatProperName(newMember.new_member_first),
 						LastName = this.FormatProperName(newMember.new_member_last),
 						Email = newMember.new_member_email,

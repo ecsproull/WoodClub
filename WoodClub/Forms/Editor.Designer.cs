@@ -118,7 +118,8 @@
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
 			this.groupBox1.Controls.Add(this.cbAdminBlock);
@@ -903,7 +904,7 @@
 			// 
 			this.badgeCodeBindingSource.DataSource = typeof(WoodClub.BadgeCode);
 			// 
-			// Editor
+			// MemberEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -943,7 +944,7 @@
 			this.Controls.Add(this.lblRecCard);
 			this.Controls.Add(this.txtBadge);
 			this.Controls.Add(this.lblBadge);
-			this.Name = "Editor";
+			this.Name = "MemberEditor";
 			this.Text = "Member Edit";
 			this.Load += new System.EventHandler(this.Editor_Load);
 			this.groupBox1.ResumeLayout(false);
