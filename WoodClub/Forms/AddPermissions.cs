@@ -41,6 +41,7 @@ namespace WoodClub
 			permissionNames.Add("logsaw", "Log Saw");
 			permissionNames.Add("lbc", "Lathe Boot Camp");
 			permissionNames.Add("p2s_laser", "P2S Laser");
+			permissionNames.Add("shp_origin", "Shaper Origin");
 			permissionsBindingSource = new BindingSource();
 			permissionsBindingSource.DataSource = permissionNames;
 			permissionComboBox.DataSource = permissionsBindingSource;
