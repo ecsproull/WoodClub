@@ -88,7 +88,7 @@ namespace WoodClub
 				}
 
 				//Reconcile();
-				unpaidMemberBindingSource.DataSource = ds_Unpaid;
+				unpaidMemberBindingSource.DataSource = paidList;
 				dataGridView1.DataSource = unpaidMemberBindingSource.DataSource;
 				dataGridView1.Invalidate();
 				log.Info("Scan complete");

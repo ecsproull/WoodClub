@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities.DurableInstancing;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -54,10 +55,12 @@ namespace WoodClub.Forms
 							}
 
 							List<Locker> lockers = (from l in context.Lockers
-													where l.Badge == member.Badge
-													select l).ToList();
+													where l.Badge == member.Badge && !l.LockerTitle.StartsWith("I")
+													select l).OrderBy(x => x.Code).ToList();
 							string customerType = "Club Member:";
 							string lockerText = "...";
+
+
 							if (lockers.Count > 1)
 							{
 								customerType += "M00";
