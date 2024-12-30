@@ -1,5 +1,6 @@
 ﻿using Interop.QBXMLRP2;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -14,6 +15,115 @@ namespace WoodClub
 		private QBFileMode qbFileMode = QBFileMode.qbFileOpenDoNotCare;
 		private static string appID = "IDN12345";
 		private static string appName = "WoodClub";
+
+
+		private int getCount(string request)
+		{
+			string response = processRequestFromQB(buildDataCountQuery(request));
+			int count = parseRsForCount(response, request);
+			return count;
+		}
+
+		public virtual string buildDataCountQuery(string request)
+		{
+			string input = "";
+			XmlDocument inputXMLDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(inputXMLDoc, maxVersion);
+			XmlElement queryRq = inputXMLDoc.CreateElement(request);
+			queryRq.SetAttribute("metaData", "MetaDataOnly");
+			qbXMLMsgsRq.AppendChild(queryRq);
+			input = inputXMLDoc.OuterXml;
+			return input;
+		}
+
+		public virtual int parseRsForCount(string xml, string request)
+		{
+			int ret = -1;
+			try
+			{
+				XmlNodeList RsNodeList = null;
+				XmlDocument Doc = new XmlDocument();
+				Doc.LoadXml(xml);
+				string tagname = request.Replace("Rq", "Rs");
+				RsNodeList = Doc.GetElementsByTagName(tagname);
+				System.Text.StringBuilder popupMessage = new System.Text.StringBuilder();
+				XmlAttributeCollection rsAttributes = RsNodeList.Item(0).Attributes;
+				XmlNode retCount = rsAttributes.GetNamedItem("retCount");
+				ret = Convert.ToInt32(retCount.Value);
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show("Error encountered: " + e.Message);
+				ret = -1;
+			}
+			return ret;
+		}
+
+		private List<CustomerData> parseCustomerQueryRs(string xml)
+		{
+			List<CustomerData> customerData = new List<CustomerData>();
+			XmlDocument doc = new XmlDocument();
+			doc.LoadXml(xml);
+			XmlNode root = doc.DocumentElement;
+			XmlNodeList customerNodes = root.SelectNodes("//CustomerRet");
+
+			foreach (XmlNode cn in customerNodes)
+			{
+				if (cn.SelectSingleNode("FullName").InnerText == "---") continue;
+				CustomerData cd = new CustomerData();
+				cd.FullName = cn.SelectSingleNode("FullName").InnerText;
+				cd.FirstName = getInnerText(cn.SelectSingleNode("FirstName"));
+				cd.Balance = getInnerText(cn.SelectSingleNode("Balance"));
+				cd.AccountNumber = getInnerText(cn.SelectSingleNode("AccountNumber"));
+				cd.LastName = getInnerText(cn.SelectSingleNode("LastName"));
+				cd.Phone = getInnerText(cn.SelectSingleNode("Phone"));
+				cd.Email = getInnerText(cn.SelectSingleNode("Email"));
+
+				customerData.Add(cd);
+			}
+
+			return customerData;
+		}
+
+		private string getInnerText(XmlNode node)
+		{
+			string retVal = "";
+			if (node != null)
+			{
+				if (node.InnerText != null)
+				{
+					retVal = node.InnerText;
+				}
+			}
+
+			return retVal;
+		}
+
+		public List<CustomerData> loadCustomers(
+		string fullName,
+		string status,
+		string balanceFilter,
+		string balanceAmount)
+		{
+			List<CustomerData> customerData = new List<CustomerData>();
+			string request = "CustomerQueryRq";
+			try
+			{
+				connectToQB();
+				int count = getCount(request);
+				string xml = buildCustomerQueryRqXML(
+					new string[] { "FullName", "FirstName", "LastName", "Balance", "AccountNumber", "CustomerTypeRef", "DataExtRet" },
+					fullName,
+					status,
+					balanceFilter,
+					balanceAmount);
+				string response = processRequestFromQB(xml);
+				customerData = parseCustomerQueryRs(response);
+			}
+			catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+			return customerData;
+		}
 
 		/// <summary>
 		/// Builds the query to add a new member to QuickBooks.

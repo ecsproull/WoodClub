@@ -721,5 +721,11 @@ namespace WoodClub
 			SyncToQB syncToQB = new SyncToQB();
 			syncToQB.ShowDialog();
 		}
+
+		private void compareToQBToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			CompareDbs compareDbs = new CompareDbs();
+			compareDbs.ShowDialog();
+		}
 	}
 }

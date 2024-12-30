@@ -106,6 +106,7 @@
 			this.updateWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mailToToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.compareToQBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -598,35 +599,35 @@
 			// editLockersToolStripMenuItem
 			// 
 			this.editLockersToolStripMenuItem.Name = "editLockersToolStripMenuItem";
-			this.editLockersToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.editLockersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.editLockersToolStripMenuItem.Text = "Edit Lockers";
 			this.editLockersToolStripMenuItem.Click += new System.EventHandler(this.editLockersToolStripMenuItem_Click);
 			// 
 			// lockerLocationsToolStripMenuItem
 			// 
 			this.lockerLocationsToolStripMenuItem.Name = "lockerLocationsToolStripMenuItem";
-			this.lockerLocationsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.lockerLocationsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.lockerLocationsToolStripMenuItem.Text = "Edit Locations";
 			this.lockerLocationsToolStripMenuItem.Click += new System.EventHandler(this.lockerLocationsToolStripMenuItem_Click);
 			// 
 			// lockerCostsToolStripMenuItem
 			// 
 			this.lockerCostsToolStripMenuItem.Name = "lockerCostsToolStripMenuItem";
-			this.lockerCostsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.lockerCostsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.lockerCostsToolStripMenuItem.Text = "Edit Prices";
 			this.lockerCostsToolStripMenuItem.Click += new System.EventHandler(this.lockerCostsToolStripMenuItem_Click);
 			// 
 			// summaryReportToolStripMenuItem
 			// 
 			this.summaryReportToolStripMenuItem.Name = "summaryReportToolStripMenuItem";
-			this.summaryReportToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.summaryReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.summaryReportToolStripMenuItem.Text = "Summary Report";
 			this.summaryReportToolStripMenuItem.Click += new System.EventHandler(this.summaryReportToolStripMenuItem_Click);
 			// 
 			// syncToQBToolStripMenuItem
 			// 
 			this.syncToQBToolStripMenuItem.Name = "syncToQBToolStripMenuItem";
-			this.syncToQBToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.syncToQBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.syncToQBToolStripMenuItem.Text = "Sync to QB";
 			this.syncToQBToolStripMenuItem.Click += new System.EventHandler(this.syncToQBToolStripMenuItem_Click);
 			// 
@@ -683,7 +684,8 @@
             this.restoreOldToolStripMenuItem,
             this.clubTracksToolStripMenuItem,
             this.updateDuesToolStripMenuItem,
-            this.printRosterToolStripMenuItem});
+            this.printRosterToolStripMenuItem,
+            this.compareToQBToolStripMenuItem});
 			this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
 			this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
@@ -799,6 +801,13 @@
 			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
 			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
 			// 
+			// compareToQBToolStripMenuItem
+			// 
+			this.compareToQBToolStripMenuItem.Name = "compareToQBToolStripMenuItem";
+			this.compareToQBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.compareToQBToolStripMenuItem.Text = "Compare to QB";
+			this.compareToQBToolStripMenuItem.Click += new System.EventHandler(this.compareToQBToolStripMenuItem_Click);
+			// 
 			// MainMembers
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -896,6 +905,7 @@
 		private System.Windows.Forms.DataGridViewCheckBoxColumn ClubDuesPaid;
 		private System.Windows.Forms.ToolStripMenuItem printRosterToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem syncToQBToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem compareToQBToolStripMenuItem;
 	}
 }
 

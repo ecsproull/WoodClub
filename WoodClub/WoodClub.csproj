@@ -182,15 +182,23 @@
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
     <Compile Include="BindingSourceExtensions.cs" />
+    <Compile Include="CompareResults.cs" />
     <Compile Include="CreditTotal.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomerData.cs" />
     <Compile Include="CustomerIdData.cs" />
     <Compile Include="Daily.cs" />
     <Compile Include="DirtyTracker\ControlDirtyTracker.cs" />
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />
     <Compile Include="DirtyTracker\FormDirtyTracker.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Forms\CompareDbs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CompareDbs.Designer.cs">
+      <DependentUpon>CompareDbs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DisplayPictureBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -415,6 +423,9 @@
     </Compile>
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="UnpaidMemberData.cs" />
+    <EmbeddedResource Include="Forms\CompareDbs.resx">
+      <DependentUpon>CompareDbs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DisplayPictureBox.resx">
       <DependentUpon>DisplayPictureBox.cs</DependentUpon>
     </EmbeddedResource>

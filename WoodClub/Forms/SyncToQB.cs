@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Activities.DurableInstancing;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WoodClub.Forms
 {
@@ -35,7 +29,6 @@ namespace WoodClub.Forms
 			string[] clubMemberSubTypes = { "X06A", "X06B", "X06C", "X06D", "X06E", "X06F" };
 			List<Tuple<string, string, string>> map = new List<Tuple<string, string, string>>();
 			QBFunctions qbf = new QBFunctions();
-			qbf.connectToQB();
 			try
 			{
 				using (WoodClubEntities context = new WoodClubEntities())
