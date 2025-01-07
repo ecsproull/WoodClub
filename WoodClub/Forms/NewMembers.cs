@@ -356,12 +356,15 @@ namespace WoodClub
 				{
 					if (member.Add)
 					{
-						string response = qbf.processRequestFromQB(qbf.buildAddCustomersQueryRqXML(member));
-						response = qbf.processRequestFromQB(qbf.buildDataExtMod(member.Badge, "Customer Name", member.FirstName + " " + member.LastName));
+						string customerResponse = qbf.processRequestFromQB(qbf.buildAddCustomersQueryRqXML(member));
+						string dataExtModResponse = qbf.processRequestFromQB(qbf.buildDataExtMod(member.Badge, "Customer Name", member.FirstName + " " + member.LastName));
 
 						if (member.CreateInvoice)
 						{
-							response = qbf.processRequestFromQB(qbf.buildInvoiceAddRqXML(member.Badge));
+							string invoiceAddResponse = qbf.processRequestFromQB(qbf.buildInvoiceAddRqXML(member.Badge));
+							InvoiceData invoiceData = parseDuesInvoices(invoiceAddResponse);
+							CustomerData customerData = parseCustomerQueryRs(customerResponse);
+							string paymentAddResponse = qbf.processRequestFromQB(qbf.buildReceivePaymentAddRqXML(customerData, invoiceData));
 						}
 					}
 				}
@@ -383,5 +386,81 @@ namespace WoodClub
 			ppvd.ShowDialog();
 			//printDocument1.Print();
 		}
+
+		private InvoiceData parseDuesInvoices(string xml)
+		{
+			List<InvoiceData> invoiceDatas = new List<InvoiceData>();
+			XmlDocument doc = new XmlDocument();
+			doc.LoadXml(xml);
+			XmlNode root = doc.DocumentElement;
+			XmlNode ivn = root.SelectSingleNode("//InvoiceRet");
+			InvoiceData ivd = new InvoiceData();
+			ivd.TxnID = ivn.SelectSingleNode("TxnID").InnerText;
+			ivd.EditSequence = ivn.SelectSingleNode("EditSequence").InnerText;
+			ivd.Badge = ivn.SelectSingleNode("CustomerRef/FullName").InnerText;
+			ivd.IsPaid = ivn.SelectSingleNode("IsPaid").InnerText == "true";
+			ivd.DueDate = ivn.SelectSingleNode("DueDate").InnerText;
+			ivd.Subtotal = ivn.SelectSingleNode("Subtotal").InnerText;
+			ivd.BalanceRemaining = ivn.SelectSingleNode("BalanceRemaining").InnerText;
+
+			return ivd;
+		}
+
+		private CustomerData parseCustomerQueryRs(string xml)
+		{
+			List<CustomerData> customerData = new List<CustomerData>();
+			XmlDocument doc = new XmlDocument();
+			doc.LoadXml(xml);
+			XmlNode root = doc.DocumentElement;
+			XmlNode cn = root.SelectSingleNode("//CustomerRet");
+			CustomerData cd = new CustomerData();
+			cd.FullName = cn.SelectSingleNode("FullName").InnerText;
+			cd.FirstName = getInnerText(cn.SelectSingleNode("FirstName"));
+			cd.Balance = getInnerText(cn.SelectSingleNode("Balance"));
+			cd.AccountNumber = getInnerText(cn.SelectSingleNode("AccountNumber"));
+			cd.LastName = getInnerText(cn.SelectSingleNode("LastName"));
+			cd.Phone = getInnerText(cn.SelectSingleNode("Phone"));
+			cd.Email = getInnerText(cn.SelectSingleNode("Email"));
+			return cd;
+		}
+
+		private string getInnerText(XmlNode node)
+		{
+			string retVal = "";
+			if (node != null)
+			{
+				if (node.InnerText != null)
+				{
+					retVal = node.InnerText;
+				}
+			}
+
+			return retVal;
+		}
+	}
+
+	internal class InvoiceData
+	{
+		public string TxnID { get; set; }
+		public bool IsPaid { get; set; } = false;
+		public bool IsDues { get; set; } = false;
+		public bool HasLateFees { get; set; } = false;
+		public string EditSequence { get; set; }
+		public string DueDate { get; set; }
+		public string Subtotal { get; set; }
+		public string BalanceRemaining { get; set; }
+		public string Badge { get; set; }
+		public string CustomerName { get; set; }
+		public string Email { get; set; }
+		public string Phone { get; set; }
+		public string AppliedAmount { get; set; }
+		public List<InvoiceLineItemData> LineItems { get; set; } = new List<InvoiceLineItemData>();
+	}
+
+	internal class InvoiceLineItemData
+	{
+		public string TxnLineID { get; set; }
+		public string Amount { get; set; }
+		public string FullName { get; set; }
 	}
 }

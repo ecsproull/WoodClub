@@ -27,7 +27,7 @@ namespace WoodClub.Forms
 		{
 			closeButton.Enabled = false;
 			string[] clubMemberSubTypes = { "X06A", "X06B", "X06C", "X06D", "X06E", "X06F" };
-			List<Tuple<string, string, string>> map = new List<Tuple<string, string, string>>();
+			List<Tuple<MemberRoster, string, string>> map = new List<Tuple<MemberRoster, string, string>>();
 			QBFunctions qbf = new QBFunctions();
 			try
 			{
@@ -84,12 +84,12 @@ namespace WoodClub.Forms
 							}
 
 
-							map.Add(new Tuple<string, string, string>(member.Badge, customerType, lockerText));
+							map.Add(new Tuple<MemberRoster, string, string>(member, customerType, lockerText));
 						}
 
 						syncProgressBar.Maximum = map.Count;
 						syncProgressBar.Step = 1;
-						foreach (Tuple<string, string, string> tuple in map)
+						foreach (Tuple<MemberRoster, string, string> tuple in map)
 						{
 							if (this.cancel)
 							{
@@ -98,7 +98,7 @@ namespace WoodClub.Forms
 							}
 
 							string response = qbf.processRequestFromQB(qbf.buildCustomerQueryRqXML(
-								new string[] { "ListID", "EditSequence", "CustomerTypeRef" }, tuple.Item1, "", "", "", true));
+								new string[] { "ListID", "EditSequence", "CustomerTypeRef" }, tuple.Item1.Badge, "", "", "", true));
 
 							CustomerIdData customerIdData = qbf.parseCustomerQueryRsShort(response);
 							if (string.IsNullOrEmpty(customerIdData.ListId) || string.IsNullOrEmpty(customerIdData.EditSequence))
@@ -106,15 +106,12 @@ namespace WoodClub.Forms
 								MessageBox.Show("CustomerFailed : " + tuple.Item1);
 								continue;
 							}
-							string customerModXml = qbf.BuildCustomerMod(customerIdData, tuple.Item2);
-							response = qbf.processRequestFromQB(customerModXml);
 
-							response = qbf.processRequestFromQB(qbf.buildDataExtMod(tuple.Item1, "Locker#", tuple.Item3));
-
-							MemberRoster mm = (from m in context.MemberRosters
-											   where m.Badge == tuple.Item1
-											   select m).FirstOrDefault();
-							response = qbf.processRequestFromQB(qbf.buildDataExtMod(tuple.Item1, "Customer Name", mm.FirstName + " " + mm.LastName));
+							//TODO: Add phone number and email update
+							string customerModXml = qbf.BuildCustomerMod(customerIdData, tuple.Item2, tuple.Item1);
+							qbf.processRequestFromQB(customerModXml);
+							qbf.processRequestFromQB(qbf.buildDataExtMod(tuple.Item1.Badge, "Locker#", tuple.Item3));
+							qbf.processRequestFromQB(qbf.buildDataExtMod(tuple.Item1.Badge, "Customer Name", tuple.Item1.FirstName + " " + tuple.Item1.LastName));
 
 							syncProgressBar.PerformStep();
 

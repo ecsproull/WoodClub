@@ -1,6 +1,7 @@
 ﻿using Interop.QBXMLRP2;
 using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -243,7 +244,7 @@ namespace WoodClub
 			invoiceLineAdd.AppendChild(itemRef);
 			itemRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "X06";
 			invoiceLineAdd.AppendChild(xmlDoc.CreateElement("Quantity")).InnerText = "1";
-			invoiceLineAdd.AppendChild(xmlDoc.CreateElement("Amount")).InnerText = "25.00";
+			invoiceLineAdd.AppendChild(xmlDoc.CreateElement("Amount")).InnerText = "40.00";
 
 			XmlElement invoiceLineAdd2 = xmlDoc.CreateElement("InvoiceLineAdd");
 			InvoiceAdd.AppendChild(invoiceLineAdd2);
@@ -259,14 +260,52 @@ namespace WoodClub
 			return requestXML;
 		}
 
+		/// <summary>
+		/// Builds the query to add a payment to a QuickBooks invoice.
+		/// </summary>
+		/// <param name="customer"></param>
+		/// <returns></returns>
+		public string buildReceivePaymentAddRqXML(CustomerData customer, InvoiceData invoice)
+		{
+			XmlDocument xmlDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+			XmlElement ReceivePaymentAddRq = xmlDoc.CreateElement("ReceivePaymentAddRq");
+			qbXMLMsgsRq.AppendChild(ReceivePaymentAddRq);
+			XmlElement ReceivePaymentAdd = xmlDoc.CreateElement("ReceivePaymentAdd");
+			ReceivePaymentAddRq.AppendChild(ReceivePaymentAdd);
+
+			XmlElement Element_CustomerRef = xmlDoc.CreateElement("CustomerRef");
+			ReceivePaymentAdd.AppendChild(Element_CustomerRef);
+			XmlElement Element_CustomerRef_FullName = xmlDoc.CreateElement("FullName");
+			Element_CustomerRef.AppendChild(Element_CustomerRef_FullName).InnerText = customer.FullName;
+
+			XmlElement TotalAmount = xmlDoc.CreateElement("TotalAmount");
+			ReceivePaymentAdd.AppendChild(TotalAmount).InnerText = invoice.Subtotal;
+
+			XmlElement Element_PaymentMethodRef = xmlDoc.CreateElement("PaymentMethodRef");
+			ReceivePaymentAdd.AppendChild(Element_PaymentMethodRef);
+			XmlElement Element_PaymentMethod_FullName = xmlDoc.CreateElement("FullName");
+			Element_PaymentMethodRef.AppendChild(Element_PaymentMethod_FullName).InnerText = "office";
+
+			XmlElement Element_Memo = xmlDoc.CreateElement("Memo");
+			ReceivePaymentAdd.AppendChild(Element_Memo).InnerText = customer.FullName + " Orientation";
+
+			XmlElement IsAutoApply = xmlDoc.CreateElement("IsAutoApply");
+			ReceivePaymentAdd.AppendChild(IsAutoApply).InnerText = "true";
+
+			string xml = xmlDoc.OuterXml;
+			return xml;
+		}
+
 		public string buildCustomerQueryRqXML(
-			string[] includeRetElement,
-			string fullName,
-			string status,
-			string balanceFilter,
-			string balanceAmount,
-			bool customFields = false
-			)
+		string[] includeRetElement,
+		string fullName,
+		string status,
+		string balanceFilter,
+		string balanceAmount,
+		bool customFields = false
+		)
 		{
 			string xml = "";
 			XmlDocument xmlDoc = new XmlDocument();
@@ -315,7 +354,13 @@ namespace WoodClub
 			return xml;
 		}
 
-		public string BuildCustomerMod(CustomerIdData customerIdData, string customerType)
+		/// <summary>
+		/// TODO: Add phone number and email update to this form.
+		/// </summary>
+		/// <param name="customerIdData"></param>
+		/// <param name="customerType"></param>
+		/// <returns></returns>
+		public string BuildCustomerMod(CustomerIdData customerIdData, string customerType, MemberRoster member)
 		{
 			string requestXML = "";
 			XmlDocument xmlDoc = new XmlDocument();
@@ -323,20 +368,23 @@ namespace WoodClub
 			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
 			XmlElement customerModRq = xmlDoc.CreateElement("CustomerModRq");
 			qbXMLMsgsRq.AppendChild(customerModRq);
-			XmlElement dataExtMod = xmlDoc.CreateElement("CustomerMod");
-			customerModRq.AppendChild(dataExtMod);
+			XmlElement customerMod = xmlDoc.CreateElement("CustomerMod");
+			customerModRq.AppendChild(customerMod);
 
 			XmlElement listId = xmlDoc.CreateElement("ListID");
-			dataExtMod.AppendChild(listId).InnerText = customerIdData.ListId;
+			customerMod.AppendChild(listId).InnerText = customerIdData.ListId;
 
 			XmlElement editSequence = xmlDoc.CreateElement("EditSequence");
-			dataExtMod.AppendChild(editSequence).InnerText = customerIdData.EditSequence;
+			customerMod.AppendChild(editSequence).InnerText = customerIdData.EditSequence;
+
+			XmlElement phone = xmlDoc.CreateElement("Phone");
+			customerMod.AppendChild(phone).InnerText = member.Phone;
+
+			XmlElement email = xmlDoc.CreateElement("Email");
+			customerMod.AppendChild(email).InnerText = member.Email;
 
 			XmlElement customerTypeRef = xmlDoc.CreateElement("CustomerTypeRef");
-			dataExtMod.AppendChild(customerTypeRef);
-
-			//XmlElement listId = xmlDoc.CreateElement("ListID");
-			//dataExtMod.AppendChild(listId).InnerText = customerIdData.ListId;
+			customerMod.AppendChild(customerTypeRef);
 
 			XmlElement fullName = xmlDoc.CreateElement("FullName");
 			customerTypeRef.AppendChild(fullName).InnerText = customerType;
