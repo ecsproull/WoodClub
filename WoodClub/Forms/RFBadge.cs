@@ -138,9 +138,16 @@ namespace WoodClub
 			{
 				if (m.Photo != null)
 				{
-					using (Image image = Image.FromStream(new MemoryStream(m.Photo)))
+					try
 					{
-						image.Save(@"c:\CardPrint\images\" + m.Badge + ".jpg", ImageFormat.Jpeg);
+						using (Image image = Image.FromStream(new MemoryStream(m.Photo)))
+						{
+							image.Save(@"c:\CardPrint\images\" + m.Badge + ".jpg", ImageFormat.Jpeg);
+						}
+					}
+					catch (Exception e)
+					{
+						MessageBox.Show("Photo Error, Badge : " + m.Badge);
 					}
 				}
 
