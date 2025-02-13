@@ -131,6 +131,17 @@ namespace WoodClub
 					}
 				}
 				context.SaveChanges();
+
+				foreach (BadgeDate bd in paidList)
+				{
+					MemberRoster member = (from m in context.MemberRosters
+											where m.Badge == bd.Badge
+											select m).FirstOrDefault();
+					if (member == null)
+					{
+						MessageBox.Show("Missing Badge : " + bd.Badge);
+					}
+				}
 			}
 		}
 

@@ -147,16 +147,29 @@ namespace WoodClub
 		/// Loads the members. Also useful to reload the list after making changes.
 		/// </summary>
 		private void LoadMembers()
-		{	
+		{
 			using (WoodClubEntities context = new WoodClubEntities())
 			{
 				var members = (from m in context.MemberRosters
-							  select m).ToList();
+							   select m).ToList();
 
 				blMembers = new SortableBindingList<MemberRoster>(members);  // blMembers list of members
 				setBsMembersDataSource();
 				dataGridView1.DataSource = bsMembers;
-			}			
+
+				int year = DateTime.Now.Year;
+				foreach (DataGridViewRow row in dataGridView1.Rows)
+				{
+					string badge = (string)row.Cells["Badge"].Value;
+					var yearvisit = from t in context.Transactions              // List of Usage by member
+									where t.TransDate.Value.Year == year
+										 && t.Code == "U" | t.Code == "FD"
+										 && t.Badge == badge
+									select t.TransDate.Value;
+					int visitsCnt = yearvisit.DistinctBy(x => x.DayOfYear).Count();
+					row.Cells["Visits"].Value = visitsCnt;
+				}
+			}
 		}
 
 		/// <summary>

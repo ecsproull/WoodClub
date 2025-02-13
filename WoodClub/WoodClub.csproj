@@ -360,6 +360,7 @@
     <Compile Include="Forms\MonitorForm.Designer.cs">
       <DependentUpon>MonitorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MemberRosterExt.cs" />
     <Compile Include="MembersShort.cs" />
     <Compile Include="ModelTK.Context.cs">
       <AutoGen>True</AutoGen>
