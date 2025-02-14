@@ -30,8 +30,8 @@ namespace WoodClub
 		private readonly int listenPort = 5725;
 		private readonly UdpClient udpClient = new UdpClient();
 
-		private SortableBindingList<MemberRoster> blMembers;
-		private SortableBindingList<MemberRoster> filteredBindingList = new SortableBindingList<MemberRoster>();
+		private SortableBindingList<MemberRosterExt> blMembers;
+		private SortableBindingList<MemberRosterExt> filteredBindingList = new SortableBindingList<MemberRosterExt>();
 		private readonly BindingSource bsMembers;
 		private MemberRoster currentMember;
 		public bool update;
@@ -43,7 +43,7 @@ namespace WoodClub
 		/// </summary>
 		public MainMembers()
 		{
-			this.blMembers = new SortableBindingList<MemberRoster>();
+			this.blMembers = new SortableBindingList<MemberRosterExt>();
 			this.bsMembers = new BindingSource();
 			this.update = false;
 			this.added = false;
@@ -153,22 +153,22 @@ namespace WoodClub
 				var members = (from m in context.MemberRosters
 							   select m).ToList();
 
-				blMembers = new SortableBindingList<MemberRoster>(members);  // blMembers list of members
-				setBsMembersDataSource();
-				dataGridView1.DataSource = bsMembers;
-
 				int year = DateTime.Now.Year;
-				foreach (DataGridViewRow row in dataGridView1.Rows)
+				List<MemberRosterExt> mre = new List<MemberRosterExt>();
+				foreach (MemberRoster member in members)
 				{
-					string badge = (string)row.Cells["Badge"].Value;
 					var yearvisit = from t in context.Transactions              // List of Usage by member
 									where t.TransDate.Value.Year == year
 										 && t.Code == "U" | t.Code == "FD"
-										 && t.Badge == badge
+										 && t.Badge == member.Badge
 									select t.TransDate.Value;
 					int visitsCnt = yearvisit.DistinctBy(x => x.DayOfYear).Count();
-					row.Cells["Visits"].Value = visitsCnt;
+					mre.Add(new MemberRosterExt(member, visitsCnt));
 				}
+
+				blMembers = new SortableBindingList<MemberRosterExt>(mre);  // blMembers list of members
+				setBsMembersDataSource();
+				dataGridView1.DataSource = bsMembers;
 			}
 		}
 
@@ -242,7 +242,7 @@ namespace WoodClub
 			}
 			else
 			{
-				filteredBindingList = new SortableBindingList<MemberRoster>(blMembers.Where(
+				filteredBindingList = new SortableBindingList<MemberRosterExt>(blMembers.Where(
 					x => x.FirstName.ToUpper().Contains(filter.ToUpper()) ||
 					x.LastName.ToUpper().Contains(filter.ToUpper()) ||
 					x.Badge.Contains(filter) ||

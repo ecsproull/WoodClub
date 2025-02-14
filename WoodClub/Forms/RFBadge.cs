@@ -145,7 +145,7 @@ namespace WoodClub
 							image.Save(@"c:\CardPrint\images\" + m.Badge + ".jpg", ImageFormat.Jpeg);
 						}
 					}
-					catch (Exception e)
+					catch (Exception)
 					{
 						MessageBox.Show("Photo Error, Badge : " + m.Badge);
 					}
