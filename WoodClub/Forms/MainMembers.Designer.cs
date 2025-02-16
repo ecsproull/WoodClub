@@ -97,6 +97,7 @@
 			this.clubTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateDuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printRosterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.compareToQBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -106,7 +107,6 @@
 			this.updateWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mailToToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.compareToQBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -599,35 +599,35 @@
 			// editLockersToolStripMenuItem
 			// 
 			this.editLockersToolStripMenuItem.Name = "editLockersToolStripMenuItem";
-			this.editLockersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.editLockersToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.editLockersToolStripMenuItem.Text = "Edit Lockers";
 			this.editLockersToolStripMenuItem.Click += new System.EventHandler(this.editLockersToolStripMenuItem_Click);
 			// 
 			// lockerLocationsToolStripMenuItem
 			// 
 			this.lockerLocationsToolStripMenuItem.Name = "lockerLocationsToolStripMenuItem";
-			this.lockerLocationsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.lockerLocationsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.lockerLocationsToolStripMenuItem.Text = "Edit Locations";
 			this.lockerLocationsToolStripMenuItem.Click += new System.EventHandler(this.lockerLocationsToolStripMenuItem_Click);
 			// 
 			// lockerCostsToolStripMenuItem
 			// 
 			this.lockerCostsToolStripMenuItem.Name = "lockerCostsToolStripMenuItem";
-			this.lockerCostsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.lockerCostsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.lockerCostsToolStripMenuItem.Text = "Edit Prices";
 			this.lockerCostsToolStripMenuItem.Click += new System.EventHandler(this.lockerCostsToolStripMenuItem_Click);
 			// 
 			// summaryReportToolStripMenuItem
 			// 
 			this.summaryReportToolStripMenuItem.Name = "summaryReportToolStripMenuItem";
-			this.summaryReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.summaryReportToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.summaryReportToolStripMenuItem.Text = "Summary Report";
 			this.summaryReportToolStripMenuItem.Click += new System.EventHandler(this.summaryReportToolStripMenuItem_Click);
 			// 
 			// syncToQBToolStripMenuItem
 			// 
 			this.syncToQBToolStripMenuItem.Name = "syncToQBToolStripMenuItem";
-			this.syncToQBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.syncToQBToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.syncToQBToolStripMenuItem.Text = "Sync to QB";
 			this.syncToQBToolStripMenuItem.Click += new System.EventHandler(this.syncToQBToolStripMenuItem_Click);
 			// 
@@ -696,43 +696,50 @@
 			// toolStripImportNewMembers
 			// 
 			this.toolStripImportNewMembers.Name = "toolStripImportNewMembers";
-			this.toolStripImportNewMembers.Size = new System.Drawing.Size(180, 22);
+			this.toolStripImportNewMembers.Size = new System.Drawing.Size(173, 22);
 			this.toolStripImportNewMembers.Text = "Import Orientation";
 			// 
 			// importPhotosToolStripMenuItem
 			// 
 			this.importPhotosToolStripMenuItem.Name = "importPhotosToolStripMenuItem";
-			this.importPhotosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.importPhotosToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
 			this.importPhotosToolStripMenuItem.Text = "Import Photos";
 			this.importPhotosToolStripMenuItem.Click += new System.EventHandler(this.importPhotosToolStripMenuItem_Click);
 			// 
 			// restoreOldToolStripMenuItem
 			// 
 			this.restoreOldToolStripMenuItem.Name = "restoreOldToolStripMenuItem";
-			this.restoreOldToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.restoreOldToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
 			this.restoreOldToolStripMenuItem.Text = "Restore Old";
 			this.restoreOldToolStripMenuItem.Click += new System.EventHandler(this.restoreOldToolStripMenuItem_Click);
 			// 
 			// clubTracksToolStripMenuItem
 			// 
 			this.clubTracksToolStripMenuItem.Name = "clubTracksToolStripMenuItem";
-			this.clubTracksToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.clubTracksToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
 			this.clubTracksToolStripMenuItem.Text = "Club Tracks";
 			this.clubTracksToolStripMenuItem.Click += new System.EventHandler(this.clubTracksToolStripMenuItem_Click_1);
 			// 
 			// updateDuesToolStripMenuItem
 			// 
 			this.updateDuesToolStripMenuItem.Name = "updateDuesToolStripMenuItem";
-			this.updateDuesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.updateDuesToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
 			this.updateDuesToolStripMenuItem.Text = "Update Dues";
 			this.updateDuesToolStripMenuItem.Click += new System.EventHandler(this.updateDuesToolStripMenuItem_Click);
 			// 
 			// printRosterToolStripMenuItem
 			// 
 			this.printRosterToolStripMenuItem.Name = "printRosterToolStripMenuItem";
-			this.printRosterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.printRosterToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
 			this.printRosterToolStripMenuItem.Text = "Print Roster";
 			this.printRosterToolStripMenuItem.Click += new System.EventHandler(this.printRosterToolStripMenuItem_Click);
+			// 
+			// compareToQBToolStripMenuItem
+			// 
+			this.compareToQBToolStripMenuItem.Name = "compareToQBToolStripMenuItem";
+			this.compareToQBToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+			this.compareToQBToolStripMenuItem.Text = "Compare to QB";
+			this.compareToQBToolStripMenuItem.Click += new System.EventHandler(this.compareToQBToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator6
 			// 
@@ -769,20 +776,21 @@
 			// editPermissionsToolStripMenuItem
 			// 
 			this.editPermissionsToolStripMenuItem.Name = "editPermissionsToolStripMenuItem";
-			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.editPermissionsToolStripMenuItem.Text = "Edit Permissions";
 			this.editPermissionsToolStripMenuItem.Click += new System.EventHandler(this.editMachinePermissions_Click);
 			// 
 			// reportToolStripMenuItem
 			// 
 			this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-			this.reportToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.reportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.reportToolStripMenuItem.Text = "Report";
+			this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
 			// 
 			// updateWebsiteToolStripMenuItem
 			// 
 			this.updateWebsiteToolStripMenuItem.Name = "updateWebsiteToolStripMenuItem";
-			this.updateWebsiteToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.updateWebsiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.updateWebsiteToolStripMenuItem.Text = "Update Website";
 			this.updateWebsiteToolStripMenuItem.Click += new System.EventHandler(this.updateWebsiteToolStripMenuItem_Click);
 			// 
@@ -800,13 +808,6 @@
 			// 
 			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
 			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-			// 
-			// compareToQBToolStripMenuItem
-			// 
-			this.compareToQBToolStripMenuItem.Name = "compareToQBToolStripMenuItem";
-			this.compareToQBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.compareToQBToolStripMenuItem.Text = "Compare to QB";
-			this.compareToQBToolStripMenuItem.Click += new System.EventHandler(this.compareToQBToolStripMenuItem_Click);
 			// 
 			// MainMembers
 			// 

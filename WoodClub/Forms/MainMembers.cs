@@ -740,5 +740,11 @@ namespace WoodClub
 			CompareDbs compareDbs = new CompareDbs();
 			compareDbs.ShowDialog();
 		}
+
+		private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			PermissionsReport pr = new PermissionsReport();
+			pr.ShowDialog();
+		}
 	}
 }

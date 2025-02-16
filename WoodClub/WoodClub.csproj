@@ -260,6 +260,12 @@
     <Compile Include="Forms\NewMembers.designer.cs">
       <DependentUpon>NewMembers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PermissionsReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PermissionsReport.Designer.cs">
+      <DependentUpon>PermissionsReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PhotoImport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -398,6 +404,7 @@
     <Compile Include="MultipleEditMember.cs" />
     <Compile Include="NewMember.cs" />
     <Compile Include="OrientationGet.cs" />
+    <Compile Include="PermissionReportItem.cs" />
     <Compile Include="PostToGoDaddy.cs" />
     <Compile Include="QBFunctions.cs" />
     <Compile Include="Resource1.Designer.cs">
@@ -458,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewMembers.resx">
       <DependentUpon>NewMembers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PermissionsReport.resx">
+      <DependentUpon>PermissionsReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PhotoImport.resx">
       <DependentUpon>PhotoImport.cs</DependentUpon>
