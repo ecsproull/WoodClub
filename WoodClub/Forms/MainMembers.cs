@@ -746,5 +746,11 @@ namespace WoodClub
 			PermissionsReport pr = new PermissionsReport();
 			pr.ShowDialog();
 		}
+
+		private void machinePermissionsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			PermissionsReport pr = new PermissionsReport();
+			pr.ShowDialog();
+		}
 	}
 }

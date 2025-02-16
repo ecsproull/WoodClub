@@ -67,7 +67,6 @@ namespace WoodClub
 			{
 				ContextMenu m = new ContextMenu();
 				m.MenuItems.Add(copyItem);
-
 				m.Show(dataGridView1, new Point(e.X, e.Y));
 			}
 		}
