@@ -561,6 +561,13 @@ namespace WoodClub
 					}
 				}
 
+				string subPath = @"c:\ClubTracks";
+				bool exists = System.IO.Directory.Exists(subPath);
+				if (!exists)
+				{
+					System.IO.Directory.CreateDirectory(subPath);
+				}
+
 				string filename = @"c:\ClubTracks\members_" + DateTime.Now.ToString("MM-dd-yyy_HH_mm_ss") + ".csv";
 				System.IO.File.WriteAllText(filename, stringBuilder.ToString());
 
