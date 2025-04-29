@@ -30,6 +30,8 @@ public partial class MonitorParam
 
     public string Monitor_Secret { get; set; }
 
+    public string Monitor_Class_Contact { get; set; }
+
 }
 
 }
