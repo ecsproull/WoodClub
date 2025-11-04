@@ -54,6 +54,7 @@ namespace WoodClub
 			approversNames.Add("4286", "Daryl Coulthart");
 			approversNames.Add("4775", "Bill Gentry");
 			approversNames.Add("4413", "Jim Casey");
+			approversNames.Add("4359", "Merrikay Vidal");
 			approverBindingSource = new BindingSource();
 			approverBindingSource.DataSource = approversNames;
 			approverComboBox.DataSource = approverBindingSource;

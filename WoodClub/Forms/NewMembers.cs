@@ -281,15 +281,24 @@ namespace WoodClub
 		/// <param name="e"></param>
 		private void buttonAddToDb_Click(object sender, EventArgs e)
 		{
+			Button btn = sender as Button;
 			bs_newmember.EndEdit();
 
 			using (WoodClubEntities context = new WoodClubEntities())
 			{
-
 				foreach (NewMember r in members)
 				{
 					if (r.Add)
 					{
+						var member = (from mr in context.MemberRosters
+									  where mr.Badge == r.Badge
+									  select mr).FirstOrDefault();
+						if (member != null)
+						{
+							MessageBox.Show($"Badge {r.Badge} is already in the database.");
+							continue;
+						}
+
 						context.MemberRosters.Add(new MemberRoster
 						{
 							Title = string.Empty,
@@ -337,6 +346,8 @@ namespace WoodClub
 				}
 
 				context.SaveChanges();
+				MessageBox.Show("Add Members to Database has completed.");
+				btn.Enabled = false;
 			}
 		}
 
@@ -348,8 +359,10 @@ namespace WoodClub
 		/// <param name="e"></param>
 		private void quickBooksButton_Click(object sender, EventArgs e)
 		{
+			Button btn = sender as Button;
 			QBFunctions qbf = new QBFunctions();
             qbf.connectToQB();
+			bool disableButton = true;
             try
             {
 				foreach (NewMember member in members)
@@ -369,9 +382,14 @@ namespace WoodClub
 					}
 				}
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { 
+				MessageBox.Show(ex.Message);
+				disableButton = false;
+			}
 			finally { qbf.disconnectFromQB(); }
-        }
+			MessageBox.Show("Add Members to QuickBooks has completed.");
+			btn.Enabled = !disableButton;
+		}
 
 		/// <summary>
 		/// Prints the new member list.
