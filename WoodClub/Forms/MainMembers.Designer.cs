@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMembers));
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,6 +107,7 @@
 			this.updateWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mailToToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.machinePermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -121,14 +122,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridView1.AutoGenerateColumns = false;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Badge,
@@ -149,25 +150,25 @@
             this.Exempt,
             this.ClubDuesPaid});
 			this.dataGridView1.DataSource = this.memberRosterBindingSource;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle5;
 			this.dataGridView1.Location = new System.Drawing.Point(0, 28);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
 			this.dataGridView1.RowHeadersWidth = 62;
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dataGridView1.Size = new System.Drawing.Size(1501, 600);
@@ -511,14 +512,14 @@
 			// selectedToolStripMenuItem
 			// 
 			this.selectedToolStripMenuItem.Name = "selectedToolStripMenuItem";
-			this.selectedToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+			this.selectedToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
 			this.selectedToolStripMenuItem.Text = "Selected";
 			this.selectedToolStripMenuItem.Click += new System.EventHandler(this.selectedToolStripMenuItem_Click);
 			// 
 			// selectAllToolStripMenuItem
 			// 
 			this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-			this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+			this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
 			this.selectAllToolStripMenuItem.Text = "ExportAll";
 			this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.exportAllToolStripMenuItem_Click);
 			// 
@@ -535,7 +536,8 @@
             this.monthlyClubUsageToolStripMenuItem,
             this.lockerSummaryToolStripMenuItem,
             this.dailySummaryToolStripMenuItem,
-            this.menuItemFreeDayOnly});
+            this.menuItemFreeDayOnly,
+            this.machinePermissionsToolStripMenuItem});
 			this.ReportsDownButton.Image = ((System.Drawing.Image)(resources.GetObject("ReportsDownButton.Image")));
 			this.ReportsDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.ReportsDownButton.Name = "ReportsDownButton";
@@ -545,35 +547,35 @@
 			// monitorToolStripMenuItem
 			// 
 			this.monitorToolStripMenuItem.Name = "monitorToolStripMenuItem";
-			this.monitorToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+			this.monitorToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.monitorToolStripMenuItem.Text = "Monitor";
 			this.monitorToolStripMenuItem.Click += new System.EventHandler(this.monitorsToolStripMenuItem_Click);
 			// 
 			// monthlyClubUsageToolStripMenuItem
 			// 
 			this.monthlyClubUsageToolStripMenuItem.Name = "monthlyClubUsageToolStripMenuItem";
-			this.monthlyClubUsageToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+			this.monthlyClubUsageToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.monthlyClubUsageToolStripMenuItem.Text = "Monthly Club Usage";
 			this.monthlyClubUsageToolStripMenuItem.Click += new System.EventHandler(this.monthlyClubUsageToolStripMenuItem_Click);
 			// 
 			// lockerSummaryToolStripMenuItem
 			// 
 			this.lockerSummaryToolStripMenuItem.Name = "lockerSummaryToolStripMenuItem";
-			this.lockerSummaryToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+			this.lockerSummaryToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.lockerSummaryToolStripMenuItem.Text = "Locker Summary";
 			this.lockerSummaryToolStripMenuItem.Click += new System.EventHandler(this.lockerSummaryToolStripMenuItem_Click);
 			// 
 			// dailySummaryToolStripMenuItem
 			// 
 			this.dailySummaryToolStripMenuItem.Name = "dailySummaryToolStripMenuItem";
-			this.dailySummaryToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+			this.dailySummaryToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.dailySummaryToolStripMenuItem.Text = "Daily Summary";
 			this.dailySummaryToolStripMenuItem.Click += new System.EventHandler(this.dailySummaryToolStripMenuItem_Click);
 			// 
 			// menuItemFreeDayOnly
 			// 
 			this.menuItemFreeDayOnly.Name = "menuItemFreeDayOnly";
-			this.menuItemFreeDayOnly.Size = new System.Drawing.Size(182, 22);
+			this.menuItemFreeDayOnly.Size = new System.Drawing.Size(186, 22);
 			this.menuItemFreeDayOnly.Text = "Free Day Only";
 			// 
 			// toolStripSeparator3
@@ -770,27 +772,27 @@
 			this.machinePermissions.Image = ((System.Drawing.Image)(resources.GetObject("machinePermissions.Image")));
 			this.machinePermissions.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.machinePermissions.Name = "machinePermissions";
-			this.machinePermissions.Size = new System.Drawing.Size(70, 28);
-			this.machinePermissions.Text = "MC Perm";
+			this.machinePermissions.Size = new System.Drawing.Size(83, 28);
+			this.machinePermissions.Text = "Permissions";
 			// 
 			// editPermissionsToolStripMenuItem
 			// 
 			this.editPermissionsToolStripMenuItem.Name = "editPermissionsToolStripMenuItem";
-			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.editPermissionsToolStripMenuItem.Text = "Edit Permissions";
 			this.editPermissionsToolStripMenuItem.Click += new System.EventHandler(this.editMachinePermissions_Click);
 			// 
 			// reportToolStripMenuItem
 			// 
 			this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-			this.reportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.reportToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.reportToolStripMenuItem.Text = "Report";
 			this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
 			// 
 			// updateWebsiteToolStripMenuItem
 			// 
 			this.updateWebsiteToolStripMenuItem.Name = "updateWebsiteToolStripMenuItem";
-			this.updateWebsiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.updateWebsiteToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.updateWebsiteToolStripMenuItem.Text = "Update Website";
 			this.updateWebsiteToolStripMenuItem.Click += new System.EventHandler(this.updateWebsiteToolStripMenuItem_Click);
 			// 
@@ -800,7 +802,7 @@
 			this.mailToToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("mailToToolStripButton.Image")));
 			this.mailToToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.mailToToolStripButton.Name = "mailToToolStripButton";
-			this.mailToToolStripButton.Size = new System.Drawing.Size(50, 28);
+			this.mailToToolStripButton.Size = new System.Drawing.Size(49, 28);
 			this.mailToToolStripButton.Text = "Mail To";
 			this.mailToToolStripButton.Click += new System.EventHandler(this.mailToToollStripButton_Click);
 			// 
@@ -808,6 +810,13 @@
 			// 
 			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
 			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+			// 
+			// machinePermissionsToolStripMenuItem
+			// 
+			this.machinePermissionsToolStripMenuItem.Name = "machinePermissionsToolStripMenuItem";
+			this.machinePermissionsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.machinePermissionsToolStripMenuItem.Text = "Machine Permissions";
+			this.machinePermissionsToolStripMenuItem.Click += new System.EventHandler(this.machinePermissionsToolStripMenuItem_Click);
 			// 
 			// MainMembers
 			// 
@@ -907,6 +916,7 @@
 		private System.Windows.Forms.ToolStripMenuItem printRosterToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem syncToQBToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem compareToQBToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem machinePermissionsToolStripMenuItem;
 	}
 }
 

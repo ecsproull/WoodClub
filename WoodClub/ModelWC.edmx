@@ -194,6 +194,7 @@ warning 6002: The table/view 'WoodClub.dbo.BadgeCodes' does not have a primary k
           <Property Name="Monitor_Arrive_SCW" Type="varchar" MaxLength="50" />
           <Property Name="Monitor_Depart_SCW" Type="varchar" MaxLength="50" />
           <Property Name="Monitor_Secret" Type="varchar" MaxLength="50" />
+          <Property Name="Monitor_Class_Contact" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -458,6 +459,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="Monitor_Arrive_SCW" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Monitor_Depart_SCW" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Monitor_Secret" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Monitor_Class_Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -732,6 +734,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySetMapping Name="MonitorParams">
             <EntityTypeMapping TypeName="WoodClubModel.MonitorParam">
               <MappingFragment StoreEntitySet="MonitorParams">
+                <ScalarProperty Name="Monitor_Class_Contact" ColumnName="Monitor_Class_Contact" />
                 <ScalarProperty Name="Monitor_ID" ColumnName="Monitor_ID" />
                 <ScalarProperty Name="Monitor_Badge" ColumnName="Monitor_Badge" />
                 <ScalarProperty Name="Monitor_Preferred_Contact" ColumnName="Monitor_Preferred_Contact" />
