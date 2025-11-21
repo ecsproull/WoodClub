@@ -19,8 +19,7 @@ namespace WoodClub
 		/// </summary>
 		public async void PostMembersToGoDaddy()
 		{
-			//https://edstestsite.site/wp-json/scwmembers/v1/members
-			using (HttpClient client = new HttpClient())
+            using (HttpClient client = new HttpClient())
 			{
 				var contentType = new MediaTypeWithQualityHeaderValue("application/json");
 				var baseAddress = "https://scwwoodshop.com";
@@ -90,12 +89,116 @@ namespace WoodClub
 			}
 		}
 
-		/// <summary>
-		/// Data structure used to pass data to GoDaddy.
-		/// These data structures have to match what is expected on the server.
-		/// Don't fuck with this unless you really know what you are doing!
-		/// </summary>
-		private class PermsData
+        /// <summary>
+        /// Send member photos as individual multipart/form-data requests.
+        /// Server endpoint should accept: key, badge (string fields) and photo (file field).
+        /// </summary>
+        public async void PostMemberPhotosMultipart()
+        {
+            var confirm = MessageBox.Show(
+			"Upload member photos to the website now? This takes about 40 minutes to run and the app must stay open. Photos are seen and used by administrators only.",
+			"Confirm Upload",
+			MessageBoxButtons.YesNo,
+			MessageBoxIcon.Question,
+			MessageBoxDefaultButton.Button2);
+
+			if (confirm == DialogResult.No)
+			{
+				return;
+			}
+            var baseAddress = "https://scwwoodshop.com";
+            //var baseAddress = "https://woodclubtest.site";
+			string apiPath = "/wp-json/scwmembers/v1/photos";
+
+            using (HttpClient client = new HttpClient { BaseAddress = new Uri(baseAddress) })
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // build members list (same selection you already use)
+                using (WoodClubEntities context = new WoodClubEntities())
+                {
+                    var members = (from m in context.MemberRosters
+                                   where m.ClubDuesPaid == true && m.Badge != "20001"
+                                   select m).OrderBy(o => o.Badge).ToArray();
+
+                    foreach (var dbMember in members)
+                    {
+                        // skip empty photos
+                        if (dbMember.Photo == null || dbMember.Photo.Length == 0)
+                        continue;
+
+                        using (var content = new MultipartFormDataContent())
+                        {
+                            // required fields
+                            content.Add(new StringContent("8c62a157-7ee8-4104-9f91-930eac39fe2f"), "key");
+                            content.Add(new StringContent(dbMember.Badge ?? ""), "badge");
+                            // optional metadata
+                            content.Add(new StringContent(dbMember.Email ?? ""), "email");
+                            // file part
+                            var mime = GetImageMimeType(dbMember.Photo) ?? "application/octet-stream";
+                            var fileContent = new ByteArrayContent(dbMember.Photo);
+                            fileContent.Headers.ContentType = new MediaTypeHeaderValue(mime);
+                            // field name "photo" (server expects this). filename helps server treat it as file
+                            var ext = GetExtensionForMime(mime);
+                            content.Add(fileContent, "photo", $"{dbMember.Badge}{ext}");
+
+                            try
+                            {
+                                var resp = await client.PostAsync(apiPath, content);
+                                var respBody = await resp.Content.ReadAsStringAsync();
+								Console.WriteLine($"Uploaded photo for {dbMember.Badge}, response: {(int)resp.StatusCode} {resp.ReasonPhrase}");
+                                if (!resp.IsSuccessStatusCode)
+                                {
+                                    // Log or show server error for this member
+                                    MessageBox.Show($"Photo upload failed for {dbMember.Badge}: {(int)resp.StatusCode} {resp.ReasonPhrase}\n{respBody}");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Network error uploading photo for {dbMember.Badge}: {ex.Message}");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Try to detect basic image mime type from the leading bytes.
+        /// </summary>
+        private static string GetImageMimeType(byte[] bytes)
+        {
+            if (bytes == null || bytes.Length < 4) return null;
+            // JPEG FF D8
+            if (bytes[0] == 0xFF && bytes[1] == 0xD8) return "image/jpeg";
+            // PNG 89 50 4E 47
+            if (bytes[0] == 0x89 && bytes[1] == 0x50 && bytes[2] == 0x4E && bytes[3] == 0x47) return "image/png";
+            // GIF "GIF8"
+            if (bytes[0] == 0x47 && bytes[1] == 0x49 && bytes[2] == 0x46) return "image/gif";
+            // BMP "BM"
+            if (bytes[0] == 0x42 && bytes[1] == 0x4D) return "image/bmp";
+            // fallback
+            return null;
+        }
+
+        private static string GetExtensionForMime(string mime)
+        {
+            switch (mime)
+            {
+                case "image/jpeg": return ".jpg";
+                case "image/png": return ".png";
+                case "image/gif": return ".gif";
+                case "image/bmp": return ".bmp";
+                default: return ".bin";
+            }
+        }
+
+        /// <summary>
+        /// Data structure used to pass data to GoDaddy.
+        /// These data structures have to match what is expected on the server.
+        /// Don't fuck with this unless you really know what you are doing!
+        /// </summary>
+        private class PermsData
 		{
 			/// <summary>
 			/// The key

@@ -759,5 +759,11 @@ namespace WoodClub
 			PermissionsReport pr = new PermissionsReport();
 			pr.ShowDialog();
 		}
-	}
+
+        private void updatePhotosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PostToGoDaddy postToGoDaddy = new PostToGoDaddy();
+            postToGoDaddy.PostMemberPhotosMultipart();
+        }
+    }
 }
