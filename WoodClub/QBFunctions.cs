@@ -1,6 +1,7 @@
 ﻿using Interop.QBXMLRP2;
 using System;
 using System.Collections.Generic;
+using System.Web.Configuration;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Xml;
@@ -157,6 +158,8 @@ namespace WoodClub
 			customerAdd.AppendChild(xmlDoc.CreateElement("Phone")).InnerText = newMember.Phone;
 			customerAdd.AppendChild(xmlDoc.CreateElement("Fax")).InnerText = newMember.Badge;
 			customerAdd.AppendChild(xmlDoc.CreateElement("Email")).InnerText = newMember.Email;
+
+			customerAdd.AppendChild(xmlDoc.CreateElement("PreferredDeliveryMethod")).InnerText = "Email";
 
 			XmlElement customerTypeRef = xmlDoc.CreateElement("CustomerTypeRef");
 			customerTypeRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "Club Member:X06F";
@@ -473,6 +476,230 @@ namespace WoodClub
 			{
 				MessageBox.Show(e.Message);
 				return null;
+			}
+		}
+
+		// Build CustomerTypeQueryRq to check for existing CustomerType by full name.
+		public string buildCustomerTypeQueryRqXML(string fullName)
+		{
+			XmlDocument xmlDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+			XmlElement ctQueryRq = xmlDoc.CreateElement("CustomerTypeQueryRq");
+			qbXMLMsgsRq.AppendChild(ctQueryRq);
+
+			if (!string.IsNullOrEmpty(fullName))
+			{
+				XmlElement fullNameElement = xmlDoc.CreateElement("FullName");
+				ctQueryRq.AppendChild(fullNameElement).InnerText = fullName;
+			}
+
+			ctQueryRq.SetAttribute("requestID", "1");
+			return xmlDoc.OuterXml;
+		}
+
+		// Quick check: returns true if CustomerTypeRet exists in response XML.
+		private bool parseCustomerTypeQueryRsHasMatch(string xml)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(xml)) return false;
+				XmlDocument doc = new XmlDocument();
+				doc.LoadXml(xml);
+				XmlNode node = doc.SelectSingleNode("//CustomerTypeRet");
+				return node != null;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		// Build CustomerTypeAddRq XML. Provide parentFullName when creating a child.
+		public string buildCustomerTypeAddRqXML(string name, string parentFullName = null)
+		{
+			XmlDocument xmlDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+			XmlElement ctAddRq = xmlDoc.CreateElement("CustomerTypeAddRq");
+			qbXMLMsgsRq.AppendChild(ctAddRq);
+			XmlElement ctAdd = xmlDoc.CreateElement("CustomerTypeAdd");
+			ctAddRq.AppendChild(ctAdd);
+
+			ctAdd.AppendChild(xmlDoc.CreateElement("Name")).InnerText = name;
+
+			if (!string.IsNullOrEmpty(parentFullName))
+			{
+				XmlElement parentRef = xmlDoc.CreateElement("ParentRef");
+				parentRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = parentFullName;
+				ctAdd.AppendChild(parentRef);
+			}
+
+			return xmlDoc.OuterXml;
+		}
+
+		// Ensure a hierarchical CustomerType (e.g. "Club Member:M00-X11") exists.
+		// Returns true if the type exists or was successfully created.
+		// Requires an active session (connectToQB called).6
+		public bool EnsureCustomerTypeExists(string fullName)
+		{
+			if (string.IsNullOrWhiteSpace(fullName)) return false;
+
+			// Walk cumulative path: "A:B:C" => ensure "A", then "A:B", then "A:B:C"
+			string parentFull = null;
+			string[] parts = fullName.Split(':');
+			foreach (string part in parts)
+			{
+				string cumulative = parentFull == null ? part : parentFull + ":" + part;
+
+				// Query cumulative full name
+				string queryXml = buildCustomerTypeQueryRqXML(cumulative);
+				string queryResp = processRequestFromQB(queryXml);
+				if (parseCustomerTypeQueryRsHasMatch(queryResp))
+				{
+					parentFull = cumulative;
+					continue;
+				}
+
+				// Not found: add node (name = part) with ParentRef = parentFull (if any)
+				string addXml = buildCustomerTypeAddRqXML(part, parentFull);
+				string addResp = processRequestFromQB(addXml);
+
+				// Confirm it exists now
+				string confirmResp = processRequestFromQB(queryXml);
+				if (!parseCustomerTypeQueryRsHasMatch(confirmResp))
+				{
+					// creation failed - you can inspect addResp for QB error details if needed
+					return false;
+				}
+
+				parentFull = cumulative;
+			}
+
+			return true;
+		}
+
+
+		// Returns true when the customer (identified by badge = FullName) has an Email on file
+		// and the PreferredDeliveryMethod is NOT set to Email (so an update is needed).
+		// Use manageSession=false when you already called connectToQB() for a batch operation.
+		public bool NeedsPreferredDeliveryMethodUpdate(string badge, bool manageSession = true)
+		{
+			if (string.IsNullOrWhiteSpace(badge)) return false;
+			if (manageSession) connectToQB();
+			try
+			{
+				// Query both Email and PreferredDeliveryMethod in one request
+				var xml = buildCustomerQueryRqXML(
+					new string[] { "Email", "PreferredDeliveryMethod" },
+					badge, "", "", "", false);
+
+				var resp = processRequestFromQB(xml);
+				if (string.IsNullOrEmpty(resp)) return false;
+
+				try
+				{
+					var doc = new XmlDocument();
+					doc.LoadXml(resp);
+
+					var emailNode = doc.SelectSingleNode("//CustomerRet/Email");
+					var prefNode = doc.SelectSingleNode("//CustomerRet/PreferredDeliveryMethod");
+
+					string email = emailNode?.InnerText?.Trim();
+					string pref = prefNode?.InnerText?.Trim();
+
+					bool hasEmail = !string.IsNullOrWhiteSpace(email);
+
+					// Treat common QB literals as Email preference. Be tolerant of "E-Mail" or any string containing "mail".
+					bool isEmailPref = false;
+					if (!string.IsNullOrWhiteSpace(pref))
+					{
+						if (string.Equals(pref, "Email", StringComparison.OrdinalIgnoreCase) ||
+							string.Equals(pref, "E-Mail", StringComparison.OrdinalIgnoreCase) ||
+							pref.IndexOf("mail", StringComparison.OrdinalIgnoreCase) >= 0)
+						{
+							isEmailPref = true;
+						}
+					}
+
+					// Needs update when there's a main email and the pref is not already Email
+					return hasEmail && !isEmailPref;
+				}
+				catch
+				{
+					// If parsing fails, be conservative and return false
+					return false;
+				}
+			}
+			finally
+			{
+				if (manageSession) disconnectFromQB();
+			}
+		}
+
+		// Set PreferredDeliveryMethod for the customer identified by badge (FullName).
+		// preferredMethod should be the QB literal (e.g. "Email", "Print", "None").
+		// If manageSession is true this method will open/close the QB session; set false if caller already connected.
+		public bool SetCustomerPreferredDeliveryMethod(string badge, string preferredMethod, bool manageSession = true)
+		{
+			if (string.IsNullOrWhiteSpace(badge)) return false;
+			if (string.IsNullOrWhiteSpace(preferredMethod)) return false;
+
+			if (manageSession) connectToQB();
+			try
+			{
+				// get ListID/EditSequence
+				string queryXml = buildCustomerQueryRqXML(new string[] { "ListID", "EditSequence" }, badge, "", "", "", false);
+				string queryResp = processRequestFromQB(queryXml);
+				CustomerIdData cid;
+				try
+				{
+					cid = parseCustomerQueryRsShort(queryResp);
+				}
+				catch
+				{
+					return false;
+				}
+				if (string.IsNullOrEmpty(cid.ListId) || string.IsNullOrEmpty(cid.EditSequence)) return false;
+
+				// build CustomerMod with PreferredDeliveryMethod
+				XmlDocument xmlDoc = new XmlDocument();
+				XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+				qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+
+				XmlElement customerModRq = xmlDoc.CreateElement("CustomerModRq");
+				qbXMLMsgsRq.AppendChild(customerModRq);
+				XmlElement customerMod = xmlDoc.CreateElement("CustomerMod");
+				customerModRq.AppendChild(customerMod);
+
+				customerMod.AppendChild(xmlDoc.CreateElement("ListID")).InnerText = cid.ListId;
+				customerMod.AppendChild(xmlDoc.CreateElement("EditSequence")).InnerText = cid.EditSequence;
+
+				// set PreferredDeliveryMethod (QB expects the literal)
+				customerMod.AppendChild(xmlDoc.CreateElement("PreferredDeliveryMethod")).InnerText = preferredMethod;
+
+				string req = xmlDoc.OuterXml;
+				string resp = processRequestFromQB(req);
+
+				// check response status code on CustomerModRs
+				try
+				{
+					var doc = new XmlDocument();
+					doc.LoadXml(resp);
+					var rs = doc.SelectSingleNode("//CustomerModRs");
+					if (rs != null && rs.Attributes != null)
+					{
+						var sc = rs.Attributes["statusCode"];
+						return sc != null && sc.Value == "0";
+					}
+				}
+				catch { /* ignore parse error */ }
+
+				return false;
+			}
+			finally
+			{
+				if (manageSession) disconnectFromQB();
 			}
 		}
 

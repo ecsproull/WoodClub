@@ -38,6 +38,7 @@ namespace WoodClub.Forms
 					{
 						int count = 0;
 						List<MemberRoster> members = (from m in context.MemberRosters
+													  where m.Badge == "5084"
 													  select m).ToList();
 
 						foreach (MemberRoster member in members)
@@ -60,6 +61,7 @@ namespace WoodClub.Forms
 								int lockerCount = 0;
 								foreach (Locker locker in lockers)
 								{
+									customerType += '-' + lockerItemMap[locker.Code];
 									if (lockerCount++ == 0)
 									{
 										lockerText = locker.LockerTitle;
@@ -104,6 +106,13 @@ namespace WoodClub.Forms
 							if (string.IsNullOrEmpty(customerIdData.ListId) || string.IsNullOrEmpty(customerIdData.EditSequence))
 							{
 								MessageBox.Show("CustomerFailed : " + tuple.Item1);
+								continue;
+							}
+
+							if (!qbf.EnsureCustomerTypeExists(tuple.Item2))
+							{
+								MessageBox.Show($"Customer type '{tuple.Item2}' not available in QuickBooks and could not be created. Skipping {tuple.Item1.Badge}.");
+								syncProgressBar.PerformStep();
 								continue;
 							}
 

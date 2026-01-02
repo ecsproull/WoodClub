@@ -305,29 +305,54 @@ namespace WoodClub
 		private void DeleteMemberItemClick(object sender, EventArgs e)
 		{
 			int id;
-			DialogResult dialogResult = MessageBox.Show("Confirm Delete?", "Item", MessageBoxButtons.YesNo);
-			if (dialogResult == DialogResult.Yes)
+			var current = bsMembers.Current as MemberRoster;
+			if (current == null)
 			{
-				MemberRoster mr = (MemberRoster)bsMembers.Current;
-				id = mr.id;
+				MessageBox.Show("No member selected.");
+				return;
+			}
 
-				bsMembers.EndEdit();
-				bsMembers.RemoveCurrent();
-				using (WoodClubEntities context = new WoodClubEntities())
+			id = current.id;
+			bsMembers.EndEdit();
+
+			using (WoodClubEntities context = new WoodClubEntities())
+			{
+				try
 				{
-					string cmd = "delete from MemberRoster where id=" + id.ToString();
-					try
+					// re-load the member from the database to get the latest Locker value
+					var memberInDb = context.MemberRosters.SingleOrDefault(m => m.id == id);
+					if (memberInDb == null)
 					{
-						context.Database.ExecuteSqlCommand(cmd);
-
-						bsMembers.ResetCurrentItem();
-						LoadMembers();
+						MessageBox.Show("Member not found in database.");
+						return;
 					}
-					catch (Exception ex)
+
+					// Prevent deletion if Locker is not empty
+					if (!string.IsNullOrWhiteSpace(memberInDb.Locker))
 					{
-						log.Error("Update failed..", ex);
-
+						MessageBox.Show($"Cannot delete member. Locker '{memberInDb.Locker}' is assigned. Release the locker before deleting.");
+						return;
 					}
+
+					DialogResult dialogResult = MessageBox.Show("Confirm Delete?", "Item", MessageBoxButtons.YesNo);
+					if (dialogResult != DialogResult.Yes)
+					{
+						return;
+					}
+
+					// safe to delete
+					context.MemberRosters.Remove(memberInDb);
+					context.SaveChanges();
+
+					// update UI after successful DB delete
+					bsMembers.RemoveCurrent();
+					bsMembers.ResetCurrentItem();
+					LoadMembers();
+				}
+				catch (Exception ex)
+				{
+					log.Error("Delete failed..", ex);
+					MessageBox.Show("Delete failed: " + ex.Message);
 				}
 			}
 		}
@@ -765,5 +790,28 @@ namespace WoodClub
             PostToGoDaddy postToGoDaddy = new PostToGoDaddy();
             postToGoDaddy.PostMemberPhotosMultipart();
         }
-    }
+
+		private void setEmailPrefInQBToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			QBFunctions qbf = new QBFunctions();
+			qbf.connectToQB();
+
+			using (WoodClubEntities context = new WoodClubEntities())
+			{
+				List<MemberRoster> allmembers = (from m in context.MemberRosters
+												 where m.ClubDuesPaid == true && m.Badge != "20001"
+												 select m).ToList();
+				List<MemberRFcard> members = new List<MemberRFcard>();
+				foreach (MemberRoster m in allmembers)
+				{
+					if (qbf.NeedsPreferredDeliveryMethodUpdate(m.Badge, false))
+					{
+						qbf.SetCustomerPreferredDeliveryMethod(m.Badge, "Email", false);
+					}
+				}
+			}
+
+			qbf.disconnectFromQB();
+		}
+	}
 }
