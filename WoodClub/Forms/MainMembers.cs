@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SendGrid.Helpers.Mail;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -348,6 +349,28 @@ namespace WoodClub
 					bsMembers.RemoveCurrent();
 					bsMembers.ResetCurrentItem();
 					LoadMembers();
+
+						// Delete succeeded - send notification email asynchronously
+					Task.Run(async () =>
+					{
+						try
+						{
+							SendMail sm = new SendMail();
+							string message = $"Member {memberInDb.FirstName} {memberInDb.LastName} (Badge: {memberInDb.Badge}) has been deleted from the Shop database.";
+							List<EmailAddress> recpts = new List<EmailAddress>
+							{
+								new EmailAddress("treasurer@scwwoodshop.com", "Woodclub Treasurer"),
+								new EmailAddress("ecsproull765@gmail.com", "Woodclub Admin")
+							};
+							await sm.SendMailAsync("Member Deleted from Shop DB", message, recpts);
+							log.Info($"Deletion notification email sent for badge {memberInDb.Badge}");
+						}
+						catch (Exception ex)
+						{
+							log.Error($"Failed to send deletion notification email for badge {memberInDb.Badge}", ex);
+							// Don't show MessageBox here - we're on a background thread
+						}
+					});
 				}
 				catch (Exception ex)
 				{

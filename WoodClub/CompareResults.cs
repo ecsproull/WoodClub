@@ -12,5 +12,7 @@ namespace WoodClub
 		public string First { get; set; }
 		public string Last { get; set; }
 		public string OnlyDb { get; set; }
+		public string OpenInvoices { get; set; }
+		public string Balance { get; set; }
 	}
 }

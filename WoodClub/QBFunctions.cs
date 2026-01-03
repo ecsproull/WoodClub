@@ -26,6 +26,97 @@ namespace WoodClub
 			return count;
 		}
 
+		/// <summary>
+		/// Builds the XML request to delete an invoice from QuickBooks.
+		/// </summary>
+		public string buildInvoiceDeleteRqXML(string txnID, string editSequence)
+		{
+			XmlDocument xmlDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+			
+			XmlElement invoiceDelRq = xmlDoc.CreateElement("TxnDelRq");
+			qbXMLMsgsRq.AppendChild(invoiceDelRq);
+			
+			invoiceDelRq.AppendChild(xmlDoc.CreateElement("TxnDelType")).InnerText = "Invoice";
+			invoiceDelRq.AppendChild(xmlDoc.CreateElement("TxnID")).InnerText = txnID;
+			
+			return xmlDoc.OuterXml;
+		}
+
+		/// <summary>
+		/// Builds the XML request to set a customer as inactive in QuickBooks.
+		/// </summary>
+		public string buildCustomerSetInactiveRqXML(string badge)
+		{
+			if (string.IsNullOrWhiteSpace(badge)) return null;
+			
+			// First get the customer's ListID and EditSequence
+			string queryXml = buildCustomerQueryRqXML(
+				new string[] { "ListID", "EditSequence" }, 
+				badge, 
+				string.Empty, 
+				string.Empty, 
+				string.Empty, 
+				false);
+			
+			string queryResp = processRequestFromQB(queryXml);
+			CustomerIdData cid;
+			try
+			{
+				cid = parseCustomerQueryRsShort(queryResp);
+			}
+			catch
+			{
+				return null;
+			}
+			
+			if (string.IsNullOrEmpty(cid.ListId) || string.IsNullOrEmpty(cid.EditSequence))
+				return null;
+			
+			// Build the CustomerMod request to set IsActive = false
+			XmlDocument xmlDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+			
+			XmlElement customerModRq = xmlDoc.CreateElement("CustomerModRq");
+			qbXMLMsgsRq.AppendChild(customerModRq);
+			
+			XmlElement customerMod = xmlDoc.CreateElement("CustomerMod");
+			customerModRq.AppendChild(customerMod);
+			
+			customerMod.AppendChild(xmlDoc.CreateElement("ListID")).InnerText = cid.ListId;
+			customerMod.AppendChild(xmlDoc.CreateElement("EditSequence")).InnerText = cid.EditSequence;
+			customerMod.AppendChild(xmlDoc.CreateElement("IsActive")).InnerText = "false";
+			
+			return xmlDoc.OuterXml;
+		}
+
+		// Parse QBXML error details if present and return a concise message, otherwise empty string
+		public string ParseQbError(string xml)
+		{
+			if (string.IsNullOrEmpty(xml)) return string.Empty;
+			try
+			{
+				XmlDocument doc = new XmlDocument();
+				doc.LoadXml(xml);
+				XmlNode errNode = doc.SelectSingleNode("//QBXML/QBXMLMsgsRs/*[contains(name(), 'Rs')]/Error");
+				if (errNode == null)
+				{
+					// some responses put Error directly under QBXMLMsgsRs
+					errNode = doc.SelectSingleNode("//QBXMLMsgsRs/Error");
+				}
+				if (errNode != null)
+				{
+					string code = getInnerText(errNode.SelectSingleNode("ErrorCode"));
+					string msg = getInnerText(errNode.SelectSingleNode("Description"));
+					return $"Code={code}; Msg={msg}";
+				}
+			}
+			catch { }
+			return string.Empty;
+		}
+
 		public virtual string buildDataCountQuery(string request)
 		{
 			string input = "";
@@ -105,13 +196,18 @@ namespace WoodClub
 		string fullName,
 		string status,
 		string balanceFilter,
-		string balanceAmount)
+		string balanceAmount,
+		bool includeOpenInvoices = false,
+		bool connectToQuickBooks = true)
 		{
 			List<CustomerData> customerData = new List<CustomerData>();
 			string request = "CustomerQueryRq";
 			try
 			{
-				connectToQB();
+				if (connectToQuickBooks)
+				{
+					connectToQB();
+				}
 				int count = getCount(request);
 				string xml = buildCustomerQueryRqXML(
 					new string[] { "FullName", "FirstName", "LastName", "Balance", "AccountNumber", "CustomerTypeRef", "DataExtRet" },
@@ -120,9 +216,38 @@ namespace WoodClub
 					balanceFilter,
 					balanceAmount);
 				string response = processRequestFromQB(xml);
-				customerData = parseCustomerQueryRs(response);
+			customerData = parseCustomerQueryRs(response);
+
+			if (includeOpenInvoices && customerData != null && customerData.Count > 0)
+			{
+				// For each customer, query for unpaid/open invoices
+				foreach (var cd in customerData)
+				{
+					try
+					{
+						 string invQuery = buildInvoiceQueryRqXML(cd.FullName);
+						string invResp = processRequestFromQB(invQuery);
+						// check for QB errors
+						string qberr = ParseQbError(invResp);
+						if (!string.IsNullOrEmpty(qberr))
+						{
+							MessageBox.Show($"Invoice query failed for {cd.FullName}: {qberr}");
+							cd.OpenInvoices = new List<InvoiceData>();
+							continue;
+						}
+						var invoices = parseInvoiceQueryRs(invResp);
+						cd.OpenInvoices = invoices ?? new List<InvoiceData>();
+					}
+					catch { /* continue on invoice parse errors */ }
+				}
+			}
 			}
 			catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+			if (connectToQuickBooks)
+			{
+				disconnectFromQB();
+			}
 
 			return customerData;
 		}
@@ -171,6 +296,69 @@ namespace WoodClub
 
 			xml = xmlDoc.OuterXml;
 			return xml;
+		}
+
+	/// <summary>
+	/// Build an InvoiceQueryRq for unpaid/open invoices for a customer FullName
+	/// </summary>
+	public string buildInvoiceQueryRqXML(string customerFullName)
+	{
+		XmlDocument xmlDoc = new XmlDocument();
+		XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+		qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+		XmlElement invQueryRq = xmlDoc.CreateElement("InvoiceQueryRq");
+		qbXMLMsgsRq.AppendChild(invQueryRq);
+
+		// Filter by customer full name using EntityFilter
+		if (!string.IsNullOrEmpty(customerFullName))
+		{
+			XmlElement entityFilter = xmlDoc.CreateElement("EntityFilter");
+			invQueryRq.AppendChild(entityFilter);
+			XmlElement fullName = xmlDoc.CreateElement("FullName");
+			entityFilter.AppendChild(fullName).InnerText = customerFullName;
+		}
+
+		// Only return unpaid invoices
+		XmlElement paidStatus = xmlDoc.CreateElement("PaidStatus");
+		invQueryRq.AppendChild(paidStatus).InnerText = "NotPaidOnly";
+
+		invQueryRq.SetAttribute("requestID", "1");
+		return xmlDoc.OuterXml;
+	}
+
+		private List<InvoiceData> parseInvoiceQueryRs(string xml)
+		{
+			var list = new List<InvoiceData>();
+			if (string.IsNullOrEmpty(xml)) return list;
+			try
+			{
+				XmlDocument doc = new XmlDocument();
+				doc.LoadXml(xml);
+				// Check for QBXML errors
+				var qbErr = ParseQbError(xml);
+				if (!string.IsNullOrEmpty(qbErr))
+				{
+					// throw with detail so caller can handle/log it
+					throw new Exception("QB Error: " + qbErr);
+				}
+				XmlNodeList invNodes = doc.SelectNodes("//InvoiceRet");
+				foreach (XmlNode ivn in invNodes)
+				{
+					InvoiceData ivd = new InvoiceData();
+					ivd.TxnID = getInnerText(ivn.SelectSingleNode("TxnID"));
+					ivd.EditSequence = getInnerText(ivn.SelectSingleNode("EditSequence"));
+					ivd.Badge = getInnerText(ivn.SelectSingleNode("CustomerRef/FullName"));
+					ivd.Subtotal = getInnerText(ivn.SelectSingleNode("Subtotal"));
+					ivd.BalanceRemaining = getInnerText(ivn.SelectSingleNode("BalanceRemaining"));
+					ivd.DueDate = getInnerText(ivn.SelectSingleNode("DueDate"));
+					list.Add(ivd);
+				}
+			}
+			catch
+			{
+				// ignore parse errors, return what we have
+			}
+			return list;
 		}
 
 		/// <summary>
@@ -468,9 +656,27 @@ namespace WoodClub
 		/// <returns></returns>
 		public string processRequestFromQB(string request)
 		{
+			// Validate that the outgoing request is well-formed XML before sending.
+			try
+			{
+				var doc = new XmlDocument();
+				doc.LoadXml(request);
+			}
+			catch (Exception xmlEx)
+			{
+				MessageBox.Show("Request XML is not well-formed: " + xmlEx.Message + "\nRequest:\n" + request);
+				return null;
+			}
+
 			try
 			{
 				return requestProcessor.ProcessRequest(sessionTicket, request);
+			}
+			catch (System.Runtime.InteropServices.COMException ce)
+			{
+				// Surface COM error details and include the outgoing XML to aid debugging.
+				MessageBox.Show($"QuickBooks COM error parsing request: {ce.Message}\nErrorCode=0x{ce.ErrorCode:X}\nRequest:\n" + request);
+				return null;
 			}
 			catch (Exception e)
 			{
