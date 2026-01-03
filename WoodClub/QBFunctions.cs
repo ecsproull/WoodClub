@@ -1,6 +1,7 @@
 ﻿using Interop.QBXMLRP2;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Configuration;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -909,5 +910,168 @@ namespace WoodClub
 			}
 		}
 
+		/// <summary>
+		/// Builds an InvoiceQueryRq to find invoices containing a specific item within a date range
+		/// </summary>
+		/// <param name="itemFullName">Item name to search for (e.g., "X06")</param>
+		/// <param name="fromDate">Start date for the search</param>
+		/// <param name="toDate">End date for the search</param>
+		/// <param name="paidStatus">Optional: filter by paid status (PaidOnly, NotPaidOnly, or null for all)</param>
+		/// <returns>QBXML request string</returns>
+		public string buildInvoiceQueryByItemRqXML(string itemFullName, DateTime fromDate, DateTime toDate, string paidStatus = null)
+		{
+			XmlDocument xmlDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+
+			XmlElement invQueryRq = xmlDoc.CreateElement("InvoiceQueryRq");
+			qbXMLMsgsRq.AppendChild(invQueryRq);
+
+			// Add date range filter
+			XmlElement txnDateRangeFilter = xmlDoc.CreateElement("TxnDateRangeFilter");
+			invQueryRq.AppendChild(txnDateRangeFilter);
+
+			XmlElement fromDateElem = xmlDoc.CreateElement("FromTxnDate");
+			fromDateElem.InnerText = fromDate.ToString("yyyy-MM-dd");
+			txnDateRangeFilter.AppendChild(fromDateElem);
+
+			XmlElement toDateElem = xmlDoc.CreateElement("ToTxnDate");
+			toDateElem.InnerText = toDate.ToString("yyyy-MM-dd");
+			txnDateRangeFilter.AppendChild(toDateElem);
+
+			// Filter by paid status if specified
+			if (!string.IsNullOrEmpty(paidStatus))
+			{
+				XmlElement paidStatusElem = xmlDoc.CreateElement("PaidStatus");
+				invQueryRq.AppendChild(paidStatusElem).InnerText = paidStatus;
+			}
+
+			XmlElement includeLineItems = xmlDoc.CreateElement("IncludeLineItems");
+			invQueryRq.AppendChild(includeLineItems).InnerText = "true";
+
+			// Note: QBXML doesn't support filtering by line item in the query itself
+			// You'll need to filter results in code after retrieving them
+
+			invQueryRq.SetAttribute("requestID", "1");
+			return xmlDoc.OuterXml;
+		}
+
+		/// <summary>
+		/// Gets summary statistics for invoices containing a specific item
+		/// </summary>
+		/// <param name="itemFullName">Item to search for (e.g., "X06")</param>
+		/// <param name="fromDate">Start date</param>
+		/// <param name="toDate">End date</param>
+		/// <returns>Dictionary with statistics</returns>
+		public Dictionary<string, object> GetInvoiceStatsByItem(string itemFullName, DateTime fromDate, DateTime toDate)
+		{
+			connectToQB();
+
+			try
+			{
+				// Query all invoices in the date range
+				string queryXml = buildInvoiceQueryByItemRqXML(itemFullName, fromDate, toDate);
+				string response = processRequestFromQB(queryXml);
+
+				if (string.IsNullOrEmpty(response))
+					return null;
+
+				// Parse response and filter by item
+				var allInvoices = parseInvoiceQueryRs(response);
+				var matchingInvoices = FilterInvoicesByItem(response, itemFullName);
+
+				// Calculate statistics
+				int totalInvoices = matchingInvoices.Count;
+				int paidInvoices = matchingInvoices.Count(inv =>
+					string.IsNullOrEmpty(inv.BalanceRemaining) ||
+					Convert.ToDouble(inv.BalanceRemaining) == 0);
+				int unpaidInvoices = totalInvoices - paidInvoices;
+
+				double totalBilled = 0;
+				double totalPaid = 0;
+				double totalUnpaid = 0;
+
+				foreach (var inv in matchingInvoices)
+				{
+					double subtotal = string.IsNullOrEmpty(inv.Subtotal) ? 0 : Convert.ToDouble(inv.Subtotal);
+					double balance = string.IsNullOrEmpty(inv.BalanceRemaining) ? 0 : Convert.ToDouble(inv.BalanceRemaining);
+
+					totalBilled += subtotal;
+					totalUnpaid += balance;
+					totalPaid += (subtotal - balance);
+				}
+
+				return new Dictionary<string, object>
+		{
+			{ "TotalInvoices", totalInvoices },
+			{ "PaidInvoices", paidInvoices },
+			{ "UnpaidInvoices", unpaidInvoices },
+			{ "TotalBilled", totalBilled },
+			{ "TotalPaid", totalPaid },
+			{ "TotalUnpaid", totalUnpaid },
+			{ "Invoices", matchingInvoices }
+		};
+			}
+			finally
+			{
+				disconnectFromQB();
+			}
+		}
+
+		/// <summary>
+		/// Filters parsed invoices to only those containing a specific item
+		/// </summary>
+		private List<InvoiceData> FilterInvoicesByItem(string invoiceQueryResponseXml, string itemFullName)
+		{
+			var filteredList = new List<InvoiceData>();
+
+			if (string.IsNullOrEmpty(invoiceQueryResponseXml))
+				return filteredList;
+
+			try
+			{
+				XmlDocument doc = new XmlDocument();
+				doc.LoadXml(invoiceQueryResponseXml);
+
+				XmlNodeList invNodes = doc.SelectNodes("//InvoiceRet");
+
+				foreach (XmlNode invNode in invNodes)
+				{
+					// Check if this invoice contains the specified item
+					XmlNodeList lineItems = invNode.SelectNodes(".//InvoiceLineRet");
+					bool hasMatchingItem = false;
+
+					foreach (XmlNode lineItem in lineItems)
+					{
+						XmlNode itemRefNode = lineItem.SelectSingleNode("ItemRef/FullName");
+						if (itemRefNode != null && itemRefNode.InnerText == itemFullName)
+						{
+							hasMatchingItem = true;
+							break;
+						}
+					}
+
+					if (hasMatchingItem)
+					{
+						// Parse this invoice
+						InvoiceData ivd = new InvoiceData();
+						ivd.TxnID = getInnerText(invNode.SelectSingleNode("TxnID"));
+						ivd.EditSequence = getInnerText(invNode.SelectSingleNode("EditSequence"));
+						ivd.Badge = getInnerText(invNode.SelectSingleNode("CustomerRef/FullName"));
+						ivd.Subtotal = getInnerText(invNode.SelectSingleNode("Subtotal"));
+						ivd.BalanceRemaining = getInnerText(invNode.SelectSingleNode("BalanceRemaining"));
+						ivd.DueDate = getInnerText(invNode.SelectSingleNode("DueDate"));
+
+						filteredList.Add(ivd);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error filtering invoices by item: " + ex.Message);
+			}
+
+			return filteredList;
+		}
 	}
 }

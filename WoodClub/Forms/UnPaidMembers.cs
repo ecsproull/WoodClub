@@ -258,5 +258,50 @@ namespace WoodClub
 		{
 			UpdatePaidDataBase();
 		}
+
+		private void CheckX06InvoiceStatus()
+		{
+			QBFunctions qbf = new QBFunctions();
+
+			try
+			{
+				// Query invoices from December 28, 2025 to January 5, 2026 to catch any issued around Jan 1
+				DateTime fromDate = new DateTime(2025, 12, 31);
+				DateTime toDate = new DateTime(2026, 1, 2);
+
+				var stats = qbf.GetInvoiceStatsByItem("X06", fromDate, toDate);
+
+				if (stats != null)
+				{
+					string summary = $"2026 Club Dues (X06) Invoice Status:\n\n" +
+									$"Total Invoices Issued: {stats["TotalInvoices"]}\n" +
+									$"Paid: {stats["PaidInvoices"]}\n" +
+									$"Unpaid: {stats["UnpaidInvoices"]}\n\n" +
+									$"Total Billed: ${stats["TotalBilled"]:F2}\n" +
+									$"Total Paid: ${stats["TotalPaid"]:F2}\n" +
+									$"Total Outstanding: ${stats["TotalUnpaid"]:F2}";
+
+					MessageBox.Show(summary, "X06 Invoice Status");
+
+					// Optionally populate a grid with the individual invoices
+					var invoices = stats["Invoices"] as List<InvoiceData>;
+					if (invoices != null)
+					{
+						// You can bind this to a DataGridView to see individual customer status
+						// dataGridView1.DataSource = invoices;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error checking invoice status: " + ex.Message);
+				log.Error("Error checking X06 invoice status", ex);
+			}
+		}
+
+		private void statsButton_Click(object sender, EventArgs e)
+		{
+			CheckX06InvoiceStatus();
+		}
 	}
 }
