@@ -46,8 +46,10 @@
 			this.LastDayValid = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnDelete = new System.Windows.Forms.Button();
 			this.updatePaidButton = new System.Windows.Forms.Button();
-			this.unpaidMemberBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.statsButton = new System.Windows.Forms.Button();
+			this.paidListButton = new System.Windows.Forms.Button();
+			this.unpaidMemberBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.sendTextButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.unpaidMemberBindingSource)).BeginInit();
 			this.SuspendLayout();
@@ -207,10 +209,6 @@
 			this.updatePaidButton.UseVisualStyleBackColor = true;
 			this.updatePaidButton.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// unpaidMemberBindingSource
-			// 
-			this.unpaidMemberBindingSource.DataSource = typeof(WoodClub.UnpaidMemberData);
-			// 
 			// statsButton
 			// 
 			this.statsButton.Location = new System.Drawing.Point(305, 24);
@@ -221,6 +219,30 @@
 			this.statsButton.UseVisualStyleBackColor = true;
 			this.statsButton.Click += new System.EventHandler(this.statsButton_Click);
 			// 
+			// paidListButton
+			// 
+			this.paidListButton.Location = new System.Drawing.Point(449, 24);
+			this.paidListButton.Name = "paidListButton";
+			this.paidListButton.Size = new System.Drawing.Size(75, 23);
+			this.paidListButton.TabIndex = 4;
+			this.paidListButton.Text = "Paid List";
+			this.paidListButton.UseVisualStyleBackColor = true;
+			this.paidListButton.Click += new System.EventHandler(this.paidListButton_Click);
+			// 
+			// unpaidMemberBindingSource
+			// 
+			this.unpaidMemberBindingSource.DataSource = typeof(WoodClub.UnpaidMemberData);
+			// 
+			// sendTextButton
+			// 
+			this.sendTextButton.Location = new System.Drawing.Point(557, 24);
+			this.sendTextButton.Name = "sendTextButton";
+			this.sendTextButton.Size = new System.Drawing.Size(75, 23);
+			this.sendTextButton.TabIndex = 5;
+			this.sendTextButton.Text = "Send Text";
+			this.sendTextButton.UseVisualStyleBackColor = true;
+			this.sendTextButton.Click += new System.EventHandler(this.sendTextButton_Click);
+			// 
 			// UpdateDuesPaid
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -229,6 +251,8 @@
 			this.AutoSize = true;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1496, 761);
+			this.Controls.Add(this.sendTextButton);
+			this.Controls.Add(this.paidListButton);
 			this.Controls.Add(this.statsButton);
 			this.Controls.Add(this.updatePaidButton);
 			this.Controls.Add(this.btnDelete);
@@ -263,5 +287,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn LastDayValid;
 		private System.Windows.Forms.Button updatePaidButton;
 		private System.Windows.Forms.Button statsButton;
+		private System.Windows.Forms.Button paidListButton;
+		private System.Windows.Forms.Button sendTextButton;
 	}
 }

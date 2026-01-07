@@ -285,7 +285,7 @@ namespace WoodClub
 			customerAdd.AppendChild(xmlDoc.CreateElement("Fax")).InnerText = newMember.Badge;
 			customerAdd.AppendChild(xmlDoc.CreateElement("Email")).InnerText = newMember.Email;
 
-			customerAdd.AppendChild(xmlDoc.CreateElement("PreferredDeliveryMethod")).InnerText = "Email";
+			//customerAdd.AppendChild(xmlDoc.CreateElement("PreferredDeliveryMethod")).InnerText = "Email";
 
 			XmlElement customerTypeRef = xmlDoc.CreateElement("CustomerTypeRef");
 			customerTypeRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "Club Member:X06F";
@@ -949,8 +949,8 @@ namespace WoodClub
 			XmlElement includeLineItems = xmlDoc.CreateElement("IncludeLineItems");
 			invQueryRq.AppendChild(includeLineItems).InnerText = "true";
 
-			// Note: QBXML doesn't support filtering by line item in the query itself
-			// You'll need to filter results in code after retrieving them
+			XmlElement includeLikedTxns = xmlDoc.CreateElement("IncludeLinkedTxns");
+			invQueryRq.AppendChild(includeLikedTxns).InnerText = "true";
 
 			invQueryRq.SetAttribute("requestID", "1");
 			return xmlDoc.OuterXml;
@@ -1051,19 +1051,54 @@ namespace WoodClub
 						}
 					}
 
-					if (hasMatchingItem)
+			if (hasMatchingItem)
+			{
+				// Parse this invoice
+				InvoiceData ivd = new InvoiceData();
+				ivd.TxnID = getInnerText(invNode.SelectSingleNode("TxnID"));
+				ivd.EditSequence = getInnerText(invNode.SelectSingleNode("EditSequence"));
+				ivd.Badge = getInnerText(invNode.SelectSingleNode("CustomerRef/FullName"));
+				ivd.Subtotal = getInnerText(invNode.SelectSingleNode("Subtotal"));
+				ivd.BalanceRemaining = getInnerText(invNode.SelectSingleNode("BalanceRemaining"));
+				ivd.DueDate = getInnerText(invNode.SelectSingleNode("DueDate"));
+				
+				// Get payment date from LinkedTxn (ReceivePayment transactions)
+				// If invoice is paid (balance = 0), find the most recent payment date
+				double balance = string.IsNullOrEmpty(ivd.BalanceRemaining) ? 0 : Convert.ToDouble(ivd.BalanceRemaining);
+				if (balance == 0)
+				{
+					XmlNodeList linkedTxns = invNode.SelectNodes(".//LinkedTxn");
+					DateTime? latestPaymentDate = null;
+					
+					foreach (XmlNode linkedTxn in linkedTxns)
 					{
-						// Parse this invoice
-						InvoiceData ivd = new InvoiceData();
-						ivd.TxnID = getInnerText(invNode.SelectSingleNode("TxnID"));
-						ivd.EditSequence = getInnerText(invNode.SelectSingleNode("EditSequence"));
-						ivd.Badge = getInnerText(invNode.SelectSingleNode("CustomerRef/FullName"));
-						ivd.Subtotal = getInnerText(invNode.SelectSingleNode("Subtotal"));
-						ivd.BalanceRemaining = getInnerText(invNode.SelectSingleNode("BalanceRemaining"));
-						ivd.DueDate = getInnerText(invNode.SelectSingleNode("DueDate"));
-
-						filteredList.Add(ivd);
+						string txnType = getInnerText(linkedTxn.SelectSingleNode("TxnType"));
+						if (txnType == "ReceivePayment")
+						{
+							string txnDateStr = getInnerText(linkedTxn.SelectSingleNode("TxnDate"));
+							if (!string.IsNullOrEmpty(txnDateStr))
+							{
+								DateTime txnDate;
+								if (DateTime.TryParse(txnDateStr, out txnDate))
+								{
+									if (!latestPaymentDate.HasValue || txnDate > latestPaymentDate.Value)
+									{
+										latestPaymentDate = txnDate;
+									}
+								}
+							}
+						}
 					}
+					
+					// Store the latest payment date
+					if (latestPaymentDate.HasValue)
+					{
+						ivd.AppliedAmount = latestPaymentDate.Value.ToString("yyyy-MM-dd");
+					}
+				}
+
+				filteredList.Add(ivd);
+			}
 				}
 			}
 			catch (Exception ex)
@@ -1072,6 +1107,156 @@ namespace WoodClub
 			}
 
 			return filteredList;
+		}
+
+		/// <summary>
+		/// Gets a list of customers who have paid their X06 (club dues) invoice
+		/// </summary>
+		/// <param name="itemFullName">Item name (e.g., "X06" for club dues)</param>
+		/// <param name="fromDate">Start date for invoice search</param>
+		/// <param name="toDate">End date for invoice search</param>
+		/// <returns>List of CustomerData with Badge, FirstName, LastName, and paid status</returns>
+		public List<CustomerData> GetPaidMembersByItem(string itemFullName, DateTime fromDate, DateTime toDate)
+		{
+			var paidMembers = new List<CustomerData>();
+
+			connectToQB();
+
+			try
+			{
+				// Query all invoices in the date range with paid status filter
+				string queryXml = buildInvoiceQueryByItemRqXML(itemFullName, fromDate, toDate, "PaidOnly");
+				string response = processRequestFromQB(queryXml);
+
+				if (string.IsNullOrEmpty(response))
+					return paidMembers;
+
+				// Filter by item and extract customer info
+				var matchingInvoices = FilterInvoicesByItem(response, itemFullName);
+
+				// Build list of unique customers (badge) with paid status
+				var distinctBadges = matchingInvoices.Select(inv => inv.Badge).Distinct();
+
+				foreach (var badge in distinctBadges)
+				{
+					// Get customer details for each badge
+					var customerList = loadCustomers(badge, string.Empty, string.Empty, string.Empty, false, false);
+
+				if (customerList != null && customerList.Count > 0)
+				{
+					var customer = customerList[0];
+					// Find the invoice for this badge to get the paid date
+					var invoice = matchingInvoices.FirstOrDefault(inv => inv.Badge == badge);
+					paidMembers.Add(new CustomerData
+					{
+						FullName = customer.FullName,
+						FirstName = customer.FirstName,
+						LastName = customer.LastName,
+						Balance = "0", // Paid invoice means balance is 0
+						PaidDate = invoice != null ? invoice.AppliedAmount : string.Empty
+					});
+				}
+				else
+				{
+					// If customer details not found, use badge only
+					var invoice = matchingInvoices.FirstOrDefault(inv => inv.Badge == badge);
+					paidMembers.Add(new CustomerData
+					{
+						FullName = badge,
+						Balance = "0",
+						PaidDate = invoice != null ? invoice.AppliedAmount : string.Empty
+					});
+				}
+				}
+			}
+			finally
+			{
+				disconnectFromQB();
+			}
+
+			return paidMembers;
+		}
+
+		/// <summary>
+		/// Gets a simplified list of paid/unpaid members for X06 invoice
+		/// </summary>
+		/// <param name="itemFullName">Item name (e.g., "X06")</param>
+		/// <param name="fromDate">Start date</param>
+		/// <param name="toDate">End date</param>
+		/// <returns>Dictionary with "Paid" and "Unpaid" lists of CustomerData</returns>
+		public Dictionary<string, List<CustomerData>> GetMemberPaymentStatus(string itemFullName, DateTime fromDate, DateTime toDate)
+		{
+			var result = new Dictionary<string, List<CustomerData>>
+			{
+				{ "Paid", new List<CustomerData>() },
+				{ "Unpaid", new List<CustomerData>() }
+			};
+
+			connectToQB();
+
+			try
+			{
+				// Get all invoices with X06 (both paid and unpaid)
+				string queryXml = buildInvoiceQueryByItemRqXML(itemFullName, fromDate, toDate);
+				string response = processRequestFromQB(queryXml);
+
+				if (string.IsNullOrEmpty(response))
+					return result;
+
+				// Filter by item
+				var matchingInvoices = FilterInvoicesByItem(response, itemFullName);
+
+				// Group by badge and determine paid status
+				var groupedByBadge = matchingInvoices.GroupBy(inv => inv.Badge);
+
+				foreach (var group in groupedByBadge)
+				{
+					string badge = group.Key;
+
+					// Check if all invoices for this customer are paid (balance = 0)
+					bool isPaid = group.All(inv =>
+						string.IsNullOrEmpty(inv.BalanceRemaining) ||
+						Convert.ToDouble(inv.BalanceRemaining) == 0);
+
+					// Get customer details
+					var customerList = loadCustomers(badge, string.Empty, string.Empty, string.Empty, false, false);
+
+				CustomerData customerData;
+				if (customerList != null && customerList.Count > 0)
+				{
+					var customer = customerList[0];
+					customerData = new CustomerData
+					{
+						FullName = customer.FullName,
+						FirstName = customer.FirstName,
+						LastName = customer.LastName,
+						Balance = isPaid ? "0" : group.First().BalanceRemaining,
+						PaidDate = isPaid ? group.First().AppliedAmount : string.Empty
+					};
+				}
+				else
+				{
+					customerData = new CustomerData
+					{
+						FullName = badge,
+						Balance = isPaid ? "0" : group.First().BalanceRemaining,
+						PaidDate = isPaid ? group.First().AppliedAmount : string.Empty
+					};
+				}
+
+					// Add to appropriate list
+					if (isPaid)
+						result["Paid"].Add(customerData);
+					else
+						result["Unpaid"].Add(customerData);
+				}
+			}
+			finally
+			{
+				disconnectFromQB();
+			}
+
+			return result;
 		}
 	}
 }

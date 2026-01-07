@@ -38,6 +38,8 @@ namespace WoodClub
 			this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
 			this.nMaxCredits = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
+			this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+			this.runButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewFreeDay)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bs_FreeDayOnly)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nMaxCredits)).BeginInit();
@@ -55,10 +57,10 @@ namespace WoodClub
             this.FirstName,
             this.LastName});
 			this.dataGridViewFreeDay.DataSource = this.bs_FreeDayOnly;
-			this.dataGridViewFreeDay.Location = new System.Drawing.Point(13, 39);
+			this.dataGridViewFreeDay.Location = new System.Drawing.Point(13, 75);
 			this.dataGridViewFreeDay.Name = "dataGridViewFreeDay";
 			this.dataGridViewFreeDay.RowHeadersVisible = false;
-			this.dataGridViewFreeDay.Size = new System.Drawing.Size(303, 399);
+			this.dataGridViewFreeDay.Size = new System.Drawing.Size(303, 363);
 			this.dataGridViewFreeDay.TabIndex = 0;
 			// 
 			// Badge
@@ -102,11 +104,31 @@ namespace WoodClub
 			this.label1.TabIndex = 3;
 			this.label1.Text = "Max Credits";
 			// 
+			// dateTimePicker2
+			// 
+			this.dateTimePicker2.Location = new System.Drawing.Point(12, 39);
+			this.dateTimePicker2.Name = "dateTimePicker2";
+			this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
+			this.dateTimePicker2.TabIndex = 4;
+			this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
+			// 
+			// runButton
+			// 
+			this.runButton.Location = new System.Drawing.Point(226, 39);
+			this.runButton.Name = "runButton";
+			this.runButton.Size = new System.Drawing.Size(75, 23);
+			this.runButton.TabIndex = 5;
+			this.runButton.Text = "Run";
+			this.runButton.UseVisualStyleBackColor = true;
+			this.runButton.Click += new System.EventHandler(this.runButton_Click);
+			// 
 			// FreeDayOnlyUsers
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(328, 450);
+			this.Controls.Add(this.runButton);
+			this.Controls.Add(this.dateTimePicker2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.nMaxCredits);
 			this.Controls.Add(this.dateTimePicker1);
@@ -132,5 +154,7 @@ namespace WoodClub
         private System.Windows.Forms.DataGridViewButtonColumn Badge;
         private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastName;
+		private System.Windows.Forms.DateTimePicker dateTimePicker2;
+		private System.Windows.Forms.Button runButton;
 	}
 }

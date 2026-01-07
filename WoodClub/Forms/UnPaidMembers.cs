@@ -303,5 +303,68 @@ namespace WoodClub
 		{
 			CheckX06InvoiceStatus();
 		}
+
+	private void LoadPaidMembersFromQB()
+	{
+		QBFunctions qbf = new QBFunctions();
+
+		try
+		{
+			// Get members who paid their 2026 dues (X06 invoice from Jan 1)
+			DateTime fromDate = new DateTime(2025, 12, 28);
+			DateTime toDate = new DateTime(2026, 1, 5);
+
+			// Get paid members from QuickBooks
+			List<CustomerData> paidMembers = qbf.GetPaidMembersByItem("X06", fromDate, toDate);
+
+			// Clear the existing paidList and populate it with QB data
+			paidList.Clear();
+
+			// Convert CustomerData to BadgeDate format
+			foreach (var paidMember in paidMembers)
+			{
+				paidList.Add(new BadgeDate
+				{
+					Badge = paidMember.FullName,
+					PaidDate = paidMember.PaidDate // This is the payment date from QB
+				});
+			}
+
+			// Set the datasource
+			unpaidMemberBindingSource.DataSource = paidList;
+			dataGridView1.DataSource = unpaidMemberBindingSource.DataSource;
+			dataGridView1.Invalidate();
+
+			MessageBox.Show($"Loaded {paidList.Count} paid members from QuickBooks", "Load Complete");
+			log.Info($"Loaded {paidList.Count} paid members from QuickBooks");
+
+			// Enable the update button if we have data
+			if (paidList.Count > 0)
+			{
+				updatePaidButton.Enabled = true;
+			}
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show("Error loading paid members from QuickBooks: " + ex.Message);
+			log.Error("Error loading paid members from QuickBooks", ex);
+		}
+	}
+
+		private void paidListButton_Click(object sender, EventArgs e)
+		{
+			LoadPaidMembersFromQB();
+		}
+
+		private void unpaidMemberBindingSource_CurrentChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void sendTextButton_Click(object sender, EventArgs e)
+		{
+			SendText st = new SendText();
+			st.CreateText("Test message from WoodClub App", "425-351-3207");
+		}
 	}
 }

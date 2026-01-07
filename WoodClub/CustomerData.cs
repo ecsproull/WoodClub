@@ -16,6 +16,7 @@ namespace WoodClub
 		public string Phone { get; set; }
 		public string Email { get; set; }
 		public string Balance { get; set; }
+		public string PaidDate { get; set; }
 		public string AccountNumber { get; set; }
 		public string CustomerType { get; set; }
 		public string Locker { get; set; }

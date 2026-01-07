@@ -17,84 +17,66 @@ namespace WoodClub
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "MM/yyyy";
 			dateTimePicker1.ValueChanged += DateTimePicker1_ValueChanged;
-            int month = DateTime.Now.Month;
+			dateTimePicker2.CustomFormat = "MM/yyyy";
+			dateTimePicker2.ValueChanged += dateTimePicker2_ValueChanged;
+			int month = DateTime.Now.Month;
             int year = DateTime.Now.Year;
-            this.startDate = DateTime.Parse("1/1/2023");
-            this.endDate = startDate.AddMonths(1);
+            this.startDate = DateTime.Parse("1/1/2025");
+            this.endDate = DateTime.Parse("1/1/2026");
 			nMaxCredits.ValueChanged += NMaxCredits_ValueChanged;
         }
 
 		private void NMaxCredits_ValueChanged(object sender, EventArgs e)
 		{
             this.creditAmount = (int)nMaxCredits.Value;
-            FreeDayOnlyUsers_Load(null, null);
+            //FreeDayOnlyUsers_Load(null, null);
         }
 
 		private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
 		{
             this.startDate = DateTime.Parse(dateTimePicker1.Value.Date.Month.ToString() + "/1/" + dateTimePicker1.Value.Date.Year.ToString());
-            this.endDate = startDate.AddMonths(1);
-            FreeDayOnlyUsers_Load(null, null);
-
+            this.endDate = startDate.AddMonths(12);
         }
+
+		private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+		{
+			this.endDate = DateTime.Parse(dateTimePicker1.Value.Date.Month.ToString() + "/1/" + dateTimePicker1.Value.Date.Year.ToString());;
+		}
 
 		private void FreeDayOnlyUsers_Load(object sender, EventArgs e)
         {
-            List<Transaction> fdo = new List<Transaction>();
-            using(WoodClubEntities context = new WoodClubEntities())
-            {
-                var users = (from m in context.Transactions
-                             where m.Code == "FD" && m.TransDate > startDate && m.TransDate < endDate
-                             select m).ToList();
-                foreach (Transaction tr in users)
-                {
-                    Transaction creditUsed = (from t in context.Transactions
-                                                 where (t.Code == "CU" || 
-                                                 (t.Code != "U" && t.CreditAmt > 0)) && t.Badge == tr.Badge && t.TransDate > startDate && t.TransDate < endDate
-                                              select t).FirstOrDefault();
 
-                    if (creditUsed == null)
-                    {
-                        fdo.Add(tr);
-                    }    
-                }
-
-                List<MemberRoster> deadBeats = new List<MemberRoster>();
-                foreach(Transaction trans in fdo)
-                {
-
-                    Transaction entry = (from t in context.Transactions
-                                         where t.Code == "u" && t.Badge == trans.Badge && t.TransDate > startDate && t.TransDate < endDate
-                                         select t).FirstOrDefault();
-
-                    MemberRoster mr = (from m in context.MemberRosters
-                                                where m.Badge == trans.Badge
-                                                select m).FirstOrDefault();
-                    if (mr != null && Convert.ToDouble(mr.CreditBank) <= this.creditAmount)
-                    {
-                        deadBeats.Add(mr);
-                    }
-                }
-
-                this.bs_FreeDayOnly.DataSource = new SortableBindingList<MemberRoster>(deadBeats);
-            }
         }
 
-        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void FreeDayOnlyUsers_2()
         {
-            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            using (WoodClubEntities context = new WoodClubEntities())
             {
-                string badge = dataGridViewFreeDay.Rows[e.RowIndex].Cells[0].Value.ToString();
-                if (!string.IsNullOrEmpty(badge))
+                var members = (from m in context.MemberRosters
+                               where m.ClubDuesPaid == true
+							   select m).ToList();
+				List<MemberRoster> deadBeats = new List<MemberRoster>();
+                foreach (MemberRoster member in members)
                 {
-                    MemberEditor ed = new MemberEditor(badge);
-                    if (ed.ShowDialog() == DialogResult.OK)
+					var CreditsGained = (from c in context.Transactions
+                                         where c.Badge == member.Badge && c.CreditAmt > 0 && c.Code != "U" && c.TransDate >= startDate && c.TransDate < endDate
+                                         select c.CreditAmt).DefaultIfEmpty(0).Sum();
+                    var CreditsUsed = (from c in context.Transactions
+                                       where c.Badge == member.Badge && c.CreditAmt < 0 && c.Code != "U" && c.TransDate >= startDate && c.TransDate < endDate
+                                       select c.CreditAmt).DefaultIfEmpty(0).Sum();
+                    var freeDaysUsed = (from c in context.Transactions where c.Badge == member.Badge && c.Code == "FD" && c.TransDate >= startDate && c.TransDate < endDate select c).Count();
+
+                    if (CreditsGained == 0 && CreditsUsed == 0 && freeDaysUsed > 0)
                     {
-                        MainMembers.lockersUpdated = true;
-                        FreeDayOnlyUsers_Load(null, null);
+                        deadBeats.Add(member);
                     }
                 }
-            }
+                this.bs_FreeDayOnly.DataSource = new SortableBindingList<MemberRoster>(deadBeats);
+			}
         }
-    }
+		private void runButton_Click(object sender, EventArgs e)
+		{
+            FreeDayOnlyUsers_2();
+		}
+	}
 }
