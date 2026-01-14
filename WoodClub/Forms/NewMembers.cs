@@ -471,6 +471,7 @@ namespace WoodClub
 		public string Email { get; set; }
 		public string Phone { get; set; }
 		public string AppliedAmount { get; set; }
+		public string InvoiceRefNumber { get; set; }
 		public List<InvoiceLineItemData> LineItems { get; set; } = new List<InvoiceLineItemData>();
 	}
 

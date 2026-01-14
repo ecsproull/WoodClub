@@ -24,6 +24,8 @@ namespace WoodClub
 		public string AccountNumberWc { get; set; }
 		public string EmailMissMatch { get; set; }
 		public string PhoneMissMatch { get; set; }
+		public string UnpaidInvoiceId { get; set; }
+		public string IsActive { get; set; }
         // List of open invoices for this customer (if requested)
         public List<InvoiceData> OpenInvoices { get; set; } = new List<InvoiceData>();
 	}

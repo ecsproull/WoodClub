@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace WoodClub
@@ -304,52 +305,123 @@ namespace WoodClub
 			CheckX06InvoiceStatus();
 		}
 
-	private void LoadPaidMembersFromQB()
-	{
-		QBFunctions qbf = new QBFunctions();
-
-		try
+		private void LoadPaidMembersFromQB()
 		{
-			// Get members who paid their 2026 dues (X06 invoice from Jan 1)
-			DateTime fromDate = new DateTime(2025, 12, 28);
-			DateTime toDate = new DateTime(2026, 1, 5);
+			QBFunctions qbf = new QBFunctions();
 
-			// Get paid members from QuickBooks
-			List<CustomerData> paidMembers = qbf.GetPaidMembersByItem("X06", fromDate, toDate);
-
-			// Clear the existing paidList and populate it with QB data
-			paidList.Clear();
-
-			// Convert CustomerData to BadgeDate format
-			foreach (var paidMember in paidMembers)
+			try
 			{
-				paidList.Add(new BadgeDate
+				// Get members who paid their 2026 dues (X06 invoice from Jan 1)
+				DateTime fromDate = new DateTime(2025, 12, 28);
+				DateTime toDate = new DateTime(2026, 1, 5);
+
+				// Get paid members from QuickBooks
+				List<CustomerData> paidMembers = qbf.GetPaidMembersByItem("X06", fromDate, toDate);
+
+				// Clear the existing paidList and populate it with QB data
+				paidList.Clear();
+
+				// Convert CustomerData to BadgeDate format
+				foreach (var paidMember in paidMembers)
 				{
-					Badge = paidMember.FullName,
-					PaidDate = paidMember.PaidDate // This is the payment date from QB
-				});
+					paidList.Add(new BadgeDate
+					{
+						Badge = paidMember.FullName,
+						PaidDate = paidMember.PaidDate // This is the payment date from QB
+					});
+				}
+
+				// Set the datasource
+				unpaidMemberBindingSource.DataSource = paidList;
+				dataGridView1.DataSource = unpaidMemberBindingSource.DataSource;
+				dataGridView1.Invalidate();
+
+				MessageBox.Show($"Loaded {paidList.Count} paid members from QuickBooks", "Load Complete");
+				log.Info($"Loaded {paidList.Count} paid members from QuickBooks");
+
+				// Enable the update button if we have data
+				if (paidList.Count > 0)
+				{
+					updatePaidButton.Enabled = true;
+				}
 			}
-
-			// Set the datasource
-			unpaidMemberBindingSource.DataSource = paidList;
-			dataGridView1.DataSource = unpaidMemberBindingSource.DataSource;
-			dataGridView1.Invalidate();
-
-			MessageBox.Show($"Loaded {paidList.Count} paid members from QuickBooks", "Load Complete");
-			log.Info($"Loaded {paidList.Count} paid members from QuickBooks");
-
-			// Enable the update button if we have data
-			if (paidList.Count > 0)
+			catch (Exception ex)
 			{
-				updatePaidButton.Enabled = true;
+				MessageBox.Show("Error loading paid members from QuickBooks: " + ex.Message);
+				log.Error("Error loading paid members from QuickBooks", ex);
 			}
 		}
-		catch (Exception ex)
+
+		private void LoadUnpaidMembersFromQB()
 		{
-			MessageBox.Show("Error loading paid members from QuickBooks: " + ex.Message);
-			log.Error("Error loading paid members from QuickBooks", ex);
+			QBFunctions qbf = new QBFunctions();
+
+			try
+			{
+				// Get members who have unpaid X06 invoices (2026 dues)
+				DateTime fromDate = new DateTime(2025, 12, 28);
+				DateTime toDate = new DateTime(2026, 1, 10);
+
+				// Get payment status from QuickBooks
+				var paymentStatus = qbf.GetMemberPaymentStatus("X06", fromDate, toDate);
+
+				// Clear and populate the unpaid list
+				ds_Unpaid = new SortableBindingList<UnpaidMemberData>();
+
+				using (WoodClubEntities context = new WoodClubEntities())
+				{
+					// Process unpaid members from QB
+					foreach (var unpaidMember in paymentStatus["Unpaid"])
+					{
+						// Find the member in the local database by badge
+						MemberRoster member = (from m in context.MemberRosters
+											   where m.Badge == unpaidMember.FullName
+											   select m).FirstOrDefault();
+
+						if (member != null)
+						{
+							// Add to the unpaid list
+							UnpaidMemberData upm = new UnpaidMemberData
+							{
+								Badge = member.Badge,
+								FirstName = member.FirstName,
+								LastName = member.LastName,
+								MemberDate = member.MemberDate,
+								RecCard = member.RecCard,
+								Address = member.Address,
+								ClubDuesPaid = member.ClubDuesPaid,
+								ClubDuesPaidDate = member.ClubDuesPaidDate,
+								Phone = member.Phone,
+								Email = member.Email,
+								State = member.State,
+								Delete = false,
+								UnpaidInvoiceId = unpaidMember.UnpaidInvoiceId
+							};
+
+							ds_Unpaid.Add(upm);
+						}
+						else
+						{
+							// Member exists in QB but not in local DB - log warning
+							log.Warn($"Member {unpaidMember.FullName} found in QB with unpaid X06 invoice but not in local database");
+						}
+					}
+				}
+
+				// Bind to the view
+				unpaidMemberBindingSource.DataSource = ds_Unpaid;
+				dataGridView1.DataSource = unpaidMemberBindingSource.DataSource;
+				dataGridView1.Invalidate();
+
+				MessageBox.Show($"Loaded {ds_Unpaid.Count} unpaid members from QuickBooks", "Load Complete");
+				log.Info($"Loaded {ds_Unpaid.Count} unpaid members from QuickBooks");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error loading unpaid members from QuickBooks: " + ex.Message);
+				log.Error("Error loading unpaid members from QuickBooks", ex);
+			}
 		}
-	}
 
 		private void paidListButton_Click(object sender, EventArgs e)
 		{
@@ -364,7 +436,31 @@ namespace WoodClub
 		private void sendTextButton_Click(object sender, EventArgs e)
 		{
 			SendText st = new SendText();
-			st.CreateText("Test message from WoodClub App", "425-351-3207");
+			foreach (UnpaidMemberData upm in ds_Unpaid)
+			{
+				if (string.IsNullOrEmpty(upm.Phone) || string.IsNullOrEmpty(upm.UnpaidInvoiceId))
+				{
+					continue;
+				}
+
+				StringBuilder sb = new StringBuilder();
+				sb.Append(upm.FirstName);
+				sb.Append(", unless you paid today, you have an open invoice for 2026 dues that is due by Feb 1st. You can pay here: https://scwwoodshop.com/?pay=");
+				sb.Append(upm.UnpaidInvoiceId);
+				sb.Append(" This was initially sent to ");
+				sb.Append(upm.Email);
+				sb.Append(" On Jan 1st. You may also come in to the lumber room and pay.");
+				
+				string message = sb.ToString();
+				st.CreateText(message, upm.Phone);
+			}
+
+			MessageBox.Show("Text messages sent for unpaid members with phone numbers.", "Texting Complete");
+		}
+
+		private void unPaidListButton_Click(object sender, EventArgs e)
+		{
+			LoadUnpaidMembersFromQB();
 		}
 	}
 }

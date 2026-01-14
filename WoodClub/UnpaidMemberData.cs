@@ -102,5 +102,13 @@ namespace WoodClub
 		/// The club dues paid date.
 		/// </value>
 		public Nullable<System.DateTime> ClubDuesPaidDate { get; set; }
+		
+		/// <summary>
+		/// Gets or sets the unpaid invoice identifier.
+		/// </summary>
+		/// <value>
+		/// The unpaid invoice identifier.
+		/// </value>
+		public string UnpaidInvoiceId { get; set; }
 	}
 }

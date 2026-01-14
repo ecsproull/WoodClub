@@ -172,6 +172,7 @@ namespace WoodClub
 				cd.LastName = getInnerText(cn.SelectSingleNode("LastName"));
 				cd.Phone = getInnerText(cn.SelectSingleNode("Phone"));
 				cd.Email = getInnerText(cn.SelectSingleNode("Email"));
+				cd.IsActive = getInnerText(cn.SelectSingleNode("IsActive"));
 
 				customerData.Add(cd);
 			}
@@ -211,37 +212,37 @@ namespace WoodClub
 				}
 				int count = getCount(request);
 				string xml = buildCustomerQueryRqXML(
-					new string[] { "FullName", "FirstName", "LastName", "Balance", "AccountNumber", "CustomerTypeRef", "DataExtRet" },
+					new string[] { "FullName", "FirstName", "LastName", "Balance", "AccountNumber", "CustomerTypeRef", "DataExtRet", "IsActive" },
 					fullName,
 					status,
 					balanceFilter,
 					balanceAmount);
 				string response = processRequestFromQB(xml);
-			customerData = parseCustomerQueryRs(response);
-
-			if (includeOpenInvoices && customerData != null && customerData.Count > 0)
-			{
-				// For each customer, query for unpaid/open invoices
-				foreach (var cd in customerData)
+				customerData = parseCustomerQueryRs(response);
+				
+				if (includeOpenInvoices && customerData != null && customerData.Count > 0)
 				{
-					try
+					// For each customer, query for unpaid/open invoices
+					foreach (var cd in customerData)
 					{
-						 string invQuery = buildInvoiceQueryRqXML(cd.FullName);
-						string invResp = processRequestFromQB(invQuery);
-						// check for QB errors
-						string qberr = ParseQbError(invResp);
-						if (!string.IsNullOrEmpty(qberr))
+						try
 						{
-							MessageBox.Show($"Invoice query failed for {cd.FullName}: {qberr}");
-							cd.OpenInvoices = new List<InvoiceData>();
-							continue;
+							string invQuery = buildInvoiceQueryRqXML(cd.FullName);
+							string invResp = processRequestFromQB(invQuery);
+							// check for QB errors
+							string qberr = ParseQbError(invResp);
+							if (!string.IsNullOrEmpty(qberr))
+							{
+								MessageBox.Show($"Invoice query failed for {cd.FullName}: {qberr}");
+								cd.OpenInvoices = new List<InvoiceData>();
+								continue;
+							}
+							var invoices = parseInvoiceQueryRs(invResp);
+							cd.OpenInvoices = invoices ?? new List<InvoiceData>();
 						}
-						var invoices = parseInvoiceQueryRs(invResp);
-						cd.OpenInvoices = invoices ?? new List<InvoiceData>();
+						catch { /* continue on invoice parse errors */ }
 					}
-					catch { /* continue on invoice parse errors */ }
 				}
-			}
 			}
 			catch (Exception ex) { MessageBox.Show(ex.Message); }
 
@@ -285,13 +286,12 @@ namespace WoodClub
 			customerAdd.AppendChild(xmlDoc.CreateElement("Fax")).InnerText = newMember.Badge;
 			customerAdd.AppendChild(xmlDoc.CreateElement("Email")).InnerText = newMember.Email;
 
-			//customerAdd.AppendChild(xmlDoc.CreateElement("PreferredDeliveryMethod")).InnerText = "Email";
-
 			XmlElement customerTypeRef = xmlDoc.CreateElement("CustomerTypeRef");
 			customerTypeRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = "Club Member:X06F";
 			customerAdd.AppendChild(customerTypeRef);
 
 			customerAdd.AppendChild(xmlDoc.CreateElement("AccountNumber")).InnerText = newMember.RecNo;
+			customerAdd.AppendChild(xmlDoc.CreateElement("PreferredDeliveryMethod")).InnerText = "Email";
 
 			customerAddRq.AppendChild(customerAdd);
 
@@ -1061,10 +1061,11 @@ namespace WoodClub
 				ivd.Subtotal = getInnerText(invNode.SelectSingleNode("Subtotal"));
 				ivd.BalanceRemaining = getInnerText(invNode.SelectSingleNode("BalanceRemaining"));
 				ivd.DueDate = getInnerText(invNode.SelectSingleNode("DueDate"));
-				
-				// Get payment date from LinkedTxn (ReceivePayment transactions)
-				// If invoice is paid (balance = 0), find the most recent payment date
-				double balance = string.IsNullOrEmpty(ivd.BalanceRemaining) ? 0 : Convert.ToDouble(ivd.BalanceRemaining);
+				ivd.InvoiceRefNumber = getInnerText(invNode.SelectSingleNode("RefNumber"));
+
+						// Get payment date from LinkedTxn (ReceivePayment transactions)
+						// If invoice is paid (balance = 0), find the most recent payment date
+						double balance = string.IsNullOrEmpty(ivd.BalanceRemaining) ? 0 : Convert.ToDouble(ivd.BalanceRemaining);
 				if (balance == 0)
 				{
 					XmlNodeList linkedTxns = invNode.SelectNodes(".//LinkedTxn");
@@ -1221,34 +1222,43 @@ namespace WoodClub
 					// Get customer details
 					var customerList = loadCustomers(badge, string.Empty, string.Empty, string.Empty, false, false);
 
-				CustomerData customerData;
-				if (customerList != null && customerList.Count > 0)
-				{
-					var customer = customerList[0];
-					customerData = new CustomerData
+					CustomerData customerData;
+					if (customerList != null && customerList.Count > 0)
 					{
-						FullName = customer.FullName,
-						FirstName = customer.FirstName,
-						LastName = customer.LastName,
-						Balance = isPaid ? "0" : group.First().BalanceRemaining,
-						PaidDate = isPaid ? group.First().AppliedAmount : string.Empty
-					};
-				}
-				else
-				{
-					customerData = new CustomerData
+						var customer = customerList[0];
+						customerData = new CustomerData
+						{
+							FullName = customer.FullName,
+							FirstName = customer.FirstName,
+							LastName = customer.LastName,
+							Balance = isPaid ? "0" : group.First().BalanceRemaining,
+							PaidDate = isPaid ? group.First().AppliedAmount : string.Empty,
+							UnpaidInvoiceId = isPaid ? "" : group.First().InvoiceRefNumber,
+							IsActive = customer.IsActive
+						};
+					}
+					else
 					{
-						FullName = badge,
-						Balance = isPaid ? "0" : group.First().BalanceRemaining,
-						PaidDate = isPaid ? group.First().AppliedAmount : string.Empty
-					};
-				}
+						customerData = new CustomerData
+						{
+							FullName = badge,
+							Balance = isPaid ? "0" : group.First().BalanceRemaining,
+							PaidDate = isPaid ? group.First().AppliedAmount : string.Empty
+						};
+					}
 
 					// Add to appropriate list
-					if (isPaid)
-						result["Paid"].Add(customerData);
+					if (customerData.IsActive == "true")
+					{
+						if (isPaid)
+							result["Paid"].Add(customerData);
+						else
+							result["Unpaid"].Add(customerData);
+					}
 					else
-						result["Unpaid"].Add(customerData);
+					{
+						MessageBox.Show("Customer is Not Active : " + customerData.FirstName + " " + customerData.LastName);
+					}
 				}
 			}
 			finally
