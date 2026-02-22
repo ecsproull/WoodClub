@@ -30,13 +30,6 @@
         {
 			this.components = new System.ComponentModel.Container();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.btnDelete = new System.Windows.Forms.Button();
-			this.updatePaidButton = new System.Windows.Forms.Button();
-			this.statsButton = new System.Windows.Forms.Button();
-			this.paidListButton = new System.Windows.Forms.Button();
-			this.unpaidMemberBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.sendTextButton = new System.Windows.Forms.Button();
-			this.unPaidListButton = new System.Windows.Forms.Button();
 			this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.InvoiceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.deleteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -52,6 +45,14 @@
 			this.clubDuesPaidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.clubDuesPaidDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.LastDayValid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.btnDelete = new System.Windows.Forms.Button();
+			this.updatePaidButton = new System.Windows.Forms.Button();
+			this.statsButton = new System.Windows.Forms.Button();
+			this.paidListButton = new System.Windows.Forms.Button();
+			this.unpaidMemberBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.sendTextButton = new System.Windows.Forms.Button();
+			this.unPaidListButton = new System.Windows.Forms.Button();
+			this.emailButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.unpaidMemberBindingSource)).BeginInit();
 			this.SuspendLayout();
@@ -80,71 +81,6 @@
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dataGridView1.Size = new System.Drawing.Size(1499, 707);
 			this.dataGridView1.TabIndex = 0;
-			// 
-			// btnDelete
-			// 
-			this.btnDelete.Location = new System.Drawing.Point(13, 24);
-			this.btnDelete.Name = "btnDelete";
-			this.btnDelete.Size = new System.Drawing.Size(78, 22);
-			this.btnDelete.TabIndex = 1;
-			this.btnDelete.Text = "Remove Unpaid";
-			this.btnDelete.UseVisualStyleBackColor = true;
-			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-			// 
-			// updatePaidButton
-			// 
-			this.updatePaidButton.Enabled = false;
-			this.updatePaidButton.Location = new System.Drawing.Point(134, 24);
-			this.updatePaidButton.Name = "updatePaidButton";
-			this.updatePaidButton.Size = new System.Drawing.Size(78, 22);
-			this.updatePaidButton.TabIndex = 2;
-			this.updatePaidButton.Text = "Update Paid";
-			this.updatePaidButton.UseVisualStyleBackColor = true;
-			this.updatePaidButton.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// statsButton
-			// 
-			this.statsButton.Location = new System.Drawing.Point(255, 24);
-			this.statsButton.Name = "statsButton";
-			this.statsButton.Size = new System.Drawing.Size(78, 22);
-			this.statsButton.TabIndex = 3;
-			this.statsButton.Text = "Paid Stats";
-			this.statsButton.UseVisualStyleBackColor = true;
-			this.statsButton.Click += new System.EventHandler(this.statsButton_Click);
-			// 
-			// paidListButton
-			// 
-			this.paidListButton.Location = new System.Drawing.Point(376, 24);
-			this.paidListButton.Name = "paidListButton";
-			this.paidListButton.Size = new System.Drawing.Size(78, 22);
-			this.paidListButton.TabIndex = 4;
-			this.paidListButton.Text = "Paid List";
-			this.paidListButton.UseVisualStyleBackColor = true;
-			this.paidListButton.Click += new System.EventHandler(this.paidListButton_Click);
-			// 
-			// unpaidMemberBindingSource
-			// 
-			this.unpaidMemberBindingSource.DataSource = typeof(WoodClub.UnpaidMemberData);
-			// 
-			// sendTextButton
-			// 
-			this.sendTextButton.Location = new System.Drawing.Point(497, 24);
-			this.sendTextButton.Name = "sendTextButton";
-			this.sendTextButton.Size = new System.Drawing.Size(78, 22);
-			this.sendTextButton.TabIndex = 5;
-			this.sendTextButton.Text = "Send Text";
-			this.sendTextButton.UseVisualStyleBackColor = true;
-			this.sendTextButton.Click += new System.EventHandler(this.sendTextButton_Click);
-			// 
-			// unPaidListButton
-			// 
-			this.unPaidListButton.Location = new System.Drawing.Point(618, 24);
-			this.unPaidListButton.Name = "unPaidListButton";
-			this.unPaidListButton.Size = new System.Drawing.Size(78, 22);
-			this.unPaidListButton.TabIndex = 6;
-			this.unPaidListButton.Text = "UnPaidList";
-			this.unPaidListButton.UseVisualStyleBackColor = true;
-			this.unPaidListButton.Click += new System.EventHandler(this.unPaidListButton_Click);
 			// 
 			// idDataGridViewTextBoxColumn
 			// 
@@ -262,6 +198,81 @@
 			this.LastDayValid.HeaderText = "LastDayValid";
 			this.LastDayValid.Name = "LastDayValid";
 			// 
+			// btnDelete
+			// 
+			this.btnDelete.Location = new System.Drawing.Point(13, 24);
+			this.btnDelete.Name = "btnDelete";
+			this.btnDelete.Size = new System.Drawing.Size(78, 22);
+			this.btnDelete.TabIndex = 1;
+			this.btnDelete.Text = "Remove Unpaid";
+			this.btnDelete.UseVisualStyleBackColor = true;
+			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+			// 
+			// updatePaidButton
+			// 
+			this.updatePaidButton.Enabled = false;
+			this.updatePaidButton.Location = new System.Drawing.Point(134, 24);
+			this.updatePaidButton.Name = "updatePaidButton";
+			this.updatePaidButton.Size = new System.Drawing.Size(78, 22);
+			this.updatePaidButton.TabIndex = 2;
+			this.updatePaidButton.Text = "Update Paid";
+			this.updatePaidButton.UseVisualStyleBackColor = true;
+			this.updatePaidButton.Click += new System.EventHandler(this.updatePaidButton_Click);
+			// 
+			// statsButton
+			// 
+			this.statsButton.Location = new System.Drawing.Point(255, 24);
+			this.statsButton.Name = "statsButton";
+			this.statsButton.Size = new System.Drawing.Size(78, 22);
+			this.statsButton.TabIndex = 3;
+			this.statsButton.Text = "Paid Stats";
+			this.statsButton.UseVisualStyleBackColor = true;
+			this.statsButton.Click += new System.EventHandler(this.statsButton_Click);
+			// 
+			// paidListButton
+			// 
+			this.paidListButton.Location = new System.Drawing.Point(376, 24);
+			this.paidListButton.Name = "paidListButton";
+			this.paidListButton.Size = new System.Drawing.Size(78, 22);
+			this.paidListButton.TabIndex = 4;
+			this.paidListButton.Text = "Paid List";
+			this.paidListButton.UseVisualStyleBackColor = true;
+			this.paidListButton.Click += new System.EventHandler(this.paidListButton_Click);
+			// 
+			// unpaidMemberBindingSource
+			// 
+			this.unpaidMemberBindingSource.DataSource = typeof(WoodClub.MemberDuesData);
+			// 
+			// sendTextButton
+			// 
+			this.sendTextButton.Location = new System.Drawing.Point(584, 24);
+			this.sendTextButton.Name = "sendTextButton";
+			this.sendTextButton.Size = new System.Drawing.Size(78, 22);
+			this.sendTextButton.TabIndex = 5;
+			this.sendTextButton.Text = "Send Text";
+			this.sendTextButton.UseVisualStyleBackColor = true;
+			this.sendTextButton.Click += new System.EventHandler(this.sendTextButton_Click);
+			// 
+			// unPaidListButton
+			// 
+			this.unPaidListButton.Location = new System.Drawing.Point(477, 24);
+			this.unPaidListButton.Name = "unPaidListButton";
+			this.unPaidListButton.Size = new System.Drawing.Size(78, 22);
+			this.unPaidListButton.TabIndex = 6;
+			this.unPaidListButton.Text = "UnPaidList";
+			this.unPaidListButton.UseVisualStyleBackColor = true;
+			this.unPaidListButton.Click += new System.EventHandler(this.unPaidListButton_Click);
+			// 
+			// emailButton
+			// 
+			this.emailButton.Location = new System.Drawing.Point(691, 23);
+			this.emailButton.Name = "emailButton";
+			this.emailButton.Size = new System.Drawing.Size(75, 23);
+			this.emailButton.TabIndex = 7;
+			this.emailButton.Text = "Send Email";
+			this.emailButton.UseVisualStyleBackColor = true;
+			this.emailButton.Click += new System.EventHandler(this.emailButton_Click);
+			// 
 			// UpdateDuesPaid
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,7 +280,8 @@
 			this.AutoScroll = true;
 			this.AutoSize = true;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.ClientSize = new System.Drawing.Size(1496, 761);
+			this.ClientSize = new System.Drawing.Size(1411, 744);
+			this.Controls.Add(this.emailButton);
 			this.Controls.Add(this.unPaidListButton);
 			this.Controls.Add(this.sendTextButton);
 			this.Controls.Add(this.paidListButton);
@@ -311,5 +323,6 @@
 		private System.Windows.Forms.DataGridViewCheckBoxColumn clubDuesPaidDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn clubDuesPaidDateDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn LastDayValid;
+		private System.Windows.Forms.Button emailButton;
 	}
 }

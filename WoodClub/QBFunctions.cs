@@ -1,7 +1,12 @@
 ﻿using Interop.QBXMLRP2;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Activities.Debugger;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -1154,7 +1159,8 @@ namespace WoodClub
 						FirstName = customer.FirstName,
 						LastName = customer.LastName,
 						Balance = "0", // Paid invoice means balance is 0
-						PaidDate = invoice != null ? invoice.AppliedAmount : string.Empty
+						PaidDate = invoice != null ? invoice.AppliedAmount : string.Empty,
+						InvoiceId = invoice != null ? invoice.InvoiceRefNumber : string.Empty
 					});
 				}
 				else
@@ -1233,8 +1239,9 @@ namespace WoodClub
 							LastName = customer.LastName,
 							Balance = isPaid ? "0" : group.First().BalanceRemaining,
 							PaidDate = isPaid ? group.First().AppliedAmount : string.Empty,
-							UnpaidInvoiceId = isPaid ? "" : group.First().InvoiceRefNumber,
-							IsActive = customer.IsActive
+							InvoiceId = isPaid ? "" : group.First().InvoiceRefNumber,
+							IsActive = customer.IsActive,
+							OpenInvoices = new List<InvoiceData> { group.First() }
 						};
 					}
 					else
@@ -1268,5 +1275,576 @@ namespace WoodClub
 
 			return result;
 		}
+
+		public void AddLateFees(InvoiceData invoice)
+		{
+			if (!invoice.IsPaid &&
+				!invoice.HasLateFees &&
+				invoice.IsDues)
+			{
+				connectToQB();
+				try
+				{
+					invoice.LineItems.Add(new InvoiceLineItemData
+					{
+						TxnLineID = "-1",
+						Amount = "10.00",
+						FullName = "X07"
+					});
+
+					string response = processRequestFromQB(buildModifyInvoiceQueryRqXML(invoice));
+
+				}
+				catch (Exception e) { MessageBox.Show(e.Message); }
+				finally { disconnectFromQB(); }
+			}
+		}
+
+		private string buildModifyInvoiceQueryRqXML(InvoiceData invoiceData)
+		{
+			string xml = "";
+			XmlDocument xmlDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+
+			XmlElement InvoiceModRq = xmlDoc.CreateElement("InvoiceModRq");
+			qbXMLMsgsRq.AppendChild(InvoiceModRq);
+			XmlElement InvoiceMod = xmlDoc.CreateElement("InvoiceMod");
+			InvoiceModRq.AppendChild(InvoiceMod);
+
+			XmlElement txnId = xmlDoc.CreateElement("TxnID");
+			InvoiceMod.AppendChild(txnId).InnerText = invoiceData.TxnID;
+
+			XmlElement editSequence = xmlDoc.CreateElement("EditSequence");
+			InvoiceMod.AppendChild(editSequence).InnerText = invoiceData.EditSequence;
+
+			XmlElement isToBeEmailed = xmlDoc.CreateElement("IsToBeEmailed");
+			InvoiceMod.AppendChild(isToBeEmailed).InnerText = "true";
+
+			foreach (InvoiceLineItemData ild in invoiceData.LineItems)
+			{
+				XmlElement lineMod = xmlDoc.CreateElement("InvoiceLineMod");
+				InvoiceMod.AppendChild(lineMod);
+				XmlElement lineId = xmlDoc.CreateElement("TxnLineID");
+				lineMod.AppendChild(lineId).InnerText = ild.TxnLineID;
+				XmlElement itemRef = xmlDoc.CreateElement("ItemRef");
+				lineMod.AppendChild(itemRef);
+				itemRef.AppendChild(xmlDoc.CreateElement("FullName")).InnerText = ild.FullName;
+			}
+
+			InvoiceModRq.SetAttribute("requestID", "1");
+			xml = xmlDoc.OuterXml;
+			return xml;
+		}
+
+		/// /////// Items.
+
+		private string buildItemQueryRqXML()
+		{
+			string xml = "";
+			XmlDocument xmlDoc = new XmlDocument();
+
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+
+			XmlElement itemQueryRq = xmlDoc.CreateElement("ItemQueryRq");
+			qbXMLMsgsRq.AppendChild(itemQueryRq);
+
+			// Only active items
+			XmlElement activeStatus = xmlDoc.CreateElement("ActiveStatus");
+			activeStatus.InnerText = "ActiveOnly";
+			itemQueryRq.AppendChild(activeStatus);
+			itemQueryRq.SetAttribute("requestID", "1");
+
+			xml = xmlDoc.OuterXml;
+			return xml;
+		}
+
+
+
+		/// <summary>
+		/// Parses the ItemQueryRs XML response and returns a list of ItemData
+		/// </summary>
+		private List<QbInventoryItem> parseItemQueryRs(string xml)
+		{
+			List<QbInventoryItem> items = new List<QbInventoryItem>();
+
+			if (string.IsNullOrEmpty(xml))
+				return items;
+
+			try
+			{
+				XmlDocument doc = new XmlDocument();
+				doc.LoadXml(xml);
+				XmlNode root = doc.DocumentElement;
+
+				// QuickBooks returns different node names based on item type
+				// ItemServiceRet, ItemInventoryRet, ItemNonInventoryRet, ItemOtherChargeRet, etc.
+				XmlNodeList itemNodes = root.SelectNodes("//*[contains(name(), 'Item') and contains(name(), 'Ret')]");
+
+				foreach (XmlNode itemNode in itemNodes)
+				{
+					QbInventoryItem item = new QbInventoryItem();
+
+					item.ListID = getInnerText(itemNode.SelectSingleNode("ListID"));
+					item.EditSequence = getInnerText(itemNode.SelectSingleNode("EditSequence"));
+					item.Name = getInnerText(itemNode.SelectSingleNode("Name"));
+					
+					item.FullName = getInnerText(itemNode.SelectSingleNode("FullName"));
+
+					// Extract item type from node name (e.g., "ItemServiceRet" -> "Service")
+					string nodeName = itemNode.Name;
+					if (nodeName.StartsWith("Item") && nodeName.EndsWith("Ret"))
+					{
+						item.Type = nodeName.Substring(4, nodeName.Length - 7);
+					}
+
+					if ((item.Type != "Inventory" && item.Type != "Service" && item.Type != "OtherCharge") || item.Name.StartsWith("T0"))
+					{
+						continue;
+					}
+
+					string isActiveStr = getInnerText(itemNode.SelectSingleNode("IsActive"));
+					item.IsActive = string.Equals(isActiveStr, "true", StringComparison.OrdinalIgnoreCase);
+
+					// Description might be in SalesDesc or PurchaseDesc depending on item type
+					item.Description = getInnerText(itemNode.SelectSingleNode("SalesDesc"));
+					if (string.IsNullOrEmpty(item.Description))
+					{
+						item.Description = getInnerText(itemNode.SelectSingleNode("PurchaseDesc"));
+						if (string.IsNullOrEmpty(item.Description))
+						{
+							XmlNode SalesOrPurchase = itemNode.SelectSingleNode("SalesOrPurchase");
+							if (SalesOrPurchase != null)
+							{
+								XmlNode Desc = SalesOrPurchase.SelectSingleNode("Desc");
+								if (Desc != null)
+								{
+									item.Description = getInnerText(Desc);
+								}
+								else
+								{
+									item.Description = getInnerText(SalesOrPurchase.SelectSingleNode("AccountRef").SelectSingleNode("FullName"));
+									int x = item.Description.LastIndexOf(':');
+									item.Description = x >= 0 ? item.Description.Substring(x + 1) : item.Description;
+									
+								}
+							}
+						}
+					}
+
+					// Price might be SalesPrice or Price depending on item type
+					item.Price = getInnerText(itemNode.SelectSingleNode("SalesPrice"));
+					if (string.IsNullOrEmpty(item.Price))
+					{
+						item.Price = getInnerText(itemNode.SelectSingleNode("Price"));
+						if (string.IsNullOrEmpty(item.Price))
+						{
+							XmlNode SalesOrPurchase = itemNode.SelectSingleNode("SalesOrPurchase");
+							if (SalesOrPurchase != null)
+							{
+								item.Price = getInnerText(SalesOrPurchase.SelectSingleNode("Price"));
+							}
+						}
+					}
+
+					item.Cost = getInnerText(itemNode.SelectSingleNode("PurchaseCost"));
+					item.AverageCost = getInnerText(itemNode.SelectSingleNode("AverageCost"));
+
+
+					item.QuantityOnHand = getInnerText(itemNode.SelectSingleNode("QuantityOnHand"));
+
+					// Account references
+					XmlNode incomeAcctNode = itemNode.SelectSingleNode("IncomeAccountRef/FullName");
+					item.IncomeAccountRef = getInnerText(incomeAcctNode);
+
+					if (string.IsNullOrEmpty(item.IncomeAccountRef))
+					{
+						item.IncomeAccountRef = getInnerText(itemNode.SelectSingleNode("SalesOrPurchase/AccountRef/FullName"));
+					}
+
+					XmlNode assetAcctNode = itemNode.SelectSingleNode("AssetAccountRef/FullName");
+					item.AssetAccountRef = getInnerText(assetAcctNode);
+
+					XmlNode cogsAcctNode = itemNode.SelectSingleNode("COGSAccountRef/FullName");
+					item.COGSAccountRef = getInnerText(cogsAcctNode);
+
+					item.Description = CleanupDescription(item.Description);
+
+					items.Add(item);
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error parsing items: " + ex.Message);
+			}
+
+			return items;
+		}
+
+		private static readonly Regex PricedWordRegex = new Regex(@"\bPriced\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+		/// <summary>
+		/// Cleans up a description:
+		/// - If the word "Priced" occurs, removes it and everything after it.
+		/// - For each word longer than 3 characters, converts to TitleCase-like: First letter upper, rest lower.
+		/// - Words of length 3 or less are left as-is.
+		/// </summary>
+		public string CleanupDescription(string input)
+		{
+			if (string.IsNullOrWhiteSpace(input))
+			{
+				return input;
+			}
+
+			string text = input.Trim();
+
+			Match pricedMatch = PricedWordRegex.Match(text);
+			if (pricedMatch.Success)
+			{
+				text = text.Substring(0, pricedMatch.Index).TrimEnd();
+			}
+
+			// Tokenize into "word" vs "non-word" and preserve punctuation/spacing.
+			// Treat letters/digits and apostrophes as part of a word.
+			MatchCollection tokens = Regex.Matches(text, @"[A-Za-z0-9']+|[^A-Za-z0-9']+");
+
+			var parts = tokens
+				.Cast<Match>()
+				.Select(m =>
+				{
+					string token = m.Value;
+
+					if (!Regex.IsMatch(token, @"^[A-Za-z0-9']+$"))
+					{
+						return token;
+					}
+
+					// Only apply casing rules to words that contain at least one letter.
+					bool hasLetter = token.Any(char.IsLetter);
+					if (!hasLetter)
+					{
+						return token;
+					}
+
+					if (token.Length <= 3)
+					{
+						return token;
+					}
+
+					// "ELMER'S" -> "Elmer's"
+					string lower = token.ToLowerInvariant();
+					return char.ToUpperInvariant(lower[0]) + lower.Substring(1);
+				});
+
+			return string.Concat(parts).Trim();
+		}
+
+		/// <summary>
+		/// Retrieves all active items from QuickBooks
+		/// </summary>
+		/// <returns>List of active items</returns>
+		public List<QbInventoryItem> GetActiveItems()
+		{
+			List<QbInventoryItem> items = new List<QbInventoryItem>();
+
+			connectToQB();
+
+			try
+			{
+				string queryXml = buildItemQueryRqXML();
+				string response = processRequestFromQB(queryXml);
+
+				if (string.IsNullOrEmpty(response))
+					return items;
+
+				// Check for QB errors
+				string qbErr = ParseQbError(response);
+				if (!string.IsNullOrEmpty(qbErr))
+				{
+					MessageBox.Show($"QB Error retrieving items: {qbErr}");
+					return items;
+				}
+
+				items = parseItemQueryRs(response);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error retrieving items from QuickBooks: {ex.Message}");
+			}
+			finally
+			{
+				disconnectFromQB();
+			}
+
+			return items;
+		}
+
+		////////////// Acccounts
+		///
+		/// <summary>
+		/// Builds an AccountQueryRq to retrieve all accounts.
+		/// </summary>
+		private string buildAccountQueryRqXML(bool activeOnly = false)
+		{
+			XmlDocument xmlDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+
+			XmlElement acctQueryRq = xmlDoc.CreateElement("AccountQueryRq");
+			qbXMLMsgsRq.AppendChild(acctQueryRq);
+
+			if (activeOnly)
+			{
+				XmlElement activeStatus = xmlDoc.CreateElement("ActiveStatus");
+				activeStatus.InnerText = "ActiveOnly";
+				acctQueryRq.AppendChild(activeStatus);
+			}
+
+	/*		XmlElement fromModifiedDate = xmlDoc.CreateElement("FromModifiedDate");
+			fromModifiedDate.InnerText = "2026-01-01T00:00:00";
+			acctQueryRq.AppendChild(fromModifiedDate);
+
+			XmlElement toModifiedDate = xmlDoc.CreateElement("ToModifiedDate");
+			toModifiedDate.InnerText = "2026-02-17T23:59:59";
+			acctQueryRq.AppendChild(toModifiedDate);*/
+
+			acctQueryRq.SetAttribute("requestID", "1");
+			return xmlDoc.OuterXml;
+		}
+
+		/// <summary>
+		/// Parses AccountQueryRs response XML into a list of QbAccountData.
+		/// </summary>
+		private List<QbAccountData> parseAccountQueryRs(string xml)
+		{
+			List<QbAccountData> accounts = new List<QbAccountData>();
+
+			if (string.IsNullOrEmpty(xml))
+			{
+				return accounts;
+			}
+
+			try
+			{
+				XmlDocument doc = new XmlDocument();
+				doc.LoadXml(xml);
+
+				XmlNodeList acctNodes = doc.SelectNodes("//AccountRet");
+				if (acctNodes == null)
+				{
+					return accounts;
+				}
+
+				foreach (XmlNode acctNode in acctNodes)
+				{
+					QbAccountData acct = new QbAccountData
+					{
+						ListID = getInnerText(acctNode.SelectSingleNode("ListID")),
+						Name = getInnerText(acctNode.SelectSingleNode("Name")),
+						FullName = getInnerText(acctNode.SelectSingleNode("FullName")),
+						AccountType = getInnerText(acctNode.SelectSingleNode("AccountType")),
+						AccountNumber = getInnerText(acctNode.SelectSingleNode("AccountNumber")),
+						Desc = getInnerText(acctNode.SelectSingleNode("Desc")),
+						Balance = getInnerText(acctNode.SelectSingleNode("Balance")),
+						TotalBalance = getInnerText(acctNode.SelectSingleNode("TotalBalance")),
+						TimeModified = getInnerText(acctNode.SelectSingleNode("TimeModified"))
+					};
+
+					string isActiveStr = getInnerText(acctNode.SelectSingleNode("IsActive"));
+					acct.IsActive = string.Equals(isActiveStr, "true", StringComparison.OrdinalIgnoreCase);
+					if (acct.Name != "Purchase Orders")
+					{
+						accounts.Add(acct);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error parsing accounts: " + ex.Message);
+			}
+
+			return accounts;
+		}
+
+		/// <summary>
+		/// Retrieves all accounts from QuickBooks (optionally active only).
+		/// </summary>
+		public List<QbAccountData> GetAccounts(bool activeOnly = false)
+		{
+			List<QbAccountData> accounts = new List<QbAccountData>();
+
+			connectToQB();
+
+			try
+			{
+				string queryXml = buildAccountQueryRqXML(activeOnly);
+				string response = processRequestFromQB(queryXml);
+
+				if (string.IsNullOrEmpty(response))
+				{
+					return accounts;
+				}
+
+				string qbErr = ParseQbError(response);
+				if (!string.IsNullOrEmpty(qbErr))
+				{
+					MessageBox.Show("QB Error retrieving accounts: " + qbErr);
+					return accounts;
+				}
+
+				accounts = parseAccountQueryRs(response);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error retrieving accounts from QuickBooks: " + ex.Message);
+			}
+			finally
+			{
+				disconnectFromQB();
+			}
+
+			return accounts;
+		}
+
+		// Vendors
+		/// <summary>
+		/// Builds a VendorQueryRq to retrieve vendors.
+		/// </summary>
+		private string buildVendorQueryRqXML(bool activeOnly = false)
+		{
+			XmlDocument xmlDoc = new XmlDocument();
+			XmlElement qbXMLMsgsRq = buildRqEnvelope(xmlDoc, maxVersion);
+			qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+
+			XmlElement vendorQueryRq = xmlDoc.CreateElement("VendorQueryRq");
+			qbXMLMsgsRq.AppendChild(vendorQueryRq);
+
+			if (activeOnly)
+			{
+				XmlElement activeStatus = xmlDoc.CreateElement("ActiveStatus");
+				activeStatus.InnerText = "ActiveOnly";
+				vendorQueryRq.AppendChild(activeStatus);
+			}
+
+			vendorQueryRq.SetAttribute("requestID", "1");
+			return xmlDoc.OuterXml;
+		}
+
+		/// <summary>
+		/// Parses VendorQueryRs response XML into a list of QbVendorData.
+		/// </summary>
+		private List<QbVendorData> parseVendorQueryRs(string xml)
+		{
+			var vendors = new List<QbVendorData>();
+			if (string.IsNullOrEmpty(xml)) return vendors;
+			try
+			{
+				XmlDocument doc = new XmlDocument();
+				doc.LoadXml(xml);
+				XmlNodeList vendorNodes = doc.SelectNodes("//VendorRet");
+				if (vendorNodes == null) return vendors;
+
+				foreach (XmlNode vn in vendorNodes)
+				{
+					QbVendorData v = new QbVendorData();
+					v.ListID = getInnerText(vn.SelectSingleNode("ListID"));
+					v.Name = getInnerText(vn.SelectSingleNode("Name"));
+					// Use Name as display name if no CompanyName is present
+					v.DisplayName = getInnerText(vn.SelectSingleNode("CompanyName"));
+					if (string.IsNullOrEmpty(v.DisplayName)) v.DisplayName = v.Name;
+
+					v.Email = getInnerText(vn.SelectSingleNode("Email"));
+					v.Phone = getInnerText(vn.SelectSingleNode("Phone"));
+
+					v.AddressLine1 = getInnerText(vn.SelectSingleNode("VendorAddress/Addr1"));
+					v.AddressLine2 = getInnerText(vn.SelectSingleNode("VendorAddress/Addr2"));
+					v.City = getInnerText(vn.SelectSingleNode("VendorAddress/City"));
+					v.State = getInnerText(vn.SelectSingleNode("VendorAddress/State"));
+					v.PostalCode = getInnerText(vn.SelectSingleNode("VendorAddress/PostalCode"));
+
+					string isActiveStr = getInnerText(vn.SelectSingleNode("IsActive"));
+					v.IsActive = string.Equals(isActiveStr, "true", StringComparison.OrdinalIgnoreCase);
+
+					vendors.Add(v);
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error parsing vendors: " + ex.Message);
+			}
+			return vendors;
+		}
+
+		/// <summary>
+		/// Retrieves all active vendors from QuickBooks and returns a list of QbVendorData.
+		/// </summary>
+		public List<QbVendorData> RetrieveActiveVendors()
+		{
+			var vendors = new List<QbVendorData>();
+			connectToQB();
+			try
+			{
+				string queryXml = buildVendorQueryRqXML(true);
+				string response = processRequestFromQB(queryXml);
+				if (string.IsNullOrEmpty(response)) return vendors;
+
+				string qbErr = ParseQbError(response);
+				if (!string.IsNullOrEmpty(qbErr))
+				{
+					MessageBox.Show("QB Error retrieving vendors: " + qbErr);
+					return vendors;
+				}
+
+				vendors = parseVendorQueryRs(response);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error retrieving vendors from QuickBooks: " + ex.Message);
+			}
+			finally
+			{
+				disconnectFromQB();
+			}
+
+			return vendors;
+		}
+
+		/// Retrieves vendors from QuickBooks. If activeOnly is true, only active vendors are returned.
+		/// Placed at the bottom of the file per request.
+		/// </summary>
+		public List<QbVendorData> GetVendors(bool activeOnly = true)
+		{
+			var vendors = new List<QbVendorData>();
+			connectToQB();
+			try
+			{
+				string queryXml = buildVendorQueryRqXML(activeOnly);
+				string response = processRequestFromQB(queryXml);
+				if (string.IsNullOrEmpty(response)) return vendors;
+
+				string qbErr = ParseQbError(response);
+				if (!string.IsNullOrEmpty(qbErr))
+				{
+					MessageBox.Show("QB Error retrieving vendors: " + qbErr);
+					return vendors;
+				}
+
+				vendors = parseVendorQueryRs(response);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error retrieving vendors from QuickBooks: " + ex.Message);
+			}
+			finally
+			{
+				disconnectFromQB();
+			}
+
+			return vendors;
+		}
+
+		/// <summary>
+
 	}
 }

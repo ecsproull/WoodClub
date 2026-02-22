@@ -107,7 +107,7 @@ namespace WoodClub
 				return;
 			}
             var baseAddress = "https://scwwoodshop.com";
-            //var baseAddress = "https://woodclubtest.site";
+            //var baseAddress = "https://edtest.site";
 			string apiPath = "/wp-json/scwmembers/v1/photos";
 
             using (HttpClient client = new HttpClient { BaseAddress = new Uri(baseAddress) })

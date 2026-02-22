@@ -836,5 +836,11 @@ namespace WoodClub
 
 			qbf.disconnectFromQB();
 		}
+
+		private void qbxmlButton_Click(object sender, EventArgs e)
+		{
+			QbXml qbXml = new QbXml();
+			qbXml.ShowDialog();
+		}
 	}
 }

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMembers));
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.Badge = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -99,6 +99,7 @@
 			this.updateDuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printRosterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.compareToQBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.setEmailPrefInQBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
 			this.MultipleMembersButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -109,7 +110,7 @@
 			this.updatePhotosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mailToToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.setEmailPrefInQBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.qbxmlButton = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -124,14 +125,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridView1.AutoGenerateColumns = false;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Badge,
@@ -152,25 +153,25 @@
             this.Exempt,
             this.ClubDuesPaid});
 			this.dataGridView1.DataSource = this.memberRosterBindingSource;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle5;
 			this.dataGridView1.Location = new System.Drawing.Point(0, 28);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
 			this.dataGridView1.RowHeadersWidth = 62;
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dataGridView1.Size = new System.Drawing.Size(1501, 600);
@@ -383,7 +384,8 @@
             this.MultipleMembersButton,
             this.toolStripSeparator8,
             this.machinePermissions,
-            this.mailToToolStripButton});
+            this.mailToToolStripButton,
+            this.qbxmlButton});
 			this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
 			this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
 			this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -708,50 +710,57 @@
 			// toolStripImportNewMembers
 			// 
 			this.toolStripImportNewMembers.Name = "toolStripImportNewMembers";
-			this.toolStripImportNewMembers.Size = new System.Drawing.Size(180, 22);
+			this.toolStripImportNewMembers.Size = new System.Drawing.Size(178, 22);
 			this.toolStripImportNewMembers.Text = "Import Orientation";
 			// 
 			// importPhotosToolStripMenuItem
 			// 
 			this.importPhotosToolStripMenuItem.Name = "importPhotosToolStripMenuItem";
-			this.importPhotosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.importPhotosToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
 			this.importPhotosToolStripMenuItem.Text = "Import Photos";
 			this.importPhotosToolStripMenuItem.Click += new System.EventHandler(this.importPhotosToolStripMenuItem_Click);
 			// 
 			// restoreOldToolStripMenuItem
 			// 
 			this.restoreOldToolStripMenuItem.Name = "restoreOldToolStripMenuItem";
-			this.restoreOldToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.restoreOldToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
 			this.restoreOldToolStripMenuItem.Text = "Restore Old";
 			this.restoreOldToolStripMenuItem.Click += new System.EventHandler(this.restoreOldToolStripMenuItem_Click);
 			// 
 			// clubTracksToolStripMenuItem
 			// 
 			this.clubTracksToolStripMenuItem.Name = "clubTracksToolStripMenuItem";
-			this.clubTracksToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.clubTracksToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
 			this.clubTracksToolStripMenuItem.Text = "Club Tracks";
 			this.clubTracksToolStripMenuItem.Click += new System.EventHandler(this.clubTracksToolStripMenuItem_Click_1);
 			// 
 			// updateDuesToolStripMenuItem
 			// 
 			this.updateDuesToolStripMenuItem.Name = "updateDuesToolStripMenuItem";
-			this.updateDuesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.updateDuesToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
 			this.updateDuesToolStripMenuItem.Text = "Update Dues";
 			this.updateDuesToolStripMenuItem.Click += new System.EventHandler(this.updateDuesToolStripMenuItem_Click);
 			// 
 			// printRosterToolStripMenuItem
 			// 
 			this.printRosterToolStripMenuItem.Name = "printRosterToolStripMenuItem";
-			this.printRosterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.printRosterToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
 			this.printRosterToolStripMenuItem.Text = "Print Roster";
 			this.printRosterToolStripMenuItem.Click += new System.EventHandler(this.printRosterToolStripMenuItem_Click);
 			// 
 			// compareToQBToolStripMenuItem
 			// 
 			this.compareToQBToolStripMenuItem.Name = "compareToQBToolStripMenuItem";
-			this.compareToQBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.compareToQBToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
 			this.compareToQBToolStripMenuItem.Text = "Compare to QB";
 			this.compareToQBToolStripMenuItem.Click += new System.EventHandler(this.compareToQBToolStripMenuItem_Click);
+			// 
+			// setEmailPrefInQBToolStripMenuItem
+			// 
+			this.setEmailPrefInQBToolStripMenuItem.Name = "setEmailPrefInQBToolStripMenuItem";
+			this.setEmailPrefInQBToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+			this.setEmailPrefInQBToolStripMenuItem.Text = "Set Email Pref in QB";
+			this.setEmailPrefInQBToolStripMenuItem.Click += new System.EventHandler(this.setEmailPrefInQBToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator6
 			// 
@@ -789,28 +798,28 @@
 			// editPermissionsToolStripMenuItem
 			// 
 			this.editPermissionsToolStripMenuItem.Name = "editPermissionsToolStripMenuItem";
-			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.editPermissionsToolStripMenuItem.Text = "Edit Permissions";
 			this.editPermissionsToolStripMenuItem.Click += new System.EventHandler(this.editMachinePermissions_Click);
 			// 
 			// reportToolStripMenuItem
 			// 
 			this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-			this.reportToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.reportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.reportToolStripMenuItem.Text = "Report";
 			this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
 			// 
 			// updateWebsiteToolStripMenuItem
 			// 
 			this.updateWebsiteToolStripMenuItem.Name = "updateWebsiteToolStripMenuItem";
-			this.updateWebsiteToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.updateWebsiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.updateWebsiteToolStripMenuItem.Text = "Update Website";
 			this.updateWebsiteToolStripMenuItem.Click += new System.EventHandler(this.updateWebsiteToolStripMenuItem_Click);
 			// 
 			// updatePhotosToolStripMenuItem
 			// 
 			this.updatePhotosToolStripMenuItem.Name = "updatePhotosToolStripMenuItem";
-			this.updatePhotosToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.updatePhotosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.updatePhotosToolStripMenuItem.Text = "Update Photos";
 			this.updatePhotosToolStripMenuItem.Click += new System.EventHandler(this.updatePhotosToolStripMenuItem_Click);
 			// 
@@ -829,12 +838,16 @@
 			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
 			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
 			// 
-			// setEmailPrefInQBToolStripMenuItem
+			// qbxmlButton
 			// 
-			this.setEmailPrefInQBToolStripMenuItem.Name = "setEmailPrefInQBToolStripMenuItem";
-			this.setEmailPrefInQBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.setEmailPrefInQBToolStripMenuItem.Text = "Set Email Pref in QB";
-			this.setEmailPrefInQBToolStripMenuItem.Click += new System.EventHandler(this.setEmailPrefInQBToolStripMenuItem_Click);
+			this.qbxmlButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.qbxmlButton.Image = ((System.Drawing.Image)(resources.GetObject("qbxmlButton.Image")));
+			this.qbxmlButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.qbxmlButton.Name = "qbxmlButton";
+			this.qbxmlButton.Size = new System.Drawing.Size(48, 28);
+			this.qbxmlButton.Text = "QbXml";
+			this.qbxmlButton.ToolTipText = "QbXml";
+			this.qbxmlButton.Click += new System.EventHandler(this.qbxmlButton_Click);
 			// 
 			// MainMembers
 			// 
@@ -937,6 +950,7 @@
 		private System.Windows.Forms.ToolStripMenuItem machinePermissionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updatePhotosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem setEmailPrefInQBToolStripMenuItem;
+		private System.Windows.Forms.ToolStripButton qbxmlButton;
 	}
 }
 

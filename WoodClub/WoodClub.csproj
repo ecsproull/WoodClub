@@ -204,6 +204,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="account.cs">
+      <DependentUpon>ModelAcct.tt</DependentUpon>
+    </Compile>
     <Compile Include="acc_timeseg.cs">
       <DependentUpon>ModelTK.tt</DependentUpon>
     </Compile>
@@ -219,6 +222,9 @@
     <Compile Include="CreditTotal.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
+    <Compile Include="customer.cs">
+      <DependentUpon>ModelAcct.tt</DependentUpon>
+    </Compile>
     <Compile Include="CustomerData.cs" />
     <Compile Include="CustomerIdData.cs" />
     <Compile Include="Daily.cs" />
@@ -226,6 +232,9 @@
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />
     <Compile Include="DirtyTracker\FormDirtyTracker.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="external_vendors.cs">
+      <DependentUpon>ModelAcct.tt</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CompareDbs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -310,6 +319,12 @@
     <Compile Include="Forms\PrintContacts.Designer.cs">
       <DependentUpon>PrintContacts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\QbXml.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QbXml.Designer.cs">
+      <DependentUpon>QbXml.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RestoreOldMember.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -365,6 +380,15 @@
     <Compile Include="Forms\LockerRpt.Designer.cs">
       <DependentUpon>LockerRpt.cs</DependentUpon>
     </Compile>
+    <Compile Include="inventory.cs">
+      <DependentUpon>ModelAcct.tt</DependentUpon>
+    </Compile>
+    <Compile Include="inventory_movements.cs">
+      <DependentUpon>ModelAcct.tt</DependentUpon>
+    </Compile>
+    <Compile Include="item.cs">
+      <DependentUpon>ModelAcct.tt</DependentUpon>
+    </Compile>
     <Compile Include="Locker.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
@@ -389,17 +413,32 @@
     <Compile Include="MemberRFcard.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
-    <Compile Include="MemberRoster.cs">
-      <DependentUpon>ModelWC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MonitorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MonitorForm.Designer.cs">
       <DependentUpon>MonitorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MemberRoster.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="MemberRosterExt.cs" />
     <Compile Include="MembersShort.cs" />
+    <Compile Include="ModelAcct.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAcct.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelAcct.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAcct.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelAcct.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAcct.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ModelTK.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -438,7 +477,10 @@
     <Compile Include="OrientationGet.cs" />
     <Compile Include="PermissionReportItem.cs" />
     <Compile Include="PostToGoDaddy.cs" />
+    <Compile Include="QbAccountData.cs" />
     <Compile Include="QBFunctions.cs" />
+    <Compile Include="QbInventoryItem.cs" />
+    <Compile Include="QbVendorData.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -464,7 +506,7 @@
       <DependentUpon>UnPaidMembers.cs</DependentUpon>
     </Compile>
     <Compile Include="SortableBindingList.cs" />
-    <Compile Include="UnpaidMemberData.cs" />
+    <Compile Include="MemberDuesData.cs" />
     <EmbeddedResource Include="Forms\CompareDbs.resx">
       <DependentUpon>CompareDbs.cs</DependentUpon>
     </EmbeddedResource>
@@ -507,6 +549,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PrintContacts.resx">
       <DependentUpon>PrintContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\QbXml.resx">
+      <DependentUpon>QbXml.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RestoreOldMember.resx">
       <DependentUpon>RestoreOldMember.cs</DependentUpon>
@@ -563,6 +608,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelTK.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="ModelAcct.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelAcct.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModelAcct.edmx.diagram">
+      <DependentUpon>ModelAcct.edmx</DependentUpon>
+    </None>
     <None Include="ModelTK.edmx.diagram">
       <DependentUpon>ModelTK.edmx</DependentUpon>
     </None>
@@ -611,6 +663,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ModelAcct.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelAcct.edmx</DependentUpon>
+      <LastGenOutput>ModelAcct.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelAcct.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelAcct.edmx</DependentUpon>
+      <LastGenOutput>ModelAcct.cs</LastGenOutput>
+    </Content>
     <Content Include="ModelTK.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelTK.edmx</DependentUpon>

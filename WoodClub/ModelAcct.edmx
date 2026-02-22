@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AccountingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="accounts">
+          <Key>
+            <PropertyRef Name="account_id" />
+          </Key>
+          <Property Name="account_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="account_number" Type="varchar" MaxLength="25" />
+          <Property Name="account_name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="full_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="parent_account_id" Type="bigint" />
+          <Property Name="account_type" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="account_subtype" Type="varchar" MaxLength="50" />
+          <Property Name="normal_balance" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="allow_posting" Type="bit" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="external_source" Type="varchar" MaxLength="50" />
+          <Property Name="external_source_id" Type="varchar" MaxLength="64" />
+          <Property Name="external_time_modified" Type="datetime" />
+          <Property Name="created_at" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="updated_at" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="external_balance" Type="bigint" />
+          <Property Name="external_total_balance" Type="bigint" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Badge" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" />
+          <Property Name="State" Type="nvarchar" MaxLength="20" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="20" />
+          <Property Name="RecCard" Type="nvarchar" MaxLength="50" />
+          <Property Name="Locker" Type="nvarchar" MaxLength="30" />
+          <Property Name="Photo" Type="image" />
+        </EntityType>
+        <EntityType Name="external_vendors">
+          <Key>
+            <PropertyRef Name="vendor_id" />
+          </Key>
+          <Property Name="vendor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="display_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="normalized_name" Type="nvarchar" MaxLength="4000" StoreGeneratedPattern="Computed" />
+          <Property Name="email" Type="nvarchar" MaxLength="150" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="address_line1" Type="nvarchar" MaxLength="150" />
+          <Property Name="address_line2" Type="nvarchar" MaxLength="150" />
+          <Property Name="city" Type="nvarchar" MaxLength="100" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" />
+          <Property Name="postal_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_at" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="updated_at" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="inventory">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="quantity_on_hand" Type="decimal" Precision="12" Scale="4" Nullable="false" />
+          <Property Name="last_sync_time" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="inventory_movements">
+          <Key>
+            <PropertyRef Name="movement_id" />
+          </Key>
+          <Property Name="movement_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="movement_type" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="reference_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="external_txn_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="movement_date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="quantity_change" Type="decimal" Precision="12" Scale="4" Nullable="false" />
+          <Property Name="unit_cost" Type="decimal" Precision="12" Scale="4" />
+          <Property Name="total_cost" Type="decimal" Precision="12" Scale="4" />
+          <Property Name="source_system" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="created_at" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="items">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="external_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="external_edit_sequence" Type="nvarchar" MaxLength="50" />
+          <Property Name="item_type" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="income_account_id" Type="int" />
+          <Property Name="cogs_account_id" Type="int" />
+          <Property Name="asset_account_id" Type="int" />
+          <Property Name="sales_price" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="purchase_cost" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="average_cost" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_at" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="modified_at" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityContainer Name="AccountingModelStoreContainer">
+          <EntitySet Name="accounts" EntityType="Self.accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="external_vendors" EntityType="Self.external_vendors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inventory" EntityType="Self.inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inventory_movements" EntityType="Self.inventory_movements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="items" EntityType="Self.items" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AccountingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="account">
+          <Key>
+            <PropertyRef Name="account_id" />
+          </Key>
+          <Property Name="account_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="account_number" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="account_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="full_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="parent_account_id" Type="Int64" />
+          <Property Name="account_type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="account_subtype" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="normal_balance" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="allow_posting" Type="Boolean" Nullable="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="external_source" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="external_source_id" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="external_time_modified" Type="DateTime" Precision="3" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="updated_at" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="external_balance" Type="Int64" />
+          <Property Name="external_total_balance" Type="Int64" />
+        </EntityType>
+        <EntityType Name="inventory_movements">
+          <Key>
+            <PropertyRef Name="movement_id" />
+          </Key>
+          <Property Name="movement_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="movement_type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="reference_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="external_txn_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="movement_date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="quantity_change" Type="Decimal" Precision="12" Scale="4" Nullable="false" />
+          <Property Name="unit_cost" Type="Decimal" Precision="12" Scale="4" />
+          <Property Name="total_cost" Type="Decimal" Precision="12" Scale="4" />
+          <Property Name="source_system" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="external_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="external_edit_sequence" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="item_type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="income_account_id" Type="Int32" />
+          <Property Name="cogs_account_id" Type="Int32" />
+          <Property Name="asset_account_id" Type="Int32" />
+          <Property Name="sales_price" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="purchase_cost" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="average_cost" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="modified_at" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityContainer Name="AccountingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="accounts" EntityType="Self.account" />
+          <EntitySet Name="inventory_movements" EntityType="Self.inventory_movements" />
+          <EntitySet Name="items" EntityType="Self.item" />
+          <EntitySet Name="external_vendors" EntityType="AccountingModel.external_vendors" />
+          <EntitySet Name="customers" EntityType="AccountingModel.customer" />
+          <EntitySet Name="inventories" EntityType="AccountingModel.inventory" />
+        </EntityContainer>
+        <EntityType Name="external_vendors">
+          <Key>
+            <PropertyRef Name="vendor_id" />
+          </Key>
+          <Property Name="vendor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="display_name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="normalized_name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address_line1" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="address_line2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="postal_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="updated_at" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Badge" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RecCard" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Locker" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="inventory">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity_on_hand" Type="Decimal" Nullable="false" Precision="12" Scale="4" />
+          <Property Name="last_sync_time" Type="DateTime" Precision="7" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AccountingModelStoreContainer" CdmEntityContainer="AccountingEntities">
+          <EntitySetMapping Name="accounts">
+            <EntityTypeMapping TypeName="AccountingModel.account">
+              <MappingFragment StoreEntitySet="accounts">
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="account_number" ColumnName="account_number" />
+                <ScalarProperty Name="account_name" ColumnName="account_name" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="parent_account_id" ColumnName="parent_account_id" />
+                <ScalarProperty Name="account_type" ColumnName="account_type" />
+                <ScalarProperty Name="account_subtype" ColumnName="account_subtype" />
+                <ScalarProperty Name="normal_balance" ColumnName="normal_balance" />
+                <ScalarProperty Name="allow_posting" ColumnName="allow_posting" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="external_source" ColumnName="external_source" />
+                <ScalarProperty Name="external_source_id" ColumnName="external_source_id" />
+                <ScalarProperty Name="external_time_modified" ColumnName="external_time_modified" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="external_balance" ColumnName="external_balance" />
+                <ScalarProperty Name="external_total_balance" ColumnName="external_total_balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inventory_movements">
+            <EntityTypeMapping TypeName="AccountingModel.inventory_movements">
+              <MappingFragment StoreEntitySet="inventory_movements">
+                <ScalarProperty Name="movement_id" ColumnName="movement_id" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="movement_type" ColumnName="movement_type" />
+                <ScalarProperty Name="reference_id" ColumnName="reference_id" />
+                <ScalarProperty Name="external_txn_id" ColumnName="external_txn_id" />
+                <ScalarProperty Name="movement_date" ColumnName="movement_date" />
+                <ScalarProperty Name="quantity_change" ColumnName="quantity_change" />
+                <ScalarProperty Name="unit_cost" ColumnName="unit_cost" />
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="source_system" ColumnName="source_system" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="items">
+            <EntityTypeMapping TypeName="AccountingModel.item">
+              <MappingFragment StoreEntitySet="items">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="external_id" ColumnName="external_id" />
+                <ScalarProperty Name="external_edit_sequence" ColumnName="external_edit_sequence" />
+                <ScalarProperty Name="item_type" ColumnName="item_type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="income_account_id" ColumnName="income_account_id" />
+                <ScalarProperty Name="cogs_account_id" ColumnName="cogs_account_id" />
+                <ScalarProperty Name="asset_account_id" ColumnName="asset_account_id" />
+                <ScalarProperty Name="sales_price" ColumnName="sales_price" />
+                <ScalarProperty Name="purchase_cost" ColumnName="purchase_cost" />
+                <ScalarProperty Name="average_cost" ColumnName="average_cost" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="external_vendors">
+            <EntityTypeMapping TypeName="AccountingModel.external_vendors">
+              <MappingFragment StoreEntitySet="external_vendors">
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address_line2" ColumnName="address_line2" />
+                <ScalarProperty Name="address_line1" ColumnName="address_line1" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="normalized_name" ColumnName="normalized_name" />
+                <ScalarProperty Name="display_name" ColumnName="display_name" />
+                <ScalarProperty Name="vendor_id" ColumnName="vendor_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="AccountingModel.customer">
+              <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Locker" ColumnName="Locker" />
+                <ScalarProperty Name="RecCard" ColumnName="RecCard" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inventories">
+            <EntityTypeMapping TypeName="AccountingModel.inventory">
+              <MappingFragment StoreEntitySet="inventory">
+                <ScalarProperty Name="last_sync_time" ColumnName="last_sync_time" />
+                <ScalarProperty Name="quantity_on_hand" ColumnName="quantity_on_hand" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
