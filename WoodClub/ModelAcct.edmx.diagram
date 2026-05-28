@@ -5,12 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="47006513f4224226ad8917148b0b5aed" Name="Diagram1">
-        <EntityTypeShape EntityType="AccountingModel.account" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AccountingModel.inventory_movements" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AccountingModel.item" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AccountingModel.external_vendors" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="AccountingModel.customer" Width="1.5" PointX="5.375" PointY="5.75" />
-        <EntityTypeShape EntityType="AccountingModel.inventory" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="AccountingModel.inventory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AccountingModel.inventory_movements" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AccountingModel.item" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AccountingModel.account" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="AccountingModel.external_vendors" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="AccountingModel.member" Width="1.5" PointX="4.75" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

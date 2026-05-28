@@ -33,11 +33,6 @@ namespace WoodClub
 			dataGridView1.MouseClick += DataGridView1_MouseClick;
 			dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			printDocument1.PrintPage += PrintDocument1_PrintPage;
-
-			if (System.Environment.MachineName != "TREASURERS_PC")
-			{
-				quickBooksButton.Enabled = false;
-			}
 		}
 
 
@@ -346,6 +341,28 @@ namespace WoodClub
 
 				context.SaveChanges();
 				MessageBox.Show("Add Members to Database has completed.");
+				btn.Enabled = false;
+			}
+
+			using (AcctLiiveEntities contextLive = new AcctLiiveEntities())
+			{
+				foreach (NewMember r in members)
+				{
+					if (r.Add)
+					{
+						var member = (from mr in contextLive.members
+									  where mr.rec_card == r.RecNo
+									  select mr).FirstOrDefault();
+						if (member != null)
+						{
+							member.badge = r.Badge;
+							member.active = true;
+						}
+					}
+				}
+
+				contextLive.SaveChanges();
+				MessageBox.Show("Add Members to AccountingLive Database has completed.");
 				btn.Enabled = false;
 			}
 		}

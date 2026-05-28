@@ -15,8 +15,6 @@ namespace WoodClub
     public partial class item
     {
         public int item_id { get; set; }
-        public string external_id { get; set; }
-        public string external_edit_sequence { get; set; }
         public string item_type { get; set; }
         public string name { get; set; }
         public string description { get; set; }
@@ -29,5 +27,7 @@ namespace WoodClub
         public bool is_active { get; set; }
         public System.DateTime created_at { get; set; }
         public Nullable<System.DateTime> modified_at { get; set; }
+        public Nullable<int> pref_vendor { get; set; }
+        public string mfg_part_number { get; set; }
     }
 }

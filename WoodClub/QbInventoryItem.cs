@@ -16,6 +16,8 @@
 		public string Cost { get; set; }
 		public string AverageCost { get; set; }
 		public string QuantityOnHand { get; set; }
+		public string PreferredVendorRef { get; set; }
+		public string ManufacturerPartNumber { get; set; }
 		public string IncomeAccountRef { get; set; }
 		public string AssetAccountRef { get; set; }
 		public string COGSAccountRef { get; set; }

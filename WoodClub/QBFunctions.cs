@@ -1454,6 +1454,10 @@ namespace WoodClub
 
 					item.QuantityOnHand = getInnerText(itemNode.SelectSingleNode("QuantityOnHand"));
 
+					item.PreferredVendorRef = getInnerText(itemNode.SelectSingleNode("PreferredVendorRef/FullName"));
+
+					item.ManufacturerPartNumber = getInnerText(itemNode.SelectSingleNode("ManufacturerPartNumber"));
+
 					// Account references
 					XmlNode incomeAcctNode = itemNode.SelectSingleNode("IncomeAccountRef/FullName");
 					item.IncomeAccountRef = getInnerText(incomeAcctNode);

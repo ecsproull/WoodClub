@@ -13,10 +13,10 @@ namespace WoodClub
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AccountingEntities : DbContext
+    public partial class AcctLiiveEntities : DbContext
     {
-        public AccountingEntities()
-            : base("name=AccountingEntities")
+        public AcctLiiveEntities()
+            : base("name=AcctLiiveEntities")
         {
         }
     

@@ -43,6 +43,22 @@ namespace WoodClub
 						var monitorParams = (from m in context.MonitorParams
 											 where m.Monitor_Badge == badgeNumber
 											 select m).FirstOrDefault();
+						if (monitorParams == null)
+						{
+							MonitorParam newParam = new MonitorParam
+							{
+								Monitor_Badge = badgeNumber,
+								Monitor_Preferred_Contact = "email",
+								Monitor_Secret = Guid.NewGuid().ToString("N")
+							};
+
+							context.MonitorParams.Add(newParam);
+							context.SaveChanges();
+							monitorParams = (from m in context.MonitorParams
+												 where m.Monitor_Badge == badgeNumber
+												 select m).FirstOrDefault();
+						}
+
 						pd.members[i] = new Member
 						{
 							badge = members[i].Badge,
@@ -106,8 +122,8 @@ namespace WoodClub
 			{
 				return;
 			}
-            var baseAddress = "https://scwwoodshop.com";
-            //var baseAddress = "https://edtest.site";
+            //var baseAddress = "https://scwwoodshop.com";
+            var baseAddress = "https://woodtest.site";
 			string apiPath = "/wp-json/scwmembers/v1/photos";
 
             using (HttpClient client = new HttpClient { BaseAddress = new Uri(baseAddress) })

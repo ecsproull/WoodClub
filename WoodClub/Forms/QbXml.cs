@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
@@ -191,7 +192,7 @@ namespace WoodClub.Forms
 		private void ItemImport(List<QbInventoryItem> qbItems)
 		{
 			var now = DateTime.UtcNow;
-			using (AccountingEntities context = new AccountingEntities())
+			using (AcctLiiveEntities context = new AcctLiiveEntities())
 			{
 				foreach (var qb in qbItems)
 				{
@@ -217,38 +218,54 @@ namespace WoodClub.Forms
 						avg_cost_dec = decimal.Parse(qb.AverageCost, CultureInfo.InvariantCulture);
 					}
 
-					context.items.Add(new item
+					item item = context.items.FirstOrDefault(i => i.name == qb.Name);
+	
+					if (item != null)
 					{
-						external_id = qb.ListID,
-						external_edit_sequence = qb.EditSequence,
-						item_type = qb.Type,
-						name = qb.Name,
-						description = qb.Description,
-
-						income_account_id = incomeAcctId,
-						cogs_account_id = cogsAcctId,
-						asset_account_id = assetAcctId,
-						sales_price = sale_price_dec,
-						purchase_cost = cost_dec,
-						average_cost = avg_cost_dec,
-
-						is_active = qb.IsActive,
-						created_at = now
-					});
-
-					context.SaveChanges();
-
-					if (qb.Type == "Inventory")
-					{
-						item item = context.items.FirstOrDefault(i => i.external_id == qb.ListID);
-						context.inventory.Add(new inventory
+						item.mfg_part_number = qb.ManufacturerPartNumber;
+						item.sales_price = sale_price_dec;
+						item.purchase_cost = cost_dec;
+						item.average_cost = avg_cost_dec;
+						if (qb.Type == "Inventory")
 						{
-							item_id = item.item_id,
-							quantity_on_hand = decimal.Parse(qb.QuantityOnHand, CultureInfo.InvariantCulture),
-							last_sync_time = now
-						});
+							inventory itemInv = context.inventory.FirstOrDefault(inv => inv.item_id == item.item_id);
+							if (itemInv != null)
+							{
+								itemInv.quantity_on_hand = decimal.Parse(qb.QuantityOnHand, CultureInfo.InvariantCulture);
+								itemInv.last_sync_time = now;
+							}
+							else
+							{
+								//context.inventory.Add(new inventory
+								//{
+								//	item_id = item.item_id,
+								//	quantity_on_hand = decimal.Parse(qb.QuantityOnHand, CultureInfo.InvariantCulture),
+								//	last_sync_time = now
+								//});
+							}
 
-						context.SaveChanges();
+							context.SaveChanges();
+						}
+					}
+					else
+					{
+						//context.items.AddOrUpdate(new item
+						//{
+						//	item_type = qb.Type,
+						//	name = qb.Name,
+						//	description = qb.Description,
+
+						//	income_account_id = incomeAcctId,
+						//	cogs_account_id = cogsAcctId,
+						//	asset_account_id = assetAcctId,
+						//	sales_price = sale_price_dec,
+						//	purchase_cost = cost_dec,
+						//	average_cost = avg_cost_dec,
+						//	mfg_part_number = qb.ManufacturerPartNumber,
+
+						//	is_active = qb.IsActive,
+						//	created_at = now
+						//});
 					}
 				}
 			}
