@@ -109,8 +109,8 @@
 			this.updateWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updatePhotosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mailToToolStripButton = new System.Windows.Forms.ToolStripButton();
-			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.qbxmlButton = new System.Windows.Forms.ToolStripButton();
+			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memberRosterBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -798,28 +798,28 @@
 			// editPermissionsToolStripMenuItem
 			// 
 			this.editPermissionsToolStripMenuItem.Name = "editPermissionsToolStripMenuItem";
-			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.editPermissionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.editPermissionsToolStripMenuItem.Text = "Edit Permissions";
 			this.editPermissionsToolStripMenuItem.Click += new System.EventHandler(this.editMachinePermissions_Click);
 			// 
 			// reportToolStripMenuItem
 			// 
 			this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-			this.reportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.reportToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.reportToolStripMenuItem.Text = "Report";
 			this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
 			// 
 			// updateWebsiteToolStripMenuItem
 			// 
 			this.updateWebsiteToolStripMenuItem.Name = "updateWebsiteToolStripMenuItem";
-			this.updateWebsiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.updateWebsiteToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.updateWebsiteToolStripMenuItem.Text = "Update Website";
 			this.updateWebsiteToolStripMenuItem.Click += new System.EventHandler(this.updateWebsiteToolStripMenuItem_Click);
 			// 
 			// updatePhotosToolStripMenuItem
 			// 
 			this.updatePhotosToolStripMenuItem.Name = "updatePhotosToolStripMenuItem";
-			this.updatePhotosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.updatePhotosToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.updatePhotosToolStripMenuItem.Text = "Update Photos";
 			this.updatePhotosToolStripMenuItem.Click += new System.EventHandler(this.updatePhotosToolStripMenuItem_Click);
 			// 
@@ -833,21 +833,23 @@
 			this.mailToToolStripButton.Text = "Mail To";
 			this.mailToToolStripButton.Click += new System.EventHandler(this.mailToToollStripButton_Click);
 			// 
-			// addPermissionsToolStripMenuItem
-			// 
-			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
-			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-			// 
 			// qbxmlButton
 			// 
 			this.qbxmlButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.qbxmlButton.Enabled = false;
 			this.qbxmlButton.Image = ((System.Drawing.Image)(resources.GetObject("qbxmlButton.Image")));
 			this.qbxmlButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.qbxmlButton.Name = "qbxmlButton";
 			this.qbxmlButton.Size = new System.Drawing.Size(48, 28);
 			this.qbxmlButton.Text = "QbXml";
 			this.qbxmlButton.ToolTipText = "QbXml";
+			this.qbxmlButton.Visible = false;
 			this.qbxmlButton.Click += new System.EventHandler(this.qbxmlButton_Click);
+			// 
+			// addPermissionsToolStripMenuItem
+			// 
+			this.addPermissionsToolStripMenuItem.Name = "addPermissionsToolStripMenuItem";
+			this.addPermissionsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
 			// 
 			// MainMembers
 			// 

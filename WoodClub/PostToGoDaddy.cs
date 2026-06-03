@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -122,8 +123,8 @@ namespace WoodClub
 			{
 				return;
 			}
-            //var baseAddress = "https://scwwoodshop.com";
-            var baseAddress = "https://woodtest.site";
+            var baseAddress = "https://scwwoodshop.com";
+            //var baseAddress = "https://woodtest.site";
 			string apiPath = "/wp-json/scwmembers/v1/photos";
 
             using (HttpClient client = new HttpClient { BaseAddress = new Uri(baseAddress) })
@@ -137,47 +138,136 @@ namespace WoodClub
                                    where m.ClubDuesPaid == true && m.Badge != "20001"
                                    select m).OrderBy(o => o.Badge).ToArray();
 
-                    foreach (var dbMember in members)
-                    {
-                        // skip empty photos
-                        if (dbMember.Photo == null || dbMember.Photo.Length == 0)
-                        continue;
+					var uploadMembers = members
+						.Where(m => m.Photo != null && m.Photo.Length > 0)
+						.ToArray();
 
-                        using (var content = new MultipartFormDataContent())
-                        {
-                            // required fields
-                            content.Add(new StringContent("8c62a157-7ee8-4104-9f91-930eac39fe2f"), "key");
-                            content.Add(new StringContent(dbMember.Badge ?? ""), "badge");
-                            // optional metadata
-                            content.Add(new StringContent(dbMember.Email ?? ""), "email");
-                            // file part
-                            var mime = GetImageMimeType(dbMember.Photo) ?? "application/octet-stream";
-                            var fileContent = new ByteArrayContent(dbMember.Photo);
-                            fileContent.Headers.ContentType = new MediaTypeHeaderValue(mime);
-                            // field name "photo" (server expects this). filename helps server treat it as file
-                            var ext = GetExtensionForMime(mime);
-                            content.Add(fileContent, "photo", $"{dbMember.Badge}{ext}");
+					if (uploadMembers.Length == 0)
+					{
+						MessageBox.Show("No member photos found to upload.");
+						return;
+					}
 
-                            try
-                            {
-                                var resp = await client.PostAsync(apiPath, content);
-                                var respBody = await resp.Content.ReadAsStringAsync();
-								Console.WriteLine($"Uploaded photo for {dbMember.Badge}, response: {(int)resp.StatusCode} {resp.ReasonPhrase}");
-                                if (!resp.IsSuccessStatusCode)
-                                {
-                                    // Log or show server error for this member
-                                    MessageBox.Show($"Photo upload failed for {dbMember.Badge}: {(int)resp.StatusCode} {resp.ReasonPhrase}\n{respBody}");
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show($"Network error uploading photo for {dbMember.Badge}: {ex.Message}");
-                            }
-                        }
-                    }
+					Form progressForm = CreateProgressForm(uploadMembers.Length, out ProgressBar progressBar, out Label statusLabel);
+					try
+					{
+						progressForm.Show();
+
+						void SetProgress(int value, string message)
+						{
+							if (progressForm.IsDisposed)
+							{
+								return;
+							}
+
+							if (progressForm.InvokeRequired)
+							{
+								progressForm.BeginInvoke(new Action(() => SetProgress(value, message)));
+								return;
+							}
+
+							int clamped = Math.Max(progressBar.Minimum, Math.Min(value, progressBar.Maximum));
+							progressBar.Value = clamped;
+							statusLabel.Text = message ?? string.Empty;
+
+							// ensure paint between awaits
+							progressForm.Refresh();
+						}
+
+						SetProgress(0, $"Uploading 0 of {uploadMembers.Length}...");
+
+						for (int i = 0; i < uploadMembers.Length; i++)
+						{
+							var dbMember = uploadMembers[i];
+
+							SetProgress(i, $"Uploading {i + 1} of {uploadMembers.Length}: {dbMember.Badge}");
+
+							using (var content = new MultipartFormDataContent())
+							{
+								// required fields
+								content.Add(new StringContent("8c62a157-7ee8-4104-9f91-930eac39fe2f"), "key");
+								content.Add(new StringContent(dbMember.Badge ?? ""), "badge");
+								// optional metadata
+								content.Add(new StringContent(dbMember.Email ?? ""), "email");
+								// file part
+								var mime = GetImageMimeType(dbMember.Photo) ?? "application/octet-stream";
+								var fileContent = new ByteArrayContent(dbMember.Photo);
+								fileContent.Headers.ContentType = new MediaTypeHeaderValue(mime);
+								// field name "photo" (server expects this). filename helps server treat it as file
+								var ext = GetExtensionForMime(mime);
+								content.Add(fileContent, "photo", $"{dbMember.Badge}{ext}");
+
+								try
+								{
+									var resp = await client.PostAsync(apiPath, content);
+									var respBody = await resp.Content.ReadAsStringAsync();
+									Console.WriteLine($"Uploaded photo for {dbMember.Badge}, response: {(int)resp.StatusCode} {resp.ReasonPhrase}");
+									if (!resp.IsSuccessStatusCode)
+									{
+										// Log or show server error for this member
+										MessageBox.Show($"Photo upload failed for {dbMember.Badge}: {(int)resp.StatusCode} {resp.ReasonPhrase}\n{respBody}");
+									}
+								}
+								catch (Exception ex)
+								{
+									MessageBox.Show($"Network error uploading photo for {dbMember.Badge}: {ex.Message}");
+								}
+							}
+
+							SetProgress(i + 1, $"Uploaded {i + 1} of {uploadMembers.Length}: {dbMember.Badge}");
+						}
+
+						SetProgress(uploadMembers.Length, "Upload complete.");
+					}
+					finally
+					{
+						progressForm.Close();
+						progressForm.Dispose();
+					}
                 }
             }
         }
+
+		private static Form CreateProgressForm(int maximum, out ProgressBar progressBar, out Label statusLabel)
+		{
+			int max = Math.Max(1, maximum);
+
+			var form = new Form
+			{
+				Text = "Uploading Member Photos",
+				FormBorderStyle = FormBorderStyle.FixedDialog,
+				StartPosition = FormStartPosition.CenterScreen,
+				MaximizeBox = false,
+				MinimizeBox = false,
+				ControlBox = false,
+				ShowInTaskbar = false,
+				ClientSize = new Size(560, 120),
+				TopMost = true
+			};
+
+			statusLabel = new Label
+			{
+				AutoSize = false,
+				Location = new Point(12, 12),
+				Size = new Size(536, 40),
+				Text = "Preparing..."
+			};
+
+			progressBar = new ProgressBar
+			{
+				Location = new Point(12, 64),
+				Size = new Size(536, 24),
+				Minimum = 0,
+				Maximum = max,
+				Value = 0,
+				Style = ProgressBarStyle.Continuous
+			};
+
+			form.Controls.Add(statusLabel);
+			form.Controls.Add(progressBar);
+
+			return form;
+		}
 
         /// <summary>
         /// Try to detect basic image mime type from the leading bytes.

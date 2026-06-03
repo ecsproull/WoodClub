@@ -41,6 +41,7 @@ namespace WoodClub
 			permissionNames.Add("logsaw", "Log Saw");
 			permissionNames.Add("lbc", "Lathe Boot Camp");
 			permissionNames.Add("shp_origin", "Shaper Origin");
+			permissionNames.Add("powermatic", "Powermatic Sander");
 			permissionsBindingSource = new BindingSource();
 			permissionsBindingSource.DataSource = permissionNames;
 			permissionComboBox.DataSource = permissionsBindingSource;
@@ -55,6 +56,7 @@ namespace WoodClub
 			approversNames.Add("4775", "Bill Gentry");
 			approversNames.Add("4413", "Jim Casey");
 			approversNames.Add("4359", "Merrikay Vidal");
+			approversNames.Add("5429", "Ron Wilson");
 			approverBindingSource = new BindingSource();
 			approverBindingSource.DataSource = approversNames;
 			approverComboBox.DataSource = approverBindingSource;
