@@ -14,12 +14,7 @@ namespace WoodClub
     using System.Data.Entity.Infrastructure;
     
     public partial class ZKAccessEntities : DbContext
-    {
-        public ZKAccessEntities()
-            : base("name=ZKAccessEntities")
-        {
-        }
-    
+    {    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

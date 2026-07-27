@@ -770,7 +770,7 @@ namespace WoodClub
 		private void updateWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			PostToGoDaddy postToGoDaddy = new PostToGoDaddy();
-			postToGoDaddy.PostMembersToGoDaddy();
+			postToGoDaddy.PostMembersToWebsite();
 		}
 
 		/// <summary>
@@ -839,8 +839,9 @@ namespace WoodClub
 
 		private void qbxmlButton_Click(object sender, EventArgs e)
 		{
-			QbXml qbXml = new QbXml();
-			qbXml.ShowDialog();
-		}
-	}
+            //This will be completely removed in the future. It was used to test the qbXML interface to QuickBooks.
+            //QbXml qbXml = new QbXml();
+            //qbXml.ShowDialog();
+        }
+    }
 }

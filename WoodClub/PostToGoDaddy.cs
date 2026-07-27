@@ -16,15 +16,46 @@ namespace WoodClub
 	internal class PostToGoDaddy
 	{
 		/// <summary>
+		/// Prompts the user to select which website to update.
+		/// </summary>
+		/// <returns>The base URL chosen, or null if cancelled.</returns>
+		private string ChooseWebsite()
+		{
+			var result = MessageBox.Show(
+				"Choose the website to update:\n\nYes = Production (scwwoodshop.com)\nNo = Test (woodtest.site)\nCancel = Abort",
+				"Select Website",
+				MessageBoxButtons.YesNoCancel,
+				MessageBoxIcon.Question,
+				MessageBoxDefaultButton.Button1);
+
+			if (result == DialogResult.Yes)
+			{
+				return "https://scwwoodshop.com";
+			}
+			else if (result == DialogResult.No)
+			{
+				return "https://woodtest.site";
+			}
+			else
+			{
+				return null; // user cancelled
+			}
+		}
+
+		/// <summary>
 		/// Posts the members to go daddy.
 		/// </summary>
-		public async void PostMembersToGoDaddy()
+		public async void PostMembersToWebsite()
 		{
-            using (HttpClient client = new HttpClient())
+			var baseAddress = ChooseWebsite();
+			if (baseAddress == null)
+			{
+				return; // user cancelled
+			}
+
+			using (HttpClient client = new HttpClient())
 			{
 				var contentType = new MediaTypeWithQualityHeaderValue("application/json");
-				var baseAddress = "https://scwwoodshop.com";
-				//var baseAddress = "https://woodclubtest.site";
 				var api = "/wp-json/scwmembers/v1/members";
 				client.BaseAddress = new Uri(baseAddress);
 				client.DefaultRequestHeaders.Accept.Add(contentType);
@@ -106,13 +137,19 @@ namespace WoodClub
 			}
 		}
 
-        /// <summary>
-        /// Send member photos as individual multipart/form-data requests.
-        /// Server endpoint should accept: key, badge (string fields) and photo (file field).
-        /// </summary>
-        public async void PostMemberPhotosMultipart()
-        {
-            var confirm = MessageBox.Show(
+		/// <summary>
+		/// Send member photos as individual multipart/form-data requests.
+		/// Server endpoint should accept: key, badge (string fields) and photo (file field).
+		/// </summary>
+		public async void PostMemberPhotosMultipart()
+		{
+			var baseAddress = ChooseWebsite();
+			if (baseAddress == null)
+			{
+				return; // user cancelled
+			}
+
+			var confirm = MessageBox.Show(
 			"Upload member photos to the website now? This takes about 40 minutes to run and the app must stay open. Photos are seen and used by administrators only.",
 			"Confirm Upload",
 			MessageBoxButtons.YesNo,
@@ -123,20 +160,19 @@ namespace WoodClub
 			{
 				return;
 			}
-            var baseAddress = "https://scwwoodshop.com";
-            //var baseAddress = "https://woodtest.site";
+
 			string apiPath = "/wp-json/scwmembers/v1/photos";
 
-            using (HttpClient client = new HttpClient { BaseAddress = new Uri(baseAddress) })
-            {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			using (HttpClient client = new HttpClient { BaseAddress = new Uri(baseAddress) })
+			{
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                // build members list (same selection you already use)
-                using (WoodClubEntities context = new WoodClubEntities())
-                {
-                    var members = (from m in context.MemberRosters
-                                   where m.ClubDuesPaid == true && m.Badge != "20001"
-                                   select m).OrderBy(o => o.Badge).ToArray();
+				// build members list (same selection you already use)
+				using (WoodClubEntities context = new WoodClubEntities())
+				{
+					var members = (from m in context.MemberRosters
+								   where m.ClubDuesPaid == true && m.Badge != "20001"
+								   select m).OrderBy(o => o.Badge).ToArray();
 
 					var uploadMembers = members
 						.Where(m => m.Photo != null && m.Photo.Length > 0)
@@ -224,9 +260,9 @@ namespace WoodClub
 						progressForm.Close();
 						progressForm.Dispose();
 					}
-                }
-            }
-        }
+				}
+			}
+		}
 
 		private static Form CreateProgressForm(int maximum, out ProgressBar progressBar, out Label statusLabel)
 		{
@@ -269,42 +305,42 @@ namespace WoodClub
 			return form;
 		}
 
-        /// <summary>
-        /// Try to detect basic image mime type from the leading bytes.
-        /// </summary>
-        private static string GetImageMimeType(byte[] bytes)
-        {
-            if (bytes == null || bytes.Length < 4) return null;
-            // JPEG FF D8
-            if (bytes[0] == 0xFF && bytes[1] == 0xD8) return "image/jpeg";
-            // PNG 89 50 4E 47
-            if (bytes[0] == 0x89 && bytes[1] == 0x50 && bytes[2] == 0x4E && bytes[3] == 0x47) return "image/png";
-            // GIF "GIF8"
-            if (bytes[0] == 0x47 && bytes[1] == 0x49 && bytes[2] == 0x46) return "image/gif";
-            // BMP "BM"
-            if (bytes[0] == 0x42 && bytes[1] == 0x4D) return "image/bmp";
-            // fallback
-            return null;
-        }
+		/// <summary>
+		/// Try to detect basic image mime type from the leading bytes.
+		/// </summary>
+		private static string GetImageMimeType(byte[] bytes)
+		{
+			if (bytes == null || bytes.Length < 4) return null;
+			// JPEG FF D8
+			if (bytes[0] == 0xFF && bytes[1] == 0xD8) return "image/jpeg";
+			// PNG 89 50 4E 47
+			if (bytes[0] == 0x89 && bytes[1] == 0x50 && bytes[2] == 0x4E && bytes[3] == 0x47) return "image/png";
+			// GIF "GIF8"
+			if (bytes[0] == 0x47 && bytes[1] == 0x49 && bytes[2] == 0x46) return "image/gif";
+			// BMP "BM"
+			if (bytes[0] == 0x42 && bytes[1] == 0x4D) return "image/bmp";
+			// fallback
+			return null;
+		}
 
-        private static string GetExtensionForMime(string mime)
-        {
-            switch (mime)
-            {
-                case "image/jpeg": return ".jpg";
-                case "image/png": return ".png";
-                case "image/gif": return ".gif";
-                case "image/bmp": return ".bmp";
-                default: return ".bin";
-            }
-        }
+		private static string GetExtensionForMime(string mime)
+		{
+			switch (mime)
+			{
+				case "image/jpeg": return ".jpg";
+				case "image/png": return ".png";
+				case "image/gif": return ".gif";
+				case "image/bmp": return ".bmp";
+				default: return ".bin";
+			}
+		}
 
-        /// <summary>
-        /// Data structure used to pass data to GoDaddy.
-        /// These data structures have to match what is expected on the server.
-        /// Don't fuck with this unless you really know what you are doing!
-        /// </summary>
-        private class PermsData
+		/// <summary>
+		/// Data structure used to pass data to GoDaddy.
+		/// These data structures have to match what is expected on the server.
+		/// Don't fuck with this unless you really know what you are doing!
+		/// </summary>
+		private class PermsData
 		{
 			/// <summary>
 			/// The key

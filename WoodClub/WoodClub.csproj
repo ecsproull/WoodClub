@@ -94,6 +94,10 @@
     <ApplicationIcon>woodclub.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CredsLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CredsLib\CredsLib\bin\Debug\CredsLib.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -217,9 +221,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="account.cs">
-      <DependentUpon>ModelAcctLive.tt</DependentUpon>
-    </Compile>
     <Compile Include="acc_timeseg.cs">
       <DependentUpon>ModelTK.tt</DependentUpon>
     </Compile>
@@ -242,9 +243,6 @@
     <Compile Include="DirtyTracker\ControlDirtyTrackerCollection.cs" />
     <Compile Include="DirtyTracker\FormDirtyTracker.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="external_vendors.cs">
-      <DependentUpon>ModelAcctLive.tt</DependentUpon>
-    </Compile>
     <Compile Include="Forms\CompareDbs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -329,12 +327,6 @@
     <Compile Include="Forms\PrintContacts.Designer.cs">
       <DependentUpon>PrintContacts.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\QbXml.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\QbXml.Designer.cs">
-      <DependentUpon>QbXml.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\RestoreOldMember.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -390,15 +382,6 @@
     <Compile Include="Forms\LockerRpt.Designer.cs">
       <DependentUpon>LockerRpt.cs</DependentUpon>
     </Compile>
-    <Compile Include="inventory.cs">
-      <DependentUpon>ModelAcctLive.tt</DependentUpon>
-    </Compile>
-    <Compile Include="inventory_movements.cs">
-      <DependentUpon>ModelAcctLive.tt</DependentUpon>
-    </Compile>
-    <Compile Include="item.cs">
-      <DependentUpon>ModelAcctLive.tt</DependentUpon>
-    </Compile>
     <Compile Include="Locker.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
@@ -414,9 +397,6 @@
     </Compile>
     <Compile Include="MachinePerm.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="member.cs">
-      <DependentUpon>ModelAcctLive.tt</DependentUpon>
     </Compile>
     <Compile Include="MemberBackup.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
@@ -437,36 +417,6 @@
     </Compile>
     <Compile Include="MemberRosterExt.cs" />
     <Compile Include="MembersShort.cs" />
-    <Compile Include="ModelAcct.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelAcct.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelAcct.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelAcct.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelAcct.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelAcct.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="ModelAcctLive.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelAcctLive.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelAcctLive.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelAcctLive.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelAcctLive.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelAcctLive.edmx</DependentUpon>
-    </Compile>
     <Compile Include="ModelTK.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -535,6 +485,8 @@
     </Compile>
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="MemberDuesData.cs" />
+    <Compile Include="WoodClubEntities.cs" />
+    <Compile Include="ZKAccessEntities.cs" />
     <EmbeddedResource Include="Forms\CompareDbs.resx">
       <DependentUpon>CompareDbs.cs</DependentUpon>
     </EmbeddedResource>
@@ -577,9 +529,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PrintContacts.resx">
       <DependentUpon>PrintContacts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\QbXml.resx">
-      <DependentUpon>QbXml.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RestoreOldMember.resx">
       <DependentUpon>RestoreOldMember.cs</DependentUpon>
@@ -636,20 +585,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelTK.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="ModelAcct.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelAcct.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ModelAcct.edmx.diagram">
-      <DependentUpon>ModelAcct.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="ModelAcctLive.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelAcctLive.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ModelAcctLive.edmx.diagram">
-      <DependentUpon>ModelAcctLive.edmx</DependentUpon>
-    </None>
     <None Include="ModelTK.edmx.diagram">
       <DependentUpon>ModelTK.edmx</DependentUpon>
     </None>
@@ -698,26 +633,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ModelAcct.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelAcct.edmx</DependentUpon>
-      <LastGenOutput>ModelAcct.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ModelAcct.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelAcct.edmx</DependentUpon>
-      <LastGenOutput>ModelAcct.cs</LastGenOutput>
-    </Content>
-    <Content Include="ModelAcctLive.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelAcctLive.edmx</DependentUpon>
-      <LastGenOutput>ModelAcctLive.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ModelAcctLive.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelAcctLive.edmx</DependentUpon>
-      <LastGenOutput>ModelAcctLive.cs</LastGenOutput>
-    </Content>
     <Content Include="ModelTK.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelTK.edmx</DependentUpon>

@@ -344,27 +344,28 @@ namespace WoodClub
 				btn.Enabled = false;
 			}
 
-			using (AcctLiiveEntities contextLive = new AcctLiiveEntities())
-			{
-				foreach (NewMember r in members)
-				{
-					if (r.Add)
-					{
-						var member = (from mr in contextLive.members
-									  where mr.rec_card == r.RecNo
-									  select mr).FirstOrDefault();
-						if (member != null)
-						{
-							member.badge = r.Badge;
-							member.active = true;
-						}
-					}
-				}
+			//TODO: remove this code. The badge numbers are now beign updated via the nightly sync.
+			//using (AcctLiiveEntities contextLive = new AcctLiiveEntities())
+			//{
+			//	foreach (NewMember r in members)
+			//	{
+			//		if (r.Add)
+			//		{
+			//			var member = (from mr in contextLive.members
+			//						  where mr.rec_card == r.RecNo
+			//						  select mr).FirstOrDefault();
+			//			if (member != null)
+			//			{
+			//				member.badge = r.Badge;
+			//				member.active = true;
+			//			}
+			//		}
+			//	}
 
-				contextLive.SaveChanges();
-				MessageBox.Show("Add Members to AccountingLive Database has completed.");
-				btn.Enabled = false;
-			}
+				//contextLive.SaveChanges();
+				//MessageBox.Show("Add Members to AccountingLive Database has completed.");
+				//btn.Enabled = false;
+			//}
 		}
 
 		

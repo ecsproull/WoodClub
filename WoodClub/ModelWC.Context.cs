@@ -15,11 +15,6 @@ namespace WoodClub
     
     public partial class WoodClubEntities : DbContext
     {
-        public WoodClubEntities()
-            : base("name=WoodClubEntities")
-        {
-        }
-    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
