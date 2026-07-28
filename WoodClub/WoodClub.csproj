@@ -27,7 +27,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\wc_server\woodshop_publish\</UpdateUrl>
-    <ApplicationRevision>73</ApplicationRevision>
+    <ApplicationRevision>76</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -76,9 +76,6 @@
     <ManifestCertificateThumbprint>0B84743CEEBBEC683D1152979E295EA32BCA9200</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>WoodClub_1_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
@@ -88,7 +85,7 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>WoodClub_1_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>foobar.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>woodclub.ico</ApplicationIcon>
@@ -585,6 +582,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelTK.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="foobar.snk" />
     <None Include="ModelTK.edmx.diagram">
       <DependentUpon>ModelTK.edmx</DependentUpon>
     </None>
@@ -609,8 +607,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="woodclub.pfx" />
-    <None Include="WoodClub_1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
