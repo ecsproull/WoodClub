@@ -93,6 +93,27 @@ warning 6002: The table/view 'WoodClub.dbo.BadgeCodes' does not have a primary k
           <Property Name="ApprovedDate" Type="datetime" Nullable="false" />
           <Property Name="Blocked" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="MailingList">
+          <Key>
+            <PropertyRef Name="MailingListId" />
+          </Key>
+          <Property Name="MailingListId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MailingListMember">
+          <Key>
+            <PropertyRef Name="MailingListMemberId" />
+          </Key>
+          <Property Name="MailingListMemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MailingListId" Type="int" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="AddedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="IsSubscribed" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="MemberBackup">
           <Key>
             <PropertyRef Name="id" />
@@ -265,6 +286,18 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="TransDate" Type="datetime" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <Association Name="FK__MailingLi__Maili__19DFD96B">
+          <End Role="MailingList" Type="Self.MailingList" Multiplicity="1" />
+          <End Role="MailingListMember" Type="Self.MailingListMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MailingList">
+              <PropertyRef Name="MailingListId" />
+            </Principal>
+            <Dependent Role="MailingListMember">
+              <PropertyRef Name="MailingListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="WoodClubModelStoreContainer">
           <EntitySet Name="CreditTotals" EntityType="Self.CreditTotals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LockerCost" EntityType="Self.LockerCost" Schema="dbo" store:Type="Tables" />
@@ -272,6 +305,8 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="Lockers" EntityType="Self.Lockers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MachineApprovers" EntityType="Self.MachineApprovers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MachinePerms" EntityType="Self.MachinePerms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailingList" EntityType="Self.MailingList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailingListMember" EntityType="Self.MailingListMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberBackup" EntityType="Self.MemberBackup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberRFcard" EntityType="Self.MemberRFcard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberRoster" EntityType="Self.MemberRoster" Schema="dbo" store:Type="Tables" />
@@ -354,6 +389,10 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
     [Time_zones].[saturday_end3] AS [saturday_end3]
     FROM [dbo].[Time_zones] AS [Time_zones]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__MailingLi__Maili__19DFD96B" Association="Self.FK__MailingLi__Maili__19DFD96B">
+            <End Role="MailingList" EntitySet="MailingList" />
+            <End Role="MailingListMember" EntitySet="MailingListMember" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -571,6 +610,12 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="MemberBackups" EntityType="WoodClubModel.MemberBackup" />
           <EntitySet Name="MachineApprovers" EntityType="WoodClubModel.MachineApprover" />
           <EntitySet Name="MachinePerms" EntityType="WoodClubModel.MachinePerm" />
+          <EntitySet Name="MailingLists" EntityType="WoodClubModel.MailingList" />
+          <EntitySet Name="MailingListMembers" EntityType="WoodClubModel.MailingListMember" />
+          <AssociationSet Name="FK__MailingLi__Maili__19DFD96B" Association="WoodClubModel.FK__MailingLi__Maili__19DFD96B">
+            <End Role="MailingList" EntitySet="MailingLists" />
+            <End Role="MailingListMember" EntitySet="MailingListMembers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="MemberBackup">
           <Key>
@@ -629,6 +674,41 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="ApprovedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Blocked" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="MailingList">
+          <Key>
+            <PropertyRef Name="MailingListId" />
+          </Key>
+          <Property Name="MailingListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MailingListMembers" Relationship="WoodClubModel.FK__MailingLi__Maili__19DFD96B" FromRole="MailingList" ToRole="MailingListMember" />
+        </EntityType>
+        <EntityType Name="MailingListMember">
+          <Key>
+            <PropertyRef Name="MailingListMemberId" />
+          </Key>
+          <Property Name="MailingListMemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MailingListId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="AddedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="IsSubscribed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MailingList" Relationship="WoodClubModel.FK__MailingLi__Maili__19DFD96B" FromRole="MailingListMember" ToRole="MailingList" />
+        </EntityType>
+        <Association Name="FK__MailingLi__Maili__19DFD96B">
+          <End Type="WoodClubModel.MailingList" Role="MailingList" Multiplicity="1" />
+          <End Type="WoodClubModel.MailingListMember" Role="MailingListMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MailingList">
+              <PropertyRef Name="MailingListId" />
+            </Principal>
+            <Dependent Role="MailingListMember">
+              <PropertyRef Name="MailingListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -897,6 +977,29 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
                 <ScalarProperty Name="MachineName" ColumnName="MachineName" />
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailingLists">
+            <EntityTypeMapping TypeName="WoodClubModel.MailingList">
+              <MappingFragment StoreEntitySet="MailingList">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MailingListId" ColumnName="MailingListId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailingListMembers">
+            <EntityTypeMapping TypeName="WoodClubModel.MailingListMember">
+              <MappingFragment StoreEntitySet="MailingListMember">
+                <ScalarProperty Name="IsSubscribed" ColumnName="IsSubscribed" />
+                <ScalarProperty Name="AddedAt" ColumnName="AddedAt" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="MailingListId" ColumnName="MailingListId" />
+                <ScalarProperty Name="MailingListMemberId" ColumnName="MailingListMemberId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

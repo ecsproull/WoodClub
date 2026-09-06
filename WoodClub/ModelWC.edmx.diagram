@@ -19,6 +19,9 @@
         <EntityTypeShape EntityType="WoodClubModel.MemberBackup" Width="1.5" PointX="9.375" PointY="7.75" />
         <EntityTypeShape EntityType="WoodClubModel.MachineApprover" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="WoodClubModel.MachinePerm" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="WoodClubModel.MailingList" Width="1.5" PointX="11.375" PointY="1" />
+        <EntityTypeShape EntityType="WoodClubModel.MailingListMember" Width="1.5" PointX="13.625" PointY="1" />
+        <AssociationConnector Association="WoodClubModel.FK__MailingLi__Maili__19DFD96B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
