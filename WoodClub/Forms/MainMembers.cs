@@ -740,26 +740,41 @@ namespace WoodClub
 		}
 
 		/// <summary>
-		/// Handles the Click event of the mailToToollStripButton control.
+		/// Handles the Click event of the createListToolStripMenuItem control.
+		/// Opens the dialog to create a new mailing list.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-		private void mailToToollStripButton_Click(object sender, EventArgs e)
+		private void createListToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			string recipientEmail = string.Empty;
-			foreach (DataGridViewRow r in dataGridView1.SelectedRows)
+			CreateMailingList frm = new CreateMailingList();
+			try
 			{
-				recipientEmail += r.Cells[5].Value.ToString() + ";";
+				frm.ShowDialog();
 			}
+			finally
+			{
+				frm.Dispose();
+			}
+		}
 
-			string subject = " ";
-			string body = " ";
-
-			//// Construct the mailto URI
-			string mailtoUri = $"mailto:{recipientEmail}?subject={subject}&body={body}";
-
-			//// Launch the default mail app
-			Process.Start(mailtoUri);
+		/// <summary>
+		/// Handles the Click event of the editListToolStripMenuItem control.
+		/// Opens the mailing list editor to add or remove members from a list.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void editListToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MailingListEditor frm = new MailingListEditor();
+			try
+			{
+				frm.ShowDialog();
+			}
+			finally
+			{
+				frm.Dispose();
+			}
 		}
 
 		/// <summary>

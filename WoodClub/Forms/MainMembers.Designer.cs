@@ -108,7 +108,9 @@
 			this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updatePhotosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.mailToToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this.emailDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+			this.createListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.editListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.qbxmlButton = new System.Windows.Forms.ToolStripButton();
 			this.addPermissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -384,7 +386,7 @@
             this.MultipleMembersButton,
             this.toolStripSeparator8,
             this.machinePermissions,
-            this.mailToToolStripButton,
+            this.emailDropDownButton,
             this.qbxmlButton});
 			this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
 			this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
@@ -822,17 +824,32 @@
 			this.updatePhotosToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.updatePhotosToolStripMenuItem.Text = "Update Photos";
 			this.updatePhotosToolStripMenuItem.Click += new System.EventHandler(this.updatePhotosToolStripMenuItem_Click);
-			// 
-			// mailToToolStripButton
-			// 
-			this.mailToToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.mailToToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("mailToToolStripButton.Image")));
-			this.mailToToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.mailToToolStripButton.Name = "mailToToolStripButton";
-			this.mailToToolStripButton.Size = new System.Drawing.Size(50, 28);
-			this.mailToToolStripButton.Text = "Mail To";
-			this.mailToToolStripButton.Click += new System.EventHandler(this.mailToToollStripButton_Click);
-			// 
+			//
+			// emailDropDownButton
+			//
+			this.emailDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.emailDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createListToolStripMenuItem,
+            this.editListToolStripMenuItem});
+			this.emailDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.emailDropDownButton.Name = "emailDropDownButton";
+			this.emailDropDownButton.Size = new System.Drawing.Size(53, 28);
+			this.emailDropDownButton.Text = "Email";
+			//
+			// createListToolStripMenuItem
+			//
+			this.createListToolStripMenuItem.Name = "createListToolStripMenuItem";
+			this.createListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.createListToolStripMenuItem.Text = "Create List";
+			this.createListToolStripMenuItem.Click += new System.EventHandler(this.createListToolStripMenuItem_Click);
+			//
+			// editListToolStripMenuItem
+			//
+			this.editListToolStripMenuItem.Name = "editListToolStripMenuItem";
+			this.editListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.editListToolStripMenuItem.Text = "Edit List";
+			this.editListToolStripMenuItem.Click += new System.EventHandler(this.editListToolStripMenuItem_Click);
+			//
 			// qbxmlButton
 			// 
 			this.qbxmlButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -927,7 +944,9 @@
 		private System.Windows.Forms.ToolStripMenuItem importPhotosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem updateDuesToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addPermissionsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripButton mailToToolStripButton;
+		private System.Windows.Forms.ToolStripDropDownButton emailDropDownButton;
+		private System.Windows.Forms.ToolStripMenuItem createListToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem editListToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem updateWebsiteToolStripMenuItem;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Badge;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
