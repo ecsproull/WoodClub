@@ -32,18 +32,19 @@ namespace WoodClub
 		/// <summary>
 		/// Sends a single email to one recipient using SendGrid
 		/// </summary>
+		/// <param name="fromEmail">Sender email address</param>
 		/// <param name="toEmail">Recipient email address</param>
 		/// <param name="toName">Recipient name</param>
 		/// <param name="subject">Email subject</param>
 		/// <param name="htmlBody">HTML body content</param>
 		/// <param name="plainTextBody">Optional plain text body (default: empty)</param>
 		/// <returns>SendGrid Response</returns>
-		public async Task<Response> SendSingleEmailAsync(string toEmail, string toName, string subject, string htmlBody, string plainTextBody = "")
+		public async Task<Response> SendSingleEmailAsync(string fromEmail, string toEmail, string toName, string subject, string htmlBody, string plainTextBody = "")
 		{
 			var apiKey = Environment.GetEnvironmentVariable("SendGrid");
 			var client = new SendGridClient(apiKey);
 
-			var from = new EmailAddress("treasurer@scwwoodshop.com", "SCW Woodclub Treasurer");
+			var from = new EmailAddress(fromEmail);
 			var to = new EmailAddress(toEmail, toName);
 
 			var msg = MailHelper.CreateSingleEmail(

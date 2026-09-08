@@ -367,7 +367,7 @@ namespace WoodClub
 				if (sendEmail && !string.IsNullOrEmpty(upm.Email))
 				{
 					string toName = upm.FirstName + " " + upm.LastName;
-					await sm.SendSingleEmailAsync(upm.Email, toName, "2026 Woodshop Dues Payment Reminder", message);
+					await sm.SendSingleEmailAsync("treasurer@scwwoodshop.com", upm.Email, toName, "2026 Woodshop Dues Payment Reminder", message);
 				}
 				else
 				{

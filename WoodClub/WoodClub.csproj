@@ -300,6 +300,12 @@
     <Compile Include="Forms\MailingListEditor.Designer.cs">
       <DependentUpon>MailingListEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MailComposer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MailComposer.Designer.cs">
+      <DependentUpon>MailComposer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Editor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -532,6 +538,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MailingListEditor.resx">
       <DependentUpon>MailingListEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MailComposer.resx">
+      <DependentUpon>MailComposer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>

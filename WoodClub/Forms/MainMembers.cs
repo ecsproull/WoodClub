@@ -740,6 +740,26 @@ namespace WoodClub
 		}
 
 		/// <summary>
+		/// Handles the Click event of the composeEmailToolStripMenuItem control.
+		/// Opens the mail composer to send an email to a mailing list or to all
+		/// active members.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void composeEmailToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MailComposer frm = new MailComposer();
+			try
+			{
+				frm.ShowDialog();
+			}
+			finally
+			{
+				frm.Dispose();
+			}
+		}
+
+		/// <summary>
 		/// Handles the Click event of the createListToolStripMenuItem control.
 		/// Opens the dialog to create a new mailing list.
 		/// </summary>
