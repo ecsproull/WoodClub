@@ -20,17 +20,34 @@ namespace WoodClub.Forms
         /// </summary>
         public int NewListId { get; private set; }
 
+        private readonly bool navigateToEditor;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateMailingList"/> class.
+        /// After a successful save the mailing list editor is opened for the new
+        /// list.
         /// </summary>
-        public CreateMailingList()
+        public CreateMailingList() : this(true)
         {
-            InitializeComponent();
         }
 
         /// <summary>
-        /// Handles the Click event of the btnOk control. Validates the name,
-        /// inserts the row via EF and closes.
+        /// Initializes a new instance of the <see cref="CreateMailingList"/> class.
+        /// </summary>
+        /// <param name="navigateToEditor">
+        /// When true, opens the mailing list editor for the new list after a
+        /// successful save. Callers that are already in the editor pass false.
+        /// </param>
+        public CreateMailingList(bool navigateToEditor)
+        {
+            InitializeComponent();
+            this.navigateToEditor = navigateToEditor;
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnOk ("Save &amp; Edit") control.
+        /// Validates the name, inserts the row via EF, then opens the mailing
+        /// list editor for the new list before closing.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -64,6 +81,20 @@ namespace WoodClub.Forms
                 log.Error("Create mailing list failed..", ex);
                 MessageBox.Show("Create failed: " + ex.Message);
                 return;
+            }
+
+            if (navigateToEditor)
+            {
+                Hide();
+                MailingListEditor editor = new MailingListEditor(NewListId);
+                try
+                {
+                    editor.ShowDialog();
+                }
+                finally
+                {
+                    editor.Dispose();
+                }
             }
 
             DialogResult = DialogResult.OK;

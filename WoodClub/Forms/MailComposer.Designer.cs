@@ -80,6 +80,7 @@
             this.cbMailingList.Name = "cbMailingList";
             this.cbMailingList.Size = new System.Drawing.Size(260, 21);
             this.cbMailingList.TabIndex = 1;
+            this.cbMailingList.SelectedIndexChanged += new System.EventHandler(this.cbMailingList_SelectedIndexChanged);
             //
             // btnCreateList
             //

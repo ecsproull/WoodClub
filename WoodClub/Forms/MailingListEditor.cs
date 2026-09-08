@@ -24,13 +24,24 @@ namespace WoodClub.Forms
         private readonly BindingSource bsMembers = new BindingSource();
 
         private int? currentListId;
+        private readonly int? initialListId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MailingListEditor"/> class.
         /// </summary>
-        public MailingListEditor()
+        public MailingListEditor() : this(null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MailingListEditor"/> class
+        /// with a list pre-selected in the dropdown.
+        /// </summary>
+        /// <param name="initialListId">MailingListId to select on open, or null.</param>
+        public MailingListEditor(int? initialListId)
         {
             InitializeComponent();
+            this.initialListId = initialListId;
         }
 
         /// <summary>
@@ -44,7 +55,7 @@ namespace WoodClub.Forms
             dgvMembers.DataSource = bsMembers;
             txtFilter.KeyUp += TextBoxFilter_KeyUp;
 
-            LoadLists();
+            LoadLists(initialListId);
         }
 
         /// <summary>
@@ -177,7 +188,7 @@ namespace WoodClub.Forms
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnNewList_Click(object sender, EventArgs e)
         {
-            CreateMailingList frm = new CreateMailingList();
+            CreateMailingList frm = new CreateMailingList(false);
             try
             {
                 if (frm.ShowDialog() == DialogResult.OK)
@@ -189,6 +200,59 @@ namespace WoodClub.Forms
             {
                 frm.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnDeleteList control. After a
+        /// confirmation prompt, deletes the selected mailing list and removes all
+        /// of its member rows.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void btnDeleteList_Click(object sender, EventArgs e)
+        {
+            if (currentListId == null)
+            {
+                return;
+            }
+
+            ListItem selected = cbLists.SelectedItem as ListItem;
+            string name = selected != null ? selected.Name : "this list";
+
+            if (MessageBox.Show(
+                    "Delete the mailing list \"" + name + "\" and remove all of its members?\r\n\r\nThis cannot be undone.",
+                    "Delete Mailing List", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                using (WoodClubEntities context = new WoodClubEntities())
+                {
+                    int listId = currentListId.Value;
+
+                    List<MailingListMember> members = context.MailingListMembers
+                        .Where(m => m.MailingListId == listId).ToList();
+                    context.MailingListMembers.RemoveRange(members);
+
+                    MailingList list = context.MailingLists.Find(listId);
+                    if (list != null)
+                    {
+                        context.MailingLists.Remove(list);
+                    }
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Mailing list delete failed..", ex);
+                MessageBox.Show("Delete failed: " + ex.Message);
+                return;
+            }
+
+            LoadLists();
         }
 
         /// <summary>

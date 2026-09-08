@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.cbLists = new System.Windows.Forms.ComboBox();
             this.btnNewList = new System.Windows.Forms.Button();
+            this.btnDeleteList = new System.Windows.Forms.Button();
             this.lblFilter = new System.Windows.Forms.Label();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.lblAvailable = new System.Windows.Forms.Label();
@@ -74,6 +75,16 @@
             this.btnNewList.Text = "New List...";
             this.btnNewList.UseVisualStyleBackColor = true;
             this.btnNewList.Click += new System.EventHandler(this.btnNewList_Click);
+            //
+            // btnDeleteList
+            //
+            this.btnDeleteList.Location = new System.Drawing.Point(424, 11);
+            this.btnDeleteList.Name = "btnDeleteList";
+            this.btnDeleteList.Size = new System.Drawing.Size(100, 23);
+            this.btnDeleteList.TabIndex = 2;
+            this.btnDeleteList.Text = "Delete List";
+            this.btnDeleteList.UseVisualStyleBackColor = true;
+            this.btnDeleteList.Click += new System.EventHandler(this.btnDeleteList_Click);
             //
             // lblFilter
             //
@@ -295,6 +306,7 @@
             this.Controls.Add(this.lblAvailable);
             this.Controls.Add(this.txtFilter);
             this.Controls.Add(this.lblFilter);
+            this.Controls.Add(this.btnDeleteList);
             this.Controls.Add(this.btnNewList);
             this.Controls.Add(this.cbLists);
             this.MinimumSize = new System.Drawing.Size(720, 480);
@@ -313,6 +325,7 @@
 
         private System.Windows.Forms.ComboBox cbLists;
         private System.Windows.Forms.Button btnNewList;
+        private System.Windows.Forms.Button btnDeleteList;
         private System.Windows.Forms.Label lblFilter;
         private System.Windows.Forms.TextBox txtFilter;
         private System.Windows.Forms.Label lblAvailable;

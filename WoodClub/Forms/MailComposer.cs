@@ -96,13 +96,46 @@ namespace WoodClub.Forms
         }
 
         /// <summary>
+        /// Handles the SelectedIndexChanged event of the cbMailingList control.
+        /// The action button is "Create List" while "None" is selected and
+        /// "Edit List" once a real list is chosen.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void cbMailingList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? listId = cbMailingList.SelectedValue as int?;
+            bool realList = listId.HasValue && listId.Value != NoListId;
+            btnCreateList.Text = realList ? "Edit List" : "Create List";
+        }
+
+        /// <summary>
         /// Handles the Click event of the btnCreateList control. Opens the create
-        /// list dialog and selects the new list on success.
+        /// list dialog when "None" is selected, or the mailing list editor for the
+        /// selected list otherwise. Either way the dropdown is refreshed with the
+        /// resulting list selected.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnCreateList_Click(object sender, EventArgs e)
         {
+            int? listId = cbMailingList.SelectedValue as int?;
+            if (listId.HasValue && listId.Value != NoListId)
+            {
+                MailingListEditor editor = new MailingListEditor(listId.Value);
+                try
+                {
+                    editor.ShowDialog();
+                }
+                finally
+                {
+                    editor.Dispose();
+                }
+
+                LoadMailingLists(listId.Value);
+                return;
+            }
+
             CreateMailingList frm = new CreateMailingList();
             try
             {
