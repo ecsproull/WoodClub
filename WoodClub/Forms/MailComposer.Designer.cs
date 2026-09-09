@@ -57,6 +57,7 @@
             this.tsbLink = new System.Windows.Forms.ToolStripButton();
             this.tsbImageFile = new System.Windows.Forms.ToolStripButton();
             this.tsbImageUrl = new System.Windows.Forms.ToolStripButton();
+            this.tslImageNote = new System.Windows.Forms.ToolStripLabel();
             this.btnSend = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.pnlEditor.SuspendLayout();
@@ -202,7 +203,8 @@
             this.tsSep3,
             this.tsbLink,
             this.tsbImageFile,
-            this.tsbImageUrl});
+            this.tsbImageUrl,
+            this.tslImageNote});
             this.toolStripEditor.Location = new System.Drawing.Point(0, 0);
             this.toolStripEditor.Name = "toolStripEditor";
             this.toolStripEditor.Size = new System.Drawing.Size(774, 25);
@@ -318,6 +320,13 @@
             this.tsbImageUrl.Text = "Image URL";
             this.tsbImageUrl.Click += new System.EventHandler(this.tsbImageUrl_Click);
             //
+            // tslImageNote
+            //
+            this.tslImageNote.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tslImageNote.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.tslImageNote.Name = "tslImageNote";
+            this.tslImageNote.Size = new System.Drawing.Size(0, 22);
+            //
             // btnSend
             //
             this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -403,6 +412,7 @@
         private System.Windows.Forms.ToolStripButton tsbLink;
         private System.Windows.Forms.ToolStripButton tsbImageFile;
         private System.Windows.Forms.ToolStripButton tsbImageUrl;
+        private System.Windows.Forms.ToolStripLabel tslImageNote;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Button btnCancel;
     }

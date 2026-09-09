@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -32,6 +36,26 @@ namespace WoodClub.Forms
 
         private static readonly Regex EmailPattern =
             new Regex(@"^[^@\s;]+@[^@\s;]+\.[^@\s;]+$", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Inline-image size-reduction settings for the "embed inline (base64)"
+        /// path. These constants are the only place the thresholds are adjustable
+        /// (by editing code) - there is no UI for per-image sizing.
+        /// </summary>
+        // Largest allowed width or height in pixels (the larger side is capped
+        // here; aspect ratio is preserved).
+        private const int MaxImageDimension = 800;
+
+        // Pre-base64, on-disk-equivalent byte threshold that triggers reduction
+        // (1.5 MB).
+        private const int MaxImageFileSizeBytes = 1_572_864;
+
+        // JPEG encoder quality (0-100) used for the first re-encode pass.
+        private const int JpegQuality = 80;
+
+        // Amount JpegQuality is dropped for the single extra re-encode pass when
+        // the first pass is still over the size threshold.
+        private const int JpegQualityFallbackStep = 15;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MailComposer"/> class.
@@ -347,15 +371,33 @@ namespace WoodClub.Forms
 
                 try
                 {
-                    byte[] bytes = System.IO.File.ReadAllBytes(dlg.FileName);
-                    string ext = System.IO.Path.GetExtension(dlg.FileName).TrimStart('.').ToLowerInvariant();
-                    if (ext == "jpg")
+                    byte[] bytes = File.ReadAllBytes(dlg.FileName);
+                    string mimeType;
+                    bool reduced = false;
+
+                    if (bytes.Length > MaxImageFileSizeBytes)
                     {
-                        ext = "jpeg";
+                        bytes = ReduceImageForEmail(bytes);
+                        mimeType = "image/jpeg";
+                        reduced = true;
+                    }
+                    else
+                    {
+                        string ext = Path.GetExtension(dlg.FileName).TrimStart('.').ToLowerInvariant();
+                        if (ext == "jpg")
+                        {
+                            ext = "jpeg";
+                        }
+
+                        mimeType = "image/" + ext;
                     }
 
-                    string dataUri = "data:image/" + ext + ";base64," + Convert.ToBase64String(bytes);
+                    string dataUri = "data:" + mimeType + ";base64," + Convert.ToBase64String(bytes);
                     InsertHtml("<img src=\"" + dataUri + "\" />");
+
+                    tslImageNote.Text = reduced
+                        ? "Last image was resized/compressed for email size."
+                        : string.Empty;
                 }
                 catch (Exception ex)
                 {
@@ -374,6 +416,86 @@ namespace WoodClub.Forms
             }
 
             InsertHtml("<img src=\"" + HttpUtility.HtmlAttributeEncode(url) + "\" />");
+        }
+
+        /// <summary>
+        /// The JPEG encoder used to re-compress over-size inline images. Resolved
+        /// once; null on the (unexpected) chance GDI+ reports no JPEG encoder, in
+        /// which case <see cref="EncodeJpeg"/> falls back to the default save.
+        /// </summary>
+        private static readonly ImageCodecInfo JpegCodec = ImageCodecInfo.GetImageEncoders()
+            .FirstOrDefault(codec => codec.FormatID.Equals(ImageFormat.Jpeg.Guid));
+
+        /// <summary>
+        /// Shrinks an over-size local image so it is reasonable to embed inline in
+        /// an email: if either dimension exceeds <see cref="MaxImageDimension"/>
+        /// the image is resized proportionally, then it is re-encoded as JPEG at
+        /// <see cref="JpegQuality"/>. If the result is still above
+        /// <see cref="MaxImageFileSizeBytes"/>, one more pass is made at
+        /// <see cref="JpegQuality"/> minus <see cref="JpegQualityFallbackStep"/>.
+        /// The bytes are returned regardless of whether that final pass cleared
+        /// the threshold, so the user is never blocked from inserting an image.
+        /// </summary>
+        private static byte[] ReduceImageForEmail(byte[] originalBytes)
+        {
+            using (MemoryStream source = new MemoryStream(originalBytes))
+            using (Image original = Image.FromStream(source))
+            {
+                int width = original.Width;
+                int height = original.Height;
+                int longestSide = Math.Max(width, height);
+
+                if (longestSide > MaxImageDimension)
+                {
+                    double scale = (double)MaxImageDimension / longestSide;
+                    width = Math.Max(1, (int)Math.Round(width * scale));
+                    height = Math.Max(1, (int)Math.Round(height * scale));
+                }
+
+                using (Bitmap resized = new Bitmap(width, height))
+                {
+                    using (Graphics g = Graphics.FromImage(resized))
+                    {
+                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        g.SmoothingMode = SmoothingMode.HighQuality;
+                        g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        g.DrawImage(original, new Rectangle(0, 0, width, height));
+                    }
+
+                    byte[] encoded = EncodeJpeg(resized, JpegQuality);
+                    if (encoded.Length > MaxImageFileSizeBytes)
+                    {
+                        encoded = EncodeJpeg(resized, JpegQuality - JpegQualityFallbackStep);
+                    }
+
+                    return encoded;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Encodes an image as JPEG at the given quality (0-100) and returns the
+        /// bytes.
+        /// </summary>
+        private static byte[] EncodeJpeg(Image image, int quality)
+        {
+            using (MemoryStream output = new MemoryStream())
+            {
+                if (JpegCodec != null)
+                {
+                    using (EncoderParameters parameters = new EncoderParameters(1))
+                    {
+                        parameters.Param[0] = new EncoderParameter(Encoder.Quality, (long)quality);
+                        image.Save(output, JpegCodec, parameters);
+                    }
+                }
+                else
+                {
+                    image.Save(output, ImageFormat.Jpeg);
+                }
+
+                return output.ToArray();
+            }
         }
 
         /// <summary>
