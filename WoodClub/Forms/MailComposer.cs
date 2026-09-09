@@ -58,11 +58,28 @@ namespace WoodClub.Forms
         private const int JpegQualityFallbackStep = 15;
 
         /// <summary>
+        /// An address to pre-populate into the extra addresses box on load, e.g.
+        /// when opened via "Mail To" for a single selected member.
+        /// </summary>
+        private readonly string initialExtraAddress;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MailComposer"/> class.
         /// </summary>
         public MailComposer()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MailComposer"/> class
+        /// with an address pre-filled in the extra addresses box.
+        /// </summary>
+        /// <param name="extraAddress">The address to pre-fill.</param>
+        public MailComposer(string extraAddress)
+            : this()
+        {
+            initialExtraAddress = extraAddress;
         }
 
         /// <summary>
@@ -88,6 +105,12 @@ namespace WoodClub.Forms
             webEditor.DocumentText = EditorHtmlTemplate();
 
             LoadMailingLists();
+
+            if (!string.IsNullOrWhiteSpace(initialExtraAddress))
+            {
+                txtExtra.Text = initialExtraAddress;
+            }
+
             UpdateSendEnabled();
         }
 

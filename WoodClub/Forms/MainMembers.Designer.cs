@@ -109,6 +109,8 @@
 			this.updateWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updatePhotosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.emailDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+			this.mailToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.mailToSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.composeEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.emailListSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.createListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -831,6 +833,8 @@
 			//
 			this.emailDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.emailDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mailToToolStripMenuItem,
+            this.mailToSeparator,
             this.composeEmailToolStripMenuItem,
             this.emailListSeparator,
             this.createListToolStripMenuItem,
@@ -839,6 +843,18 @@
 			this.emailDropDownButton.Name = "emailDropDownButton";
 			this.emailDropDownButton.Size = new System.Drawing.Size(53, 28);
 			this.emailDropDownButton.Text = "Email";
+			//
+			// mailToToolStripMenuItem
+			//
+			this.mailToToolStripMenuItem.Name = "mailToToolStripMenuItem";
+			this.mailToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.mailToToolStripMenuItem.Text = "Mail To";
+			this.mailToToolStripMenuItem.Click += new System.EventHandler(this.mailToToolStripMenuItem_Click);
+			//
+			// mailToSeparator
+			//
+			this.mailToSeparator.Name = "mailToSeparator";
+			this.mailToSeparator.Size = new System.Drawing.Size(177, 6);
 			//
 			// composeEmailToolStripMenuItem
 			//
@@ -961,6 +977,8 @@
 		private System.Windows.Forms.ToolStripMenuItem updateDuesToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addPermissionsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripDropDownButton emailDropDownButton;
+		private System.Windows.Forms.ToolStripMenuItem mailToToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator mailToSeparator;
 		private System.Windows.Forms.ToolStripMenuItem composeEmailToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator emailListSeparator;
 		private System.Windows.Forms.ToolStripMenuItem createListToolStripMenuItem;

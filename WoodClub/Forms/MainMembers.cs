@@ -740,6 +740,39 @@ namespace WoodClub
 		}
 
 		/// <summary>
+		/// Handles the Click event of the mailToToolStripMenuItem control. Opens
+		/// the mail composer with the selected member's email pre-filled in the
+		/// extra addresses box.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void mailToToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var current = bsMembers.Current as MemberRoster;
+			if (current == null)
+			{
+				MessageBox.Show("No member selected.");
+				return;
+			}
+
+			if (string.IsNullOrWhiteSpace(current.Email))
+			{
+				MessageBox.Show("The selected member has no email address on file.");
+				return;
+			}
+
+			MailComposer frm = new MailComposer(current.Email);
+			try
+			{
+				frm.ShowDialog();
+			}
+			finally
+			{
+				frm.Dispose();
+			}
+		}
+
+		/// <summary>
 		/// Handles the Click event of the composeEmailToolStripMenuItem control.
 		/// Opens the mail composer to send an email to a mailing list or to all
 		/// active members.
