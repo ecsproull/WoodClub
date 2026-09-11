@@ -112,6 +112,7 @@
 			this.mailToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mailToSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.composeEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.openEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.emailListSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.createListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.editListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -836,6 +837,7 @@
             this.mailToToolStripMenuItem,
             this.mailToSeparator,
             this.composeEmailToolStripMenuItem,
+            this.openEmailToolStripMenuItem,
             this.emailListSeparator,
             this.createListToolStripMenuItem,
             this.editListToolStripMenuItem});
@@ -862,6 +864,13 @@
 			this.composeEmailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.composeEmailToolStripMenuItem.Text = "Compose Email";
 			this.composeEmailToolStripMenuItem.Click += new System.EventHandler(this.composeEmailToolStripMenuItem_Click);
+			//
+			// openEmailToolStripMenuItem
+			//
+			this.openEmailToolStripMenuItem.Name = "openEmailToolStripMenuItem";
+			this.openEmailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.openEmailToolStripMenuItem.Text = "Open Email";
+			this.openEmailToolStripMenuItem.Click += new System.EventHandler(this.openEmailToolStripMenuItem_Click);
 			//
 			// emailListSeparator
 			//
@@ -980,6 +989,7 @@
 		private System.Windows.Forms.ToolStripMenuItem mailToToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator mailToSeparator;
 		private System.Windows.Forms.ToolStripMenuItem composeEmailToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem openEmailToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator emailListSeparator;
 		private System.Windows.Forms.ToolStripMenuItem createListToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem editListToolStripMenuItem;

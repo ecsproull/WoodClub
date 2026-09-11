@@ -306,6 +306,12 @@
     <Compile Include="Forms\MailComposer.Designer.cs">
       <DependentUpon>MailComposer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\OpenEmailList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OpenEmailList.Designer.cs">
+      <DependentUpon>OpenEmailList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Editor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -436,6 +442,9 @@
     <Compile Include="MailingListMember.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
+    <Compile Include="SavedEmail.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="MemberRosterExt.cs" />
     <Compile Include="MembersShort.cs" />
     <Compile Include="ModelTK.Context.cs">
@@ -542,6 +551,9 @@
     <EmbeddedResource Include="Forms\MailComposer.resx">
       <DependentUpon>MailComposer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OpenEmailList.resx">
+      <DependentUpon>OpenEmailList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>
     </EmbeddedResource>
@@ -645,6 +657,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Database\CreateSavedEmail.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

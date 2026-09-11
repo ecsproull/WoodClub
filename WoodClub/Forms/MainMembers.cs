@@ -793,6 +793,25 @@ namespace WoodClub
 		}
 
 		/// <summary>
+		/// Handles the Click event of the openEmailToolStripMenuItem control.
+		/// Opens the list of saved/sent emails so one can be reopened for reuse.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void openEmailToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OpenEmailList frm = new OpenEmailList();
+			try
+			{
+				frm.ShowDialog();
+			}
+			finally
+			{
+				frm.Dispose();
+			}
+		}
+
+		/// <summary>
 		/// Handles the Click event of the createListToolStripMenuItem control.
 		/// Opens the dialog to create a new mailing list.
 		/// </summary>

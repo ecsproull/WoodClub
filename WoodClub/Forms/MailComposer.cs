@@ -65,6 +65,18 @@ namespace WoodClub.Forms
         private readonly string initialExtraAddress;
 
         /// <summary>
+        /// The SavedEmail to load into the editor on load, e.g. when opened via
+        /// "Open Email" for reuse.
+        /// </summary>
+        private readonly int? initialSavedEmailId;
+
+        /// <summary>
+        /// The SavedEmail row this composer session is tied to, once loaded or
+        /// saved at least once. Drives the Save button's update-vs-new choice.
+        /// </summary>
+        private int? loadedSavedEmailId;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MailComposer"/> class.
         /// </summary>
         public MailComposer()
@@ -81,6 +93,17 @@ namespace WoodClub.Forms
             : this()
         {
             initialExtraAddress = extraAddress;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MailComposer"/> class,
+        /// loading a previously saved or sent email for reuse/editing.
+        /// </summary>
+        /// <param name="savedEmailId">The SavedEmailId to load.</param>
+        public MailComposer(int savedEmailId)
+            : this()
+        {
+            initialSavedEmailId = savedEmailId;
         }
 
         /// <summary>
@@ -103,14 +126,47 @@ namespace WoodClub.Forms
             tscFontSize.SelectedIndex = 2;
 
             toolStripEditor.Enabled = false;
-            webEditor.DocumentText = EditorHtmlTemplate();
             BuildToolbarIcons();
 
             LoadMailingLists();
 
-            if (!string.IsNullOrWhiteSpace(initialExtraAddress))
+            SavedEmail loaded = null;
+            if (initialSavedEmailId.HasValue)
             {
-                txtExtra.Text = initialExtraAddress;
+                using (WoodClubEntities context = new WoodClubEntities())
+                {
+                    loaded = context.SavedEmails.SingleOrDefault(s => s.SavedEmailId == initialSavedEmailId.Value);
+                }
+            }
+
+            if (loaded != null)
+            {
+                loadedSavedEmailId = loaded.SavedEmailId;
+                txtSubject.Text = loaded.Subject;
+                txtExtra.Text = loaded.ExtraAddresses;
+
+                int fromIndex = Array.IndexOf(FromAddresses, loaded.FromAddress);
+                cbFrom.SelectedIndex = fromIndex >= 0 ? fromIndex : 0;
+
+                if (loaded.SendToAll)
+                {
+                    chkSendToAll.Checked = true;
+                }
+                else if (loaded.MailingListId.HasValue)
+                {
+                    cbMailingList.SelectedValue = loaded.MailingListId.Value;
+                }
+
+                webEditor.DocumentText = EditorHtmlTemplate(loaded.BodyHtml);
+            }
+            else
+            {
+                webEditor.DocumentText = EditorHtmlTemplate();
+
+                if (!string.IsNullOrWhiteSpace(initialExtraAddress))
+                {
+                    txtExtra.Text = initialExtraAddress;
+                }
             }
 
             UpdateSendEnabled();
@@ -234,7 +290,7 @@ namespace WoodClub.Forms
         /// "saved from url" marker keeps the WebBrowser control from blocking the
         /// helper script.
         /// </summary>
-        private static string EditorHtmlTemplate()
+        private static string EditorHtmlTemplate(string initialBodyHtml = "")
         {
             return
                 "<!-- saved from url=(0016)http://localhost -->\r\n" +
@@ -260,7 +316,7 @@ namespace WoodClub.Forms
                 "}\r\n" +
                 "function getBody(){ return document.body.innerHTML; }\r\n" +
                 "</script>\r\n" +
-                "</head><body contenteditable=\"true\"></body></html>";
+                "</head><body contenteditable=\"true\">" + (initialBodyHtml ?? string.Empty) + "</body></html>";
         }
 
         /// <summary>
@@ -829,6 +885,11 @@ namespace WoodClub.Forms
             btnSend.Enabled = true;
             btnCancel.Enabled = true;
 
+            if (sent > 0)
+            {
+                SaveSentCopy(htmlBody);
+            }
+
             string summary = $"Sent {sent} of {recipients.Count} email(s).";
             if (failed.Count > 0)
             {
@@ -853,6 +914,127 @@ namespace WoodClub.Forms
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnSave control. Saves the current
+        /// draft to <see cref="WoodClub.SavedEmail"/> for later reuse via
+        /// "Open Email". If this composer was opened from an existing saved
+        /// email, asks whether to update that record or save a new one.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSubject.Text))
+            {
+                MessageBox.Show("Please enter a subject before saving.");
+                return;
+            }
+
+            string htmlBody = GetEditorHtml();
+            if (string.IsNullOrWhiteSpace(Regex.Replace(htmlBody, "<[^>]+>", string.Empty).Replace("&nbsp;", " ")))
+            {
+                MessageBox.Show("The message body is empty.");
+                return;
+            }
+
+            bool saveAsNew = true;
+            if (loadedSavedEmailId.HasValue)
+            {
+                DialogResult choice = MessageBox.Show(
+                    "This email was opened from a saved entry.\r\n\r\n" +
+                    "Yes = update that saved entry\r\nNo = save as a new entry",
+                    "Save Email", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                if (choice == DialogResult.Cancel)
+                {
+                    return;
+                }
+
+                saveAsNew = choice == DialogResult.No;
+            }
+
+            SaveEmailRecord(htmlBody, saveAsNew);
+            MessageBox.Show("Email saved.");
+        }
+
+        /// <summary>
+        /// Reads the currently selected mailing list / send-to-all state into a
+        /// form suitable for storing on a <see cref="WoodClub.SavedEmail"/> row
+        /// (only one of the two is ever meaningful at send time).
+        /// </summary>
+        private void GetRecipientSelection(out int? mailingListId, out bool sendToAll)
+        {
+            sendToAll = chkSendToAll.Checked;
+            int? listId = cbMailingList.SelectedValue as int?;
+            mailingListId = (!sendToAll && listId.HasValue && listId.Value != NoListId) ? listId : null;
+        }
+
+        /// <summary>
+        /// Saves the current draft, either updating the record referenced by
+        /// <see cref="loadedSavedEmailId"/> or inserting a new one, and updates
+        /// <see cref="loadedSavedEmailId"/> to point at the saved row.
+        /// </summary>
+        private void SaveEmailRecord(string htmlBody, bool saveAsNew)
+        {
+            int? mailingListId;
+            bool sendToAll;
+            GetRecipientSelection(out mailingListId, out sendToAll);
+
+            using (WoodClubEntities context = new WoodClubEntities())
+            {
+                SavedEmail record = null;
+                if (!saveAsNew && loadedSavedEmailId.HasValue)
+                {
+                    record = context.SavedEmails.SingleOrDefault(s => s.SavedEmailId == loadedSavedEmailId.Value);
+                }
+
+                if (record == null)
+                {
+                    record = new SavedEmail { IsSent = false, CreatedAt = DateTime.UtcNow };
+                    context.SavedEmails.Add(record);
+                }
+
+                record.Subject = txtSubject.Text.Trim();
+                record.BodyHtml = htmlBody;
+                record.FromAddress = cbFrom.SelectedItem as string ?? string.Empty;
+                record.MailingListId = mailingListId;
+                record.SendToAll = sendToAll;
+                record.ExtraAddresses = string.IsNullOrWhiteSpace(txtExtra.Text) ? null : txtExtra.Text;
+
+                context.SaveChanges();
+                loadedSavedEmailId = record.SavedEmailId;
+            }
+        }
+
+        /// <summary>
+        /// Inserts a new <see cref="WoodClub.SavedEmail"/> row marked as sent,
+        /// after a successful send, so it can be reused later. Always a fresh
+        /// row - independent of whatever this session's Save button is tracking.
+        /// </summary>
+        private void SaveSentCopy(string htmlBody)
+        {
+            int? mailingListId;
+            bool sendToAll;
+            GetRecipientSelection(out mailingListId, out sendToAll);
+
+            using (WoodClubEntities context = new WoodClubEntities())
+            {
+                context.SavedEmails.Add(new SavedEmail
+                {
+                    Subject = txtSubject.Text.Trim(),
+                    BodyHtml = htmlBody,
+                    FromAddress = cbFrom.SelectedItem as string ?? string.Empty,
+                    MailingListId = mailingListId,
+                    SendToAll = sendToAll,
+                    ExtraAddresses = string.IsNullOrWhiteSpace(txtExtra.Text) ? null : txtExtra.Text,
+                    IsSent = true,
+                    CreatedAt = DateTime.UtcNow
+                });
+
+                context.SaveChanges();
+            }
         }
 
         /// <summary>

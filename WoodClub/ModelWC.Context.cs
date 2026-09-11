@@ -59,6 +59,8 @@ using System.Data.Entity.Infrastructure;
 
     public virtual DbSet<MailingListMember> MailingListMembers { get; set; }
 
+    public virtual DbSet<SavedEmail> SavedEmails { get; set; }
+
 }
 
 }

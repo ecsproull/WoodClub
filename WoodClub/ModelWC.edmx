@@ -114,6 +114,21 @@ warning 6002: The table/view 'WoodClub.dbo.BadgeCodes' does not have a primary k
           <Property Name="AddedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="IsSubscribed" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="SavedEmail">
+          <Key>
+            <PropertyRef Name="SavedEmailId" />
+          </Key>
+          <Property Name="SavedEmailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="BodyHtml" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FromAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MailingListId" Type="int" />
+          <Property Name="SendToAll" Type="bit" Nullable="false" />
+          <Property Name="ExtraAddresses" Type="nvarchar(max)" />
+          <Property Name="IsSent" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="MemberBackup">
           <Key>
             <PropertyRef Name="id" />
@@ -311,6 +326,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="MemberRFcard" EntityType="Self.MemberRFcard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberRoster" EntityType="Self.MemberRoster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonitorParams" EntityType="Self.MonitorParams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SavedEmail" EntityType="Self.SavedEmail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin" EntityType="Self.Admin" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -612,6 +628,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="MachinePerms" EntityType="WoodClubModel.MachinePerm" />
           <EntitySet Name="MailingLists" EntityType="WoodClubModel.MailingList" />
           <EntitySet Name="MailingListMembers" EntityType="WoodClubModel.MailingListMember" />
+          <EntitySet Name="SavedEmails" EntityType="WoodClubModel.SavedEmail" />
           <AssociationSet Name="FK__MailingLi__Maili__19DFD96B" Association="WoodClubModel.FK__MailingLi__Maili__19DFD96B">
             <End Role="MailingList" EntitySet="MailingLists" />
             <End Role="MailingListMember" EntitySet="MailingListMembers" />
@@ -696,6 +713,21 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="AddedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="IsSubscribed" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="MailingList" Relationship="WoodClubModel.FK__MailingLi__Maili__19DFD96B" FromRole="MailingListMember" ToRole="MailingList" />
+        </EntityType>
+        <EntityType Name="SavedEmail">
+          <Key>
+            <PropertyRef Name="SavedEmailId" />
+          </Key>
+          <Property Name="SavedEmailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BodyHtml" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FromAddress" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MailingListId" Type="Int32" />
+          <Property Name="SendToAll" Type="Boolean" Nullable="false" />
+          <Property Name="ExtraAddresses" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsSent" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__MailingLi__Maili__19DFD96B">
           <End Type="WoodClubModel.MailingList" Role="MailingList" Multiplicity="1" />
@@ -1000,6 +1032,22 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
                 <ScalarProperty Name="MemberId" ColumnName="MemberId" />
                 <ScalarProperty Name="MailingListId" ColumnName="MailingListId" />
                 <ScalarProperty Name="MailingListMemberId" ColumnName="MailingListMemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SavedEmails">
+            <EntityTypeMapping TypeName="WoodClubModel.SavedEmail">
+              <MappingFragment StoreEntitySet="SavedEmail">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+                <ScalarProperty Name="ExtraAddresses" ColumnName="ExtraAddresses" />
+                <ScalarProperty Name="SendToAll" ColumnName="SendToAll" />
+                <ScalarProperty Name="MailingListId" ColumnName="MailingListId" />
+                <ScalarProperty Name="FromAddress" ColumnName="FromAddress" />
+                <ScalarProperty Name="BodyHtml" ColumnName="BodyHtml" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="SavedEmailId" ColumnName="SavedEmailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

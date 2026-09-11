@@ -63,6 +63,7 @@
             this.tsbImageUrl = new System.Windows.Forms.ToolStripButton();
             this.tslImageNote = new System.Windows.Forms.ToolStripLabel();
             this.btnSend = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.pnlEditor.SuspendLayout();
             this.toolStripEditor.SuspendLayout();
@@ -383,6 +384,17 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             //
+            // btnSave
+            //
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(551, 604);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 13;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            //
             // btnCancel
             //
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -401,6 +413,7 @@
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(800, 639);
             this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.pnlEditor);
             this.Controls.Add(this.txtSubject);
@@ -463,6 +476,7 @@
         private System.Windows.Forms.ToolStripButton tsbImageUrl;
         private System.Windows.Forms.ToolStripLabel tslImageNote;
         private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
     }
 }
