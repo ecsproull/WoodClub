@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -103,6 +104,7 @@ namespace WoodClub.Forms
 
             toolStripEditor.Enabled = false;
             webEditor.DocumentText = EditorHtmlTemplate();
+            BuildToolbarIcons();
 
             LoadMailingLists();
 
@@ -350,6 +352,21 @@ namespace WoodClub.Forms
             Format("Underline");
         }
 
+        private void tsbAlignLeft_Click(object sender, EventArgs e)
+        {
+            Format("JustifyLeft");
+        }
+
+        private void tsbAlignCenter_Click(object sender, EventArgs e)
+        {
+            Format("JustifyCenter");
+        }
+
+        private void tsbAlignRight_Click(object sender, EventArgs e)
+        {
+            Format("JustifyRight");
+        }
+
         private void tsbNumberedList_Click(object sender, EventArgs e)
         {
             Format("InsertOrderedList");
@@ -540,6 +557,185 @@ namespace WoodClub.Forms
             }
 
             return webEditor.Document?.Body?.InnerHtml ?? string.Empty;
+        }
+
+        /// <summary>
+        /// Draws and assigns the standard formatting icons (list, alignment,
+        /// link and image glyphs) for the toolbar buttons that don't rely on a
+        /// styled letter (Bold/Italic/Underline already read as "B"/"I"/"U").
+        /// Drawn in code rather than embedded as resources since the toolbar
+        /// has no image resx of its own.
+        /// </summary>
+        private void BuildToolbarIcons()
+        {
+            tsbAlignLeft.Image = CreateAlignIcon(HorizontalAlignment.Left);
+            tsbAlignCenter.Image = CreateAlignIcon(HorizontalAlignment.Center);
+            tsbAlignRight.Image = CreateAlignIcon(HorizontalAlignment.Right);
+            tsbNumberedList.Image = CreateListIcon(numbered: true);
+            tsbBulletedList.Image = CreateListIcon(numbered: false);
+            tsbLink.Image = CreateLinkIcon();
+            tsbImageFile.Image = CreateImageIcon(online: false);
+            tsbImageUrl.Image = CreateImageIcon(online: true);
+        }
+
+        /// <summary>
+        /// A 16x16 icon of horizontal bars of decreasing width, anchored to the
+        /// given side (or centered), matching the classic paragraph-alignment
+        /// glyph set.
+        /// </summary>
+        private static Bitmap CreateAlignIcon(HorizontalAlignment alignment)
+        {
+            Bitmap bmp = new Bitmap(16, 16);
+            using (Graphics g = Graphics.FromImage(bmp))
+            using (Brush brush = new SolidBrush(Color.Black))
+            {
+                g.Clear(Color.Transparent);
+                int[] widths = { 14, 9, 14, 7 };
+                int y = 2;
+                foreach (int width in widths)
+                {
+                    int x;
+                    switch (alignment)
+                    {
+                        case HorizontalAlignment.Left:
+                            x = 1;
+                            break;
+                        case HorizontalAlignment.Right:
+                            x = 15 - width;
+                            break;
+                        default:
+                            x = (16 - width) / 2;
+                            break;
+                    }
+
+                    g.FillRectangle(brush, x, y, width, 2);
+                    y += 4;
+                }
+            }
+
+            return bmp;
+        }
+
+        /// <summary>
+        /// A 16x16 icon showing three list rows, each with a number ("1.",
+        /// "2.", "3.") or a bullet dot followed by a line standing in for text.
+        /// </summary>
+        private static Bitmap CreateListIcon(bool numbered)
+        {
+            Bitmap bmp = new Bitmap(16, 16);
+            using (Graphics g = Graphics.FromImage(bmp))
+            using (Brush brush = new SolidBrush(Color.Black))
+            using (Font font = new Font("Segoe UI", 5.5f, FontStyle.Bold))
+            {
+                g.Clear(Color.Transparent);
+                g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+
+                int[] rowTops = { -2, 4, 10 };
+                for (int row = 0; row < rowTops.Length; row++)
+                {
+                    int top = rowTops[row];
+                    if (numbered)
+                    {
+                        g.DrawString((row + 1).ToString(), font, brush, -2f, top);
+                    }
+                    else
+                    {
+                        g.FillEllipse(brush, 1, top + 3, 3, 3);
+                    }
+
+                    g.FillRectangle(brush, 7, top + 3, 8, 2);
+                }
+            }
+
+            return bmp;
+        }
+
+        /// <summary>
+        /// A 16x16 chain-link icon: two rounded rectangles crossing at 45
+        /// degrees, matching the standard hyperlink glyph.
+        /// </summary>
+        private static Bitmap CreateLinkIcon()
+        {
+            Bitmap bmp = new Bitmap(16, 16);
+            using (Graphics g = Graphics.FromImage(bmp))
+            using (Pen pen = new Pen(Color.Black, 1.6f))
+            {
+                g.Clear(Color.Transparent);
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.TranslateTransform(8, 8);
+                g.RotateTransform(-45);
+
+                using (GraphicsPath link1 = RoundedRectangle(new RectangleF(-7, -3, 7, 6), 3))
+                using (GraphicsPath link2 = RoundedRectangle(new RectangleF(0, -3, 7, 6), 3))
+                {
+                    g.DrawPath(pen, link1);
+                    g.DrawPath(pen, link2);
+                }
+            }
+
+            return bmp;
+        }
+
+        /// <summary>
+        /// A 16x16 "insert picture" icon (frame, sun, mountains). The "online"
+        /// variant used for the Image URL button adds a small chain-link badge
+        /// in the corner to distinguish it from the local-file variant.
+        /// </summary>
+        private static Bitmap CreateImageIcon(bool online)
+        {
+            Bitmap bmp = new Bitmap(16, 16);
+            using (Graphics g = Graphics.FromImage(bmp))
+            using (Pen framePen = new Pen(Color.Black, 1.3f))
+            using (Brush brush = new SolidBrush(Color.Black))
+            {
+                g.Clear(Color.Transparent);
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+
+                g.DrawRectangle(framePen, 1, 2, 12, 10);
+                g.FillEllipse(brush, 3, 4, 3, 3);
+
+                Point[] mountains =
+                {
+                    new Point(2, 11),
+                    new Point(6, 6),
+                    new Point(8, 8),
+                    new Point(10, 5),
+                    new Point(13, 11)
+                };
+                g.FillPolygon(brush, mountains);
+
+                if (online)
+                {
+                    using (Pen badgePen = new Pen(Color.Black, 1.2f))
+                    {
+                        g.TranslateTransform(11.5f, 11.5f);
+                        g.RotateTransform(-45);
+                        using (GraphicsPath badge1 = RoundedRectangle(new RectangleF(-3f, -1.3f, 3f, 2.6f), 1.2f))
+                        using (GraphicsPath badge2 = RoundedRectangle(new RectangleF(0f, -1.3f, 3f, 2.6f), 1.2f))
+                        {
+                            g.DrawPath(badgePen, badge1);
+                            g.DrawPath(badgePen, badge2);
+                        }
+                    }
+                }
+            }
+
+            return bmp;
+        }
+
+        /// <summary>
+        /// Builds a rounded-rectangle path, used by the link/badge icons.
+        /// </summary>
+        private static GraphicsPath RoundedRectangle(RectangleF rect, float radius)
+        {
+            float diameter = radius * 2;
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
+            path.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);
+            path.AddArc(rect.Right - diameter, rect.Bottom - diameter, diameter, diameter, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
+            path.CloseFigure();
+            return path;
         }
 
         #endregion

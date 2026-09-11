@@ -50,6 +50,10 @@
             this.tsbBold = new System.Windows.Forms.ToolStripButton();
             this.tsbItalic = new System.Windows.Forms.ToolStripButton();
             this.tsbUnderline = new System.Windows.Forms.ToolStripButton();
+            this.tsSepAlign = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbAlignLeft = new System.Windows.Forms.ToolStripButton();
+            this.tsbAlignCenter = new System.Windows.Forms.ToolStripButton();
+            this.tsbAlignRight = new System.Windows.Forms.ToolStripButton();
             this.tsSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbNumberedList = new System.Windows.Forms.ToolStripButton();
             this.tsbBulletedList = new System.Windows.Forms.ToolStripButton();
@@ -197,6 +201,10 @@
             this.tsbBold,
             this.tsbItalic,
             this.tsbUnderline,
+            this.tsSepAlign,
+            this.tsbAlignLeft,
+            this.tsbAlignCenter,
+            this.tsbAlignRight,
             this.tsSep2,
             this.tsbNumberedList,
             this.tsbBulletedList,
@@ -270,6 +278,38 @@
             this.tsbUnderline.Text = "U";
             this.tsbUnderline.Click += new System.EventHandler(this.tsbUnderline_Click);
             //
+            // tsSepAlign
+            //
+            this.tsSepAlign.Name = "tsSepAlign";
+            this.tsSepAlign.Size = new System.Drawing.Size(6, 25);
+            //
+            // tsbAlignLeft
+            //
+            this.tsbAlignLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAlignLeft.Name = "tsbAlignLeft";
+            this.tsbAlignLeft.Size = new System.Drawing.Size(23, 22);
+            this.tsbAlignLeft.Text = "Align Left";
+            this.tsbAlignLeft.ToolTipText = "Align Left";
+            this.tsbAlignLeft.Click += new System.EventHandler(this.tsbAlignLeft_Click);
+            //
+            // tsbAlignCenter
+            //
+            this.tsbAlignCenter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAlignCenter.Name = "tsbAlignCenter";
+            this.tsbAlignCenter.Size = new System.Drawing.Size(23, 22);
+            this.tsbAlignCenter.Text = "Center";
+            this.tsbAlignCenter.ToolTipText = "Center";
+            this.tsbAlignCenter.Click += new System.EventHandler(this.tsbAlignCenter_Click);
+            //
+            // tsbAlignRight
+            //
+            this.tsbAlignRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAlignRight.Name = "tsbAlignRight";
+            this.tsbAlignRight.Size = new System.Drawing.Size(23, 22);
+            this.tsbAlignRight.Text = "Align Right";
+            this.tsbAlignRight.ToolTipText = "Align Right";
+            this.tsbAlignRight.Click += new System.EventHandler(this.tsbAlignRight_Click);
+            //
             // tsSep2
             //
             this.tsSep2.Name = "tsSep2";
@@ -277,18 +317,20 @@
             //
             // tsbNumberedList
             //
-            this.tsbNumberedList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbNumberedList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbNumberedList.Name = "tsbNumberedList";
-            this.tsbNumberedList.Size = new System.Drawing.Size(91, 22);
+            this.tsbNumberedList.Size = new System.Drawing.Size(23, 22);
             this.tsbNumberedList.Text = "Numbered List";
+            this.tsbNumberedList.ToolTipText = "Numbered List";
             this.tsbNumberedList.Click += new System.EventHandler(this.tsbNumberedList_Click);
             //
             // tsbBulletedList
             //
-            this.tsbBulletedList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbBulletedList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbBulletedList.Name = "tsbBulletedList";
-            this.tsbBulletedList.Size = new System.Drawing.Size(76, 22);
+            this.tsbBulletedList.Size = new System.Drawing.Size(23, 22);
             this.tsbBulletedList.Text = "Bulleted List";
+            this.tsbBulletedList.ToolTipText = "Bulleted List";
             this.tsbBulletedList.Click += new System.EventHandler(this.tsbBulletedList_Click);
             //
             // tsSep3
@@ -298,26 +340,29 @@
             //
             // tsbLink
             //
-            this.tsbLink.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbLink.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbLink.Name = "tsbLink";
-            this.tsbLink.Size = new System.Drawing.Size(35, 22);
+            this.tsbLink.Size = new System.Drawing.Size(23, 22);
             this.tsbLink.Text = "Link";
+            this.tsbLink.ToolTipText = "Insert Hyperlink";
             this.tsbLink.Click += new System.EventHandler(this.tsbLink_Click);
             //
             // tsbImageFile
             //
-            this.tsbImageFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbImageFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbImageFile.Name = "tsbImageFile";
-            this.tsbImageFile.Size = new System.Drawing.Size(67, 22);
+            this.tsbImageFile.Size = new System.Drawing.Size(23, 22);
             this.tsbImageFile.Text = "Image File";
+            this.tsbImageFile.ToolTipText = "Insert Image from File";
             this.tsbImageFile.Click += new System.EventHandler(this.tsbImageFile_Click);
             //
             // tsbImageUrl
             //
-            this.tsbImageUrl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbImageUrl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbImageUrl.Name = "tsbImageUrl";
-            this.tsbImageUrl.Size = new System.Drawing.Size(65, 22);
+            this.tsbImageUrl.Size = new System.Drawing.Size(23, 22);
             this.tsbImageUrl.Text = "Image URL";
+            this.tsbImageUrl.ToolTipText = "Insert Image from URL";
             this.tsbImageUrl.Click += new System.EventHandler(this.tsbImageUrl_Click);
             //
             // tslImageNote
@@ -405,6 +450,10 @@
         private System.Windows.Forms.ToolStripButton tsbBold;
         private System.Windows.Forms.ToolStripButton tsbItalic;
         private System.Windows.Forms.ToolStripButton tsbUnderline;
+        private System.Windows.Forms.ToolStripSeparator tsSepAlign;
+        private System.Windows.Forms.ToolStripButton tsbAlignLeft;
+        private System.Windows.Forms.ToolStripButton tsbAlignCenter;
+        private System.Windows.Forms.ToolStripButton tsbAlignRight;
         private System.Windows.Forms.ToolStripSeparator tsSep2;
         private System.Windows.Forms.ToolStripButton tsbNumberedList;
         private System.Windows.Forms.ToolStripButton tsbBulletedList;
