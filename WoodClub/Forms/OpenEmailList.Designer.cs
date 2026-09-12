@@ -32,6 +32,7 @@ namespace WoodClub.Forms
             this.colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCreatedAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnOpen = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmails)).BeginInit();
             this.SuspendLayout();
@@ -87,6 +88,17 @@ namespace WoodClub.Forms
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             //
+            // btnDelete
+            //
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDelete.Location = new System.Drawing.Point(12, 384);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            //
             // btnCancel
             //
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -104,6 +116,7 @@ namespace WoodClub.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 419);
             this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.dgvEmails);
             this.MinimizeBox = false;
@@ -123,6 +136,7 @@ namespace WoodClub.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCreatedAt;
         private System.Windows.Forms.Button btnOpen;
+        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnCancel;
     }
 }

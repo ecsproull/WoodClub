@@ -30,6 +30,14 @@ namespace WoodClub.Forms
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void OpenEmailList_Load(object sender, EventArgs e)
         {
+            LoadEmails();
+        }
+
+        /// <summary>
+        /// Loads (or reloads, e.g. after a delete) the saved email list.
+        /// </summary>
+        private void LoadEmails()
+        {
             using (WoodClubEntities context = new WoodClubEntities())
             {
                 List<Row> rows = (from s in context.SavedEmails
@@ -88,6 +96,50 @@ namespace WoodClub.Forms
             }
 
             Close();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnDelete control. Confirms, then
+        /// deletes the selected saved email (its attachments cascade-delete at
+        /// the database level).
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            Row row = dgvEmails.CurrentRow?.DataBoundItem as Row;
+            if (row == null)
+            {
+                MessageBox.Show("Please select an email to delete.");
+                return;
+            }
+
+            if (MessageBox.Show("Delete \"" + row.Title + "\"? This cannot be undone.",
+                    "Delete Email", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                using (WoodClubEntities context = new WoodClubEntities())
+                {
+                    SavedEmail email = context.SavedEmails.SingleOrDefault(s => s.SavedEmailId == row.SavedEmailId);
+                    if (email != null)
+                    {
+                        context.SavedEmails.Remove(email);
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Delete saved email failed..", ex);
+                MessageBox.Show("Delete failed: " + ex.Message);
+                return;
+            }
+
+            LoadEmails();
         }
 
         /// <summary>

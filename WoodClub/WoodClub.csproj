@@ -445,6 +445,9 @@
     <Compile Include="SavedEmail.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
+    <Compile Include="SavedEmailAttachment.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="MemberRosterExt.cs" />
     <Compile Include="MembersShort.cs" />
     <Compile Include="ModelTK.Context.cs">
@@ -495,6 +498,7 @@
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
     <Compile Include="SendMail.cs" />
+    <Compile Include="EmailAttachment.cs" />
     <Compile Include="SendText.cs" />
     <Compile Include="Time_zones.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
@@ -658,6 +662,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Database\CreateSavedEmail.sql" />
+    <None Include="Database\CreateSavedEmailAttachment.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -38,8 +38,9 @@ namespace WoodClub
 		/// <param name="subject">Email subject</param>
 		/// <param name="htmlBody">HTML body content</param>
 		/// <param name="plainTextBody">Optional plain text body (default: empty)</param>
+		/// <param name="attachments">Optional file attachments (default: none)</param>
 		/// <returns>SendGrid Response</returns>
-		public async Task<Response> SendSingleEmailAsync(string fromEmail, string toEmail, string toName, string subject, string htmlBody, string plainTextBody = "")
+		public async Task<Response> SendSingleEmailAsync(string fromEmail, string toEmail, string toName, string subject, string htmlBody, string plainTextBody = "", List<EmailAttachment> attachments = null)
 		{
 			var apiKey = Environment.GetEnvironmentVariable("SendGrid");
 			var client = new SendGridClient(apiKey);
@@ -56,6 +57,23 @@ namespace WoodClub
 			);
 
 			msg.ReplyTo = new EmailAddress("treasurer@scwwoodshop.com", "Finance Committee");
+
+			if (attachments != null && attachments.Count > 0)
+			{
+				var sendGridAttachments = new List<Attachment>();
+				foreach (var attachment in attachments)
+				{
+					sendGridAttachments.Add(new Attachment
+					{
+						Filename = attachment.FileName,
+						Type = attachment.MimeType,
+						Content = Convert.ToBase64String(attachment.Content),
+						Disposition = "attachment"
+					});
+				}
+
+				msg.AddAttachments(sendGridAttachments);
+			}
 
 			return await client.SendEmailAsync(msg);
 		}

@@ -56,7 +56,7 @@ namespace WoodClub
 			using (HttpClient client = new HttpClient())
 			{
 				var contentType = new MediaTypeWithQualityHeaderValue("application/json");
-				var api = "/wp-json/scwmembers/v1/members";
+				var api = "/wp-json/scwmembers/v1/update_members";
 				client.BaseAddress = new Uri(baseAddress);
 				client.DefaultRequestHeaders.Accept.Add(contentType);
 

@@ -59,6 +59,31 @@ namespace WoodClub.Forms
         private const int JpegQualityFallbackStep = 15;
 
         /// <summary>
+        /// Largest allowed size for a single file attachment (10 MB), matching
+        /// SendGrid's own recommendation to keep individual attachments under
+        /// that even though their hard per-message cap is higher. Unlike inline
+        /// images, oversized attachments are rejected outright rather than
+        /// resized - arbitrary files (PDFs, docs, etc.) should never be altered.
+        /// </summary>
+        private const long MaxAttachmentSizeBytes = 10_485_760;
+
+        /// <summary>
+        /// Rough combined-message-size threshold (attachments inflated ~33% for
+        /// base64, plus the HTML body) above which the attachment summary label
+        /// warns the user they're approaching SendGrid's ~30 MB whole-message
+        /// ceiling. Deliberately conservative - the estimate doesn't need to be
+        /// exact to the byte.
+        /// </summary>
+        private const long ApproxMessageSizeWarningBytes = 25_000_000;
+
+        /// <summary>
+        /// The files currently attached to this message - either a path to a
+        /// freshly-picked local file (bytes re-read at send/save time) or the
+        /// cached bytes of an attachment loaded from a saved email.
+        /// </summary>
+        private readonly List<ComposerAttachment> attachedFiles = new List<ComposerAttachment>();
+
+        /// <summary>
         /// An address to pre-populate into the extra addresses box on load, e.g.
         /// when opened via "Mail To" for a single selected member.
         /// </summary>
@@ -131,11 +156,17 @@ namespace WoodClub.Forms
             LoadMailingLists();
 
             SavedEmail loaded = null;
+            List<SavedEmailAttachment> loadedAttachments = null;
             if (initialSavedEmailId.HasValue)
             {
                 using (WoodClubEntities context = new WoodClubEntities())
                 {
                     loaded = context.SavedEmails.SingleOrDefault(s => s.SavedEmailId == initialSavedEmailId.Value);
+                    if (loaded != null)
+                    {
+                        loadedAttachments = context.SavedEmailAttachments
+                            .Where(a => a.SavedEmailId == loaded.SavedEmailId).ToList();
+                    }
                 }
             }
 
@@ -158,6 +189,18 @@ namespace WoodClub.Forms
                 }
 
                 webEditor.DocumentText = EditorHtmlTemplate(loaded.BodyHtml);
+
+                foreach (SavedEmailAttachment attachment in loadedAttachments)
+                {
+                    attachedFiles.Add(new ComposerAttachment
+                    {
+                        FileName = attachment.FileName,
+                        MimeType = attachment.MimeType,
+                        CachedContent = attachment.Content
+                    });
+                }
+
+                RefreshAttachmentList();
             }
             else
             {
@@ -503,17 +546,6 @@ namespace WoodClub.Forms
             }
         }
 
-        private void tsbImageUrl_Click(object sender, EventArgs e)
-        {
-            string url = PromptForString("Insert Image", "Image URL:", "https://");
-            if (string.IsNullOrEmpty(url))
-            {
-                return;
-            }
-
-            InsertHtml("<img src=\"" + HttpUtility.HtmlAttributeEncode(url) + "\" />");
-        }
-
         /// <summary>
         /// The JPEG encoder used to re-compress over-size inline images. Resolved
         /// once; null on the (unexpected) chance GDI+ reports no JPEG encoder, in
@@ -630,8 +662,8 @@ namespace WoodClub.Forms
             tsbNumberedList.Image = CreateListIcon(numbered: true);
             tsbBulletedList.Image = CreateListIcon(numbered: false);
             tsbLink.Image = CreateLinkIcon();
-            tsbImageFile.Image = CreateImageIcon(online: false);
-            tsbImageUrl.Image = CreateImageIcon(online: true);
+            tsbImageFile.Image = CreateImageIcon();
+            tsbAttachFile.Image = CreatePaperclipIcon();
         }
 
         /// <summary>
@@ -733,11 +765,9 @@ namespace WoodClub.Forms
         }
 
         /// <summary>
-        /// A 16x16 "insert picture" icon (frame, sun, mountains). The "online"
-        /// variant used for the Image URL button adds a small chain-link badge
-        /// in the corner to distinguish it from the local-file variant.
+        /// A 16x16 "insert picture" icon (frame, sun, mountains).
         /// </summary>
-        private static Bitmap CreateImageIcon(bool online)
+        private static Bitmap CreateImageIcon()
         {
             Bitmap bmp = new Bitmap(16, 16);
             using (Graphics g = Graphics.FromImage(bmp))
@@ -759,21 +789,29 @@ namespace WoodClub.Forms
                     new Point(13, 11)
                 };
                 g.FillPolygon(brush, mountains);
+            }
 
-                if (online)
-                {
-                    using (Pen badgePen = new Pen(Color.Black, 1.2f))
-                    {
-                        g.TranslateTransform(11.5f, 11.5f);
-                        g.RotateTransform(-45);
-                        using (GraphicsPath badge1 = RoundedRectangle(new RectangleF(-3f, -1.3f, 3f, 2.6f), 1.2f))
-                        using (GraphicsPath badge2 = RoundedRectangle(new RectangleF(0f, -1.3f, 3f, 2.6f), 1.2f))
-                        {
-                            g.DrawPath(badgePen, badge1);
-                            g.DrawPath(badgePen, badge2);
-                        }
-                    }
-                }
+            return bmp;
+        }
+
+        /// <summary>
+        /// A 16x16 paperclip icon for the Attach Files button, drawn from the
+        /// "Attach" glyph in Segoe MDL2 Assets (ships with Windows 8.1+) rather
+        /// than hand-drawn - a freehand paperclip silhouette reads poorly at
+        /// this size, while the system icon font stays crisp.
+        /// </summary>
+        private static Bitmap CreatePaperclipIcon()
+        {
+            Bitmap bmp = new Bitmap(16, 16);
+            using (Graphics g = Graphics.FromImage(bmp))
+            using (Font font = new Font("Segoe MDL2 Assets", 9f))
+            using (Brush brush = new SolidBrush(Color.Black))
+            using (StringFormat format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+            {
+                g.Clear(Color.Transparent);
+                g.TextRenderingHint = TextRenderingHint.AntiAlias;
+                string glyph = ((char)0xE723).ToString();
+                g.DrawString(glyph, font, brush, new RectangleF(0, 0, 16, 16), format);
             }
 
             return bmp;
@@ -792,6 +830,274 @@ namespace WoodClub.Forms
             path.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
             path.CloseFigure();
             return path;
+        }
+
+        #endregion
+
+        #region File attachments
+
+        /// <summary>
+        /// Handles the Click event of the tsbAttachFile toolbar button. Lets the
+        /// user pick one or more files as real (non-inline) message
+        /// attachments. Files over <see cref="MaxAttachmentSizeBytes"/> are
+        /// rejected outright - unlike inline images, arbitrary attachments are
+        /// never resized.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void tsbAttachFile_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Multiselect = true;
+                dlg.Filter = "All files (*.*)|*.*";
+                if (dlg.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                List<string> tooLarge = new List<string>();
+                foreach (string path in dlg.FileNames)
+                {
+                    if (attachedFiles.Any(a => a.SourcePath != null && string.Equals(a.SourcePath, path, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        continue;
+                    }
+
+                    FileInfo info = new FileInfo(path);
+                    if (info.Length > MaxAttachmentSizeBytes)
+                    {
+                        tooLarge.Add(info.Name + " (" + FormatFileSize(info.Length) + ")");
+                        continue;
+                    }
+
+                    attachedFiles.Add(new ComposerAttachment { FileName = info.Name, SourcePath = path });
+                }
+
+                if (tooLarge.Count > 0)
+                {
+                    MessageBox.Show(
+                        "These files exceed the " + FormatFileSize(MaxAttachmentSizeBytes) + " per-file limit and were not attached:\r\n\r\n" +
+                        string.Join("\r\n", tooLarge),
+                        "Attachment Too Large", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+
+            RefreshAttachmentList();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnRemoveAttachment control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void btnRemoveAttachment_Click(object sender, EventArgs e)
+        {
+            if (lstAttachments.SelectedIndex < 0)
+            {
+                MessageBox.Show("Select a file to remove.");
+                return;
+            }
+
+            attachedFiles.RemoveAt(lstAttachments.SelectedIndex);
+            RefreshAttachmentList();
+        }
+
+        /// <summary>
+        /// Refreshes the attached-files list box and the running-total summary
+        /// label, warning (not blocking) when the estimated combined message
+        /// size - attachments inflated ~33% for base64, plus the HTML body -
+        /// is approaching SendGrid's whole-message ceiling. The list, summary
+        /// and Remove button stay hidden until there's at least one attachment.
+        /// </summary>
+        private void RefreshAttachmentList()
+        {
+            lstAttachments.Items.Clear();
+            long totalBytes = 0;
+            foreach (ComposerAttachment item in attachedFiles)
+            {
+                long size = item.CachedContent != null ? item.CachedContent.Length : GetFileSizeSafe(item.SourcePath);
+                totalBytes += size;
+                lstAttachments.Items.Add(item.FileName + " (" + FormatFileSize(size) + ")");
+            }
+
+            bool hasAttachments = attachedFiles.Count > 0;
+            lblAttachSummary.Visible = hasAttachments;
+            lstAttachments.Visible = hasAttachments;
+            btnRemoveAttachment.Visible = hasAttachments;
+
+            if (!hasAttachments)
+            {
+                return;
+            }
+
+            long estimatedMessageBytes = (long)(totalBytes * 1.33) + EstimateBodyBytes();
+            bool approachingLimit = estimatedMessageBytes > ApproxMessageSizeWarningBytes;
+
+            lblAttachSummary.Text = attachedFiles.Count + " file(s) attached — " + FormatFileSize(totalBytes) +
+                (approachingLimit ? " (approaching SendGrid's message size limit)" : string.Empty);
+            lblAttachSummary.ForeColor = approachingLimit ? Color.DarkOrange : SystemColors.GrayText;
+        }
+
+        /// <summary>
+        /// A rough UTF-8 byte count of the current HTML body, used only for the
+        /// combined-message-size warning estimate.
+        /// </summary>
+        private int EstimateBodyBytes()
+        {
+            try
+            {
+                return System.Text.Encoding.UTF8.GetByteCount(GetEditorHtml());
+            }
+            catch (Exception ex)
+            {
+                log.Error("Estimating body size failed..", ex);
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// The size of a local file, or 0 if it can no longer be read.
+        /// </summary>
+        private static long GetFileSizeSafe(string path)
+        {
+            try
+            {
+                return new FileInfo(path).Length;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Formats a byte count as a human-readable KB/MB size.
+        /// </summary>
+        private static string FormatFileSize(long bytes)
+        {
+            const long kb = 1024;
+            const long mb = kb * 1024;
+
+            if (bytes >= mb)
+            {
+                return (bytes / (double)mb).ToString("0.#") + " MB";
+            }
+
+            if (bytes >= kb)
+            {
+                return (bytes / (double)kb).ToString("0.#") + " KB";
+            }
+
+            return bytes + " bytes";
+        }
+
+        /// <summary>
+        /// Builds the attachment payload used for both sending and saving.
+        /// A freshly-picked file's bytes are read fresh from disk (not cached
+        /// from when it was picked, in case of a long composer session) and
+        /// its size re-validated, since the underlying file could have
+        /// changed; an attachment loaded from a saved email already has its
+        /// bytes in memory and is used as-is.
+        /// </summary>
+        /// <param name="attachments">Receives the built attachment list.</param>
+        /// <returns>False (with a message already shown) if any file could not be read or is now too large.</returns>
+        private bool TryBuildAttachments(out List<EmailAttachment> attachments)
+        {
+            attachments = new List<EmailAttachment>();
+
+            foreach (ComposerAttachment item in attachedFiles)
+            {
+                if (item.CachedContent != null)
+                {
+                    attachments.Add(new EmailAttachment
+                    {
+                        FileName = item.FileName,
+                        Content = item.CachedContent,
+                        MimeType = item.MimeType
+                    });
+                    continue;
+                }
+
+                try
+                {
+                    FileInfo info = new FileInfo(item.SourcePath);
+                    if (!info.Exists)
+                    {
+                        MessageBox.Show("Attachment no longer exists: " + item.SourcePath);
+                        return false;
+                    }
+
+                    if (info.Length > MaxAttachmentSizeBytes)
+                    {
+                        MessageBox.Show("Attachment \"" + info.Name + "\" is now " + FormatFileSize(info.Length) +
+                            ", which exceeds the " + FormatFileSize(MaxAttachmentSizeBytes) + " limit. Please remove or replace it.");
+                        return false;
+                    }
+
+                    attachments.Add(new EmailAttachment
+                    {
+                        FileName = info.Name,
+                        Content = File.ReadAllBytes(item.SourcePath),
+                        MimeType = MimeMapping.GetMimeMapping(item.SourcePath)
+                    });
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Reading attachment failed: " + item.SourcePath, ex);
+                    MessageBox.Show("Could not read attachment \"" + Path.GetFileName(item.SourcePath) + "\": " + ex.Message);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Replaces (when updating an existing saved email) or adds the
+        /// SavedEmailAttachment rows for a SavedEmail, then saves. Split out
+        /// from <see cref="SaveEmailRecord"/>/<see cref="SaveSentCopy"/> since
+        /// both need it.
+        /// </summary>
+        private static void PersistAttachments(WoodClubEntities context, int savedEmailId, List<EmailAttachment> attachments, bool replaceExisting)
+        {
+            if (replaceExisting)
+            {
+                List<SavedEmailAttachment> existing = context.SavedEmailAttachments
+                    .Where(a => a.SavedEmailId == savedEmailId).ToList();
+                if (existing.Count > 0)
+                {
+                    context.SavedEmailAttachments.RemoveRange(existing);
+                }
+            }
+
+            foreach (EmailAttachment attachment in attachments)
+            {
+                context.SavedEmailAttachments.Add(new SavedEmailAttachment
+                {
+                    SavedEmailId = savedEmailId,
+                    FileName = attachment.FileName,
+                    MimeType = attachment.MimeType,
+                    Content = attachment.Content
+                });
+            }
+
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// A file attached to the message being composed.
+        /// </summary>
+        private class ComposerAttachment
+        {
+            public string FileName { get; set; }
+            public string MimeType { get; set; }
+
+            /// <summary>Set for a freshly-picked local file; bytes are re-read from here at send/save time.</summary>
+            public string SourcePath { get; set; }
+
+            /// <summary>Set for an attachment loaded from a saved email; used as-is, no local file backs it.</summary>
+            public byte[] CachedContent { get; set; }
         }
 
         #endregion
@@ -821,6 +1127,12 @@ namespace WoodClub.Forms
             if (string.IsNullOrWhiteSpace(Regex.Replace(htmlBody, "<[^>]+>", string.Empty).Replace("&nbsp;", " ")))
             {
                 MessageBox.Show("The message body is empty.");
+                return;
+            }
+
+            List<EmailAttachment> attachments;
+            if (!TryBuildAttachments(out attachments))
+            {
                 return;
             }
 
@@ -864,7 +1176,7 @@ namespace WoodClub.Forms
             {
                 try
                 {
-                    var response = await mailer.SendSingleEmailAsync(from, addr, addr, subject, htmlBody);
+                    var response = await mailer.SendSingleEmailAsync(from, addr, addr, subject, htmlBody, attachments: attachments);
                     if ((int)response.StatusCode >= 200 && (int)response.StatusCode < 300)
                     {
                         sent++;
@@ -887,7 +1199,7 @@ namespace WoodClub.Forms
 
             if (sent > 0)
             {
-                SaveSentCopy(htmlBody);
+                SaveSentCopy(htmlBody, attachments);
             }
 
             string summary = $"Sent {sent} of {recipients.Count} email(s).";
@@ -939,6 +1251,12 @@ namespace WoodClub.Forms
                 return;
             }
 
+            List<EmailAttachment> attachments;
+            if (!TryBuildAttachments(out attachments))
+            {
+                return;
+            }
+
             bool saveAsNew = true;
             if (loadedSavedEmailId.HasValue)
             {
@@ -955,7 +1273,7 @@ namespace WoodClub.Forms
                 saveAsNew = choice == DialogResult.No;
             }
 
-            SaveEmailRecord(htmlBody, saveAsNew);
+            SaveEmailRecord(htmlBody, saveAsNew, attachments);
             MessageBox.Show("Email saved.");
         }
 
@@ -974,9 +1292,11 @@ namespace WoodClub.Forms
         /// <summary>
         /// Saves the current draft, either updating the record referenced by
         /// <see cref="loadedSavedEmailId"/> or inserting a new one, and updates
-        /// <see cref="loadedSavedEmailId"/> to point at the saved row.
+        /// <see cref="loadedSavedEmailId"/> to point at the saved row. The
+        /// attachment rows are replaced wholesale on an update (the current
+        /// attached-files list wins) and simply inserted for a new record.
         /// </summary>
-        private void SaveEmailRecord(string htmlBody, bool saveAsNew)
+        private void SaveEmailRecord(string htmlBody, bool saveAsNew, List<EmailAttachment> attachments)
         {
             int? mailingListId;
             bool sendToAll;
@@ -990,6 +1310,7 @@ namespace WoodClub.Forms
                     record = context.SavedEmails.SingleOrDefault(s => s.SavedEmailId == loadedSavedEmailId.Value);
                 }
 
+                bool isUpdate = record != null;
                 if (record == null)
                 {
                     record = new SavedEmail { IsSent = false, CreatedAt = DateTime.UtcNow };
@@ -1005,15 +1326,18 @@ namespace WoodClub.Forms
 
                 context.SaveChanges();
                 loadedSavedEmailId = record.SavedEmailId;
+
+                PersistAttachments(context, record.SavedEmailId, attachments, replaceExisting: isUpdate);
             }
         }
 
         /// <summary>
-        /// Inserts a new <see cref="WoodClub.SavedEmail"/> row marked as sent,
-        /// after a successful send, so it can be reused later. Always a fresh
-        /// row - independent of whatever this session's Save button is tracking.
+        /// Inserts a new <see cref="WoodClub.SavedEmail"/> row (with its
+        /// attachments) marked as sent, after a successful send, so it can be
+        /// reused later. Always a fresh row - independent of whatever this
+        /// session's Save button is tracking.
         /// </summary>
-        private void SaveSentCopy(string htmlBody)
+        private void SaveSentCopy(string htmlBody, List<EmailAttachment> attachments)
         {
             int? mailingListId;
             bool sendToAll;
@@ -1021,7 +1345,7 @@ namespace WoodClub.Forms
 
             using (WoodClubEntities context = new WoodClubEntities())
             {
-                context.SavedEmails.Add(new SavedEmail
+                SavedEmail record = new SavedEmail
                 {
                     Subject = txtSubject.Text.Trim(),
                     BodyHtml = htmlBody,
@@ -1031,9 +1355,11 @@ namespace WoodClub.Forms
                     ExtraAddresses = string.IsNullOrWhiteSpace(txtExtra.Text) ? null : txtExtra.Text,
                     IsSent = true,
                     CreatedAt = DateTime.UtcNow
-                });
-
+                };
+                context.SavedEmails.Add(record);
                 context.SaveChanges();
+
+                PersistAttachments(context, record.SavedEmailId, attachments, replaceExisting: false);
             }
         }
 

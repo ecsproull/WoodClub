@@ -129,6 +129,16 @@ warning 6002: The table/view 'WoodClub.dbo.BadgeCodes' does not have a primary k
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="SavedEmailAttachment">
+          <Key>
+            <PropertyRef Name="SavedEmailAttachmentId" />
+          </Key>
+          <Property Name="SavedEmailAttachmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SavedEmailId" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MimeType" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Content" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="MemberBackup">
           <Key>
             <PropertyRef Name="id" />
@@ -327,6 +337,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="MemberRoster" EntityType="Self.MemberRoster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonitorParams" EntityType="Self.MonitorParams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SavedEmail" EntityType="Self.SavedEmail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SavedEmailAttachment" EntityType="Self.SavedEmailAttachment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin" EntityType="Self.Admin" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -629,6 +640,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="MailingLists" EntityType="WoodClubModel.MailingList" />
           <EntitySet Name="MailingListMembers" EntityType="WoodClubModel.MailingListMember" />
           <EntitySet Name="SavedEmails" EntityType="WoodClubModel.SavedEmail" />
+          <EntitySet Name="SavedEmailAttachments" EntityType="WoodClubModel.SavedEmailAttachment" />
           <AssociationSet Name="FK__MailingLi__Maili__19DFD96B" Association="WoodClubModel.FK__MailingLi__Maili__19DFD96B">
             <End Role="MailingList" EntitySet="MailingLists" />
             <End Role="MailingListMember" EntitySet="MailingListMembers" />
@@ -728,6 +740,16 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="IsSent" Type="Boolean" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SavedEmailAttachment">
+          <Key>
+            <PropertyRef Name="SavedEmailAttachmentId" />
+          </Key>
+          <Property Name="SavedEmailAttachmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SavedEmailId" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MimeType" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK__MailingLi__Maili__19DFD96B">
           <End Type="WoodClubModel.MailingList" Role="MailingList" Multiplicity="1" />
@@ -1048,6 +1070,17 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
                 <ScalarProperty Name="BodyHtml" ColumnName="BodyHtml" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="SavedEmailId" ColumnName="SavedEmailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SavedEmailAttachments">
+            <EntityTypeMapping TypeName="WoodClubModel.SavedEmailAttachment">
+              <MappingFragment StoreEntitySet="SavedEmailAttachment">
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="SavedEmailId" ColumnName="SavedEmailId" />
+                <ScalarProperty Name="SavedEmailAttachmentId" ColumnName="SavedEmailAttachmentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
