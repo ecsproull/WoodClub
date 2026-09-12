@@ -495,6 +495,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Compose Email";
             this.Load += new System.EventHandler(this.MailComposer_Load);
+            this.Resize += new System.EventHandler(this.MailComposer_Resize);
             this.pnlEditor.ResumeLayout(false);
             this.pnlEditor.PerformLayout();
             this.toolStripEditor.ResumeLayout(false);

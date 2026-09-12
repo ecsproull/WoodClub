@@ -77,6 +77,13 @@ namespace WoodClub.Forms
         private const long ApproxMessageSizeWarningBytes = 25_000_000;
 
         /// <summary>
+        /// Vertical gap kept between the message editor and whatever sits
+        /// below it once <see cref="UpdateEditorLayout"/> resizes it to fill
+        /// the space.
+        /// </summary>
+        private const int EditorBottomGap = 10;
+
+        /// <summary>
         /// The files currently attached to this message - either a path to a
         /// freshly-picked local file (bytes re-read at send/save time) or the
         /// cached bytes of an attachment loaded from a saved email.
@@ -199,8 +206,6 @@ namespace WoodClub.Forms
                         CachedContent = attachment.Content
                     });
                 }
-
-                RefreshAttachmentList();
             }
             else
             {
@@ -212,7 +217,26 @@ namespace WoodClub.Forms
                 }
             }
 
+            RefreshAttachmentList();
+
             UpdateSendEnabled();
+        }
+
+        /// <summary>
+        /// Handles the Resize event of the MailComposer control. Keeps the
+        /// message editor's fill-or-yield sizing correct if the dialog itself
+        /// is resized (the editor's own height is set explicitly in code, so
+        /// it doesn't otherwise track a form resize the way anchored controls
+        /// do).
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void MailComposer_Resize(object sender, EventArgs e)
+        {
+            if (IsHandleCreated)
+            {
+                UpdateEditorLayout();
+            }
         }
 
         /// <summary>
@@ -908,7 +932,8 @@ namespace WoodClub.Forms
         /// label, warning (not blocking) when the estimated combined message
         /// size - attachments inflated ~33% for base64, plus the HTML body -
         /// is approaching SendGrid's whole-message ceiling. The list, summary
-        /// and Remove button stay hidden until there's at least one attachment.
+        /// and Remove button stay hidden until there's at least one attachment,
+        /// and the message editor grows or shrinks to fill/yield the space.
         /// </summary>
         private void RefreshAttachmentList()
         {
@@ -921,12 +946,9 @@ namespace WoodClub.Forms
                 lstAttachments.Items.Add(item.FileName + " (" + FormatFileSize(size) + ")");
             }
 
-            bool hasAttachments = attachedFiles.Count > 0;
-            lblAttachSummary.Visible = hasAttachments;
-            lstAttachments.Visible = hasAttachments;
-            btnRemoveAttachment.Visible = hasAttachments;
+            UpdateEditorLayout();
 
-            if (!hasAttachments)
+            if (attachedFiles.Count == 0)
             {
                 return;
             }
@@ -937,6 +959,30 @@ namespace WoodClub.Forms
             lblAttachSummary.Text = attachedFiles.Count + " file(s) attached — " + FormatFileSize(totalBytes) +
                 (approachingLimit ? " (approaching SendGrid's message size limit)" : string.Empty);
             lblAttachSummary.ForeColor = approachingLimit ? Color.DarkOrange : SystemColors.GrayText;
+        }
+
+        /// <summary>
+        /// Shows or hides the attachment list/summary/Remove button based on
+        /// whether there are any attachments, and resizes the message editor
+        /// to fill the space they free up when hidden (or yield it back once
+        /// an attachment is added). <see cref="lblAttachSummary"/> and
+        /// <see cref="btnSend"/> keep their own designer-authored positions
+        /// throughout - only <see cref="pnlEditor"/>'s height changes.
+        /// </summary>
+        private void UpdateEditorLayout()
+        {
+            bool hasAttachments = attachedFiles.Count > 0;
+
+            lblAttachSummary.Visible = hasAttachments;
+            lstAttachments.Visible = hasAttachments;
+            btnRemoveAttachment.Visible = hasAttachments;
+
+            int bottomBoundary = hasAttachments ? lblAttachSummary.Top : btnSend.Top;
+            int newHeight = bottomBoundary - pnlEditor.Top - EditorBottomGap;
+            if (newHeight > 0)
+            {
+                pnlEditor.Height = newHeight;
+            }
         }
 
         /// <summary>
