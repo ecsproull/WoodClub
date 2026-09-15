@@ -1183,7 +1183,7 @@ namespace WoodClub.Forms
             }
 
             List<string> invalid;
-            List<string> recipients = ResolveRecipients(out invalid);
+            List<EmailRecipient> recipients = ResolveRecipients(out invalid);
 
             if (invalid.Count > 0)
             {
@@ -1211,6 +1211,7 @@ namespace WoodClub.Forms
 
             string subject = txtSubject.Text.Trim();
             SendMail mailer = new SendMail();
+            DateTime sentAt = DateTime.UtcNow;
             int sent = 0;
             List<string> failed = new List<string>();
 
@@ -1218,24 +1219,28 @@ namespace WoodClub.Forms
             btnCancel.Enabled = false;
             Cursor = Cursors.WaitCursor;
 
-            foreach (string addr in recipients)
+            foreach (EmailRecipient recipient in recipients)
             {
                 try
                 {
-                    var response = await mailer.SendSingleEmailAsync(from, addr, addr, subject, htmlBody, attachments: attachments);
+                    string recipientValue = recipient.Badge ?? recipient.Email;
+                    long emailId = mailer.RecordCommunication(subject, sentAt, recipients.Count, recipientValue);
+
+                    var response = await mailer.SendSingleEmailAsync(from, recipient.Email, recipient.Email, subject, htmlBody,
+                        emailId, recipient.Badge ?? string.Empty, attachments: attachments);
                     if ((int)response.StatusCode >= 200 && (int)response.StatusCode < 300)
                     {
                         sent++;
                     }
                     else
                     {
-                        failed.Add(addr + " (" + response.StatusCode + ")");
+                        failed.Add(recipient.Email + " (" + response.StatusCode + ")");
                     }
                 }
                 catch (Exception ex)
                 {
-                    log.Error("Send failed for " + addr, ex);
-                    failed.Add(addr + " (" + ex.Message + ")");
+                    log.Error("Send failed for " + recipient.Email, ex);
+                    failed.Add(recipient.Email + " (" + ex.Message + ")");
                 }
             }
 
@@ -1415,9 +1420,9 @@ namespace WoodClub.Forms
         /// free-text entries and de-dupes case-insensitively.
         /// </summary>
         /// <param name="invalid">Receives the malformed free-text entries.</param>
-        private List<string> ResolveRecipients(out List<string> invalid)
+        private List<EmailRecipient> ResolveRecipients(out List<string> invalid)
         {
-            List<string> addresses = new List<string>();
+            List<EmailRecipient> addresses = new List<EmailRecipient>();
             invalid = new List<string>();
 
             using (WoodClubEntities context = new WoodClubEntities())
@@ -1428,7 +1433,7 @@ namespace WoodClub.Forms
                     addresses.AddRange(from m in context.MemberRosters
                                        where m.ClubDuesPaid == true && m.Badge != "20001"
                                              && m.Email != null && m.Email != ""
-                                       select m.Email);
+                                       select new EmailRecipient { Email = m.Email, Badge = m.Badge });
                 }
                 else if (listId.HasValue && listId.Value != NoListId)
                 {
@@ -1437,40 +1442,60 @@ namespace WoodClub.Forms
                                        join mr in context.MemberRosters on mlm.MemberId equals mr.id
                                        where mlm.MailingListId == id && mlm.IsSubscribed
                                              && mr.Email != null && mr.Email != ""
-                                       select mr.Email);
-                }
-            }
-
-            foreach (string raw in txtExtra.Text.Split(new[] { ';', ',', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                string address = raw.Trim();
-                if (address.Length == 0)
-                {
-                    continue;
+                                       select new EmailRecipient { Email = mr.Email, Badge = mr.Badge });
                 }
 
-                if (EmailPattern.IsMatch(address))
+                foreach (string raw in txtExtra.Text.Split(new[] { ';', ',', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    addresses.Add(address);
-                }
-                else
-                {
-                    invalid.Add(address);
+                    string address = raw.Trim();
+                    if (address.Length == 0)
+                    {
+                        continue;
+                    }
+
+                    if (!EmailPattern.IsMatch(address))
+                    {
+                        invalid.Add(address);
+                        continue;
+                    }
+
+                    // An extra address may already belong to a member - if so,
+                    // record their Badge (as the "Recipient" going to Communications
+                    // and the "MemberID" custom arg) instead of treating it as a
+                    // non-member address.
+                    string badge = (from mr in context.MemberRosters
+                                    where mr.Email == address
+                                    select mr.Badge).FirstOrDefault();
+
+                    addresses.Add(new EmailRecipient { Email = address, Badge = badge });
                 }
             }
 
             HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            List<string> result = new List<string>();
-            foreach (string address in addresses)
+            List<EmailRecipient> result = new List<EmailRecipient>();
+            foreach (EmailRecipient recipient in addresses)
             {
-                string trimmed = (address ?? string.Empty).Trim();
+                string trimmed = (recipient.Email ?? string.Empty).Trim();
                 if (trimmed.Length > 0 && seen.Add(trimmed))
                 {
-                    result.Add(trimmed);
+                    result.Add(new EmailRecipient { Email = trimmed, Badge = recipient.Badge });
                 }
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// A resolved recipient: an email address, plus the member's Badge
+        /// when known (null for a free-text extra address that isn't a
+        /// member) - the Badge is attached as the "MemberID" SendGrid custom
+        /// arg so the Go event-processing service can attribute webhook
+        /// events back to a specific member.
+        /// </summary>
+        private class EmailRecipient
+        {
+            public string Email { get; set; }
+            public string Badge { get; set; }
         }
 
         /// <summary>

@@ -30,6 +30,41 @@ namespace WoodClub
 		}
 
 		/// <summary>
+		/// Records one recipient of an outgoing email batch in Communications
+		/// and returns its database-generated CommunicationID. Call once per
+		/// recipient (every recipient gets its own row - <paramref name="subject"/>,
+		/// <paramref name="sentAt"/> and <paramref name="recipientCount"/> are the
+		/// same across every row of a given batch), then pass the returned id
+		/// into that recipient's <see cref="SendSingleEmailAsync"/> call - it's
+		/// attached as the "EmailID" custom arg so the downstream Go
+		/// event-processing service can tie delivery/open/click webhook events
+		/// back to this row.
+		/// </summary>
+		/// <param name="subject">The subject shared by every email in the batch.</param>
+		/// <param name="sentAt">The send time shared by every email in the batch.</param>
+		/// <param name="recipientCount">How many recipients the whole batch is going to.</param>
+		/// <param name="recipient">This row's recipient - a member's Badge number when known, otherwise their raw email address.</param>
+		/// <returns>The generated CommunicationID.</returns>
+		public long RecordCommunication(string subject, DateTime sentAt, int recipientCount, string recipient)
+		{
+			using (WoodClubEntities context = new WoodClubEntities())
+			{
+				Communication communication = new Communication
+				{
+					Subject = subject,
+					SentAt = sentAt,
+					RecipientCount = recipientCount,
+					Recipient = recipient
+				};
+
+				context.Communications.Add(communication);
+				context.SaveChanges();
+
+				return communication.CommunicationID;
+			}
+		}
+
+		/// <summary>
 		/// Sends a single email to one recipient using SendGrid
 		/// </summary>
 		/// <param name="fromEmail">Sender email address</param>
@@ -37,10 +72,12 @@ namespace WoodClub
 		/// <param name="toName">Recipient name</param>
 		/// <param name="subject">Email subject</param>
 		/// <param name="htmlBody">HTML body content</param>
+		/// <param name="emailId">The CommunicationID from <see cref="RecordCommunication"/> for this batch, attached as the "EmailID" custom arg.</param>
+		/// <param name="memberId">The recipient's Badge number, attached as the "MemberID" custom arg (empty if the recipient isn't a member).</param>
 		/// <param name="plainTextBody">Optional plain text body (default: empty)</param>
 		/// <param name="attachments">Optional file attachments (default: none)</param>
 		/// <returns>SendGrid Response</returns>
-		public async Task<Response> SendSingleEmailAsync(string fromEmail, string toEmail, string toName, string subject, string htmlBody, string plainTextBody = "", List<EmailAttachment> attachments = null)
+		public async Task<Response> SendSingleEmailAsync(string fromEmail, string toEmail, string toName, string subject, string htmlBody, long emailId, string memberId, string plainTextBody = "", List<EmailAttachment> attachments = null)
 		{
 			var apiKey = Environment.GetEnvironmentVariable("SendGrid");
 			var client = new SendGridClient(apiKey);
@@ -74,6 +111,10 @@ namespace WoodClub
 
 				msg.AddAttachments(sendGridAttachments);
 			}
+
+			msg.AddGlobalCustomArg("System", "WoodClub");
+			msg.AddGlobalCustomArg("EmailID", emailId.ToString());
+			msg.AddGlobalCustomArg("MemberID", memberId ?? string.Empty);
 
 			return await client.SendEmailAsync(msg);
 		}

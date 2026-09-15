@@ -448,6 +448,9 @@
     <Compile Include="SavedEmailAttachment.cs">
       <DependentUpon>ModelWC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Communication.cs">
+      <DependentUpon>ModelWC.tt</DependentUpon>
+    </Compile>
     <Compile Include="MemberRosterExt.cs" />
     <Compile Include="MembersShort.cs" />
     <Compile Include="ModelTK.Context.cs">

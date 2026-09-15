@@ -63,6 +63,8 @@ using System.Data.Entity.Infrastructure;
 
     public virtual DbSet<SavedEmailAttachment> SavedEmailAttachments { get; set; }
 
+    public virtual DbSet<Communication> Communications { get; set; }
+
 }
 
 }

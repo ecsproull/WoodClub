@@ -93,6 +93,16 @@ warning 6002: The table/view 'WoodClub.dbo.BadgeCodes' does not have a primary k
           <Property Name="ApprovedDate" Type="datetime" Nullable="false" />
           <Property Name="Blocked" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Communication">
+          <Key>
+            <PropertyRef Name="CommunicationID" />
+          </Key>
+          <Property Name="CommunicationID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+          <Property Name="SentAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="RecipientCount" Type="int" />
+          <Property Name="Recipient" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
         <EntityType Name="MailingList">
           <Key>
             <PropertyRef Name="MailingListId" />
@@ -330,6 +340,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="Lockers" EntityType="Self.Lockers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MachineApprovers" EntityType="Self.MachineApprovers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MachinePerms" EntityType="Self.MachinePerms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Communications" EntityType="Self.Communication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MailingList" EntityType="Self.MailingList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MailingListMember" EntityType="Self.MailingListMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberBackup" EntityType="Self.MemberBackup" Schema="dbo" store:Type="Tables" />
@@ -637,6 +648,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySet Name="MemberBackups" EntityType="WoodClubModel.MemberBackup" />
           <EntitySet Name="MachineApprovers" EntityType="WoodClubModel.MachineApprover" />
           <EntitySet Name="MachinePerms" EntityType="WoodClubModel.MachinePerm" />
+          <EntitySet Name="Communications" EntityType="WoodClubModel.Communication" />
           <EntitySet Name="MailingLists" EntityType="WoodClubModel.MailingList" />
           <EntitySet Name="MailingListMembers" EntityType="WoodClubModel.MailingListMember" />
           <EntitySet Name="SavedEmails" EntityType="WoodClubModel.SavedEmail" />
@@ -702,6 +714,16 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="ApprovedBy" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ApprovedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Blocked" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Communication">
+          <Key>
+            <PropertyRef Name="CommunicationID" />
+          </Key>
+          <Property Name="CommunicationID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SentAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="RecipientCount" Type="Int32" />
+          <Property Name="Recipient" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MailingList">
           <Key>
@@ -1031,6 +1053,17 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
                 <ScalarProperty Name="MachineName" ColumnName="MachineName" />
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Communications">
+            <EntityTypeMapping TypeName="WoodClubModel.Communication">
+              <MappingFragment StoreEntitySet="Communications">
+                <ScalarProperty Name="Recipient" ColumnName="Recipient" />
+                <ScalarProperty Name="RecipientCount" ColumnName="RecipientCount" />
+                <ScalarProperty Name="SentAt" ColumnName="SentAt" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="CommunicationID" ColumnName="CommunicationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

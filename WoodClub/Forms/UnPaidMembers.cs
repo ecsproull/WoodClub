@@ -350,6 +350,13 @@ namespace WoodClub
 		{
 			SendMail sm = new SendMail();
 			SendText st = new SendText();
+
+			const string subject = "2026 Woodshop Dues Payment Reminder";
+			DateTime sentAt = DateTime.UtcNow;
+			int recipientCount = sendEmail
+				? ds_Unpaid.Count(m => !string.IsNullOrEmpty(m.DuesInvoiceId) && !string.IsNullOrEmpty(m.Email))
+				: 0;
+
 			foreach (MemberDuesData upm in ds_Unpaid)
 			{
 				if (string.IsNullOrEmpty(upm.DuesInvoiceId))
@@ -367,7 +374,8 @@ namespace WoodClub
 				if (sendEmail && !string.IsNullOrEmpty(upm.Email))
 				{
 					string toName = upm.FirstName + " " + upm.LastName;
-					await sm.SendSingleEmailAsync("treasurer@scwwoodshop.com", upm.Email, toName, "2026 Woodshop Dues Payment Reminder", message);
+					long emailId = sm.RecordCommunication(subject, sentAt, recipientCount, upm.Badge);
+					await sm.SendSingleEmailAsync("treasurer@scwwoodshop.com", upm.Email, toName, subject, message, emailId, upm.Badge ?? string.Empty);
 				}
 				else
 				{
