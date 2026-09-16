@@ -39,7 +39,7 @@
             this.lblSubject = new System.Windows.Forms.Label();
             this.txtSubject = new System.Windows.Forms.TextBox();
             this.pnlEditor = new System.Windows.Forms.Panel();
-            this.webEditor = new System.Windows.Forms.WebBrowser();
+            this.webEditor = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.toolStripEditor = new System.Windows.Forms.ToolStrip();
             this.tslFont = new System.Windows.Forms.ToolStripLabel();
             this.tscFontName = new System.Windows.Forms.ToolStripComboBox();
@@ -69,6 +69,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.pnlEditor.SuspendLayout();
             this.toolStripEditor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webEditor)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMailingList
@@ -194,15 +195,17 @@
             // 
             // webEditor
             // 
+            this.webEditor.CreationProperties = null;
+            this.webEditor.DefaultBackgroundColor = System.Drawing.Color.White;
             this.webEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webEditor.Location = new System.Drawing.Point(0, 25);
             this.webEditor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.webEditor.MinimumSize = new System.Drawing.Size(30, 31);
             this.webEditor.Name = "webEditor";
-            this.webEditor.ScriptErrorsSuppressed = true;
             this.webEditor.Size = new System.Drawing.Size(1161, 449);
             this.webEditor.TabIndex = 1;
-            this.webEditor.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webEditor_DocumentCompleted);
+            this.webEditor.ZoomFactor = 1D;
+            this.webEditor.NavigationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs>(this.webEditor_NavigationCompleted);
             // 
             // toolStripEditor
             // 
@@ -500,6 +503,7 @@
             this.pnlEditor.PerformLayout();
             this.toolStripEditor.ResumeLayout(false);
             this.toolStripEditor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webEditor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -518,7 +522,7 @@
         private System.Windows.Forms.Label lblSubject;
         private System.Windows.Forms.TextBox txtSubject;
         private System.Windows.Forms.Panel pnlEditor;
-        private System.Windows.Forms.WebBrowser webEditor;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webEditor;
         private System.Windows.Forms.ToolStrip toolStripEditor;
         private System.Windows.Forms.ToolStripLabel tslFont;
         private System.Windows.Forms.ToolStripComboBox tscFontName;

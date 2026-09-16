@@ -7,8 +7,11 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
+using Microsoft.Web.WebView2.Core;
+using Newtonsoft.Json;
 
 namespace WoodClub.Forms
 {
@@ -143,7 +146,7 @@ namespace WoodClub.Forms
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void MailComposer_Load(object sender, EventArgs e)
+        private async void MailComposer_Load(object sender, EventArgs e)
         {
             cbFrom.Items.AddRange(FromAddresses);
             cbFrom.SelectedIndex = 0;
@@ -161,6 +164,11 @@ namespace WoodClub.Forms
             BuildToolbarIcons();
 
             LoadMailingLists();
+
+            if (!await EnsureEditorReadyAsync())
+            {
+                return;
+            }
 
             SavedEmail loaded = null;
             List<SavedEmailAttachment> loadedAttachments = null;
@@ -195,7 +203,7 @@ namespace WoodClub.Forms
                     cbMailingList.SelectedValue = loaded.MailingListId.Value;
                 }
 
-                webEditor.DocumentText = EditorHtmlTemplate(loaded.BodyHtml);
+                await NavigateEditorAsync(EditorHtmlTemplate(loaded.BodyHtml));
 
                 foreach (SavedEmailAttachment attachment in loadedAttachments)
                 {
@@ -209,7 +217,7 @@ namespace WoodClub.Forms
             }
             else
             {
-                webEditor.DocumentText = EditorHtmlTemplate();
+                await NavigateEditorAsync(EditorHtmlTemplate());
 
                 if (!string.IsNullOrWhiteSpace(initialExtraAddress))
                 {
@@ -217,7 +225,7 @@ namespace WoodClub.Forms
                 }
             }
 
-            RefreshAttachmentList();
+            await RefreshAttachmentListAsync();
 
             UpdateSendEnabled();
         }
@@ -353,14 +361,11 @@ namespace WoodClub.Forms
         #region Rich text editor
 
         /// <summary>
-        /// The initial HTML document for the contentEditable body. The
-        /// "saved from url" marker keeps the WebBrowser control from blocking the
-        /// helper script.
+        /// The initial HTML document for the contentEditable body.
         /// </summary>
         private static string EditorHtmlTemplate(string initialBodyHtml = "")
         {
             return
-                "<!-- saved from url=(0016)http://localhost -->\r\n" +
                 "<html><head>\r\n" +
                 "<style>body{font-family:Arial;font-size:12pt;margin:8px;}</style>\r\n" +
                 "<script type=\"text/javascript\">\r\n" +
@@ -383,16 +388,82 @@ namespace WoodClub.Forms
                 "}\r\n" +
                 "function getBody(){ return document.body.innerHTML; }\r\n" +
                 "</script>\r\n" +
-                "</head><body contenteditable=\"true\">" + (initialBodyHtml ?? string.Empty) + "</body></html>";
+                "</head><body contenteditable=\"true\" spellcheck=\"true\">" + (initialBodyHtml ?? string.Empty) + "</body></html>";
         }
 
         /// <summary>
-        /// Handles the DocumentCompleted event of the webEditor control. Enables
-        /// the formatting toolbar once the editable document is ready.
+        /// Creates the CoreWebView2 environment (using a WoodClub-specific user
+        /// data folder under LocalAppData, since the default resolution is
+        /// awkward for a ClickOnce-deployed exe) and initializes the editor
+        /// control. If the WebView2 Runtime isn't installed on this machine,
+        /// shows a friendly message pointing at the download instead of letting
+        /// initialization throw, and returns false so the caller can bail out
+        /// of loading the rest of the form.
+        /// </summary>
+        private async Task<bool> EnsureEditorReadyAsync()
+        {
+            try
+            {
+                CoreWebView2Environment.GetAvailableBrowserVersionString(null);
+            }
+            catch (WebView2RuntimeNotFoundException)
+            {
+                MessageBox.Show(
+                    "Composing email requires the Microsoft Edge WebView2 Runtime, which isn't installed on this computer.\r\n\r\n" +
+                    "Download it from https://go.microsoft.com/fwlink/p/?LinkId=2124703 and try again.",
+                    "WebView2 Runtime Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Close();
+                return false;
+            }
+
+            try
+            {
+                string userDataFolder = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "WoodClub", "WebView2");
+                CoreWebView2Environment env = await CoreWebView2Environment.CreateAsync(userDataFolder: userDataFolder);
+                await webEditor.EnsureCoreWebView2Async(env);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.Error("WebView2 initialization failed..", ex);
+                MessageBox.Show("Could not start the message editor: " + ex.Message);
+                Close();
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Navigates the editor to the given HTML and awaits the resulting
+        /// NavigationCompleted event, so callers never read the editor's
+        /// content before it has actually finished loading (NavigateToString
+        /// returns immediately; the navigation itself completes asynchronously).
+        /// </summary>
+        private Task NavigateEditorAsync(string html)
+        {
+            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
+
+            EventHandler<CoreWebView2NavigationCompletedEventArgs> handler = null;
+            handler = (sender, e) =>
+            {
+                webEditor.NavigationCompleted -= handler;
+                tcs.TrySetResult(true);
+            };
+            webEditor.NavigationCompleted += handler;
+
+            webEditor.NavigateToString(html);
+
+            return tcs.Task;
+        }
+
+        /// <summary>
+        /// Handles the NavigationCompleted event of the webEditor control.
+        /// Enables the formatting toolbar once the editable document is ready.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="WebBrowserDocumentCompletedEventArgs"/> instance containing the event data.</param>
-        private void webEditor_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        /// <param name="e">The <see cref="CoreWebView2NavigationCompletedEventArgs"/> instance containing the event data.</param>
+        private void webEditor_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
             toolStripEditor.Enabled = true;
         }
@@ -400,16 +471,18 @@ namespace WoodClub.Forms
         /// <summary>
         /// Runs a document.execCommand in the editor via the helper script.
         /// </summary>
-        private void Format(string command, string value = null)
+        private async Task FormatAsync(string command, string value = null)
         {
-            if (webEditor.Document == null)
+            if (webEditor.CoreWebView2 == null)
             {
                 return;
             }
 
             try
             {
-                webEditor.Document.InvokeScript("formatDoc", new object[] { command, value ?? string.Empty });
+                string script = "formatDoc(" + JsonConvert.SerializeObject(command) + ", " +
+                    JsonConvert.SerializeObject(value ?? string.Empty) + ")";
+                await webEditor.ExecuteScriptAsync(script);
                 webEditor.Focus();
             }
             catch (Exception ex)
@@ -421,16 +494,17 @@ namespace WoodClub.Forms
         /// <summary>
         /// Inserts a fragment of HTML at the caret in the editor.
         /// </summary>
-        private void InsertHtml(string html)
+        private async Task InsertHtmlAsync(string html)
         {
-            if (webEditor.Document == null)
+            if (webEditor.CoreWebView2 == null)
             {
                 return;
             }
 
             try
             {
-                webEditor.Document.InvokeScript("insertHtml", new object[] { html });
+                string script = "insertHtml(" + JsonConvert.SerializeObject(html) + ")";
+                await webEditor.ExecuteScriptAsync(script);
                 webEditor.Focus();
             }
             catch (Exception ex)
@@ -439,68 +513,68 @@ namespace WoodClub.Forms
             }
         }
 
-        private void tscFontName_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tscFontName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Format("FontName", tscFontName.Text);
+            await FormatAsync("FontName", tscFontName.Text);
         }
 
-        private void tscFontSize_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tscFontSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Format("FontSize", tscFontSize.Text);
+            await FormatAsync("FontSize", tscFontSize.Text);
         }
 
-        private void tsbColor_Click(object sender, EventArgs e)
+        private async void tsbColor_Click(object sender, EventArgs e)
         {
             using (ColorDialog dlg = new ColorDialog())
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    Format("ForeColor", System.Drawing.ColorTranslator.ToHtml(dlg.Color));
+                    await FormatAsync("ForeColor", System.Drawing.ColorTranslator.ToHtml(dlg.Color));
                 }
             }
         }
 
-        private void tsbBold_Click(object sender, EventArgs e)
+        private async void tsbBold_Click(object sender, EventArgs e)
         {
-            Format("Bold");
+            await FormatAsync("Bold");
         }
 
-        private void tsbItalic_Click(object sender, EventArgs e)
+        private async void tsbItalic_Click(object sender, EventArgs e)
         {
-            Format("Italic");
+            await FormatAsync("Italic");
         }
 
-        private void tsbUnderline_Click(object sender, EventArgs e)
+        private async void tsbUnderline_Click(object sender, EventArgs e)
         {
-            Format("Underline");
+            await FormatAsync("Underline");
         }
 
-        private void tsbAlignLeft_Click(object sender, EventArgs e)
+        private async void tsbAlignLeft_Click(object sender, EventArgs e)
         {
-            Format("JustifyLeft");
+            await FormatAsync("JustifyLeft");
         }
 
-        private void tsbAlignCenter_Click(object sender, EventArgs e)
+        private async void tsbAlignCenter_Click(object sender, EventArgs e)
         {
-            Format("JustifyCenter");
+            await FormatAsync("JustifyCenter");
         }
 
-        private void tsbAlignRight_Click(object sender, EventArgs e)
+        private async void tsbAlignRight_Click(object sender, EventArgs e)
         {
-            Format("JustifyRight");
+            await FormatAsync("JustifyRight");
         }
 
-        private void tsbNumberedList_Click(object sender, EventArgs e)
+        private async void tsbNumberedList_Click(object sender, EventArgs e)
         {
-            Format("InsertOrderedList");
+            await FormatAsync("InsertOrderedList");
         }
 
-        private void tsbBulletedList_Click(object sender, EventArgs e)
+        private async void tsbBulletedList_Click(object sender, EventArgs e)
         {
-            Format("InsertUnorderedList");
+            await FormatAsync("InsertUnorderedList");
         }
 
-        private void tsbLink_Click(object sender, EventArgs e)
+        private async void tsbLink_Click(object sender, EventArgs e)
         {
             string url = PromptForString("Insert Hyperlink", "Link URL:", "https://");
             if (string.IsNullOrEmpty(url))
@@ -519,10 +593,10 @@ namespace WoodClub.Forms
                 text = url;
             }
 
-            InsertHtml("<a href=\"" + HttpUtility.HtmlAttributeEncode(url) + "\">" + HttpUtility.HtmlEncode(text) + "</a>");
+            await InsertHtmlAsync("<a href=\"" + HttpUtility.HtmlAttributeEncode(url) + "\">" + HttpUtility.HtmlEncode(text) + "</a>");
         }
 
-        private void tsbImageFile_Click(object sender, EventArgs e)
+        private async void tsbImageFile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
@@ -556,7 +630,7 @@ namespace WoodClub.Forms
                     }
 
                     string dataUri = "data:" + mimeType + ";base64," + Convert.ToBase64String(bytes);
-                    InsertHtml("<img src=\"" + dataUri + "\" />");
+                    await InsertHtmlAsync("<img src=\"" + dataUri + "\" />");
 
                     tslImageNote.Text = reduced
                         ? "Last image was resized/compressed for email size."
@@ -653,22 +727,23 @@ namespace WoodClub.Forms
         /// <summary>
         /// Reads the current HTML from the editor body.
         /// </summary>
-        private string GetEditorHtml()
+        private async Task<string> GetEditorHtmlAsync()
         {
             try
             {
-                object html = webEditor.Document?.InvokeScript("getBody");
-                if (html != null)
+                if (webEditor.CoreWebView2 == null)
                 {
-                    return html.ToString();
+                    return string.Empty;
                 }
+
+                string json = await webEditor.ExecuteScriptAsync("getBody()");
+                return JsonConvert.DeserializeObject<string>(json) ?? string.Empty;
             }
             catch (Exception ex)
             {
                 log.Error("Reading editor html failed..", ex);
+                return string.Empty;
             }
-
-            return webEditor.Document?.Body?.InnerHtml ?? string.Empty;
         }
 
         /// <summary>
@@ -869,7 +944,7 @@ namespace WoodClub.Forms
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void tsbAttachFile_Click(object sender, EventArgs e)
+        private async void tsbAttachFile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
@@ -907,7 +982,7 @@ namespace WoodClub.Forms
                 }
             }
 
-            RefreshAttachmentList();
+            await RefreshAttachmentListAsync();
         }
 
         /// <summary>
@@ -915,7 +990,7 @@ namespace WoodClub.Forms
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btnRemoveAttachment_Click(object sender, EventArgs e)
+        private async void btnRemoveAttachment_Click(object sender, EventArgs e)
         {
             if (lstAttachments.SelectedIndex < 0)
             {
@@ -924,7 +999,7 @@ namespace WoodClub.Forms
             }
 
             attachedFiles.RemoveAt(lstAttachments.SelectedIndex);
-            RefreshAttachmentList();
+            await RefreshAttachmentListAsync();
         }
 
         /// <summary>
@@ -935,7 +1010,7 @@ namespace WoodClub.Forms
         /// and Remove button stay hidden until there's at least one attachment,
         /// and the message editor grows or shrinks to fill/yield the space.
         /// </summary>
-        private void RefreshAttachmentList()
+        private async Task RefreshAttachmentListAsync()
         {
             lstAttachments.Items.Clear();
             long totalBytes = 0;
@@ -953,7 +1028,7 @@ namespace WoodClub.Forms
                 return;
             }
 
-            long estimatedMessageBytes = (long)(totalBytes * 1.33) + EstimateBodyBytes();
+            long estimatedMessageBytes = (long)(totalBytes * 1.33) + await EstimateBodyBytesAsync();
             bool approachingLimit = estimatedMessageBytes > ApproxMessageSizeWarningBytes;
 
             lblAttachSummary.Text = attachedFiles.Count + " file(s) attached — " + FormatFileSize(totalBytes) +
@@ -989,11 +1064,11 @@ namespace WoodClub.Forms
         /// A rough UTF-8 byte count of the current HTML body, used only for the
         /// combined-message-size warning estimate.
         /// </summary>
-        private int EstimateBodyBytes()
+        private async Task<int> EstimateBodyBytesAsync()
         {
             try
             {
-                return System.Text.Encoding.UTF8.GetByteCount(GetEditorHtml());
+                return System.Text.Encoding.UTF8.GetByteCount(await GetEditorHtmlAsync());
             }
             catch (Exception ex)
             {
@@ -1169,7 +1244,7 @@ namespace WoodClub.Forms
                 return;
             }
 
-            string htmlBody = GetEditorHtml();
+            string htmlBody = await GetEditorHtmlAsync();
             if (string.IsNullOrWhiteSpace(Regex.Replace(htmlBody, "<[^>]+>", string.Empty).Replace("&nbsp;", " ")))
             {
                 MessageBox.Show("The message body is empty.");
@@ -1287,7 +1362,7 @@ namespace WoodClub.Forms
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtSubject.Text))
             {
@@ -1295,7 +1370,7 @@ namespace WoodClub.Forms
                 return;
             }
 
-            string htmlBody = GetEditorHtml();
+            string htmlBody = await GetEditorHtmlAsync();
             if (string.IsNullOrWhiteSpace(Regex.Replace(htmlBody, "<[^>]+>", string.Empty).Replace("&nbsp;", " ")))
             {
                 MessageBox.Show("The message body is empty.");
