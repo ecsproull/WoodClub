@@ -65,6 +65,8 @@ using System.Data.Entity.Infrastructure;
 
     public virtual DbSet<Communication> Communications { get; set; }
 
+    public virtual DbSet<CommunicationEvent> CommunicationEvents { get; set; }
+
 }
 
 }

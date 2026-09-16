@@ -822,5 +822,14 @@ namespace WoodClub
 			AddPermissions ap = new AddPermissions(this.badge);
 			ap.ShowDialog();
 		}
+
+		private void BtnCommunications_Click(object sender, EventArgs e)
+		{
+			string memberName = (member.FirstName + " " + member.LastName).Trim();
+			using (WoodClub.Forms.CommunicationHistory frm = new WoodClub.Forms.CommunicationHistory(member.Badge, memberName))
+			{
+				frm.ShowDialog();
+			}
+		}
 	}
 }

@@ -51,6 +51,7 @@
 			this.dataGridViewCodes = new System.Windows.Forms.DataGridView();
 			this.txtRFcard = new System.Windows.Forms.TextBox();
 			this.btnSave = new System.Windows.Forms.Button();
+			this.btnCommunications = new System.Windows.Forms.Button();
 			this.label5 = new System.Windows.Forms.Label();
 			this.txtLastDay = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
@@ -136,6 +137,7 @@
 			this.groupBox1.Controls.Add(this.dataGridViewCodes);
 			this.groupBox1.Controls.Add(this.txtRFcard);
 			this.groupBox1.Controls.Add(this.btnSave);
+			this.groupBox1.Controls.Add(this.btnCommunications);
 			this.groupBox1.Controls.Add(this.label5);
 			this.groupBox1.Controls.Add(this.txtLastDay);
 			this.groupBox1.Controls.Add(this.label4);
@@ -401,7 +403,18 @@
 			this.btnSave.Text = "Save";
 			this.btnSave.UseVisualStyleBackColor = false;
 			this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
-			// 
+			//
+			// btnCommunications
+			//
+			this.btnCommunications.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnCommunications.Location = new System.Drawing.Point(13, 596);
+			this.btnCommunications.Name = "btnCommunications";
+			this.btnCommunications.Size = new System.Drawing.Size(105, 23);
+			this.btnCommunications.TabIndex = 60;
+			this.btnCommunications.Text = "Communications";
+			this.btnCommunications.UseVisualStyleBackColor = true;
+			this.btnCommunications.Click += new System.EventHandler(this.BtnCommunications_Click);
+			//
 			// label5
 			// 
 			this.label5.AutoSize = true;
@@ -999,6 +1012,7 @@
         private System.Windows.Forms.Label lblBadge;
         private System.Windows.Forms.CheckBox cbClubDuesPaid;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnCommunications;
         private System.Windows.Forms.TextBox txtLastDay;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtRFcard;
