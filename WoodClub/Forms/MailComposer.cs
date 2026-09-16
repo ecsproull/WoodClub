@@ -386,7 +386,42 @@ namespace WoodClub.Forms
                 "    }\r\n" +
                 "  }catch(e){ document.body.innerHTML += html; }\r\n" +
                 "}\r\n" +
-                "function getBody(){ return document.body.innerHTML; }\r\n" +
+                "function getBody(){\r\n" +
+                "  var clone = document.body.cloneNode(true);\r\n" +
+                "  var imgs = clone.querySelectorAll('img');\r\n" +
+                "  for (var i = 0; i < imgs.length; i++){\r\n" +
+                "    imgs[i].style.outline = '';\r\n" +
+                "    if (imgs[i].getAttribute('style') === ''){ imgs[i].removeAttribute('style'); }\r\n" +
+                "  }\r\n" +
+                "  return clone.innerHTML;\r\n" +
+                "}\r\n" +
+                "var selectedImage = null;\r\n" +
+                "document.addEventListener('mousedown', function(e){\r\n" +
+                "  if (selectedImage){ selectedImage.style.outline = ''; }\r\n" +
+                "  var img = e.target && e.target.closest ? e.target.closest('img') : null;\r\n" +
+                "  selectedImage = img;\r\n" +
+                "  if (img){ img.style.outline = '2px solid #4a90d9'; }\r\n" +
+                "});\r\n" +
+                "function rotateSelectedImage(){\r\n" +
+                "  try{\r\n" +
+                "    if (!selectedImage){ return 'none'; }\r\n" +
+                "    var img = selectedImage;\r\n" +
+                "    var match = /^data:(image\\/[a-zA-Z0-9.+-]+);base64,/.exec(img.src);\r\n" +
+                "    var mime = (match && (match[1] === 'image/jpeg' || match[1] === 'image/jpg')) ? 'image/jpeg' : 'image/png';\r\n" +
+                "    var canvas = document.createElement('canvas');\r\n" +
+                "    canvas.width = img.naturalHeight;\r\n" +
+                "    canvas.height = img.naturalWidth;\r\n" +
+                "    var ctx = canvas.getContext('2d');\r\n" +
+                "    ctx.translate(canvas.width / 2, canvas.height / 2);\r\n" +
+                "    ctx.rotate(Math.PI / 2);\r\n" +
+                "    ctx.drawImage(img, -img.naturalWidth / 2, -img.naturalHeight / 2);\r\n" +
+                "    img.removeAttribute('width');\r\n" +
+                "    img.removeAttribute('height');\r\n" +
+                "    img.src = canvas.toDataURL(mime, 0.92);\r\n" +
+                "    img.style.outline = '2px solid #4a90d9';\r\n" +
+                "    return 'ok';\r\n" +
+                "  }catch(e){ return 'error:' + e.message; }\r\n" +
+                "}\r\n" +
                 "</script>\r\n" +
                 "</head><body contenteditable=\"true\" spellcheck=\"true\">" + (initialBodyHtml ?? string.Empty) + "</body></html>";
         }
@@ -510,6 +545,36 @@ namespace WoodClub.Forms
             catch (Exception ex)
             {
                 log.Error("Editor insert failed..", ex);
+            }
+        }
+
+        /// <summary>
+        /// Rotates the last-clicked image in the editor 90° clockwise in place
+        /// (re-drawn via an offscreen canvas, since the embedded images are
+        /// data URIs with no external file to re-save). Tells the user to
+        /// click an image first if none is currently selected.
+        /// </summary>
+        private async Task RotateSelectedImageAsync()
+        {
+            if (webEditor.CoreWebView2 == null)
+            {
+                return;
+            }
+
+            try
+            {
+                string json = await webEditor.ExecuteScriptAsync("rotateSelectedImage()");
+                string result = JsonConvert.DeserializeObject<string>(json) ?? string.Empty;
+                if (result == "none")
+                {
+                    MessageBox.Show("Click an image in the message first, then Rotate.");
+                }
+
+                webEditor.Focus();
+            }
+            catch (Exception ex)
+            {
+                log.Error("Rotate image failed..", ex);
             }
         }
 
@@ -644,6 +709,11 @@ namespace WoodClub.Forms
             }
         }
 
+        private async void tsbRotateImage_Click(object sender, EventArgs e)
+        {
+            await RotateSelectedImageAsync();
+        }
+
         /// <summary>
         /// The JPEG encoder used to re-compress over-size inline images. Resolved
         /// once; null on the (unexpected) chance GDI+ reports no JPEG encoder, in
@@ -762,6 +832,7 @@ namespace WoodClub.Forms
             tsbBulletedList.Image = CreateListIcon(numbered: false);
             tsbLink.Image = CreateLinkIcon();
             tsbImageFile.Image = CreateImageIcon();
+            tsbRotateImage.Image = CreateRotateIcon();
             tsbAttachFile.Image = CreatePaperclipIcon();
         }
 
@@ -888,6 +959,35 @@ namespace WoodClub.Forms
                     new Point(13, 11)
                 };
                 g.FillPolygon(brush, mountains);
+            }
+
+            return bmp;
+        }
+
+        /// <summary>
+        /// A 16x16 "rotate" icon: a clockwise three-quarter circular arrow,
+        /// matching the standard image-rotation glyph.
+        /// </summary>
+        private static Bitmap CreateRotateIcon()
+        {
+            Bitmap bmp = new Bitmap(16, 16);
+            using (Graphics g = Graphics.FromImage(bmp))
+            using (Pen pen = new Pen(Color.Black, 1.6f))
+            using (Brush brush = new SolidBrush(Color.Black))
+            {
+                g.Clear(Color.Transparent);
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+
+                Rectangle arcBounds = new Rectangle(2, 2, 11, 11);
+                g.DrawArc(pen, arcBounds, -20, 290);
+
+                Point[] arrowHead =
+                {
+                    new Point(12, 1),
+                    new Point(15, 3),
+                    new Point(11, 5)
+                };
+                g.FillPolygon(brush, arrowHead);
             }
 
             return bmp;

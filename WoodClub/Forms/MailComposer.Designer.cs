@@ -59,6 +59,7 @@
             this.tsSep3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbLink = new System.Windows.Forms.ToolStripButton();
             this.tsbImageFile = new System.Windows.Forms.ToolStripButton();
+            this.tsbRotateImage = new System.Windows.Forms.ToolStripButton();
             this.tsbAttachFile = new System.Windows.Forms.ToolStripButton();
             this.tslImageNote = new System.Windows.Forms.ToolStripLabel();
             this.lblAttachSummary = new System.Windows.Forms.Label();
@@ -229,6 +230,7 @@
             this.tsSep3,
             this.tsbLink,
             this.tsbImageFile,
+            this.tsbRotateImage,
             this.tsbAttachFile,
             this.tslImageNote});
             this.toolStripEditor.Location = new System.Drawing.Point(0, 0);
@@ -374,7 +376,16 @@
             this.tsbImageFile.Text = "Image File";
             this.tsbImageFile.ToolTipText = "Insert Image from File";
             this.tsbImageFile.Click += new System.EventHandler(this.tsbImageFile_Click);
-            // 
+            //
+            // tsbRotateImage
+            //
+            this.tsbRotateImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbRotateImage.Name = "tsbRotateImage";
+            this.tsbRotateImage.Size = new System.Drawing.Size(23, 22);
+            this.tsbRotateImage.Text = "Rotate Image";
+            this.tsbRotateImage.ToolTipText = "Rotate Selected Image 90°";
+            this.tsbRotateImage.Click += new System.EventHandler(this.tsbRotateImage_Click);
+            //
             // tsbAttachFile
             // 
             this.tsbAttachFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -542,6 +553,7 @@
         private System.Windows.Forms.ToolStripSeparator tsSep3;
         private System.Windows.Forms.ToolStripButton tsbLink;
         private System.Windows.Forms.ToolStripButton tsbImageFile;
+        private System.Windows.Forms.ToolStripButton tsbRotateImage;
         private System.Windows.Forms.ToolStripButton tsbAttachFile;
         private System.Windows.Forms.ToolStripLabel tslImageNote;
         private System.Windows.Forms.Label lblAttachSummary;
