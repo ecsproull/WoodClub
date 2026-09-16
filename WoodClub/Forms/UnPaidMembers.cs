@@ -374,7 +374,7 @@ namespace WoodClub
 				if (sendEmail && !string.IsNullOrEmpty(upm.Email))
 				{
 					string toName = upm.FirstName + " " + upm.LastName;
-					long emailId = sm.RecordCommunication(subject, sentAt, recipientCount, upm.Badge);
+					long emailId = sm.RecordCommunication(subject, sentAt, recipientCount, upm.Badge, "treasurer@scwwoodshop.com");
 					await sm.SendSingleEmailAsync("treasurer@scwwoodshop.com", upm.Email, toName, subject, message, emailId, upm.Badge ?? string.Empty);
 				}
 				else

@@ -1224,7 +1224,7 @@ namespace WoodClub.Forms
                 try
                 {
                     string recipientValue = recipient.Badge ?? recipient.Email;
-                    long emailId = mailer.RecordCommunication(subject, sentAt, recipients.Count, recipientValue);
+                    long emailId = mailer.RecordCommunication(subject, sentAt, recipients.Count, recipientValue, from);
 
                     var response = await mailer.SendSingleEmailAsync(from, recipient.Email, recipient.Email, subject, htmlBody,
                         emailId, recipient.Badge ?? string.Empty, attachments: attachments);

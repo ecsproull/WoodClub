@@ -44,8 +44,9 @@ namespace WoodClub
 		/// <param name="sentAt">The send time shared by every email in the batch.</param>
 		/// <param name="recipientCount">How many recipients the whole batch is going to.</param>
 		/// <param name="recipient">This row's recipient - a member's Badge number when known, otherwise their raw email address.</param>
+		/// <param name="sentBy">The From address the batch is being sent from.</param>
 		/// <returns>The generated CommunicationID.</returns>
-		public long RecordCommunication(string subject, DateTime sentAt, int recipientCount, string recipient)
+		public long RecordCommunication(string subject, DateTime sentAt, int recipientCount, string recipient, string sentBy)
 		{
 			using (WoodClubEntities context = new WoodClubEntities())
 			{
@@ -54,7 +55,8 @@ namespace WoodClub
 					Subject = subject,
 					SentAt = sentAt,
 					RecipientCount = recipientCount,
-					Recipient = recipient
+					Recipient = recipient,
+					SentBy = sentBy
 				};
 
 				context.Communications.Add(communication);

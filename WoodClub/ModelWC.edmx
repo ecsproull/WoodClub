@@ -102,6 +102,7 @@ warning 6002: The table/view 'WoodClub.dbo.BadgeCodes' does not have a primary k
           <Property Name="SentAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="RecipientCount" Type="int" />
           <Property Name="Recipient" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SentBy" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="MailingList">
           <Key>
@@ -724,6 +725,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <Property Name="SentAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="RecipientCount" Type="Int32" />
           <Property Name="Recipient" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SentBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MailingList">
           <Key>
@@ -1059,6 +1061,7 @@ warning 6002: The table/view 'WoodClub.dbo.Time_zones' does not have a primary k
           <EntitySetMapping Name="Communications">
             <EntityTypeMapping TypeName="WoodClubModel.Communication">
               <MappingFragment StoreEntitySet="Communications">
+                <ScalarProperty Name="SentBy" ColumnName="SentBy" />
                 <ScalarProperty Name="Recipient" ColumnName="Recipient" />
                 <ScalarProperty Name="RecipientCount" ColumnName="RecipientCount" />
                 <ScalarProperty Name="SentAt" ColumnName="SentAt" />

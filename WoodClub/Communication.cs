@@ -28,6 +28,8 @@ public partial class Communication
 
     public string Recipient { get; set; }
 
+    public string SentBy { get; set; }
+
 }
 
 }
