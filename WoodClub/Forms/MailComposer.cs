@@ -1389,10 +1389,15 @@ namespace WoodClub.Forms
             DateTime sentAt = DateTime.UtcNow;
             int sent = 0;
             List<string> failed = new List<string>();
+            List<long> communicationIds = new List<long>();
 
             btnSend.Enabled = false;
             btnCancel.Enabled = false;
             Cursor = Cursors.WaitCursor;
+            progressSend.Minimum = 0;
+            progressSend.Maximum = recipients.Count;
+            progressSend.Value = 0;
+            progressSend.Visible = true;
 
             foreach (EmailRecipient recipient in recipients)
             {
@@ -1400,6 +1405,7 @@ namespace WoodClub.Forms
                 {
                     string recipientValue = recipient.Badge ?? recipient.Email;
                     long emailId = mailer.RecordCommunication(subject, sentAt, recipients.Count, recipientValue, from);
+                    communicationIds.Add(emailId);
 
                     var response = await mailer.SendSingleEmailAsync(from, recipient.Email, recipient.Email, subject, htmlBody,
                         emailId, recipient.Badge ?? string.Empty, attachments: attachments);
@@ -1417,15 +1423,21 @@ namespace WoodClub.Forms
                     log.Error("Send failed for " + recipient.Email, ex);
                     failed.Add(recipient.Email + " (" + ex.Message + ")");
                 }
+                finally
+                {
+                    progressSend.Value = Math.Min(progressSend.Value + 1, progressSend.Maximum);
+                }
             }
 
             Cursor = Cursors.Default;
             btnSend.Enabled = true;
             btnCancel.Enabled = true;
+            progressSend.Visible = false;
 
             if (sent > 0)
             {
-                SaveSentCopy(htmlBody, attachments);
+                int savedEmailId = SaveSentCopy(htmlBody, attachments);
+                mailer.LinkCommunicationsToSavedEmail(communicationIds, savedEmailId);
             }
 
             string summary = $"Sent {sent} of {recipients.Count} email(s).";
@@ -1563,7 +1575,8 @@ namespace WoodClub.Forms
         /// reused later. Always a fresh row - independent of whatever this
         /// session's Save button is tracking.
         /// </summary>
-        private void SaveSentCopy(string htmlBody, List<EmailAttachment> attachments)
+        /// <returns>The new row's SavedEmailId, so the batch's Communications rows can be linked to it.</returns>
+        private int SaveSentCopy(string htmlBody, List<EmailAttachment> attachments)
         {
             int? mailingListId;
             bool sendToAll;
@@ -1586,6 +1599,8 @@ namespace WoodClub.Forms
                 context.SaveChanges();
 
                 PersistAttachments(context, record.SavedEmailId, attachments, replaceExisting: false);
+
+                return record.SavedEmailId;
             }
         }
 

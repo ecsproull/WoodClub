@@ -30,6 +30,8 @@ public partial class Communication
 
     public string SentBy { get; set; }
 
+    public Nullable<int> SavedEmailId { get; set; }
+
 }
 
 }

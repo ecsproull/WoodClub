@@ -68,6 +68,7 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.progressSend = new System.Windows.Forms.ProgressBar();
             this.pnlEditor.SuspendLayout();
             this.toolStripEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webEditor)).BeginInit();
@@ -479,7 +480,18 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
+            //
+            // progressSend
+            //
+            this.progressSend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressSend.Location = new System.Drawing.Point(18, 929);
+            this.progressSend.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.progressSend.Name = "progressSend";
+            this.progressSend.Size = new System.Drawing.Size(796, 35);
+            this.progressSend.TabIndex = 14;
+            this.progressSend.Visible = false;
+            //
             // MailComposer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -489,6 +501,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnSend);
+            this.Controls.Add(this.progressSend);
             this.Controls.Add(this.btnRemoveAttachment);
             this.Controls.Add(this.lstAttachments);
             this.Controls.Add(this.lblAttachSummary);
@@ -562,5 +575,6 @@
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ProgressBar progressSend;
     }
 }

@@ -684,6 +684,7 @@
     </None>
     <None Include="Database\CreateSavedEmail.sql" />
     <None Include="Database\CreateSavedEmailAttachment.sql" />
+    <None Include="Database\AddSavedEmailIdToCommunications.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

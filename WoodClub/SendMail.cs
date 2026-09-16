@@ -2,6 +2,7 @@
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace WoodClub
@@ -67,6 +68,39 @@ namespace WoodClub
 		}
 
 		/// <summary>
+		/// Links every Communications row from a just-completed batch back to
+		/// the SavedEmail "sent copy" row created for it, so dropped/blocked/
+		/// bounced events recorded later in CommunicationEvents can be queried
+		/// directly by which list send caused them. Called once per batch,
+		/// after the SavedEmail row exists - every recipient's row is linked
+		/// (including ones whose immediate send attempt failed), since
+		/// delivery events for those still arrive later via webhook.
+		/// </summary>
+		/// <param name="communicationIds">The CommunicationIDs returned by <see cref="RecordCommunication"/> for this batch.</param>
+		/// <param name="savedEmailId">The SavedEmailId of the batch's sent copy.</param>
+		public void LinkCommunicationsToSavedEmail(List<long> communicationIds, int savedEmailId)
+		{
+			if (communicationIds == null || communicationIds.Count == 0)
+			{
+				return;
+			}
+
+			using (WoodClubEntities context = new WoodClubEntities())
+			{
+				List<Communication> rows = context.Communications
+					.Where(c => communicationIds.Contains(c.CommunicationID))
+					.ToList();
+
+				foreach (Communication row in rows)
+				{
+					row.SavedEmailId = savedEmailId;
+				}
+
+				context.SaveChanges();
+			}
+		}
+
+		/// <summary>
 		/// Sends a single email to one recipient using SendGrid
 		/// </summary>
 		/// <param name="fromEmail">Sender email address</param>
@@ -95,7 +129,7 @@ namespace WoodClub
 				htmlBody
 			);
 
-			msg.ReplyTo = new EmailAddress("treasurer@scwwoodshop.com", "Finance Committee");
+			//msg.ReplyTo = new EmailAddress("treasurer@scwwoodshop.com", "Finance Committee");
 
 			if (attachments != null && attachments.Count > 0)
 			{
