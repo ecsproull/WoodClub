@@ -42,6 +42,21 @@ namespace WoodClub.Forms
             new Regex(@"^[^@\s;]+@[^@\s;]+\.[^@\s;]+$", RegexOptions.Compiled);
 
         /// <summary>
+        /// Arizona doesn't observe DST, so this fixed-offset zone matches
+        /// America/Phoenix year-round (same zone used for display in
+        /// <see cref="CommunicationHistory"/>).
+        /// </summary>
+        private static readonly TimeZoneInfo PhoenixTimeZone = TimeZoneInfo.FindSystemTimeZoneById("US Mountain Standard Time");
+
+        /// <summary>
+        /// The current time in America/Phoenix, used for <see cref="SavedEmail.CreatedAt"/>.
+        /// </summary>
+        private static DateTime PhoenixNow()
+        {
+            return TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, PhoenixTimeZone);
+        }
+
+        /// <summary>
         /// Inline-image size-reduction settings for the "embed inline (base64)"
         /// path. These constants are the only place the thresholds are adjustable
         /// (by editing code) - there is no UI for per-image sizing.
@@ -1551,7 +1566,7 @@ namespace WoodClub.Forms
                 bool isUpdate = record != null;
                 if (record == null)
                 {
-                    record = new SavedEmail { IsSent = false, CreatedAt = DateTime.UtcNow };
+                    record = new SavedEmail { IsSent = false, CreatedAt = PhoenixNow() };
                     context.SavedEmails.Add(record);
                 }
 
@@ -1570,35 +1585,51 @@ namespace WoodClub.Forms
         }
 
         /// <summary>
-        /// Inserts a new <see cref="WoodClub.SavedEmail"/> row (with its
-        /// attachments) marked as sent, after a successful send, so it can be
-        /// reused later. Always a fresh row - independent of whatever this
-        /// session's Save button is tracking.
+        /// Saves the "sent copy" of this message so it can be reused later,
+        /// after a successful send. Reuses (updates) the existing sent copy
+        /// for this Subject if one already exists, rather than inserting a
+        /// duplicate every time the same email is (re)sent - only the body
+        /// HTML, attachments and CreatedAt date are refreshed; a pre-existing
+        /// row's recipient-selection fields are left as originally recorded.
+        /// Independent of whatever this session's Save button is tracking.
         /// </summary>
-        /// <returns>The new row's SavedEmailId, so the batch's Communications rows can be linked to it.</returns>
+        /// <returns>The row's SavedEmailId, so the batch's Communications rows can be linked to it.</returns>
         private int SaveSentCopy(string htmlBody, List<EmailAttachment> attachments)
         {
             int? mailingListId;
             bool sendToAll;
             GetRecipientSelection(out mailingListId, out sendToAll);
 
+            string subject = txtSubject.Text.Trim();
+
             using (WoodClubEntities context = new WoodClubEntities())
             {
-                SavedEmail record = new SavedEmail
+                SavedEmail record = context.SavedEmails
+                    .Where(s => s.IsSent && s.Subject == subject)
+                    .OrderByDescending(s => s.CreatedAt)
+                    .FirstOrDefault();
+
+                bool isUpdate = record != null;
+                if (record == null)
                 {
-                    Subject = txtSubject.Text.Trim(),
-                    BodyHtml = htmlBody,
-                    FromAddress = cbFrom.SelectedItem as string ?? string.Empty,
-                    MailingListId = mailingListId,
-                    SendToAll = sendToAll,
-                    ExtraAddresses = string.IsNullOrWhiteSpace(txtExtra.Text) ? null : txtExtra.Text,
-                    IsSent = true,
-                    CreatedAt = DateTime.UtcNow
-                };
-                context.SavedEmails.Add(record);
+                    record = new SavedEmail
+                    {
+                        Subject = subject,
+                        FromAddress = cbFrom.SelectedItem as string ?? string.Empty,
+                        MailingListId = mailingListId,
+                        SendToAll = sendToAll,
+                        ExtraAddresses = string.IsNullOrWhiteSpace(txtExtra.Text) ? null : txtExtra.Text,
+                        IsSent = true
+                    };
+                    context.SavedEmails.Add(record);
+                }
+
+                record.BodyHtml = htmlBody;
+                record.CreatedAt = PhoenixNow();
+
                 context.SaveChanges();
 
-                PersistAttachments(context, record.SavedEmailId, attachments, replaceExisting: false);
+                PersistAttachments(context, record.SavedEmailId, attachments, replaceExisting: isUpdate);
 
                 return record.SavedEmailId;
             }
