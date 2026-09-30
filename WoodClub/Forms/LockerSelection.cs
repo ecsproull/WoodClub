@@ -33,6 +33,7 @@ namespace WoodClub
 			this.dataGridViewAllLockers.DefaultCellStyle.SelectionBackColor = Color.LightCyan;
 			this.dataGridViewAllLockers.DefaultCellStyle.SelectionForeColor = Color.Black;
 			this.dataGridViewAllLockers.CellContentClick += this.dataGridViewSelectedLockers_CellContentClick;
+			this.textBoxFilter.KeyUp += this.TextBoxFilter_KeyUp;
 
 			context = new WoodClubEntities();
 			member = (from m in context.MemberRosters
@@ -70,22 +71,24 @@ namespace WoodClub
 				{
 					if (senderName == "dataGridViewAllLockers")
 					{
+						// Use the bound item since the grid may be filtered or sorted.
+						JoinedListItem selected = (JoinedListItem)dataGridView.Rows[e.RowIndex].DataBoundItem;
 						JoinedListItem jli = new JoinedListItem
 						{
 							Selected = "Remove",
-							BadgeOriginal = this.sblLockersAll[e.RowIndex].BadgeOriginal,
+							BadgeOriginal = selected.BadgeOriginal,
 							Badge = this.member.Badge,
 							FirstName = this.member.FirstName,
 							LastName = this.member.LastName,
-							Locker = this.sblLockersAll[e.RowIndex].Locker,
-							Location = this.sblLockersAll[e.RowIndex].Location,
-							FirstNameOriginal = this.sblLockersAll[e.RowIndex].FirstNameOriginal,
-							LastNameOriginal = this.sblLockersAll[e.RowIndex].LastNameOriginal
+							Locker = selected.Locker,
+							Location = selected.Location,
+							FirstNameOriginal = selected.FirstNameOriginal,
+							LastNameOriginal = selected.LastNameOriginal
 						};
 
 						sblLockersCurrent.Add(jli);
-						sblLockersAll.Remove(sblLockersAll[e.RowIndex]);
-						bs_AllLockers.DataSource = sblLockersAll;
+						sblLockersAll.Remove(selected);
+						ApplyAllLockersFilter();
 					}
 					else
 					{
@@ -121,6 +124,7 @@ namespace WoodClub
 							sblLockersAll.Add(jli);
 							sblLockersCurrent.Remove(sblLockersCurrent[e.RowIndex]);
 							bs_SelectedLockers.DataSource = sblLockersCurrent;
+							ApplyAllLockersFilter();
 						}
 					}
 					else
@@ -252,7 +256,38 @@ namespace WoodClub
 
 
 			sblLockersAll = new SortableBindingList<JoinedListItem>(joinedListAll);
-			bs_AllLockers.DataSource = new SortableBindingList<JoinedListItem>(joinedListAll);
+			ApplyAllLockersFilter();
+		}
+
+		/// <summary>
+		/// Handles the KeyUp event of the TextBoxFilter control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+		private void TextBoxFilter_KeyUp(object sender, KeyEventArgs e)
+		{
+			ApplyAllLockersFilter();
+		}
+
+		/// <summary>
+		/// Binds the all lockers grid to the lockers matching the filter text
+		/// on Locker, Badge, FirstName or LastName.
+		/// </summary>
+		private void ApplyAllLockersFilter()
+		{
+			string filter = textBoxFilter.Text.Trim().ToUpper();
+			if (filter == string.Empty)
+			{
+				bs_AllLockers.DataSource = sblLockersAll;
+			}
+			else
+			{
+				var filteredBindingList = new SortableBindingList<JoinedListItem>(sblLockersAll.Where(x => (x.Locker ?? string.Empty).ToUpper().Contains(filter) ||
+																											(x.Badge ?? string.Empty).Contains(filter) ||
+																											(x.FirstName ?? string.Empty).ToUpper().Contains(filter) ||
+																											(x.LastName ?? string.Empty).ToUpper().Contains(filter)).ToList());
+				bs_AllLockers.DataSource = filteredBindingList;
+			}
 		}
 
 		/// <summary>
@@ -331,7 +366,7 @@ namespace WoodClub
 		private void buttonApply_Click(object sender, EventArgs e)
 		{
 			SaveChanges();
-			LoadLockers();
+			//LoadLockers();
 		}
 
 		/// <summary>
