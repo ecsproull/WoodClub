@@ -693,9 +693,9 @@ namespace WoodClub
 				if (locker.PrintTag)
 				{
 					StringBuilder sb = new StringBuilder("<p>Greetings <firstname> <lastname>, I hope all is well with you. The WoodShop policy is that you must use the shop a minimum of 24 times a year to keep your locker. ");
-					sb.AppendLine("Our records indicate that you have been in <visits> <times> since Jan 1st 2024. Please let us know if you are planning on visiting the shop regularly or are planning on giving up your locker.</p>");
+					sb.AppendLine("Our records indicate that you have been in <visits> <times> since Jan 1st 2026. Please let us know if you are planning on visiting the shop regularly or are planning on giving up your locker.</p>");
 					sb.AppendLine();
-					sb.AppendLine("<p><b>If on Dec 15 2024 you have not notified us of your circumstances OR visited the shop an appropriate number of times to meet this commitment by the end of the year, you will be asked to vacate your locker.</b></p>");
+					sb.AppendLine("<p><b>If on Dec 15 2026 you have not notified us of your circumstances OR visited the shop an appropriate number of times to meet this commitment by the end of the year, you will be asked to vacate your locker.</b></p>");
 					sb.Replace("<firstname>", locker.FirstName);
 					sb.Replace("<lastname>", locker.LastName);
 					sb.Replace("<visits>", locker.ShopVisits);
