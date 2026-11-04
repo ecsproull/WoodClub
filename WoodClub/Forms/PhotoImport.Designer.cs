@@ -116,7 +116,8 @@
 			this.SaveRow.HeaderText = "Save";
 			this.SaveRow.Name = "SaveRow";
 			this.SaveRow.ReadOnly = true;
-			this.SaveRow.Text = "";
+			this.SaveRow.Text = "Save";
+			this.SaveRow.UseColumnTextForButtonValue = true;
 			// 
 			// Badge
 			// 
