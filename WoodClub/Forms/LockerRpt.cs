@@ -256,7 +256,7 @@ namespace WoodClub
 				try
 				{
 					int length = blLockers.Count();
-					string hdr = "Badge,First,Last,Club Dues Paid,Shop Visits,Credit Bank, Last Day Valid, Locker, Cost, Location";
+					string hdr = "Badge,First,Last,Email,Phone,Dues Paid,Visits,Credits,Last Day Valid, Locker, Cost, Location";
 
 					using (System.IO.TextWriter writer = File.CreateText(filePath))
 					{
@@ -267,7 +267,9 @@ namespace WoodClub
 							string csv = locker.Badge + "," +
 										 locker.FirstName + "," +
 										 locker.LastName + "," +
-										 locker.ClubDuesPaid + "," +
+                                         locker.Email + "," +
+                                         locker.Phone + "," +
+                                         locker.ClubDuesPaid + "," +
 										 locker.ShopVisits + "," +
 										 locker.CreditBank + "," +
 										 locker.LastDayValid + "," +
@@ -687,6 +689,10 @@ namespace WoodClub
 		private async void buttonEmailSlackers_Click(object sender, EventArgs e)
 		{
 			SendMail sm = new SendMail();
+			const string subject = "Woodclub Usage and Lockers";
+			const string from = "president@scwwoodshop.com";
+			DateTime sentAt = DateTime.UtcNow;
+			int recipientCount = bsLockers.Cast<Lockers>().Count(locker => locker.PrintTag);
 			int count = 0;
 			foreach (Lockers locker in bsLockers)
 			{
@@ -708,9 +714,10 @@ namespace WoodClub
 						sb.Replace("<times>", "times");
 					}
 
-					List<EmailAddress> recpts = new List<EmailAddress>();
-					recpts.Add(new EmailAddress(locker.Email, locker.FirstName + " " + locker.LastName));
-					await sm.SendMailAsync("Woodclub Usage and Lockers", sb.ToString(), recpts);
+					string recipient = string.IsNullOrEmpty(locker.Badge) ? locker.Email : locker.Badge;
+					long communicationId = sm.RecordCommunication(subject, sentAt, recipientCount, recipient, from);
+					await sm.SendSingleEmailAsync(from, locker.Email, locker.FirstName + " " + locker.LastName,
+						subject, sb.ToString(), communicationId, locker.Badge ?? string.Empty);
 					count++;
 				}
 			}
