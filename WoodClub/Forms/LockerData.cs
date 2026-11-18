@@ -124,6 +124,7 @@ namespace WoodClub
 				dataGridLockerData.Rows[e.RowIndex].Cells[1].ReadOnly = true;
 				dataGridLockerData.Rows[e.RowIndex].Cells[2].Value = "TBD";
 				DataGridViewCell project = dataGridLockerData.Rows[e.RowIndex].Cells[3];
+				DataGridViewCell notes = dataGridLockerData.Rows[e.RowIndex].Cells[Notes.Index];
 
 				context.Lockers.Add(new Locker
 				{
@@ -131,7 +132,8 @@ namespace WoodClub
 					LocationCode = "TBD",
 					Code = parts[0],
 					Badge = String.Empty,
-					Project = project.Value == null ? "" : project.Value.ToString()
+					Project = project.Value == null ? "" : project.Value.ToString(),
+					Notes = notes.Value == null ? null : notes.Value.ToString()
 				});
 				context.SaveChanges();
 				LoadLockers();
@@ -146,7 +148,8 @@ namespace WoodClub
 			List<string> toDelete = new List<string>();
 			foreach (DataGridViewRow dgvr in dataGridLockerData.Rows)
 			{
-				if (dgvr.Cells[4].Value != null && (bool)dgvr.Cells[4].Value == true)
+				object deleteValue = dgvr.Cells[DeleteCheckBox.Index].Value;
+				if (deleteValue != null && (bool)deleteValue == true)
 				{
 					toDelete.Add(dgvr.Cells[0].Value.ToString());
 				}

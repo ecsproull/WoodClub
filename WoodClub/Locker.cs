@@ -19,5 +19,6 @@ namespace WoodClub
         public string LocationCode { get; set; }
         public string Badge { get; set; }
         public string Project { get; set; }
+        public string Notes { get; set; }
     }
 }

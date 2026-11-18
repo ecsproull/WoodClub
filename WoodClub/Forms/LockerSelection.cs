@@ -162,12 +162,13 @@ namespace WoodClub
 								lockerLocation => lockerLocation.Location,
 								(lockerMember, lockerLocation) => new
 								{
-									Badge = lockerMember.member.Badge,
-									FirstName = lockerMember.member.FirstName,
-									LastName = lockerMember.member.LastName,
+									lockerMember.member.Badge,
+									lockerMember.member.FirstName,
+									lockerMember.member.LastName,
 									Locker = lockerMember.locker.LockerTitle,
 									Location = lockerLocation.Description,
-								})
+									lockerMember.locker.Notes
+                                })
 							.Where(m => m.Badge == badge)
 							.OrderBy(l => l.Locker).ToList();
 
@@ -184,8 +185,9 @@ namespace WoodClub
 					LastName = locker.LastName,
 					LastNameOriginal = locker.LastName,
 					Locker = locker.Locker,
-					Location = locker.Location
-				});
+					Location = locker.Location,
+					Notes = locker.Notes
+                });
 			}
 			sblLockersCurrent = new SortableBindingList<JoinedListItem>(joinedListCurrent);
 			bs_SelectedLockers.DataSource = sblLockersCurrent;
@@ -202,12 +204,13 @@ namespace WoodClub
 					lockerLocation => lockerLocation.Location,
 					(lockerMember, lockerLocation) => new
 					{
-						Badge = lockerMember.member.Badge,
-						FirstName = lockerMember.member.FirstName,
-						LastName = lockerMember.member.LastName,
+						lockerMember.member.Badge,
+						lockerMember.member.FirstName,
+						lockerMember.member.LastName,
 						Locker = lockerMember.locker.LockerTitle,
 						Location = lockerLocation.Description,
-						Project = lockerMember.locker.Project
+						lockerMember.locker.Project,
+						lockerMember.locker.Notes
 					})
 				.Where(m => m.Badge != badge)
 				.OrderBy(l => l.Locker).ToList();
@@ -226,8 +229,9 @@ namespace WoodClub
 					LastNameOriginal = locker.LastName,
 					Locker = locker.Locker,
 					Location = locker.Location,
-					Project = locker.Project
-				}) ;
+					Project = locker.Project,
+					Notes = locker.Notes
+                }) ;
 			}
 
 			var vacantLockers = (from ll in context.Lockers
@@ -431,13 +435,21 @@ namespace WoodClub
 			/// </value>
 			public string Project { get; set; }
 
-			/// <summary>
-			/// Gets or sets the badge original.
-			/// </summary>
-			/// <value>
-			/// The badge original.
-			/// </value>
-			public string BadgeOriginal { get; set; }
+            /// <summary>
+            /// Gets or sets the locker notes.
+            /// </summary>
+            /// <value>
+            /// The note or none.
+            /// </value>
+            public string Notes { get; set; }
+
+            /// <summary>
+            /// Gets or sets the badge original.
+            /// </summary>
+            /// <value>
+            /// The badge original.
+            /// </value>
+            public string BadgeOriginal { get; set; }
 
 			/// <summary>
 			/// Gets or sets the first name original.
